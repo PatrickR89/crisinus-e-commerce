@@ -26,7 +26,9 @@ const News = () => {
             const { id } = news;
             return (
               <li key={id} onClick={() => handleChange(id)}>
-                <NewsList {...news} />
+                <div className="li-item">
+                  <NewsList {...news} />
+                </div>
               </li>
             );
           })}
@@ -40,12 +42,21 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  .single {
+  height: 100% .single {
     width: 75%;
     padding: 2rem;
+    height: 100%;
   }
   .list {
     width: 25%;
+  }
+  .li-item {
+    transition: 0.1s ease-in;
+    background: white;
+  }
+  .li-item:hover {
+    background: var(--clr-primary-6);
+    cursor: pointer;
   }
 `;
 

@@ -94,3 +94,21 @@ h2 {
 a {
   text-decoration: none;
 }
+
+.underline {
+  width: 4rem;
+  height: 0.25rem;
+  background: #49a6e9;
+  background: var(--clr-title-1);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title {
+  display: inline-block;
+  letter-spacing: --spacing;
+  text-transform: uppercase;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}

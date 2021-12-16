@@ -33,7 +33,9 @@ const Wrapper = styled.div`
     height: 100%;
   }
   .col {
-    height: 25%;
+    ${"" /* height: 25%; */}
+    border-bottom: 1px solid var(--clr-primary-6);
+    width: 90vw;
   }
 `;
 
