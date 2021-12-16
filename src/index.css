@@ -1,13 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Roboto:wght@100;300;400;700&family=Rubik:wght@300;400;700&display=swap");
+
+:root {
+  /* dark shades of primary color*/
+  --clr-primary-1: hsl(215, 20%, 20%);
+  --clr-primary-2: hsl(215, 20%, 35%);
+  --clr-primary-3: hsl(215, 20%, 45%);
+  --clr-primary-4: hsl(215, 20%, 50%);
+  /* primary/main color */
+  --clr-primary-4: hsl(215, 20%, 60%);
+  /* lighter shades of primary color */
+  --clr-primary-6: hsl(215, 20%, 75%);
+  --clr-primary-7: hsl(215, 20%, 85%);
+  /*  headings */
+  --clr-title-1: hsl(25, 37%, 25%);
+  --clr-title-2: hsl(25, 37%, 35%);
+  --clr-title-3: hsl(25, 37%, 50%);
+  --clr-title-4: hsl(25, 37%, 55%);
+  /*  paragraphs */
+  --clr-par-5: hsl(30, 93%, 10%);
+  --clr-par-6: hsl(30, 93%, 20%);
+  --clr-par-7: hsl(30, 93%, 35%);
+  --clr-par-8: hsl(30, 93%, 45%);
+  --clr-par-9: hsl(30, 93%, 60%);
+  --clr-par-10: hsl(30, 93%, 80%);
+  /* buttons and links  */
+  --clr-button-1: hsl(45, 88%, 35%);
+  --clr-button-2: hsl(45, 88%, 45%);
+  --clr-button-3: hsl(45, 88%, 60%);
+  --clr-button-4: hsl(45, 88%, 75%);
+
+  --clr-white: hsl(0, 0%, 100%);
+  --clr-red-dark: hsl(360, 67%, 44%);
+  --clr-red-light: hsl(360, 71%, 66%);
+  --clr-green-dark: hsl(125, 67%, 44%);
+  --clr-green-light: hsl(125, 71%, 66%);
+  --clr-black: hsl(0, 0%, 13%);
+  --transition: all 0.3s linear;
+  --spacing: 0.1rem;
+  --radius: 0.15rem;
+  --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  --max-width: 1170px;
+  --fixed-width: 620px;
+}
+
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Lato", sans-serif;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+ul {
+  list-style-type: none;
+}
+
+h2 {
+  color: var(--clr-title-2);
+  letter-spacing: var(--spacing);
+}
+
+.btn {
+  text-transform: uppercase;
+  background: var(--clr-button-3);
+  color: var(--clr-primary-1);
+  padding: 0.375rem 0.75rem;
+  letter-spacing: var(--spacing);
+  display: inline-block;
+  font-weight: 400;
+  transition: var(--transition);
+  font-size: 0.875rem;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius);
+  border-color: transparent;
+}
+.btn:hover {
+  color: var(--clr-primary-2);
+  background: var(--clr-button-4);
+}
+
+a {
+  text-decoration: none;
 }
