@@ -6,11 +6,12 @@ import mockBooks from "../mockData/mockBooks";
 const SingleBookPage = () => {
   const { id } = useParams();
   const [book, setBook] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const tempBook = mockBooks.find((book) => book.id === id);
+    const tempBook = mockBooks.find((book) => book.id == id);
     setBook(tempBook);
-    console.log(tempBook);
+    setLoading(false);
   }, [id]);
 
   const {
@@ -25,6 +26,14 @@ const SingleBookPage = () => {
     desc
   } = book;
 
+  if (loading) {
+    return (
+      <div className="loading">
+        <h1>LOADING...</h1>
+      </div>
+    );
+  }
+
   return (
     <Wrapper>
       <div className="main">
@@ -32,7 +41,7 @@ const SingleBookPage = () => {
           <h1>{title}</h1>
         </div>
         <div className="authors">
-          <p>Authors:</p>
+          {authors.length > 1 ? <p>Authors:</p> : <p>Author:</p>}
           {authors.map((author) => {
             return (
               <p>
@@ -42,8 +51,6 @@ const SingleBookPage = () => {
           })}
         </div>
         {images && <div className="images"></div>}
-      </div>
-      <div className="secondary">
         <div className="info">
           <p>
             Price : <span>{price}kn</span>
@@ -59,7 +66,7 @@ const SingleBookPage = () => {
           </p>
         </div>
       </div>
-      <div className="tertiary">
+      <div className="secondary">
         <div className="about">
           <p>About :</p>
           <article>{desc}</article>
@@ -69,15 +76,31 @@ const SingleBookPage = () => {
   );
 };
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  .tertiary {
+  display: block;
+  .main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+  }
+  .authors {
+    text-transform: capitalize;
+  }
+  .info {
+    span {
+      font-weight: bold;
+    }
+  }
+  .secondary {
+    margin: auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 90vw;
+    .about {
+      align-items: center;
+    }
   }
 `;
 
