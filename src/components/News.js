@@ -42,13 +42,15 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 100% .single {
-    width: 75%;
-    padding: 2rem;
+  height: 100%;
+  margin: 2rem;
+  .single {
+    width: 74%;
     height: 100%;
   }
   .list {
-    width: 25%;
+    width: 24%;
+    height: 100%;
   }
   .li-item {
     transition: 0.1s ease-in;

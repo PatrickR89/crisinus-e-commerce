@@ -5,6 +5,7 @@ import SingleNews from "./SingleNews";
 import NewsList from "./NewsList";
 import BookComponent from "./BookComponent";
 import BookInBooks from "./BookInBooks";
+import Slideshow from "./Slideshow";
 
 export {
   News,
@@ -13,5 +14,6 @@ export {
   SingleNews,
   NewsList,
   BookComponent,
-  BookInBooks
+  BookInBooks,
+  Slideshow
 };

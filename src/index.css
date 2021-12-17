@@ -113,3 +113,9 @@ a {
   justify-content: center;
   margin-bottom: 1rem;
 }
+.select {
+  transition: 0.1s ease-in-out;
+}
+.select:hover {
+  background: var(--clr-par-10);
+}

@@ -22,12 +22,7 @@ const BookComponent = ({ id, title, authors, price }) => {
 };
 const Wrapper = styled.div`
   display: block;
-  .select {
-    transition: 0.1s ease-in-out;
-  }
-  .select:hover {
-    background: var(--clr-par-10);
-  }
+
   h4 {
     display: flex;
     font-size: 15px;
@@ -40,7 +35,7 @@ const Wrapper = styled.div`
   }
   .image {
     margin-top: 0.5rem;
-    width: 100px;
+    width: 150px;
   }
 `;
 export default BookComponent;

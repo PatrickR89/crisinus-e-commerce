@@ -10,7 +10,7 @@ const OurBooks = () => {
   return (
     <Wrapper>
       <ul className="home-books">
-        {books.map((book) => {
+        {books.slice(0, 10).map((book) => {
           return (
             <li key={book.id}>
               <Link to={`/books/${book.id}`}>
@@ -25,9 +25,10 @@ const OurBooks = () => {
 };
 
 const Wrapper = styled.div`
+  margin: 2rem;
   .home-books {
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     align-items: start;
     justify-content: space-between;
     margin: 0.5rem;
