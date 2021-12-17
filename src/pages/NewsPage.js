@@ -15,6 +15,7 @@ const Wrapper = styled.div`
   align-items: start;
   justify-content: center;
   height: calc(100vh - 8rem);
+  font-size: 1.5rem;
 `;
 
 export default NewsPage;

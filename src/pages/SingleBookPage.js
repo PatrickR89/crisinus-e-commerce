@@ -9,7 +9,7 @@ const SingleBookPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const tempBook = mockBooks.find((book) => book.id == id);
+    const tempBook = mockBooks.find((book) => book.id === parseInt(id));
     setBook(tempBook);
     setLoading(false);
   }, [id]);
@@ -40,35 +40,41 @@ const SingleBookPage = () => {
         <div className="title">
           <h1>{title}</h1>
         </div>
-        <div className="authors">
-          {authors.length > 1 ? <p>Authors:</p> : <p>Author:</p>}
+        <div className="info">
+          {authors.length > 1 ? (
+            <p className="tag">Authors:</p>
+          ) : (
+            <p className="tag">Author:</p>
+          )}
           {authors.map((author) => {
             return (
               <p>
-                <span>{author.last_name}</span> {author.name}
+                <span key={author.last_name} className="info-data">
+                  {author.last_name}
+                </span>{" "}
+                {author.name}
               </p>
             );
           })}
         </div>
         {images && <div className="images"></div>}
         <div className="info">
-          <p>
-            Price : <span>{price}kn</span>
-          </p>
-          <p>
-            Publisher : <span>{publisher}</span>
-          </p>
-          <p>
-            Language : <span>{language}</span>
-          </p>
-          <p>
-            Year : <span>{year}</span>
-          </p>
+          <p className="tag">Price : </p>
+          <span className="info-data">{price}kn</span>
+
+          <p className="tag">Publisher : </p>
+          <span className="info-data">{publisher}</span>
+
+          <p className="tag">Language : </p>
+          <span className="info-data">{language}</span>
+
+          <p className="tag">Year : </p>
+          <span className="info-data">{year}</span>
         </div>
       </div>
       <div className="secondary">
         <div className="about">
-          <p>About :</p>
+          <p className="tag">About :</p>
           <article>{desc}</article>
         </div>
       </div>
@@ -84,13 +90,15 @@ const Wrapper = styled.div`
     justify-content: center;
     margin: auto;
   }
-  .authors {
-    text-transform: capitalize;
+  .tag {
+    color: var(--clr-primary-3);
   }
   .info {
-    span {
-      font-weight: bold;
-    }
+    font-size: 1.5rem;
+  }
+  .info-data {
+    font-weight: bold;
+    text-transform: capitalize;
   }
   .secondary {
     margin: auto;
@@ -99,7 +107,17 @@ const Wrapper = styled.div`
     justify-content: center;
     width: 90vw;
     .about {
-      align-items: center;
+      display: grid;
+      grid-column: 1;
+      p {
+        text-align: start;
+        margin-left: 1rem;
+        font-size: 2rem;
+        font-weight: bold;
+      }
+      article {
+        font-size: 1.5rem;
+      }
     }
   }
 `;

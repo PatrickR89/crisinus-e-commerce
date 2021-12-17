@@ -53,6 +53,7 @@ const Wrapper = styled.div`
   .li-item {
     transition: 0.1s ease-in;
     background: white;
+    text-transform: capitalize;
   }
   .li-item:hover {
     background: var(--clr-primary-6);
