@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { Slideshow } from "../components";
 import mockBooks from "../mockData/mockBooks";
 
 const SingleBookPage = () => {
@@ -57,7 +58,7 @@ const SingleBookPage = () => {
             );
           })}
         </div>
-        {images && <div className="images"></div>}
+        {images && <Slideshow images={images} />}
         <div className="info">
           <p className="tag">Price : </p>
           <span className="info-data">{price}kn</span>

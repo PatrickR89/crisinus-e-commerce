@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { useFetchBooks } from "../hooks/useFetchBooks";
+import mockBooks from "../mockData/mockBooks";
+import { useFetchItems } from "../hooks/useFetchItems";
 import { BookInBooks } from "../components";
 
 const BooksPage = () => {
-  const { loading, data } = useFetchBooks();
+  const { loading, data } = useFetchItems(mockBooks, 8);
   const [page, setPage] = useState(0);
   const [books, setBooks] = useState([]);
 

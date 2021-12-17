@@ -33,7 +33,6 @@ const SingleGiftPage = () => {
         <div className="title">
           <h1>{name}</h1>
         </div>
-        <div className="info"></div>
         {images && <Slideshow images={images} />}
         <div className="info">
           <p className="tag">Price : </p>

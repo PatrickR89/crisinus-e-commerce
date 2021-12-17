@@ -6,6 +6,7 @@ import NewsList from "./NewsList";
 import BookComponent from "./BookComponent";
 import BookInBooks from "./BookInBooks";
 import Slideshow from "./Slideshow";
+import Gift from "./Gift";
 
 export {
   News,
@@ -15,5 +16,6 @@ export {
   NewsList,
   BookComponent,
   BookInBooks,
-  Slideshow
+  Slideshow,
+  Gift
 };
