@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import mockGifts from "../mockData/mockGifts";
-import { Slideshow } from "../components";
+import { Slideshow, PageHero } from "../components";
 
 const SingleGiftPage = () => {
   const { id } = useParams();
@@ -26,30 +26,33 @@ const SingleGiftPage = () => {
   const { name, price, stock, images, description } = gift;
 
   return (
-    <Wrapper>
-      <div>
-        <div className="title">
-          <h1>{name}</h1>
-        </div>
-        <div className="main">
-          {images && <Slideshow images={images} />}
-          <div className="info">
-            <p className="tag">Price : </p>
-            <span className="info-data">{price / 100}kn</span>
+    <main>
+      <PageHero title={name} adress="Giftshop" />
+      <Wrapper>
+        <div>
+          <div className="title">
+            <h1>{name}</h1>
+          </div>
+          <div className="main">
+            {images && <Slideshow images={images} />}
+            <div className="info">
+              <p className="tag">Price : </p>
+              <span className="info-data">{price / 100}kn</span>
 
-            <p className="tag">In our stock : </p>
-            <span className="info-data">{stock} pcs</span>
+              <p className="tag">In our stock : </p>
+              <span className="info-data">{stock} pcs</span>
 
-            <div className="secondary">
-              <div className="about">
-                <p className="tag">About :</p>
-                <article>{description}</article>
+              <div className="secondary">
+                <div className="about">
+                  <p className="tag">About :</p>
+                  <article>{description}</article>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </Wrapper>
+      </Wrapper>
+    </main>
   );
 };
 const Wrapper = styled.div`

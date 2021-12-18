@@ -16,25 +16,27 @@ const News = () => {
   }, [newId]);
 
   return (
-    <Wrapper>
-      <div className="single">
-        <SingleNews {...singleNews} />
-      </div>
-      <div className="list">
-        <ul>
-          {mockNews.map((news) => {
-            const { id } = news;
-            return (
-              <li key={id} onClick={() => handleChange(id)}>
-                <div className="li-item select">
-                  <NewsList {...news} />
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </Wrapper>
+    <main>
+      <Wrapper>
+        <div className="single">
+          <SingleNews {...singleNews} />
+        </div>
+        <div className="list">
+          <ul>
+            {mockNews.map((news) => {
+              const { id } = news;
+              return (
+                <li key={id} onClick={() => handleChange(id)}>
+                  <div className="li-item select">
+                    <NewsList {...news} />
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </Wrapper>
+    </main>
   );
 };
 
@@ -43,14 +45,16 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  margin: 2rem 2rem;
+
   .single {
     width: 74%;
     height: 100%;
+    overflow: auto;
   }
   .list {
     width: 24%;
     height: 100%;
+    overflow: auto;
   }
   .li-item {
     transition: 0.1s ease-in;

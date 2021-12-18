@@ -1,12 +1,16 @@
 import React from "react";
 import { News } from "../components";
 import styled from "styled-components";
+import { PageHero } from "../components";
 
 const NewsPage = () => {
   return (
-    <Wrapper>
-      <News />
-    </Wrapper>
+    <main>
+      <PageHero title="news" />
+      <Wrapper>
+        <News />
+      </Wrapper>
+    </main>
   );
 };
 

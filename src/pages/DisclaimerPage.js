@@ -1,10 +1,12 @@
 import React from "react";
+import { PageHero } from "../components";
 
 const DisclaimerPage = () => {
   return (
-    <div>
+    <main>
+      <PageHero title="Disclaimer" />
       <h2>disclaimer page</h2>
-    </div>
+    </main>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+import { PageHero } from "../components";
 import mockGifts from "../mockData/mockGifts";
 import { useFetchItems } from "../hooks/useFetchItems";
 import { Gift } from "../components";
@@ -36,29 +37,32 @@ const GiftshopPage = () => {
   };
 
   return (
-    <Wrapper>
-      {!loading && (
-        <div className="btn-container">
-          <button className="btn" onClick={prevPage}>
-            prev
-          </button>
-          <button className="btn" onClick={nextPage}>
-            next
-          </button>
-        </div>
-      )}
-      <ul className="home-gifts">
-        {gifts.map((item) => {
-          return (
-            <li key={item.id}>
-              <Link to={`/giftshop/${item.id}`}>
-                <Gift {...item} />
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </Wrapper>
+    <main>
+      <PageHero title="Giftshop" />
+      <Wrapper>
+        {!loading && (
+          <div className="btn-container">
+            <button className="btn" onClick={prevPage}>
+              prev
+            </button>
+            <button className="btn" onClick={nextPage}>
+              next
+            </button>
+          </div>
+        )}
+        <ul className="home-gifts">
+          {gifts.map((item) => {
+            return (
+              <li key={item.id}>
+                <Link to={`/giftshop/${item.id}`}>
+                  <Gift {...item} />
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </Wrapper>
+    </main>
   );
 };
 

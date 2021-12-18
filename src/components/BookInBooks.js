@@ -50,7 +50,7 @@ const Wrapper = styled.div`
   }
   .image {
     margin-top: 0.5rem;
-    width: 25rem;
+    width: 15rem;
   }
 `;
 export default BookInBooks;

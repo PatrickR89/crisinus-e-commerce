@@ -1,10 +1,12 @@
 import React from "react";
+import { PageHero } from "../components";
 
 const ContactPage = () => {
   return (
-    <div>
+    <main>
+      <PageHero title="Contact" />
       <h2>contact page</h2>
-    </div>
+    </main>
   );
 };
 

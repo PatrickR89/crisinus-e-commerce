@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+import { PageHero } from "../components";
 import mockBooks from "../mockData/mockBooks";
 import { useFetchItems } from "../hooks/useFetchItems";
 import { BookInBooks } from "../components";
@@ -36,29 +37,32 @@ const BooksPage = () => {
   };
 
   return (
-    <Wrapper>
-      {!loading && (
-        <div className="btn-container">
-          <button className="btn" onClick={prevPage}>
-            prev
-          </button>
-          <button className="btn" onClick={nextPage}>
-            next
-          </button>
-        </div>
-      )}
-      <ul className="home-books">
-        {books.map((book) => {
-          return (
-            <li key={book.id}>
-              <Link to={`/books/${book.id}`}>
-                <BookInBooks {...book} />
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </Wrapper>
+    <main>
+      <PageHero title="books" />
+      <Wrapper>
+        {!loading && (
+          <div className="btn-container">
+            <button className="btn" onClick={prevPage}>
+              prev
+            </button>
+            <button className="btn" onClick={nextPage}>
+              next
+            </button>
+          </div>
+        )}
+        <ul className="home-books">
+          {books.map((book) => {
+            return (
+              <li key={book.id}>
+                <Link to={`/books/${book.id}`}>
+                  <BookInBooks {...book} />
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </Wrapper>
+    </main>
   );
 };
 

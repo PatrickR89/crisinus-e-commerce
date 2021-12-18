@@ -54,6 +54,7 @@
 
 body {
   margin: 0;
+
   font-family: "Lato", sans-serif;
 }
 
@@ -119,4 +120,9 @@ a {
 .select:hover {
   background: var(--clr-primary-6);
   cursor: pointer;
+}
+
+main {
+  margin: 0rem auto;
+  max-width: var(--max-width);
 }

@@ -1,23 +1,26 @@
 import React from "react";
 import styled from "styled-components";
-import { News, GiftShop, OurBooks } from "../components";
+import { News, GiftShop, OurBooks, PageHero } from "../components";
 
 const HomePage = () => {
   return (
-    <Wrapper>
-      <div className="container">
-        <div className="col">
-          <News />
+    <main>
+      <PageHero />
+      <Wrapper>
+        <div className="container">
+          <div className="col news">
+            <News />
+          </div>
+          <div className="col">
+            <OurBooks />
+          </div>
+          <div className="col">
+            <GiftShop />
+          </div>
+          <div className="col"></div>
         </div>
-        <div className="col">
-          <OurBooks />
-        </div>
-        <div className="col">
-          <GiftShop />
-        </div>
-        <div className="col"></div>
-      </div>
-    </Wrapper>
+      </Wrapper>
+    </main>
   );
 };
 
@@ -34,8 +37,15 @@ const Wrapper = styled.div`
   }
   .col {
     ${"" /* height: 25%; */}
-    border-bottom: 1px solid var(--clr-primary-6);
-    width: 90vw;
+    ${"" /* border-bottom: 1px solid var(--clr-primary-6); */}
+    width: 100%;
+    padding-bottom: 1rem;
+    .news {
+      .title {
+        font-size: 0.8rem;
+        margin-bottom: 0.2rem;
+      }
+    }
   }
 `;
 

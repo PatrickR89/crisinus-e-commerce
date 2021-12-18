@@ -7,6 +7,7 @@ import BookComponent from "./BookComponent";
 import BookInBooks from "./BookInBooks";
 import Slideshow from "./Slideshow";
 import Gift from "./Gift";
+import PageHero from "./PageHero";
 
 export {
   News,
@@ -17,5 +18,6 @@ export {
   BookComponent,
   BookInBooks,
   Slideshow,
-  Gift
+  Gift,
+  PageHero
 };
