@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SlideshowButtons from "./SlideshowButtons";
 import styled from "styled-components";
 
 const Slideshow = ({ images }) => {
@@ -27,17 +28,17 @@ const Slideshow = ({ images }) => {
       <div className="container">
         {images.map((image, index) => {
           return (
-            <div className={index === n ? "fade" : "slide fade"}>
-              <img src={image} style={{ height: "500px" }} />
+            <div key={index} className={index === n ? "fade" : "slide fade"}>
+              <img src={image} style={{ height: "500px" }} alt="" />
             </div>
           );
         })}
-        <a className="prev" onClick={() => previousSlide()}>
-          &#10094;
-        </a>
-        <a className="next" onClick={() => nextSlide()}>
-          &#10095;
-        </a>
+        {images.length > 1 && (
+          <SlideshowButtons
+            previousSlide={previousSlide}
+            nextSlide={nextSlide}
+          />
+        )}
       </div>
     </Wrapper>
   );
@@ -65,6 +66,7 @@ const Wrapper = styled.div`
     font-size: 20px;
     transition: 0.3s ease-in-out;
     background-color: rgba(0, 0, 0, 0.05);
+    border: none;
 
     user-select: none;
   }

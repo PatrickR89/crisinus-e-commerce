@@ -26,7 +26,7 @@ const News = () => {
             const { id } = news;
             return (
               <li key={id} onClick={() => handleChange(id)}>
-                <div className="li-item">
+                <div className="li-item select">
                   <NewsList {...news} />
                 </div>
               </li>
@@ -43,7 +43,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  margin: 2rem;
+  margin: 2rem 2rem;
   .single {
     width: 74%;
     height: 100%;
@@ -54,12 +54,7 @@ const Wrapper = styled.div`
   }
   .li-item {
     transition: 0.1s ease-in;
-    background: white;
     text-transform: capitalize;
-  }
-  .li-item:hover {
-    background: var(--clr-primary-6);
-    cursor: pointer;
   }
 `;
 

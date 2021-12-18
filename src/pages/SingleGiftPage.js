@@ -10,9 +10,7 @@ const SingleGiftPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(mockGifts);
     const tempGift = mockGifts.find((gift) => gift.id === parseInt(id));
-    console.log(tempGift);
     setGift(tempGift);
     setLoading(false);
   }, [id]);
@@ -29,22 +27,24 @@ const SingleGiftPage = () => {
 
   return (
     <Wrapper>
-      <div className="main">
+      <div>
         <div className="title">
           <h1>{name}</h1>
         </div>
-        {images && <Slideshow images={images} />}
-        <div className="info">
-          <p className="tag">Price : </p>
-          <span className="info-data">{price / 100}kn</span>
+        <div className="main">
+          {images && <Slideshow images={images} />}
+          <div className="info">
+            <p className="tag">Price : </p>
+            <span className="info-data">{price / 100}kn</span>
 
-          <p className="tag">In our stock : </p>
-          <span className="info-data">{stock} pcs</span>
+            <p className="tag">In our stock : </p>
+            <span className="info-data">{stock} pcs</span>
 
-          <div className="secondary">
-            <div className="about">
-              <p className="tag">About :</p>
-              <article>{description}</article>
+            <div className="secondary">
+              <div className="about">
+                <p className="tag">About :</p>
+                <article>{description}</article>
+              </div>
             </div>
           </div>
         </div>
@@ -53,13 +53,21 @@ const SingleGiftPage = () => {
   );
 };
 const Wrapper = styled.div`
-  display: block;
+  width: 75vw;
+  display: flex;
+  align-items: center;
+  margin: auto;
   .main {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
     justify-content: center;
     margin: 2rem;
+  }
+  .title {
+    width: 100%;
+    text-align: start;
+    margin: auto 8rem;
   }
   .tag {
     color: var(--clr-primary-3);

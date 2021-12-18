@@ -11,24 +11,23 @@ const Navbar = () => {
           <Link to="/">
             <img src={logo} alt="chrisinus logo" />
           </Link>
-
-          <div>
-            <Link to="/news" className="btn">
-              news
-            </Link>
-            <Link to="/books" className="btn">
-              books
-            </Link>
-            <Link to="/giftshop" className="btn">
-              giftshop
-            </Link>
-            <Link to="/about" className="btn">
-              about us
-            </Link>
-            <Link to="/contact" className="btn">
-              contact
-            </Link>
-          </div>
+        </div>
+        <div className="btn-container">
+          <Link to="/news" className="nav-btn">
+            news
+          </Link>
+          <Link to="/books" className="nav-btn">
+            books
+          </Link>
+          <Link to="/giftshop" className="nav-btn">
+            giftshop
+          </Link>
+          <Link to="/about" className="nav-btn">
+            about us
+          </Link>
+          <Link to="/contact" className="nav-btn">
+            contact
+          </Link>
         </div>
       </div>
     </NavContainer>
@@ -36,10 +35,10 @@ const Navbar = () => {
 };
 
 const NavContainer = styled.nav`
-  height: 7rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 2rem;
 
   .nav-center {
     width: 90vw;
@@ -51,7 +50,7 @@ const NavContainer = styled.nav`
     align-items: center;
 
     img {
-      width: 100px;
+      width: 85px;
       margin-bottom: -5px;
       margin-left: -15px;
       transition: 0.2s ease-out;
@@ -66,10 +65,36 @@ const NavContainer = styled.nav`
       justify-content: space-between;
       margin-left: 2rem;
       margin-top: 2rem;
-      .btn {
-        padding: 0.375rem 2.5rem;
-      }
     }
+  }
+  .btn-container {
+    display: flex;
+    height: 10vh;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    background: var(--clr-button-3);
+    color: var(--clr-primary-1);
+    padding: auto;
+    letter-spacing: var(--spacing);
+    font-weight: bold;
+    transition: var(--transition);
+    font-size: 1rem;
+    cursor: pointer;
+    border-color: transparent;
+    width: 20%;
+    height: 100%;
+  }
+  .nav-btn:hover {
+    color: var(--clr-primary-2);
+    background: var(--clr-button-4);
+    transform: scale(1.15);
   }
 `;
 

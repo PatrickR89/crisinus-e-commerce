@@ -25,7 +25,7 @@ const GiftShop = () => {
 };
 
 const Wrapper = styled.div`
-  margin: 2rem;
+  padding: 2rem;
   .home-gifts {
     display: grid;
     grid-template-columns: repeat(5, 1fr);

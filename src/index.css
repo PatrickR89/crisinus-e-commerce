@@ -7,7 +7,7 @@
   --clr-primary-3: hsl(215, 20%, 45%);
   --clr-primary-4: hsl(215, 20%, 50%);
   /* primary/main color */
-  --clr-primary-4: hsl(215, 20%, 60%);
+  --clr-primary-5: hsl(215, 20%, 60%);
   /* lighter shades of primary color */
   --clr-primary-6: hsl(215, 20%, 75%);
   --clr-primary-7: hsl(215, 20%, 85%);
@@ -117,5 +117,6 @@ a {
   transition: 0.1s ease-in-out;
 }
 .select:hover {
-  background: var(--clr-par-10);
+  background: var(--clr-primary-6);
+  cursor: pointer;
 }
