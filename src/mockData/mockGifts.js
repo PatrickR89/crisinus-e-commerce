@@ -17,8 +17,7 @@ export default [
     price: 1500,
     stock: 10,
     images: [
-      "https://images.unsplash.com/photo-1572635148818-ef6fd45eb394?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-      "https://images.unsplash.com/photo-1552010099-5dc86fcfaa38?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
+      "https://images.unsplash.com/photo-1572635148818-ef6fd45eb394?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
     ],
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci velit eveniet laboriosam deserunt labore corporis. Quibusdam deserunt ducimus atque adipisci a cumque asperiores, cupiditate quo quae, sunt quisquam eaque modi."

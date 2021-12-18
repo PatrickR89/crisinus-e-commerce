@@ -1,5 +1,4 @@
 const itemsPaging = (items, itemsPerPage) => {
-  // const itemsPerPage = 8;
   const page = Math.ceil(items.length / itemsPerPage);
 
   const newItems = Array.from({ length: page }, (_, index) => {

@@ -56,9 +56,9 @@ const SingleGiftPage = () => {
   );
 };
 const Wrapper = styled.div`
-  width: 75vw;
   display: flex;
   align-items: center;
+  justify-content: center;
   margin: auto;
   .main {
     display: grid;

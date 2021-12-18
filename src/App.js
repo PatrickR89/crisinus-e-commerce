@@ -16,7 +16,8 @@ import {
   PaymentPage,
   ReviewsPage,
   SingleBookPage,
-  SingleGiftPage
+  SingleGiftPage,
+  AuthorsPage
 } from "./pages";
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
         {/* version 1 */}
         <Route path="/giftshop/:id" element={<SingleGiftPage />} />{" "}
         {/* version 1 */}
+        <Route path="/authors" element={<AuthorsPage />} />
       </Routes>
       <Footer />
     </div>
