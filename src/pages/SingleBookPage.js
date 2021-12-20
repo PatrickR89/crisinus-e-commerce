@@ -63,7 +63,7 @@ const SingleBookPage = () => {
           {images && <Slideshow images={images} />}
           <div className="info">
             <p className="tag">Price : </p>
-            <span className="info-data">{price}kn</span>
+            <span className="info-data">{price / 100}kn</span>
 
             <p className="tag">Publisher : </p>
             <span className="info-data">{publisher}</span>
