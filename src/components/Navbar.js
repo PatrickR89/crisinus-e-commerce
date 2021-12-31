@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import logo from "../defaults/logo-chrisinus.jpeg";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -9,7 +8,7 @@ const Navbar = () => {
       <div className="nav-center">
         <div className="nav-header">
           <Link to="/">
-            <img src={logo} alt="chrisinus logo" />
+            <div className="to-home"></div>
           </Link>
         </div>
         <div className="btn-container">
@@ -47,23 +46,21 @@ const NavContainer = styled.nav`
   .nav-header {
     display: flex;
     align-items: center;
-
-    img {
-      width: 85px;
-      margin-bottom: -5px;
-      margin-left: -15px;
+    height: 7rem;
+    background: var(--nav-background);
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    .to-home {
+      height: 6rem;
+      width: 7.5rem;
       transition: 0.2s ease-out;
+      background-color: var(--clr-white-transparent);
     }
-    img:hover {
-      opacity: 0.8;
+    .to-home:hover {
+      background-color: var(--clr-white-semi-transparent);
     }
-    div {
-      width: 100%;
-      display: inherit;
-      align-items: inherit;
-      justify-content: space-between;
+    a {
       margin-left: 2rem;
-      margin-top: 2rem;
     }
   }
   .btn-container {
@@ -93,7 +90,7 @@ const NavContainer = styled.nav`
   .nav-btn:hover {
     color: var(--clr-primary-2);
     background: var(--clr-button-4);
-    transform: scale(1.15);
+    ${"" /* transform: scale(1.15); */}
   }
 `;
 

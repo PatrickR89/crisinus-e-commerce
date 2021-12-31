@@ -1,11 +1,13 @@
 import React from "react";
-import { PageHero } from "../components";
+import { PageHero, Info } from "../components";
+
+import mockInformation from "../mockData/mockInformation";
 
 const DisclaimerPage = () => {
   return (
     <main>
       <PageHero title="Disclaimer" />
-      <h2>disclaimer page</h2>
+      <Info {...mockInformation[4]} />
     </main>
   );
 };

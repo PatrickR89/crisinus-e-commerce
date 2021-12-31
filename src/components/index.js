@@ -8,6 +8,7 @@ import BookInBooks from "./BookInBooks";
 import Slideshow from "./Slideshow";
 import Gift from "./Gift";
 import PageHero from "./PageHero";
+import Info from "./Info";
 
 export {
   News,
@@ -19,5 +20,6 @@ export {
   BookInBooks,
   Slideshow,
   Gift,
-  PageHero
+  PageHero,
+  Info
 };

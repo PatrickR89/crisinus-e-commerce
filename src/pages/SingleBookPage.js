@@ -12,7 +12,9 @@ const SingleBookPage = () => {
   useEffect(() => {
     const tempBook = mockBooks.find((book) => book.id === parseInt(id));
     setBook(tempBook);
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 300);
   }, [id]);
 
   const {
@@ -30,7 +32,7 @@ const SingleBookPage = () => {
   if (loading) {
     return (
       <div className="loading">
-        <h1>LOADING...</h1>
+        <h1>Please wait...</h1>
       </div>
     );
   }

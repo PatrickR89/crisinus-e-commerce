@@ -28,8 +28,12 @@
   --clr-button-2: hsl(45, 88%, 45%);
   --clr-button-3: hsl(45, 88%, 60%);
   --clr-button-4: hsl(45, 88%, 75%);
+  --clr-button-5: hsl(45, 88%, 85%);
+  --clr-button-6: hsl(45, 88%, 95%);
 
   --clr-white: hsl(0, 0%, 100%);
+  --clr-white-transparent: hsla(0, 0%, 100%, 0);
+  --clr-white-semi-transparent: hsla(0, 0%, 100%, 0.3);
   --clr-red-dark: hsl(360, 67%, 44%);
   --clr-red-light: hsl(360, 71%, 66%);
   --clr-green-dark: hsl(125, 67%, 44%);
@@ -42,6 +46,8 @@
   --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   --max-width: 1170px;
   --fixed-width: 620px;
+
+  --nav-background: url("./defaults/chrisinus_header.jpg");
 }
 
 *,
@@ -120,4 +126,19 @@ a {
 main {
   margin: 0rem auto;
   max-width: var(--max-width);
+}
+
+.loading {
+  background: var(--clr-button-3);
+  width: 100%;
+  max-width: var(--max-width);
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--clr-primary-1);
+  font-size: 1rem;
+  text-transform: capitalize;
+  margin: auto;
 }

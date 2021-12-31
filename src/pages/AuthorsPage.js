@@ -30,7 +30,9 @@ const AuthorsPage = () => {
   useEffect(() => {
     setBooksByAuthor(booksPerAuthor(authorName));
     setCurrentAuthor(switchAuthor);
-    setIsLoading(false);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
   }, [authorName]);
 
   const booksPerAuthor = (name) => {
@@ -54,7 +56,7 @@ const AuthorsPage = () => {
 
   if (isLoading) {
     return (
-      <div>
+      <div className="loading">
         <h1>please wait...</h1>
       </div>
     );

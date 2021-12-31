@@ -1,11 +1,13 @@
 import React from "react";
-import { PageHero } from "../components";
+import { PageHero, Info } from "../components";
+
+import mockInformation from "../mockData/mockInformation";
 
 const OrderPage = () => {
   return (
     <main>
       <PageHero title="order" />
-      <h2>order page</h2>
+      <Info {...mockInformation[1]} />
     </main>
   );
 };

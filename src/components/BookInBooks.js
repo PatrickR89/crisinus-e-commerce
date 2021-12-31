@@ -40,7 +40,7 @@ const Wrapper = styled.div`
   }
   h4 {
     display: flex;
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin-bottom: 0.2rem;
     color: var(--clr-title-4);
   }

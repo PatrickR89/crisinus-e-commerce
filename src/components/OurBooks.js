@@ -25,7 +25,7 @@ const OurBooks = () => {
 };
 
 const Wrapper = styled.div`
-  background: var(--clr-button-4);
+  background: var(--clr-button-5);
   padding: 2rem;
   .home-books {
     display: grid;
