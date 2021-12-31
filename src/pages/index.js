@@ -6,7 +6,6 @@ import DisclaimerPage from "./DisclaimerPage";
 import GiftshopPage from "./GiftshopPage";
 import HomePage from "./HomePage";
 import InfoPage from "./InfoPage";
-import LibrariesPage from "./LibrariesPage";
 import NewsPage from "./NewsPage";
 import OrderPage from "./OrderPage";
 import PaymentPage from "./PaymentPage";
@@ -23,7 +22,6 @@ export {
   GiftshopPage,
   HomePage,
   InfoPage,
-  LibrariesPage,
   NewsPage,
   OrderPage,
   PaymentPage,

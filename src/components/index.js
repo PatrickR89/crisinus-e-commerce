@@ -10,6 +10,7 @@ import Gift from "./Gift";
 import PageHero from "./PageHero";
 import Info from "./Info";
 import HomeBottom from "./HomeBottom";
+import RatingStars from "./RatingStars";
 
 export {
   News,
@@ -23,5 +24,6 @@ export {
   Gift,
   PageHero,
   Info,
-  HomeBottom
+  HomeBottom,
+  RatingStars
 };

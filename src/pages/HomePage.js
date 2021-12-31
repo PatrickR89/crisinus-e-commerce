@@ -38,8 +38,6 @@ const Wrapper = styled.div`
     height: 100%;
   }
   .col {
-    ${"" /* height: 25%; */}
-    ${"" /* border-bottom: 1px solid var(--clr-primary-6); */}
     width: 100%;
     padding-bottom: 1rem;
     .news {

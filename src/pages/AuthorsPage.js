@@ -66,16 +66,22 @@ const AuthorsPage = () => {
     <main>
       <PageHero title="Authors" />
       <Wrapper>
-        <div className="authors">
+        <div className="menu-left">
           <ul>
             {authorArray.map((author, index) => {
               return (
-                <li
-                  key={index}
-                  className="select"
-                  onClick={() => authorChange(author)}
-                >
-                  {author}
+                <li key={index}>
+                  <button
+                    className={
+                      author === authorName
+                        ? "btn select current"
+                        : " btn select"
+                    }
+                    disabled={author === authorName ? true : false}
+                    onClick={() => authorChange(author)}
+                  >
+                    {author}
+                  </button>
                 </li>
               );
             })}
@@ -120,24 +126,11 @@ const AuthorsPage = () => {
 const Wrapper = styled.div`
   display: flex;
 
-  .authors {
-    display: flex;
-    align-items: start;
-    justify-content: center;
-    min-width: 25%;
-    li {
-      font-size: 1rem;
-      color: var(--clr-primary-1);
-      text-transform: capitalize;
-      transition: 0.1s ease-in;
-    }
-  }
-
   .about-author: {
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 75%;
+    width: 75%;
   }
   .name-about {
     display: block;
@@ -156,6 +149,7 @@ const Wrapper = styled.div`
     margin: auto;
   }
   .books {
+    overflow: auto;
     ul {
       display: flex;
     }
@@ -164,6 +158,9 @@ const Wrapper = styled.div`
     img {
       max-width: 300px;
     }
+  }
+  .menu-left {
+    margin-right: 2rem;
   }
 `;
 

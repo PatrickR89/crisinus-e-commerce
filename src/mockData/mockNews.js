@@ -1,4 +1,4 @@
-export default [
+export const mockNews = [
   {
     title: "news #1",
     id: 1,
@@ -48,4 +48,4 @@ export default [
     images: [],
     date: "10/08/2019"
   }
-];
+].reverse();

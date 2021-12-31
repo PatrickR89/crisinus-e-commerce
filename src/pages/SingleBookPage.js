@@ -17,17 +17,8 @@ const SingleBookPage = () => {
     }, 300);
   }, [id]);
 
-  const {
-    title,
-    authors,
-    images,
-    stock,
-    price,
-    publisher,
-    language,
-    year,
-    desc
-  } = book;
+  const { title, authors, images, price, publisher, language, year, desc } =
+    book;
 
   if (loading) {
     return (

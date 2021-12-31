@@ -9,7 +9,7 @@ const HomeBottom = () => {
         <Link to="/authors" className="bottom-btn">
           Authors
         </Link>
-        <Link to="#" className="bottom-btn">
+        <Link to="/reviews" className="bottom-btn">
           Reviews
         </Link>
       </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { SingleNews, NewsList } from "../components";
-import mockNews from "../mockData/mockNews";
+import { mockNews } from "../mockData/mockNews";
 
 const News = () => {
   const [singleNews, setSingleNews] = useState(mockNews[0]);

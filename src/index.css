@@ -72,6 +72,7 @@ ul {
 h2 {
   color: var(--clr-title-2);
   letter-spacing: var(--spacing);
+  text-transform: capitalize;
 }
 
 .btn {
@@ -142,4 +143,21 @@ main {
   font-size: 1rem;
   text-transform: capitalize;
   margin: auto;
+}
+
+.menu-left {
+  padding: 7rem 2rem;
+  height: 100%;
+  width: 25%;
+  min-width: 25%;
+  background: var(--clr-button-5);
+}
+
+.menu-left .btn {
+  width: 100%;
+}
+
+.menu-left .current {
+  background: var(--clr-button-4);
+  text-transform: uppercase;
 }

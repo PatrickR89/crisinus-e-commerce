@@ -23,7 +23,7 @@ const SingleGiftPage = () => {
     );
   }
 
-  const { name, price, stock, images, description } = gift;
+  const { name, price, images, description } = gift;
 
   return (
     <main>
