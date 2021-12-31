@@ -9,6 +9,7 @@ import Slideshow from "./Slideshow";
 import Gift from "./Gift";
 import PageHero from "./PageHero";
 import Info from "./Info";
+import HomeBottom from "./HomeBottom";
 
 export {
   News,
@@ -21,5 +22,6 @@ export {
   Slideshow,
   Gift,
   PageHero,
-  Info
+  Info,
+  HomeBottom
 };

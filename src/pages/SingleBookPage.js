@@ -75,9 +75,6 @@ const SingleBookPage = () => {
 
             <p className="tag">Year : </p>
             <span className="info-data">{year}</span>
-
-            <p className="tag">In our stock : </p>
-            <span className="info-data">{stock} pcs</span>
           </div>
         </div>
         <div className="secondary">

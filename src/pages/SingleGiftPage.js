@@ -38,10 +38,6 @@ const SingleGiftPage = () => {
             <div className="info">
               <p className="tag">Price : </p>
               <span className="info-data">{price / 100}kn</span>
-
-              <p className="tag">In our stock : </p>
-              <span className="info-data">{stock} pcs</span>
-
               <div className="secondary">
                 <div className="about">
                   <p className="tag">About :</p>

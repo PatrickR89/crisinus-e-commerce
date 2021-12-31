@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { News, GiftShop, OurBooks, PageHero } from "../components";
+import { News, GiftShop, OurBooks, PageHero, HomeBottom } from "../components";
 
 const HomePage = () => {
   return (
@@ -17,7 +17,9 @@ const HomePage = () => {
           <div className="col">
             <GiftShop />
           </div>
-          <div className="col"></div>
+          <div className="col">
+            <HomeBottom />
+          </div>
         </div>
       </Wrapper>
     </main>

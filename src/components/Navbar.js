@@ -90,7 +90,6 @@ const NavContainer = styled.nav`
   .nav-btn:hover {
     color: var(--clr-primary-2);
     background: var(--clr-button-4);
-    ${"" /* transform: scale(1.15); */}
   }
 `;
 

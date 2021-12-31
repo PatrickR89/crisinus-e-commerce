@@ -11,6 +11,7 @@
   /* lighter shades of primary color */
   --clr-primary-6: hsl(215, 20%, 75%);
   --clr-primary-7: hsl(215, 20%, 85%);
+  --clr-primary-8: hsl(215, 20%, 95%);
   /*  headings */
   --clr-title-1: hsl(25, 37%, 25%);
   --clr-title-2: hsl(25, 37%, 35%);
