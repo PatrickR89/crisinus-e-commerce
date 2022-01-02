@@ -11,6 +11,7 @@ import PageHero from "./PageHero";
 import Info from "./Info";
 import HomeBottom from "./HomeBottom";
 import RatingStars from "./RatingStars";
+import ContactForm from "./ContactForm";
 
 export {
   News,
@@ -25,5 +26,6 @@ export {
   PageHero,
   Info,
   HomeBottom,
-  RatingStars
+  RatingStars,
+  ContactForm
 };
