@@ -12,6 +12,7 @@ import PaymentPage from "./PaymentPage";
 import ReviewsPage from "./ReviewsPage";
 import SingleBookPage from "./SingleBookPage";
 import SingleGiftPage from "./SingleGiftPage";
+import CartPage from "./CartPage";
 
 export {
   AboutUsPage,
@@ -27,5 +28,6 @@ export {
   PaymentPage,
   ReviewsPage,
   SingleBookPage,
-  SingleGiftPage
+  SingleGiftPage,
+  CartPage
 };

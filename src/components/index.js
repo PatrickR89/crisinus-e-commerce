@@ -12,6 +12,8 @@ import Info from "./Info";
 import HomeBottom from "./HomeBottom";
 import RatingStars from "./RatingStars";
 import ContactForm from "./ContactForm";
+import ItemAmount from "./ItemAmount";
+import AddToCart from "./AddToCart";
 
 export {
   News,
@@ -27,5 +29,7 @@ export {
   Info,
   HomeBottom,
   RatingStars,
-  ContactForm
+  ContactForm,
+  ItemAmount,
+  AddToCart
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Slideshow, PageHero } from "../components";
+import { Slideshow, PageHero, AddToCart } from "../components";
 import mockBooks from "../mockData/mockBooks";
 
 const SingleBookPage = () => {
@@ -54,18 +54,26 @@ const SingleBookPage = () => {
             })}
           </div>
           {images && <Slideshow images={images} />}
-          <div className="info">
-            <p className="tag">Price : </p>
-            <span className="info-data">{price / 100}kn</span>
-
-            <p className="tag">Publisher : </p>
-            <span className="info-data">{publisher}</span>
-
-            <p className="tag">Language : </p>
-            <span className="info-data">{language}</span>
-
-            <p className="tag">Year : </p>
-            <span className="info-data">{year}</span>
+          <div className="layout">
+            <div className="info">
+              <div>
+                <p className="tag">Price : </p>
+                <span className="info-data">{price / 100}kn</span>
+              </div>
+              <div>
+                <p className="tag">Publisher : </p>
+                <span className="info-data">{publisher}</span>
+              </div>
+              <div>
+                <p className="tag">Language : </p>
+                <span className="info-data">{language}</span>
+              </div>
+              <div>
+                <p className="tag">Year : </p>
+                <span className="info-data">{year}</span>
+              </div>
+            </div>
+            <AddToCart product={book} />
           </div>
         </div>
         <div className="secondary">
@@ -92,6 +100,15 @@ const Wrapper = styled.div`
   }
   .info {
     font-size: 1.5rem;
+    div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      span {
+        margin-left: 0.5rem;
+      }
+    }
   }
   .info-data {
     font-weight: bold;
@@ -115,6 +132,10 @@ const Wrapper = styled.div`
         font-size: 1.5rem;
       }
     }
+  }
+  .layout {
+    display: flex;
+    flex-direction: row;
   }
 `;
 

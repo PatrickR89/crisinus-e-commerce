@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import mockGifts from "../mockData/mockGifts";
-import { Slideshow, PageHero } from "../components";
+import { Slideshow, PageHero, AddToCart } from "../components";
 
 const SingleGiftPage = () => {
   const { id } = useParams();
@@ -38,6 +38,7 @@ const SingleGiftPage = () => {
             <div className="info">
               <p className="tag">Price : </p>
               <span className="info-data">{price / 100}kn</span>
+              <AddToCart product={gift} />
               <div className="secondary">
                 <div className="about">
                   <p className="tag">About :</p>
