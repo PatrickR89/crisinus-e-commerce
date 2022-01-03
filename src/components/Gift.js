@@ -1,9 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
-const formatPrice = (price) => {
-  return price / 100;
-};
+import priceFormat from "../utils/priceFormat";
 
 const Gift = ({ name, price, images }) => {
   return (
@@ -11,7 +8,7 @@ const Gift = ({ name, price, images }) => {
       <div className="select">
         <img src={images[0]} alt={name} className="image" />
         <h4 className="title">{name}</h4>
-        <p>{formatPrice(price)} kn</p>
+        <p>{priceFormat(price)}</p>
       </div>
     </Wrapper>
   );

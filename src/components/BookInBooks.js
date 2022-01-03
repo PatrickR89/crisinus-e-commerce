@@ -1,12 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import noPic from "../defaults/bookCover.jpeg";
+import priceFormat from "../utils/priceFormat";
 
-const formatPrice = (price) => {
-  return price / 100;
-};
-
-const BookInBooks = ({ id, title, authors, price, stock, language, year }) => {
+const BookInBooks = ({ title, authors, price, language, year }) => {
   return (
     <Wrapper>
       <div className="select">
@@ -18,7 +15,7 @@ const BookInBooks = ({ id, title, authors, price, stock, language, year }) => {
         <div className="arrange">
           <p>{language}</p>
           <p>{year}.</p>
-          <p>{formatPrice(price)}kn</p>
+          <p>{priceFormat(price)}kn</p>
         </div>
       </div>
     </Wrapper>

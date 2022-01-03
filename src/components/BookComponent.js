@@ -1,12 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import priceFormat from "../utils/priceFormat";
 import noPic from "../defaults/bookCover.jpeg";
 
-const formatPrice = (price) => {
-  return price / 100;
-};
-
-const BookComponent = ({ id, title, authors, price }) => {
+const BookComponent = ({ title, authors, price }) => {
   return (
     <Wrapper>
       <div className="select">
@@ -15,7 +12,7 @@ const BookComponent = ({ id, title, authors, price }) => {
         {authors.map((author) => {
           return <p>{author.last_name}</p>;
         })}
-        <p>{formatPrice(price)}kn</p>
+        <p>{priceFormat(price)}</p>
       </div>
     </Wrapper>
   );

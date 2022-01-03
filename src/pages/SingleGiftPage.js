@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import mockGifts from "../mockData/mockGifts";
 import { Slideshow, PageHero, AddToCart } from "../components";
+import priceFormat from "../utils/priceFormat";
 
 const SingleGiftPage = () => {
   const { id } = useParams();
@@ -37,7 +38,7 @@ const SingleGiftPage = () => {
             {images && <Slideshow images={images} />}
             <div className="info">
               <p className="tag">Price : </p>
-              <span className="info-data">{price / 100}kn</span>
+              <span className="info-data">{priceFormat(price)}</span>
               <AddToCart product={gift} />
               <div className="secondary">
                 <div className="about">

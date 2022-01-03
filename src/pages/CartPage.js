@@ -1,5 +1,5 @@
 import React from "react";
-import { PageHero, ItemAmount, CartContainer } from "../components";
+import { PageHero, CartContainer } from "../components";
 import { useCartContext } from "../contexts/cart_context";
 
 const CartPage = () => {

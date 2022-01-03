@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useCartContext } from "../contexts/cart_context";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { ItemAmount } from "../components";
+import priceFormat from "../utils/priceFormat";
 
 const CartItem = ({ title, name, id, image, price, amount }) => {
   const { removeItem, toggleAmount } = useCartContext();
@@ -20,7 +21,7 @@ const CartItem = ({ title, name, id, image, price, amount }) => {
           <h2>{name ? `${name}` : `${title}`}</h2>
         </div>
         <div className="item-col itm">
-          <p>{price}</p>
+          <p>{priceFormat(price)}</p>
         </div>
         <div className="item-col itm">
           <ItemAmount
@@ -30,7 +31,7 @@ const CartItem = ({ title, name, id, image, price, amount }) => {
           />
         </div>
         <div className="item-col itm">
-          <p>{price * amount}</p>
+          <p>{priceFormat(price * amount)}</p>
         </div>
         <div className="itm">
           <button

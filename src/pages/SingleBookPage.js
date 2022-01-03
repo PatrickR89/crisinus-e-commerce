@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Slideshow, PageHero, AddToCart } from "../components";
 import mockBooks from "../mockData/mockBooks";
+import priceFormat from "../utils/priceFormat";
 
 const SingleBookPage = () => {
   const { id } = useParams();
@@ -58,7 +59,7 @@ const SingleBookPage = () => {
             <div className="info">
               <div>
                 <p className="tag">Price : </p>
-                <span className="info-data">{price / 100}kn</span>
+                <span className="info-data">{priceFormat(price)}</span>
               </div>
               <div>
                 <p className="tag">Publisher : </p>

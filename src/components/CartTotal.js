@@ -2,13 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { useCartContext } from "../contexts/cart_context";
 import { Link } from "react-router-dom";
+import priceFormat from "../utils/priceFormat";
 
 const CartTotal = () => {
   const { total_amount } = useCartContext();
   return (
     <Wrapper>
       <div className="boxin">
-        <h2>Total amount: {total_amount}</h2>
+        <h2>Total amount: {priceFormat(total_amount)}</h2>
         <hr />
         <Link to="#" className="btn">
           Order
