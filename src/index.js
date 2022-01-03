@@ -6,13 +6,19 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { CartProvider } from "./contexts/cart_context";
+import { BooksProvider } from "./contexts/books_context";
+import { FilterProvider } from "./contexts/filter_context";
 
 ReactDOM.render(
   <React.StrictMode>
     <CartProvider>
-      <Router>
-        <App />
-      </Router>
+      <BooksProvider>
+        <FilterProvider>
+          <Router>
+            <App />
+          </Router>
+        </FilterProvider>
+      </BooksProvider>
     </CartProvider>
   </React.StrictMode>,
   document.getElementById("root")

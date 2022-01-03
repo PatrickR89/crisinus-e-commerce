@@ -1,88 +1,51 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { PageHero } from "../components";
-import mockBooks from "../mockData/mockBooks";
-import { useFetchItems } from "../hooks/useFetchItems";
-import { BookInBooks } from "../components";
-
+import { FilterItems, BooksList, PageHero } from "../components";
+import { useBooksContext } from "../contexts/books_context";
+import { useFilterContext } from "../contexts/filter_context";
 const BooksPage = () => {
-  const { loading, data } = useFetchItems(mockBooks, 8);
-  const [page, setPage] = useState(0);
-  const [books, setBooks] = useState([]);
+  const {
+    books: all_books,
+    books_loading: loading,
+    books_error: error
+  } = useBooksContext();
+
+  const { filtered_books } = useFilterContext();
+  const [books, setBooks] = useState(all_books);
 
   useEffect(() => {
-    if (loading) return;
-    setBooks(data[page]);
-  }, [loading, page]);
+    setBooks(filtered_books);
+  }, [filtered_books]);
 
-  const nextPage = () => {
-    setPage((oldPage) => {
-      let nextPage = oldPage + 1;
-      if (nextPage > data.length - 1) {
-        nextPage = 0;
-      }
-      return nextPage;
-    });
-  };
-  const prevPage = () => {
-    setPage((oldPage) => {
-      let prevPage = oldPage - 1;
-      if (prevPage < 0) {
-        prevPage = data.length - 1;
-      }
-      return prevPage;
-    });
-  };
+  if (loading) {
+    return (
+      <div className="loading">
+        <h1>Please wait...</h1>
+      </div>
+    );
+  }
 
+  if (error) {
+    return (
+      <div className="loading">
+        <h1>Unfortunately an error occured</h1>
+      </div>
+    );
+  }
   return (
     <main>
       <PageHero title="books" />
+      <FilterItems />
       <Wrapper>
-        {!loading && (
-          <div className="btn-container">
-            <button className="btn" onClick={prevPage}>
-              prev
-            </button>
-            <button className="btn" onClick={nextPage}>
-              next
-            </button>
-          </div>
-        )}
-        <ul className="home-books">
-          {books.map((book) => {
-            return (
-              <li key={book.id}>
-                <Link to={`/books/${book.id}`}>
-                  <BookInBooks {...book} />
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <BooksList initialBooks={filtered_books} />
       </Wrapper>
     </main>
   );
 };
 
 const Wrapper = styled.div`
-  .home-books {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    align-items: start;
-    justify-content: space-between;
-    margin: 0.5rem;
-  }
-  .btn-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    .btn {
-      padding: 0.375rem 2.5rem;
-    }
-  }
+  height: 100%;
 `;
 
 export default BooksPage;

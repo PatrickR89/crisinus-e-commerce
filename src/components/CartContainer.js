@@ -23,7 +23,9 @@ const CartContainer = () => {
           <p>subtotal</p>
         </div>
         <div className="itm item-remove">
-          <FaRegTimesCircle />
+          <button className=" btn btn-remove" onClick={clearCart}>
+            <FaRegTimesCircle />
+          </button>
         </div>
       </div>
       <hr />
@@ -41,9 +43,6 @@ const CartContainer = () => {
         })}
       </div>
       <div className="btn-container">
-        <button className="btn clr" type="button" onClick={clearCart}>
-          clear cart
-        </button>
         <div>
           <Link to="/books" className="btn">
             shop more books
@@ -109,7 +108,7 @@ const Wrapper = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: end;
     div {
       a {
         margin: 0 1rem;
@@ -121,6 +120,15 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: end;
     margin: 2rem 1rem;
+  }
+  .btn-remove {
+    background: transparent;
+    box-shadow: none;
+    font-size: 1.5rem;
+    color: var(--clr-par-6);
+  }
+  .btn-remove:hover {
+    color: var(--clr-clear-hover);
   }
 `;
 

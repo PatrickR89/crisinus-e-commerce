@@ -17,6 +17,8 @@ import AddToCart from "./AddToCart";
 import CartContainer from "./CartContainer";
 import CartItem from "./CartItem";
 import CartTotal from "./CartTotal";
+import FilterItems from "./FilterItems";
+import BooksList from "./BooksList";
 
 export {
   News,
@@ -37,5 +39,7 @@ export {
   AddToCart,
   CartContainer,
   CartItem,
-  CartTotal
+  CartTotal,
+  FilterItems,
+  BooksList
 };

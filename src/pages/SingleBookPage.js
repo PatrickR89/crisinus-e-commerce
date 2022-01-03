@@ -1,30 +1,59 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Slideshow, PageHero, AddToCart } from "../components";
-import mockBooks from "../mockData/mockBooks";
+import { useBooksContext } from "../contexts/books_context";
+
 import priceFormat from "../utils/priceFormat";
 
 const SingleBookPage = () => {
   const { id } = useParams();
-  const [book, setBook] = useState({});
-  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const {
+    fetchSingleBook,
+    single_book: book,
+    single_book_loading: loading,
+    single_book_error: error
+  } = useBooksContext();
+
+  const {
+    title,
+    authors,
+    images,
+    price,
+    publisher,
+    language,
+    year,
+    desc,
+    genre
+  } = book;
 
   useEffect(() => {
-    const tempBook = mockBooks.find((book) => book.id === parseInt(id));
-    setBook(tempBook);
-    setTimeout(() => {
-      setLoading(false);
-    }, 300);
+    fetchSingleBook(id);
   }, [id]);
 
-  const { title, authors, images, price, publisher, language, year, desc } =
-    book;
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        navigate.push("/books");
+      }, 1500);
+    }
+    // eslint-disable-next-line
+  }, [error]);
 
   if (loading) {
     return (
       <div className="loading">
         <h1>Please wait...</h1>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="loading">
+        <h1>Unfortunately an error occured</h1>
       </div>
     );
   }
@@ -68,6 +97,10 @@ const SingleBookPage = () => {
               <div>
                 <p className="tag">Language : </p>
                 <span className="info-data">{language}</span>
+              </div>
+              <div>
+                <p className="tag">Genre : </p>
+                <span className="info-data">{genre}</span>
               </div>
               <div>
                 <p className="tag">Year : </p>
