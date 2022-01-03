@@ -32,6 +32,8 @@
   --clr-button-5: hsl(45, 88%, 85%);
   --clr-button-6: hsl(45, 88%, 95%);
 
+  --clr-clear-hover: hsl(0, 92%, 30%);
+
   --clr-white: hsl(0, 0%, 100%);
   --clr-white-transparent: hsla(0, 0%, 100%, 0);
   --clr-white-semi-transparent: hsla(0, 0%, 100%, 0.3);

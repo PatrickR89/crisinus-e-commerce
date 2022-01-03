@@ -1,17 +1,9 @@
 import React from "react";
-import { PageHero, ItemAmount } from "../components";
+import { PageHero, ItemAmount, CartContainer } from "../components";
 import { useCartContext } from "../contexts/cart_context";
 
 const CartPage = () => {
-  const { cart, removeItem, clearCart, toggleAmount } = useCartContext();
-  console.log(cart);
-
-  const increase = (id) => {
-    toggleAmount(id, "inc");
-  };
-  const decrease = (id) => {
-    toggleAmount(id, "dec");
-  };
+  const { cart } = useCartContext();
 
   if (cart.length < 1) {
     return (
@@ -23,30 +15,7 @@ const CartPage = () => {
   return (
     <main>
       <PageHero title="cart" />
-      {cart.map((cartItem) => {
-        return (
-          <div>
-            <h1>{cartItem.name ? `${cartItem.name}` : `${cartItem.title}`}</h1>
-            <p>{cartItem.price}</p>
-            <ItemAmount
-              amount={cartItem.amount}
-              increase={() => increase(cartItem.id)}
-              decrease={() => decrease(cartItem.id)}
-            />
-            <button
-              className="btn"
-              type="button"
-              onClick={() => removeItem(cartItem.id)}
-            >
-              remove
-            </button>
-          </div>
-        );
-      })}
-
-      <button className="btn" type="button" onClick={clearCart}>
-        clear cart
-      </button>
+      <CartContainer />
     </main>
   );
 };

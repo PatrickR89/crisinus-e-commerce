@@ -14,6 +14,9 @@ import RatingStars from "./RatingStars";
 import ContactForm from "./ContactForm";
 import ItemAmount from "./ItemAmount";
 import AddToCart from "./AddToCart";
+import CartContainer from "./CartContainer";
+import CartItem from "./CartItem";
+import CartTotal from "./CartTotal";
 
 export {
   News,
@@ -31,5 +34,8 @@ export {
   RatingStars,
   ContactForm,
   ItemAmount,
-  AddToCart
+  AddToCart,
+  CartContainer,
+  CartItem,
+  CartTotal
 };
