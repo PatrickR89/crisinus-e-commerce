@@ -1,88 +1,51 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+
 import styled from "styled-components";
 
-import { PageHero } from "../components";
-import mockGifts from "../mockData/mockGifts";
-import { useFetchItems } from "../hooks/useFetchItems";
+import { useGiftshopContext } from "../contexts/giftshop_context";
+
+import { PageHero, ItemsList } from "../components";
+
 import { Gift } from "../components";
 
 const GiftshopPage = () => {
-  const { loading, data } = useFetchItems(mockGifts, 12);
-  const [page, setPage] = useState(0);
-  const [gifts, setGifts] = useState([]);
+  const {
+    gifts: allGifts,
+    gifts_loading: loading,
+    gifts_error: error
+  } = useGiftshopContext();
 
-  useEffect(() => {
-    if (loading) return;
-    setGifts(data[page]);
-  }, [loading, page]);
+  if (loading) {
+    return (
+      <div className="loading">
+        <h1>Please wait...</h1>
+      </div>
+    );
+  }
 
-  const nextPage = () => {
-    setPage((oldPage) => {
-      let nextPage = oldPage + 1;
-      if (nextPage > data.length - 1) {
-        nextPage = 0;
-      }
-      return nextPage;
-    });
-  };
-  const prevPage = () => {
-    setPage((oldPage) => {
-      let prevPage = oldPage - 1;
-      if (prevPage < 0) {
-        prevPage = data.length - 1;
-      }
-      return prevPage;
-    });
-  };
+  if (error) {
+    return (
+      <div className="loading">
+        <h1>Unfortunately an error occured</h1>
+      </div>
+    );
+  }
 
   return (
     <main>
-      <PageHero title="Giftshop" />
+      <PageHero title="giftshop" />
       <Wrapper>
-        {!loading && (
-          <div className="btn-container">
-            <button className="btn" onClick={prevPage}>
-              prev
-            </button>
-            <button className="btn" onClick={nextPage}>
-              next
-            </button>
-          </div>
-        )}
-        <ul className="home-gifts">
-          {gifts.map((item) => {
-            return (
-              <li key={item.id}>
-                <Link to={`/giftshop/${item.id}`}>
-                  <Gift {...item} />
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <ItemsList
+          initialItems={allGifts}
+          SingleItem={Gift}
+          pageItems={12}
+          url="/giftshop/"
+        />
       </Wrapper>
     </main>
   );
 };
 
-const Wrapper = styled.div`
-  .home-gifts {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    align-items: start;
-    justify-content: space-between;
-    margin: 0.5rem;
-  }
-  .btn-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    .btn {
-      padding: 0.375rem 2.5rem;
-    }
-  }
-`;
+const Wrapper = styled.div``;
 
 export default GiftshopPage;

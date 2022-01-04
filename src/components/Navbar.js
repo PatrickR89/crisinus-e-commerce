@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { FaShoppingCart } from "react-icons/fa";
 
 const Navbar = () => {
   return (
@@ -10,6 +11,11 @@ const Navbar = () => {
           <Link to="/">
             <div className="to-home"></div>
           </Link>
+          <div className="nav-container">
+            <Link to="/cart">
+              <FaShoppingCart />
+            </Link>
+          </div>
         </div>
         <div className="btn-container">
           <Link to="/news" className="nav-btn">
@@ -39,13 +45,26 @@ const NavContainer = styled.nav`
   justify-content: center;
 
   .nav-center {
-    width: 90vw;
+    width: 100vw;
     margin: 0 auto;
     max-width: var(--max-width);
+  }
+  .nav-container {
+    margin-right: 15em;
+    a {
+      font-size: 2rem;
+      color: var(--clr-button-2);
+      transition: 0.3s ease-out;
+    }
+    a:hover {
+      cursor: ponter;
+      color: var(--clr-button-4);
+    }
   }
   .nav-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     height: 7rem;
     background: var(--nav-background);
     background-repeat: no-repeat;

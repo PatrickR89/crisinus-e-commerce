@@ -18,7 +18,7 @@ import CartContainer from "./CartContainer";
 import CartItem from "./CartItem";
 import CartTotal from "./CartTotal";
 import FilterItems from "./FilterItems";
-import BooksList from "./BooksList";
+import ItemsList from "./ItemsList";
 
 export {
   News,
@@ -41,5 +41,5 @@ export {
   CartItem,
   CartTotal,
   FilterItems,
-  BooksList
+  ItemsList
 };

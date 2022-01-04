@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
-import { FilterItems, BooksList, PageHero } from "../components";
+import { FilterItems, ItemsList, PageHero } from "../components";
 import { useBooksContext } from "../contexts/books_context";
 import { useFilterContext } from "../contexts/filter_context";
+import { BookInBooks } from "../components";
 const BooksPage = () => {
   const {
     books: all_books,
@@ -12,11 +13,11 @@ const BooksPage = () => {
   } = useBooksContext();
 
   const { filtered_books } = useFilterContext();
-  const [books, setBooks] = useState(all_books);
+  // const [books, setBooks] = useState(all_books);
 
-  useEffect(() => {
-    setBooks(filtered_books);
-  }, [filtered_books]);
+  // useEffect(() => {
+  //   setBooks(filtered_books);
+  // }, [filtered_books]);
 
   if (loading) {
     return (
@@ -38,7 +39,12 @@ const BooksPage = () => {
       <PageHero title="books" />
       <FilterItems />
       <Wrapper>
-        <BooksList initialBooks={filtered_books} />
+        <ItemsList
+          initialItems={filtered_books}
+          SingleItem={BookInBooks}
+          pageItems={8}
+          url="/books/"
+        />
       </Wrapper>
     </main>
   );

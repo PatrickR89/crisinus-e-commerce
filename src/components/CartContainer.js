@@ -7,6 +7,15 @@ import { useCartContext } from "../contexts/cart_context";
 
 const CartContainer = () => {
   const { cart, clearCart } = useCartContext();
+
+  if (cart.length < 1) {
+    return (
+      <div>
+        <h2>empty cart</h2>
+      </div>
+    );
+  }
+
   return (
     <Wrapper>
       <div className="fields">

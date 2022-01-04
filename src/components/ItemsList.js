@@ -3,16 +3,14 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useFetchItems } from "../hooks/useFetchItems";
 
-import { BookInBooks } from "../components";
-
-const BooksList = ({ initialBooks }) => {
-  const { loading, data } = useFetchItems(initialBooks, 8);
+const BooksList = ({ initialItems, SingleItem, url, pageItems }) => {
+  const { loading, data } = useFetchItems(initialItems, pageItems);
   const [page, setPage] = useState(0);
-  const [books, setBooks] = useState([]);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     if (loading) return;
-    setBooks(data[page]);
+    setItems(data[page]);
   }, [loading, page, data]);
 
   const nextPage = () => {
@@ -34,13 +32,23 @@ const BooksList = ({ initialBooks }) => {
     });
   };
 
-  if (initialBooks.length < 1 || !books) {
-    return <h4>No produtcs match...</h4>;
+  if (initialItems.length < 1 || !items) {
+    return (
+      <div
+        style={{
+          background: "hsl(45, 88%, 60%)",
+          padding: "1rem 0",
+          marginTop: "-2rem"
+        }}
+      >
+        <h2>No produtcs match...</h2>
+      </div>
+    );
   }
 
   return (
     <Wrapper>
-      {!loading && initialBooks.length > 8 && (
+      {!loading && initialItems.length > pageItems && (
         <div className="btn-container">
           <button className="btn" onClick={prevPage}>
             prev
@@ -51,11 +59,11 @@ const BooksList = ({ initialBooks }) => {
         </div>
       )}
       <ul className="home-books">
-        {books.map((book) => {
+        {items.map((item) => {
           return (
-            <li key={book.id}>
-              <Link to={`/books/${book.id}`}>
-                <BookInBooks {...book} />
+            <li key={item.id}>
+              <Link to={`${url}${item.id}`}>
+                <SingleItem {...item} />
               </Link>
             </li>
           );
