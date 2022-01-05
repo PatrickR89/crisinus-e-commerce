@@ -5,7 +5,7 @@ import { FaRegTimesCircle } from "react-icons/fa";
 import { ItemAmount } from "../components";
 import priceFormat from "../utils/priceFormat";
 
-const CartItem = ({ title, name, id, image, price, amount }) => {
+const CartItem = ({ title, name, id, max, price, amount }) => {
   const { removeItem, toggleAmount } = useCartContext();
 
   const increase = () => {
@@ -25,6 +25,7 @@ const CartItem = ({ title, name, id, image, price, amount }) => {
         </div>
         <div className="item-col itm">
           <ItemAmount
+            stock={max}
             amount={amount}
             increase={() => increase(id)}
             decrease={() => decrease(id)}

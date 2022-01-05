@@ -52,8 +52,6 @@ const AuthorsPage = () => {
     (author) => `${author.name} ${author.last_name}` === `${authorName}`
   );
 
-  console.log(currentAuthor);
-
   if (isLoading) {
     return (
       <div className="loading">

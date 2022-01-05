@@ -35,7 +35,6 @@ const ReviewsPage = () => {
 
   useEffect(() => {
     setReviewsPerBook(bookReviews(currentBook));
-    console.log(reviewsPerBook);
     setTimeout(() => {
       setIsLoading(false);
     }, 300);
@@ -86,7 +85,7 @@ const ReviewsPage = () => {
         <div className="reviews">
           {reviewsPerBook.map((review) => {
             return (
-              <div>
+              <div key={review.id}>
                 <h2>{review.title}</h2>
                 <div className="stars-container">
                   <RatingStars stars={review.rating} />

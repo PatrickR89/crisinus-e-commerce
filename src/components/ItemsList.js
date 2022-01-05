@@ -7,11 +7,17 @@ const BooksList = ({ initialItems, SingleItem, url, pageItems }) => {
   const { loading, data } = useFetchItems(initialItems, pageItems);
   const [page, setPage] = useState(0);
   const [items, setItems] = useState([]);
+  const [nbPages, setNbPages] = useState(0);
 
   useEffect(() => {
     if (loading) return;
     setItems(data[page]);
+    setNbPages(Math.ceil(initialItems.length / pageItems));
   }, [loading, page, data]);
+
+  useEffect(() => {
+    setPage(0);
+  }, [initialItems]);
 
   const nextPage = () => {
     setPage((oldPage) => {
@@ -53,6 +59,7 @@ const BooksList = ({ initialItems, SingleItem, url, pageItems }) => {
           <button className="btn" onClick={prevPage}>
             prev
           </button>
+          <p>{`${page + 1} / ${nbPages}`}</p>
           <button className="btn" onClick={nextPage}>
             next
           </button>

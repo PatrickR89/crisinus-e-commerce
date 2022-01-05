@@ -42,11 +42,12 @@ const CartContainer = () => {
         {cart.map((cartItem, index) => {
           return (
             <div
+              key={cartItem.id}
               className={
                 index % 2 === 0 ? "itm-background-one" : "itm-background-two"
               }
             >
-              <CartItem key={cartItem.id} {...cartItem} />
+              <CartItem {...cartItem} />
             </div>
           );
         })}

@@ -31,7 +31,12 @@ const AddToCart = ({ product }) => {
 
   return (
     <Wrapper>
-      <ItemAmount amount={amount} increase={increase} decrease={decrease} />
+      <ItemAmount
+        amount={amount}
+        increase={increase}
+        decrease={decrease}
+        stock={stock}
+      />
       <Link
         to="/cart"
         className="btn"
@@ -50,8 +55,8 @@ const Wrapper = styled.div`
   justify-content: center;
   margin: auto;
   a {
-    margin: auto;
-    width: 100%;
+    margin: 1rem;
+    padding: 0.5rem 4.5rem;
     font-weight: bold;
   }
 `;

@@ -10,8 +10,8 @@ const BookInBooks = ({ title, authors, price, language, year }) => {
         <img className="image" src={noPic} alt="book cover" />
         <h4 className="title">{title}</h4>
         <div className="author">
-          {authors.map((author) => {
-            return <p>{author.last_name}</p>;
+          {authors.map((author, index) => {
+            return <p key={index}>{author.last_name}</p>;
           })}
         </div>
         <div className="arrange">

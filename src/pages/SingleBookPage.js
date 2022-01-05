@@ -39,7 +39,7 @@ const SingleBookPage = () => {
         navigate.push("/books");
       }, 1500);
     }
-  }, [error]);
+  }, [error, !book]);
 
   if (loading) {
     return (
@@ -73,10 +73,8 @@ const SingleBookPage = () => {
             )}
             {authors.map((author) => {
               return (
-                <p>
-                  <span key={author.last_name} className="info-data">
-                    {author.last_name}
-                  </span>{" "}
+                <p key={author.last_name}>
+                  <span className="info-data">{author.last_name}</span>{" "}
                   {author.name}
                 </p>
               );
