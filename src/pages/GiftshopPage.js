@@ -2,7 +2,7 @@ import React from "react";
 
 import styled from "styled-components";
 
-import { useGiftshopContext } from "../contexts/giftshop_context";
+import { useItemsContext } from "../contexts/items_context";
 
 import { PageHero, ItemsList } from "../components";
 
@@ -11,9 +11,9 @@ import { Gift } from "../components";
 const GiftshopPage = () => {
   const {
     gifts: allGifts,
-    gifts_loading: loading,
-    gifts_error: error
-  } = useGiftshopContext();
+    items_loading: loading,
+    items_error: error
+  } = useItemsContext();
 
   if (loading) {
     return (

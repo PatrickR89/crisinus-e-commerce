@@ -2,15 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 import { FilterItems, ItemsList, PageHero } from "../components";
-import { useBooksContext } from "../contexts/books_context";
+import { useItemsContext } from "../contexts/items_context";
 import { useFilterContext } from "../contexts/filter_context";
 import { BookInBooks } from "../components";
 const BooksPage = () => {
-  const {
-    books: all_books,
-    books_loading: loading,
-    books_error: error
-  } = useBooksContext();
+  const { items_loading: loading, items_error: error } = useItemsContext();
 
   const { filtered_books } = useFilterContext();
   // const [books, setBooks] = useState(all_books);

@@ -1,30 +1,51 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import mockGifts from "../mockData/mockGifts";
+import { useItemsContext } from "../contexts/items_context";
+
 import { Slideshow, PageHero, AddToCart } from "../components";
 import priceFormat from "../utils/priceFormat";
 
 const SingleGiftPage = () => {
   const { id } = useParams();
-  const [gift, setGift] = useState({});
-  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const {
+    fetchSingleGift,
+    single_item: gift,
+    single_item_loading: loading,
+    single_item_error: error
+  } = useItemsContext();
+
+  const { description, images, name, price } = gift;
 
   useEffect(() => {
-    const tempGift = mockGifts.find((gift) => gift.id === parseInt(id));
-    setGift(tempGift);
-    setLoading(false);
+    fetchSingleGift(id);
   }, [id]);
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        navigate.push("/books");
+      }, 1500);
+    }
+  }, [error]);
 
   if (loading) {
     return (
       <div className="loading">
-        <h1>LOADING...</h1>
+        <h1>Please wait...</h1>
       </div>
     );
   }
 
-  const { name, price, images, description } = gift;
+  if (error) {
+    return (
+      <div className="loading">
+        <h1>Unfortunately an error occured</h1>
+      </div>
+    );
+  }
 
   return (
     <main>

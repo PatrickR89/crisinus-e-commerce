@@ -6,22 +6,20 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { CartProvider } from "./contexts/cart_context";
-import { BooksProvider } from "./contexts/books_context";
-import { GiftshopProvider } from "./contexts/giftshop_context";
+import { ItemsProvider } from "./contexts/items_context";
+
 import { FilterProvider } from "./contexts/filter_context";
 
 ReactDOM.render(
   <React.StrictMode>
     <CartProvider>
-      <BooksProvider>
-        <GiftshopProvider>
-          <FilterProvider>
-            <Router>
-              <App />
-            </Router>
-          </FilterProvider>
-        </GiftshopProvider>
-      </BooksProvider>
+      <ItemsProvider>
+        <FilterProvider>
+          <Router>
+            <App />
+          </Router>
+        </FilterProvider>
+      </ItemsProvider>
     </CartProvider>
   </React.StrictMode>,
   document.getElementById("root")

@@ -7,7 +7,7 @@ import {
   CLEAR_FILTER
 } from "../actions/filter_actions";
 
-import { useBooksContext } from "./books_context";
+import { useItemsContext } from "./items_context";
 
 const initialState = {
   filtered_books: [],
@@ -25,7 +25,7 @@ const initialState = {
 const FilterContext = React.createContext();
 
 export const FilterProvider = ({ children }) => {
-  const { books } = useBooksContext();
+  const { books } = useItemsContext();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {

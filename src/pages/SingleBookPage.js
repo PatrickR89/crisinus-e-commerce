@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Slideshow, PageHero, AddToCart } from "../components";
-import { useBooksContext } from "../contexts/books_context";
+import { useItemsContext } from "../contexts/items_context";
 
 import priceFormat from "../utils/priceFormat";
 
@@ -12,10 +12,10 @@ const SingleBookPage = () => {
 
   const {
     fetchSingleBook,
-    single_book: book,
-    single_book_loading: loading,
-    single_book_error: error
-  } = useBooksContext();
+    single_item: book,
+    single_item_loading: loading,
+    single_item_error: error
+  } = useItemsContext();
 
   const {
     title,
@@ -39,7 +39,6 @@ const SingleBookPage = () => {
         navigate.push("/books");
       }, 1500);
     }
-    // eslint-disable-next-line
   }, [error]);
 
   if (loading) {
