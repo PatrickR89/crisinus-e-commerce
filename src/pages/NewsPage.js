@@ -18,6 +18,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: start;
   justify-content: center;
+  height: 65vh;
 
   font-size: 1.5rem;
 `;

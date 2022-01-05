@@ -50,6 +50,7 @@ const Wrapper = styled.div`
     width: 74%;
     height: 100%;
     overflow: auto;
+    position: relative;
   }
   .list {
     width: 24%;

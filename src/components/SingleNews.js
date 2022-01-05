@@ -19,19 +19,20 @@ const SingleNews = ({ title, text, date }) => {
 };
 
 const Wrapper = styled.div`
-  position: relative;
   height: 100%;
   p {
     color: var(--clr-par-6);
+    margin-bottom: 2rem;
   }
   .paragraph {
     text-align: start;
   }
   .date {
     position: absolute;
-    bottom: 0px;
+    bottom: 2px;
     right: 24px;
     font-size: 0.75rem;
+   height: 0.8rem;
   }
   .underline {
     margin-left: 0;
