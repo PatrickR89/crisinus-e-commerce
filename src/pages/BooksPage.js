@@ -9,11 +9,6 @@ const BooksPage = () => {
   const { items_loading: loading, items_error: error } = useItemsContext();
 
   const { filtered_books } = useFilterContext();
-  // const [books, setBooks] = useState(all_books);
-
-  // useEffect(() => {
-  //   setBooks(filtered_books);
-  // }, [filtered_books]);
 
   if (loading) {
     return (

@@ -2,16 +2,28 @@ import {
   LOAD_ITEMS,
   UPDATE_FILTER,
   FILTER_ITEMS,
-  CLEAR_FILTER
+  CLEAR_FILTER,
+  UPDATE_GIFT_FILTER,
+  FILTER_GIFTS,
+  CLEAR_GIFT_FILTER
 } from "../actions/filter_actions";
 
 const filter_reducer = (state, action) => {
   if (action.type === LOAD_ITEMS) {
+    let maxPrice = action.payload[1].map((p) => p.price);
+    maxPrice = Math.max(...maxPrice);
     return {
       ...state,
-      all_books: action.payload,
-      filtered_books: action.payload,
-      filters: { ...state.filters }
+      all_books: action.payload[0],
+      filtered_books: action.payload[0],
+      all_gifts: action.payload[1],
+      filtered_gifts: action.payload[1],
+      filters: { ...state.filters },
+      gifts_filters: {
+        ...state.gifts_filters,
+        max_price: maxPrice,
+        price: maxPrice
+      }
     };
   }
   if (action.type === UPDATE_FILTER) {
@@ -66,6 +78,39 @@ const filter_reducer = (state, action) => {
     };
   }
 
+  if (action.type === FILTER_GIFTS) {
+    const { all_gifts } = state;
+    const { text, price } = state.gifts_filters;
+
+    let tempGifts = [...all_gifts];
+    if (text) {
+      tempGifts = tempGifts.filter((product) => {
+        return product.name.toLowerCase().startsWith(text);
+      });
+    }
+    tempGifts = tempGifts.filter((gift) => gift.price <= price);
+
+    return { ...state, filtered_gifts: tempGifts };
+  }
+
+  if (action.type === UPDATE_GIFT_FILTER) {
+    const { name, value } = action.payload;
+    return {
+      ...state,
+      gifts_filters: { ...state.gifts_filters, [name]: value }
+    };
+  }
+
+  if (action.type === CLEAR_GIFT_FILTER) {
+    return {
+      ...state,
+      gifts_filters: {
+        ...state.gifts_filters,
+        text: "",
+        price: state.gifts_filters.max_price
+      }
+    };
+  }
   throw new Error(`no matchin "${action.type}" action`);
 };
 
