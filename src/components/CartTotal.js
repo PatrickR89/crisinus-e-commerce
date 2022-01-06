@@ -1,18 +1,25 @@
 import React from "react";
 import styled from "styled-components";
 import { useCartContext } from "../contexts/cart_context";
+import { useCurrencyContext } from "../contexts/currency_context";
+import { useLanguageContext } from "../contexts/language_context";
+
 import { Link } from "react-router-dom";
-import priceFormat from "../utils/priceFormat";
 
 const CartTotal = () => {
   const { total_amount } = useCartContext();
+  const { priceFormat } = useCurrencyContext();
+  const { translation } = useLanguageContext();
+
   return (
     <Wrapper>
       <div className="boxin">
-        <h2>Total amount: {priceFormat(total_amount)}</h2>
+        <h2>
+          {translation.total}: {priceFormat(total_amount)}
+        </h2>
         <hr />
         <Link to="#" className="btn">
-          Order
+          {translation.order}
         </Link>
       </div>
     </Wrapper>

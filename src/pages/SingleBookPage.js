@@ -3,12 +3,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Slideshow, PageHero, AddToCart } from "../components";
 import { useItemsContext } from "../contexts/items_context";
-
-import priceFormat from "../utils/priceFormat";
+import { useCurrencyContext } from "../contexts/currency_context";
+import { useLanguageContext } from "../contexts/language_context";
 
 const SingleBookPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const { translation } = useLanguageContext();
 
   const {
     fetchSingleBook,
@@ -16,6 +18,7 @@ const SingleBookPage = () => {
     single_item_loading: loading,
     single_item_error: error
   } = useItemsContext();
+  const { priceFormat } = useCurrencyContext();
 
   const {
     title,
@@ -44,7 +47,7 @@ const SingleBookPage = () => {
   if (loading) {
     return (
       <div className="loading">
-        <h1>Please wait...</h1>
+        <h1>{translation.pleaseWait}...</h1>
       </div>
     );
   }
@@ -59,7 +62,7 @@ const SingleBookPage = () => {
 
   return (
     <main>
-      <PageHero title={title} adress="books" />
+      <PageHero title={title} adress={translation.books} />
       <Wrapper>
         <div className="main">
           <div className="title">
@@ -67,9 +70,9 @@ const SingleBookPage = () => {
           </div>
           <div className="info">
             {authors.length > 1 ? (
-              <p className="tag">Authors:</p>
+              <p className="tag">{translation.authors}:</p>
             ) : (
-              <p className="tag">Author:</p>
+              <p className="tag">{translation.author}:</p>
             )}
             {authors.map((author) => {
               return (
@@ -84,23 +87,23 @@ const SingleBookPage = () => {
           <div className="layout">
             <div className="info">
               <div>
-                <p className="tag">Price : </p>
+                <p className="tag">{translation.price} : </p>
                 <span className="info-data">{priceFormat(price)}</span>
               </div>
               <div>
-                <p className="tag">Publisher : </p>
+                <p className="tag">{translation.publisher} : </p>
                 <span className="info-data">{publisher}</span>
               </div>
               <div>
-                <p className="tag">Language : </p>
+                <p className="tag">{translation.language} : </p>
                 <span className="info-data">{language}</span>
               </div>
               <div>
-                <p className="tag">Genre : </p>
+                <p className="tag">{translation.genre} : </p>
                 <span className="info-data">{genre}</span>
               </div>
               <div>
-                <p className="tag">Year : </p>
+                <p className="tag">{translation.year} : </p>
                 <span className="info-data">{year}</span>
               </div>
             </div>
@@ -109,7 +112,7 @@ const SingleBookPage = () => {
         </div>
         <div className="secondary">
           <div className="about">
-            <p className="tag">About :</p>
+            <p className="tag">{translation.about} :</p>
             <article>{desc}</article>
           </div>
         </div>
@@ -128,6 +131,7 @@ const Wrapper = styled.div`
   }
   .tag {
     color: var(--clr-primary-3);
+    text-transform: capitalize;
   }
   .info {
     font-size: 1.5rem;
@@ -158,6 +162,7 @@ const Wrapper = styled.div`
         margin-left: 1rem;
         font-size: 2rem;
         font-weight: bold;
+        text-transform: capitalize;
       }
       article {
         font-size: 1.5rem;

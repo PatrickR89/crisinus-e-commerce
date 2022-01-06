@@ -9,5 +9,5 @@ export const getUniqueValues = (data, type) => {
       )
       .flat();
   }
-  return ["all", ...new Set(unique)];
+  return ["--", ...new Set(unique)];
 };

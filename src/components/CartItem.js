@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { useCartContext } from "../contexts/cart_context";
+import { useCurrencyContext } from "../contexts/currency_context";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { ItemAmount } from "../components";
-import priceFormat from "../utils/priceFormat";
 
 const CartItem = ({ title, name, id, max, price, amount }) => {
   const { removeItem, toggleAmount } = useCartContext();
+  const { priceFormat } = useCurrencyContext();
 
   const increase = () => {
     toggleAmount(id, "inc");

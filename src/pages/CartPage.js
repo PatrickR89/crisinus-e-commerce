@@ -1,13 +1,13 @@
 import React from "react";
 import { PageHero, CartContainer } from "../components";
-import { useCartContext } from "../contexts/cart_context";
+import { useLanguageContext } from "../contexts/language_context";
 
 const CartPage = () => {
-  const { cart } = useCartContext();
+  const { translation } = useLanguageContext();
 
   return (
     <main>
-      <PageHero title="cart" />
+      <PageHero title={translation.cart} />
       <CartContainer />
     </main>
   );

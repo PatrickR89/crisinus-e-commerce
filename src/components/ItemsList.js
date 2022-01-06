@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useFetchItems } from "../hooks/useFetchItems";
+import { useLanguageContext } from "../contexts/language_context";
 
 const BooksList = ({ initialItems, SingleItem, url, pageItems }) => {
+  const { translation } = useLanguageContext();
+
   const { loading, data } = useFetchItems(initialItems, pageItems);
   const [page, setPage] = useState(0);
   const [items, setItems] = useState([]);
@@ -47,7 +50,7 @@ const BooksList = ({ initialItems, SingleItem, url, pageItems }) => {
           marginTop: "-2rem"
         }}
       >
-        <h2>No produtcs match...</h2>
+        <h2>{translation.noProducts}...</h2>
       </div>
     );
   }
@@ -57,11 +60,11 @@ const BooksList = ({ initialItems, SingleItem, url, pageItems }) => {
       {!loading && initialItems.length > pageItems && (
         <div className="btn-container">
           <button className="btn" onClick={prevPage}>
-            prev
+            {translation.prev}
           </button>
           <p>{`${page + 1} / ${nbPages}`}</p>
           <button className="btn" onClick={nextPage}>
-            next
+            {translation.next}
           </button>
         </div>
       )}

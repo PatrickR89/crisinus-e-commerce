@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import mockGifts from "../mockData/mockGifts";
+import { useItemsContext } from "../contexts/items_context";
+
 import Gift from "./Gift";
 import { Link } from "react-router-dom";
 
 const GiftShop = () => {
-  const [gifts, setGifts] = useState(mockGifts);
+  const { gifts } = useItemsContext();
 
   return (
     <Wrapper>

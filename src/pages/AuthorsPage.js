@@ -5,6 +5,7 @@ import mockBooks from "../mockData/mockBooks";
 import mockAuthors from "../mockData/mockAuthors";
 import styled from "styled-components";
 import { BookComponent } from "../components";
+import { useLanguageContext } from "../contexts/language_context";
 
 const AuthorsPage = () => {
   const [authorArray, setAuthorArray] = useState([]);
@@ -12,6 +13,8 @@ const AuthorsPage = () => {
   const [authorName, setAuthorName] = useState();
   const [currentAuthor, setCurrentAuthor] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+
+  const { translation } = useLanguageContext();
 
   useEffect(() => {
     setAuthorArray([
@@ -55,14 +58,14 @@ const AuthorsPage = () => {
   if (isLoading) {
     return (
       <div className="loading">
-        <h1>please wait...</h1>
+        <h1>{translation.pleaseWait}...</h1>
       </div>
     );
   }
 
   return (
     <main>
-      <PageHero title="Authors" />
+      <PageHero title={translation.authors} />
       <Wrapper>
         <div className="menu-left">
           <ul>
@@ -98,7 +101,7 @@ const AuthorsPage = () => {
               </div>
               <div className="bio">
                 <p>{currentAuthor.bio}</p>
-                <a href={currentAuthor.url}>More ...</a>
+                <a href={currentAuthor.url}>{translation.more} ...</a>
               </div>
             </article>
             <div className="books">

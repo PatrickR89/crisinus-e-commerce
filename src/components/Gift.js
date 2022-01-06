@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import priceFormat from "../utils/priceFormat";
+import { useCurrencyContext } from "../contexts/currency_context";
 
 const Gift = ({ name, price, images }) => {
+  const { priceFormat } = useCurrencyContext();
+
   return (
     <Wrapper>
       <div className="select">

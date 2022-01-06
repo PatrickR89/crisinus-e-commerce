@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useLanguageContext } from "../contexts/language_context";
 const PageHero = ({ title, adress }) => {
+  const { translation } = useLanguageContext();
   return (
     <Wrapper>
       <div className="section">
         <h3>
-          <Link to="/">Home</Link>
+          <Link to="/">{translation.home}</Link>
           {adress && <Link to={`/${adress}`}>/{adress}</Link>}/ {title}
         </h3>
       </div>

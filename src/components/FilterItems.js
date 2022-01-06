@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useFilterContext } from "../contexts/filter_context";
+import { useLanguageContext } from "../contexts/language_context";
 import { getUniqueValues } from "../hooks/useFetchValues";
 import { FaRegTimesCircle } from "react-icons/fa";
 
@@ -11,6 +12,7 @@ const FilterItems = () => {
     clearFilter,
     all_books
   } = useFilterContext();
+  const { translation } = useLanguageContext();
 
   const publishers = getUniqueValues(all_books, "publisher");
   const years = getUniqueValues(all_books, "year").sort((a, b) => b - a);
@@ -22,11 +24,11 @@ const FilterItems = () => {
     <Wrapper>
       <form onSubmit={(e) => e.preventDefault()}>
         <div className="title-input">
-          <label htmlFor="title">Title:</label>
+          <label htmlFor="title">{translation.title}:</label>
           <input
             type="title"
             name="title"
-            placeholder="search"
+            placeholder={translation.search}
             className="search-input"
             value={title}
             onChange={updateFilter}
@@ -34,7 +36,7 @@ const FilterItems = () => {
         </div>
         <div className="filters">
           <div>
-            <label htmlFor="author">Author: </label>
+            <label htmlFor="author">{translation.author}: </label>
             <select
               name="author"
               id="author"
@@ -51,7 +53,7 @@ const FilterItems = () => {
             </select>
           </div>
           <div>
-            <label htmlFor="genre">Genre: </label>
+            <label htmlFor="genre">{translation.genre}: </label>
             <select
               name="genre"
               id="genre"
@@ -68,7 +70,7 @@ const FilterItems = () => {
             </select>
           </div>
           <div>
-            <label htmlFor="year">Year: </label>
+            <label htmlFor="year">{translation.year}: </label>
             <select name="year" id="year" value={year} onChange={updateFilter}>
               {years.map((y, index) => {
                 return (
@@ -80,7 +82,7 @@ const FilterItems = () => {
             </select>
           </div>
           <div>
-            <label htmlFor="publisher">Publisher: </label>
+            <label htmlFor="publisher">{translation.publisher}: </label>
             <select
               name="publisher"
               id="publisher"
@@ -97,7 +99,7 @@ const FilterItems = () => {
             </select>
           </div>
           <div>
-            <label htmlFor="language">Language: </label>
+            <label htmlFor="language">{translation.language}: </label>
             <select
               name="language"
               id="language"
@@ -134,6 +136,7 @@ const Wrapper = styled.div`
       font-size: 1.5rem;
       margin-right: 1rem;
       color: var(--clr-par-6);
+      text-transform: capitalize;
     }
     input {
       background: var(--clr-button-3);
@@ -141,6 +144,7 @@ const Wrapper = styled.div`
       font-size: 1.5rem;
       color: var(--clr-par-6);
       transition: 0.2s ease-in;
+      text-transform: capitalize;
     }
     input:focus {
       outline: none;
@@ -158,6 +162,7 @@ const Wrapper = styled.div`
     font-size: 1.3rem;
     color: var(--clr-par-6);
     margin-bottom: 1rem;
+    text-transform: capitalize;
     div {
       select {
         font-size: 1.3rem;

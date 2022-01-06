@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 import { PageHero, ContactForm } from "../components";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
+import { useLanguageContext } from "../contexts/language_context";
 
 const ContactPage = () => {
+  const { translation } = useLanguageContext();
+
   return (
     <main>
-      <PageHero title="Contact" />
+      <PageHero title={translation.contact} />
       <Wrapper>
         <div className="contact">
           <ContactForm />

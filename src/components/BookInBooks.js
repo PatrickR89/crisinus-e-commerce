@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import noPic from "../defaults/bookCover.jpeg";
-import priceFormat from "../utils/priceFormat";
+import { useCurrencyContext } from "../contexts/currency_context";
 
 const BookInBooks = ({ title, authors, price, language, year }) => {
+  const { priceFormat } = useCurrencyContext();
+
   return (
     <Wrapper>
       <div className="select">

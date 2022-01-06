@@ -19,11 +19,11 @@ const initialState = {
   filtered_gifts: [],
   filters: {
     title: "",
-    author: "all",
-    publisher: "all",
-    language: "all",
-    genre: "all",
-    year: "all"
+    author: "--",
+    publisher: "--",
+    language: "--",
+    genre: "--",
+    year: "--"
   },
   gifts_filters: {
     text: "",

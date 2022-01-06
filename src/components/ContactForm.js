@@ -1,12 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+import { useLanguageContext } from "../contexts/language_context";
 
 const ContactForm = () => {
+  const { translation } = useLanguageContext();
+
   return (
     <Wrapper>
       <form className="contact-form">
         <label className="title" htmlFor="user">
-          Name:
+          {translation.name}:
         </label>
         <input type="text" id="user" name="user" />
         <label className="title" htmlFor="email">
@@ -14,7 +17,7 @@ const ContactForm = () => {
         </label>
         <input type="email" id="email" name="email" />
         <label className="title" htmlFor="message">
-          Your message:
+          {translation.yourMsg}:
         </label>
         <textarea
           className="msg"
@@ -24,7 +27,7 @@ const ContactForm = () => {
           rows="10"
         ></textarea>
         <button type="submit" className="btn">
-          Send
+          {translation.send}
         </button>
       </form>
     </Wrapper>
@@ -50,6 +53,7 @@ const Wrapper = styled.div`
     .title {
       color: var(--clr-primary-2);
       font-weight: bold;
+      text-transform: capitalize;
     }
     .msg {
       border: none;

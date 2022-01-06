@@ -7,17 +7,22 @@ import reportWebVitals from "./reportWebVitals";
 
 import { CartProvider } from "./contexts/cart_context";
 import { ItemsProvider } from "./contexts/items_context";
-
 import { FilterProvider } from "./contexts/filter_context";
+import { CurrencyProvider } from "./contexts/currency_context";
+import { LanguageProvider } from "./contexts/language_context";
 
 ReactDOM.render(
   <React.StrictMode>
     <CartProvider>
       <ItemsProvider>
         <FilterProvider>
-          <Router>
-            <App />
-          </Router>
+          <CurrencyProvider>
+            <LanguageProvider>
+              <Router>
+                <App />
+              </Router>
+            </LanguageProvider>
+          </CurrencyProvider>
         </FilterProvider>
       </ItemsProvider>
     </CartProvider>

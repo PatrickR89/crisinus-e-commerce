@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import mockBooks from "../mockData/mockBooks";
-import BookComponent from "./BookComponent";
 import { Link } from "react-router-dom";
 
+import { useItemsContext } from "../contexts/items_context";
+import BookComponent from "./BookComponent";
+
 const OurBooks = () => {
-  const [books, setBooks] = useState(mockBooks);
+  const { books } = useItemsContext();
 
   return (
     <Wrapper>

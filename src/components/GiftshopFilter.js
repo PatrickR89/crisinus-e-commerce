@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { FaRegTimesCircle } from "react-icons/fa";
-import formatPrice from "../utils/priceFormat";
+import { useCurrencyContext } from "../contexts/currency_context";
+import { useLanguageContext } from "../contexts/language_context";
 
 import { useFilterContext } from "../contexts/filter_context";
 
@@ -11,24 +12,26 @@ const GiftshopFilter = () => {
     updateGiftsFilter,
     clearGiftsFilter
   } = useFilterContext();
+  const { priceFormat } = useCurrencyContext();
+  const { translation } = useLanguageContext();
 
   return (
     <Wrapper>
       <form onSubmit={(e) => e.preventDefault()}>
         <div className="filter-input">
-          <label htmlFor="text">Name: </label>
+          <label htmlFor="text">{translation.name}: </label>
           <input
             type="text"
             name="text"
             id="text"
-            placeholder="search"
+            placeholder={translation.search}
             className="search-input"
             value={text}
             onChange={updateGiftsFilter}
           />
         </div>
         <div className="price-form">
-          <label htmlFor="price">Price: </label>
+          <label htmlFor="price">{translation.price}: </label>
           <input
             type="range"
             name="price"
@@ -39,7 +42,7 @@ const GiftshopFilter = () => {
             value={price}
             onChange={updateGiftsFilter}
           />
-          <p className="price">{formatPrice(price)}</p>
+          <p className="price">{priceFormat(price)}</p>
         </div>
       </form>
       <button type="button" className="clear-filter" onClick={clearGiftsFilter}>
@@ -56,6 +59,7 @@ const Wrapper = styled.div`
   margin-bottom: 2rem;
   display: flex;
   justify-content: space-between;
+  text-transform: capitalize;
   form {
     display: flex;
     align-items: center;

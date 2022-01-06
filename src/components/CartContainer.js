@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { CartItem, CartTotal } from "../components";
 import { useCartContext } from "../contexts/cart_context";
+import { useLanguageContext } from "../contexts/language_context";
 
 const CartContainer = () => {
   const { cart, clearCart } = useCartContext();
+  const { translation } = useLanguageContext();
 
   if (cart.length < 1) {
     return (
@@ -20,16 +22,16 @@ const CartContainer = () => {
     <Wrapper>
       <div className="fields">
         <div className="item-name itm">
-          <p>name</p>
+          <p>{translation.name}</p>
         </div>
         <div className="item-col itm">
-          <p>price</p>
+          <p>{translation.price}</p>
         </div>
         <div className="item-col itm">
-          <p>amount</p>
+          <p>{translation.amount}</p>
         </div>
         <div className="item-col itm">
-          <p>subtotal</p>
+          <p>{translation.subtotal}</p>
         </div>
         <div className="itm item-remove">
           <button className=" btn btn-remove" onClick={clearCart}>
@@ -55,10 +57,10 @@ const CartContainer = () => {
       <div className="btn-container">
         <div>
           <Link to="/books" className="btn">
-            shop more books
+            {translation.shopBooks}
           </Link>
           <Link to="/giftshop" className="btn">
-            shop more gifts
+            {translation.shopGifts}
           </Link>
         </div>
       </div>

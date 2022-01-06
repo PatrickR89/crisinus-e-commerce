@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useItemsContext } from "../contexts/items_context";
+import { useCurrencyContext } from "../contexts/currency_context";
+import { useLanguageContext } from "../contexts/language_context";
 
 import { Slideshow, PageHero, AddToCart } from "../components";
-import priceFormat from "../utils/priceFormat";
 
 const SingleGiftPage = () => {
   const { id } = useParams();
@@ -16,6 +17,9 @@ const SingleGiftPage = () => {
     single_item_loading: loading,
     single_item_error: error
   } = useItemsContext();
+
+  const { priceFormat } = useCurrencyContext();
+  const { translation } = useLanguageContext();
 
   const { description, images, name, price } = gift;
 
@@ -34,7 +38,7 @@ const SingleGiftPage = () => {
   if (loading) {
     return (
       <div className="loading">
-        <h1>Please wait...</h1>
+        <h1>{translation.pleaseWait}...</h1>
       </div>
     );
   }
@@ -49,7 +53,7 @@ const SingleGiftPage = () => {
 
   return (
     <main>
-      <PageHero title={name} adress="Giftshop" />
+      <PageHero title={name} adress={translation.giftshop} />
       <Wrapper>
         <div>
           <div className="title">
@@ -58,12 +62,12 @@ const SingleGiftPage = () => {
           <div className="main">
             {images && <Slideshow images={images} />}
             <div className="info">
-              <p className="tag">Price : </p>
+              <p className="tag">{translation.price} : </p>
               <span className="info-data">{priceFormat(price)}</span>
               <AddToCart product={gift} />
               <div className="secondary">
                 <div className="about">
-                  <p className="tag">About :</p>
+                  <p className="tag">{translation.about} :</p>
                   <article>{description}</article>
                 </div>
               </div>
@@ -94,6 +98,7 @@ const Wrapper = styled.div`
   .tag {
     color: var(--clr-primary-3);
     margin: 1rem;
+    text-transform: capitalize;
   }
   .info {
     font-size: 1.5rem;

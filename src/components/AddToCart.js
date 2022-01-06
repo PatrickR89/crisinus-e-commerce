@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ItemAmount } from "../components";
 import { useCartContext } from "../contexts/cart_context";
+import { useLanguageContext } from "../contexts/language_context";
 
 const AddToCart = ({ product }) => {
+  const { translation } = useLanguageContext();
   const { addToCart } = useCartContext();
   const { id, stock } = product;
   const [amount, setAmount] = useState(1);
@@ -42,7 +44,7 @@ const AddToCart = ({ product }) => {
         className="btn"
         onClick={() => addToCart(id, amount, product)}
       >
-        add to cart
+        {translation.addToCart}
       </Link>
     </Wrapper>
   );
@@ -58,6 +60,7 @@ const Wrapper = styled.div`
     margin: 1rem;
     padding: 0.5rem 4.5rem;
     font-weight: bold;
+    max-width: 14rem;
   }
 `;
 

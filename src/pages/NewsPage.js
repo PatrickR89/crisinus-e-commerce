@@ -2,11 +2,14 @@ import React from "react";
 import { News } from "../components";
 import styled from "styled-components";
 import { PageHero } from "../components";
+import { useLanguageContext } from "../contexts/language_context";
 
 const NewsPage = () => {
+  const { translation } = useLanguageContext();
+
   return (
     <main>
-      <PageHero title="news" />
+      <PageHero title={translation.news} />
       <Wrapper>
         <News />
       </Wrapper>

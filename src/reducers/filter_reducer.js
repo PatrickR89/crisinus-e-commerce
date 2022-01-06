@@ -41,23 +41,23 @@ const filter_reducer = (state, action) => {
         return book.title.toLowerCase().startsWith(title);
       });
     }
-    if (author !== "all") {
+    if (author !== "--") {
       tempBooks = tempBooks.filter((book) =>
         book.authors.find(
           (bookAuthor) => `${bookAuthor.name} ${bookAuthor.last_name}` == author
         )
       );
     }
-    if (year !== "all") {
+    if (year !== "--") {
       tempBooks = tempBooks.filter((book) => book.year === parseInt(year));
     }
-    if (publisher !== "all") {
+    if (publisher !== "--") {
       tempBooks = tempBooks.filter((book) => book.publisher === publisher);
     }
-    if (language !== "all") {
+    if (language !== "--") {
       tempBooks = tempBooks.filter((book) => book.language === language);
     }
-    if (genre !== "all") {
+    if (genre !== "--") {
       tempBooks = tempBooks.filter((book) => book.genre === genre);
     }
     return { ...state, filtered_books: tempBooks };
@@ -69,11 +69,11 @@ const filter_reducer = (state, action) => {
       filters: {
         ...state.filters,
         title: "",
-        author: "all",
-        publisher: "all",
-        language: "all",
-        genre: "all",
-        year: "all"
+        author: "--",
+        publisher: "--",
+        language: "--",
+        genre: "--",
+        year: "--"
       }
     };
   }

@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useLanguageContext } from "../contexts/language_context";
 
 import { PageHero, RatingStars } from "../components";
 import mockReviews from "../mockData/mockReviews";
 import mockBooks from "../mockData/mockBooks";
 
 const ReviewsPage = () => {
+  const { translation } = useLanguageContext();
+
   const [bookIds, setBookIds] = useState([]);
   const [bookList, setBookList] = useState([]);
   const [reviewsPerBook, setReviewsPerBook] = useState([]);
@@ -52,14 +55,14 @@ const ReviewsPage = () => {
   if (isLoading) {
     return (
       <div className="loading">
-        <h1>Please wait...</h1>
+        <h1>{translation.pleaseWait}...</h1>
       </div>
     );
   }
 
   return (
     <main>
-      <PageHero title="reviews" />
+      <PageHero title={translation.reviews} />
       <Wrapper>
         <div className="menu-left">
           <ul>
@@ -98,7 +101,7 @@ const ReviewsPage = () => {
             );
           })}
           <Link to={`/books/${currentBook}`} className="btn">
-            Shop book
+            {translation.shopBook}
           </Link>
         </div>
       </Wrapper>

@@ -1,51 +1,54 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useLanguageContext } from "../contexts/language_context";
 
 const HomeBottom = () => {
+  const { translation } = useLanguageContext();
+
   return (
     <Wrapper>
       <div className="btn-container">
         <Link to="/authors" className="bottom-btn">
-          Authors
+          {translation.authors}
         </Link>
         <Link to="/reviews" className="bottom-btn">
-          Reviews
+          {translation.reviews}
         </Link>
       </div>
       <div>
         <form className="newsletter">
           <label htmlFor="email">
             {" "}
-            <h2> Subscribe to our newsletter </h2>
+            <h2> {translation.subsrcibeTo} </h2>
           </label>
           <div>
             <input
               type="email"
               name="email"
               id="email"
-              placeholder="Enter your email"
+              placeholder={translation.enterEmail}
             />
             <button type="submit" className="btn">
-              Subscribe
+              {translation.subscribe}
             </button>
           </div>
         </form>
       </div>
       <div className="btn-container bottom-container">
         <Link to="/order" className="bottom-btn">
-          How to order
+          {translation.orderHowTo}
         </Link>
         <div className="btn-stack">
           <Link to="/info" className="bottom-btn">
-            General information
+            {translation.genInfo}
           </Link>
           <Link to="/payment" className="bottom-btn">
-            Payment and shipping
+            {translation.paymentAndShipping}
           </Link>
         </div>
         <Link to="/disclaimer" className="bottom-btn">
-          Disclaimer
+          {translation.disclaimer}
         </Link>
       </div>
     </Wrapper>

@@ -3,21 +3,20 @@ import styled from "styled-components";
 
 import { useItemsContext } from "../contexts/items_context";
 import { useFilterContext } from "../contexts/filter_context";
+import { useLanguageContext } from "../contexts/language_context";
+
 import { PageHero, ItemsList, GiftshopFilter } from "../components";
 import { Gift } from "../components";
 
 const GiftshopPage = () => {
-  const {
-    gifts: allGifts,
-    items_loading: loading,
-    items_error: error
-  } = useItemsContext();
+  const { items_loading: loading, items_error: error } = useItemsContext();
   const { filtered_gifts } = useFilterContext();
+  const { translation } = useLanguageContext();
 
   if (loading) {
     return (
       <div className="loading">
-        <h1>Please wait...</h1>
+        <h1>{translation.pleaseWait}...</h1>
       </div>
     );
   }
@@ -32,7 +31,7 @@ const GiftshopPage = () => {
 
   return (
     <main>
-      <PageHero title="giftshop" />
+      <PageHero title={translation.giftshop} />
       <Wrapper>
         <GiftshopFilter />
         <ItemsList
