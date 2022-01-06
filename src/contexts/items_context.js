@@ -53,7 +53,7 @@ export const ItemsProvider = ({ children }) => {
       dispatch({ type: GET_SINGLE_ITEM_SUCCESS, payload: singleBook });
       setTimeout(() => {
         dispatch({ type: GET_SINGLE_ITEM_DONE });
-      }, 300);
+      }, 500);
     } catch (error) {
       dispatch({ type: GET_SINGLE_ITEM_ERROR });
     }

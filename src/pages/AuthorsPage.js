@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { Link } from "react-router-dom";
 import { PageHero } from "../components";
 import mockBooks from "../mockData/mockBooks";
@@ -8,11 +9,15 @@ import { BookComponent } from "../components";
 import { useLanguageContext } from "../contexts/language_context";
 
 const AuthorsPage = () => {
+  const Router = useRouter();
+  console.log(Router);
+
   const [authorArray, setAuthorArray] = useState([]);
   const [booksByAuthor, setBooksByAuthor] = useState([]);
-  const [authorName, setAuthorName] = useState();
+  const [authorName, setAuthorName] = useState("");
   const [currentAuthor, setCurrentAuthor] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [shallowHref, setShallowHref] = useState("none");
 
   const { translation } = useLanguageContext();
 
@@ -33,10 +38,17 @@ const AuthorsPage = () => {
   useEffect(() => {
     setBooksByAuthor(booksPerAuthor(authorName));
     setCurrentAuthor(switchAuthor);
+    setShallowHref(authorName.replace(/\s+/g, "-"));
+    console.log(shallowHref);
+
     setTimeout(() => {
       setIsLoading(false);
     }, 300);
-  }, [authorName]);
+  }, [authorName, currentAuthor]);
+
+  // useEffect(() => {
+  //   Router.push("authors/", shallowHref, { shallow: true });
+  // }, [shallowHref]);
 
   const booksPerAuthor = (name) => {
     return mockBooks.filter((book) => {
