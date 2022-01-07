@@ -4,6 +4,7 @@ import { useFilterContext } from "../contexts/filter_context";
 import { useLanguageContext } from "../contexts/language_context";
 import { getUniqueValues } from "../hooks/useFetchValues";
 import { FaRegTimesCircle } from "react-icons/fa";
+import SearchIcon from "@mui/icons-material/Search";
 
 const FilterItems = () => {
   const {

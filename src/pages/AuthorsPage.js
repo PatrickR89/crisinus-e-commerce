@@ -9,7 +9,7 @@ import { BookComponent } from "../components";
 import { useLanguageContext } from "../contexts/language_context";
 
 const AuthorsPage = () => {
-  const Router = useRouter();
+  const Router = useRouter;
   console.log(Router);
 
   const [authorArray, setAuthorArray] = useState([]);
@@ -38,7 +38,7 @@ const AuthorsPage = () => {
   useEffect(() => {
     setBooksByAuthor(booksPerAuthor(authorName));
     setCurrentAuthor(switchAuthor);
-    setShallowHref(authorName.replace(/\s+/g, "-"));
+    setShallowHref(authorName.replace(/\s+/g, "_"));
     console.log(shallowHref);
 
     setTimeout(() => {

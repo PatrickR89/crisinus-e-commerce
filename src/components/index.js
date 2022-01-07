@@ -20,6 +20,11 @@ import CartTotal from "./CartTotal";
 import FilterItems from "./FilterItems";
 import ItemsList from "./ItemsList";
 import GiftshopFilter from "./GiftshopFilter";
+import SidebarNav from "./SidebarNav";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+import NavCart from "./NavCart";
+import NavButtons from "./NavButtons";
 
 export {
   News,
@@ -43,5 +48,10 @@ export {
   CartTotal,
   FilterItems,
   ItemsList,
-  GiftshopFilter
+  GiftshopFilter,
+  SidebarNav,
+  Navbar,
+  Footer,
+  NavCart,
+  NavButtons
 };

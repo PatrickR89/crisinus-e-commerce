@@ -163,3 +163,7 @@ main {
   background: var(--clr-button-4);
   text-transform: uppercase;
 }
+
+.sidebar {
+  background-color: var(--clr-button-3);
+}

@@ -1,6 +1,6 @@
 import "./App.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+
+import { Navbar, Footer, SidebarNav } from "./components";
 import { Routes, Route } from "react-router-dom";
 import {
   HomePage,
@@ -24,6 +24,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
+      <SidebarNav />
       <Routes>
         <Route exact path="/" element={<HomePage />} /> {/* version 1 */}
         <Route path="/about" element={<AboutUsPage />} /> {/* version 1 */}

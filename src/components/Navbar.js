@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { FaShoppingCart } from "react-icons/fa";
-import { useCurrencyContext } from "../contexts/currency_context";
-import { useLanguageContext } from "../contexts/language_context";
+import { useSidebarContext } from "../contexts/sidebar_context";
+
+import { NavCart, NavButtons } from "../components";
+
+import MenuIcon from "@mui/icons-material/Menu";
+import IconButton from "@mui/material/IconButton";
 
 const Navbar = () => {
-  const { updateCurrency, current_currency, currencies } = useCurrencyContext();
-  const { current_language, languages, switchLang, translation } =
-    useLanguageContext();
+  const { openSidebarNav, isSidebarNavOpen } = useSidebarContext();
 
   return (
     <NavContainer>
@@ -17,58 +18,23 @@ const Navbar = () => {
           <Link to="/">
             <div className="to-home"></div>
           </Link>
-          <div className="nav-container">
-            <Link to="/cart">
-              <FaShoppingCart />
-            </Link>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <select
-                name="currency"
-                id="currency"
-                value={current_currency}
-                onChange={updateCurrency}
-              >
-                {currencies.map((c, index) => {
-                  return (
-                    <option key={index} value={c}>
-                      {c}
-                    </option>
-                  );
-                })}
-              </select>
-              <select
-                name="language"
-                id="language"
-                value={current_language}
-                onChange={switchLang}
-              >
-                {languages.map((l, index) => {
-                  return (
-                    <option key={index} value={l}>
-                      {l}
-                    </option>
-                  );
-                })}
-              </select>
-            </form>
+          <div className="toggle-disp">
+            <NavCart />
           </div>
         </div>
         <div className="btn-container">
-          <Link to="/news" className="nav-btn">
-            {translation.news}
-          </Link>
-          <Link to="/books" className="nav-btn">
-            {translation.books}
-          </Link>
-          <Link to="/giftshop" className="nav-btn">
-            {translation.giftshop}
-          </Link>
-          <Link to="/about" className="nav-btn">
-            {translation.aboutUs}
-          </Link>
-          <Link to="/contact" className="nav-btn">
-            {translation.contact}
-          </Link>
+          <div className="disp-width toggle-disp ">
+            <NavButtons nav={true} />
+          </div>
+          <IconButton
+            aria-label="open drawer"
+            edge="end"
+            onClick={openSidebarNav}
+            sx={{ ...(isSidebarNavOpen && { display: "none" }) }}
+            className="toggle-side side-btn"
+          >
+            <MenuIcon />
+          </IconButton>
         </div>
       </div>
     </NavContainer>
@@ -79,40 +45,14 @@ const NavContainer = styled.nav`
   display: flex;
   align-items: center;
   justify-content: center;
+  .disp-width {
+    width: 100%;
+  }
 
   .nav-center {
     width: 100vw;
     margin: 0 auto;
     max-width: var(--max-width);
-  }
-  .nav-container {
-    display: flex;
-    margin-right: 15em;
-    a {
-      font-size: 2rem;
-      margin: 2rem;
-      color: var(--clr-button-2);
-      transition: 0.3s ease-out;
-    }
-    a:hover {
-      cursor: ponter;
-      color: var(--clr-button-4);
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-    }
-    select {
-      background: transparent;
-      border: none;
-      color: var(--clr-button-3);
-      font-size: 1.2rem;
-      margin: 0.75rem 0;
-    }
-    select:focus {
-      outline: none;
-      background: none;
-    }
   }
   .nav-header {
     display: flex;
@@ -142,26 +82,37 @@ const NavContainer = styled.nav`
     align-items: center;
     justify-content: space-between;
   }
-  .nav-btn {
+  .side-btn {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: end;
     text-transform: uppercase;
     background: var(--clr-button-3);
     color: var(--clr-primary-1);
-    padding: auto;
+    padding: 3rem;
     letter-spacing: var(--spacing);
     font-weight: bold;
     transition: var(--transition);
-    font-size: 1rem;
+    font-size: 2rem;
     cursor: pointer;
     border-color: transparent;
-    width: 20%;
+    border-radius: 0;
+    width: 100%;
     height: 100%;
   }
-  .nav-btn:hover {
+  .side-btn:hover {
     color: var(--clr-primary-2);
     background: var(--clr-button-4);
+  }
+  @media (min-width: 900px) {
+    .toggle-side {
+      display: none;
+    }
+  }
+  @media (max-width: 900px) {
+    .toggle-disp {
+      display: none;
+    }
   }
 `;
 

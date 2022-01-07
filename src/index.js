@@ -10,6 +10,7 @@ import { ItemsProvider } from "./contexts/items_context";
 import { FilterProvider } from "./contexts/filter_context";
 import { CurrencyProvider } from "./contexts/currency_context";
 import { LanguageProvider } from "./contexts/language_context";
+import { SidebarProvider } from "./contexts/sidebar_context";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,9 +19,11 @@ ReactDOM.render(
         <FilterProvider>
           <CurrencyProvider>
             <LanguageProvider>
-              <Router>
-                <App />
-              </Router>
+              <SidebarProvider>
+                <Router>
+                  <App />
+                </Router>
+              </SidebarProvider>
             </LanguageProvider>
           </CurrencyProvider>
         </FilterProvider>
