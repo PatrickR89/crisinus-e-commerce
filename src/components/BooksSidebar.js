@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useRef, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -7,9 +6,9 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useSidebarContext } from "../contexts/sidebar_context";
-import { NavCart, NavButtons } from "../components";
+import { FilterItems } from "../components";
 
-const drawerWidth = 240;
+const drawerWidth = 320;
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -21,10 +20,10 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function PersistentDrawerRight() {
-  const { closeSidebarNav, isSidebarNavOpen, ref } = useSidebarContext();
+  const { closeSidebarAuthors, isSidebarAuthorsOpen } = useSidebarContext();
 
   return (
-    <Box sx={{ display: "flex" }} ref={ref}>
+    <Box sx={{ display: "flex" }}>
       <Drawer
         sx={{
           width: drawerWidth,
@@ -36,23 +35,15 @@ export default function PersistentDrawerRight() {
         }}
         variant="persistent"
         anchor="right"
-        open={isSidebarNavOpen}
+        open={isSidebarAuthorsOpen}
       >
         <DrawerHeader>
-          <IconButton onClick={closeSidebarNav}>
+          <IconButton onClick={closeSidebarAuthors}>
             <ChevronRightIcon />
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <div
-          style={{
-            backgroundColor: "white"
-          }}
-        >
-          <NavCart />
-        </div>
-        <Divider />
-        <NavButtons />
+        <FilterItems inSidebar={true} />
       </Drawer>
     </Box>
   );

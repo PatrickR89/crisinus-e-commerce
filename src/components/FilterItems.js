@@ -4,9 +4,8 @@ import { useFilterContext } from "../contexts/filter_context";
 import { useLanguageContext } from "../contexts/language_context";
 import { getUniqueValues } from "../hooks/useFetchValues";
 import { FaRegTimesCircle } from "react-icons/fa";
-import SearchIcon from "@mui/icons-material/Search";
 
-const FilterItems = () => {
+const FilterItems = ({ inSidebar }) => {
   const {
     filters: { title, author, year, publisher, language, genre },
     updateFilter,
@@ -35,7 +34,7 @@ const FilterItems = () => {
             onChange={updateFilter}
           />
         </div>
-        <div className="filters">
+        <div className={!inSidebar ? "filters" : "filters filters-sidebar"}>
           <div>
             <label htmlFor="author">{translation.author}: </label>
             <select
@@ -126,11 +125,6 @@ const FilterItems = () => {
 };
 
 const Wrapper = styled.div`
-  background: var(--clr-button-3);
-  padding: 0.5rem 0;
-  margin-top: -2rem;
-  margin-bottom: 2rem;
-
   .title-input {
     margin-bottom: 1rem;
     label {
@@ -145,7 +139,6 @@ const Wrapper = styled.div`
       font-size: 1.5rem;
       color: var(--clr-par-6);
       transition: 0.2s ease-in;
-      text-transform: capitalize;
     }
     input:focus {
       outline: none;
@@ -178,6 +171,13 @@ const Wrapper = styled.div`
         background: var(--clr-button-4);
         outline: none;
       }
+    }
+  }
+  .filters-sidebar {
+    flex-direction: column;
+    align-items: start;
+    div {
+      margin-bottom: 1rem;
     }
   }
 

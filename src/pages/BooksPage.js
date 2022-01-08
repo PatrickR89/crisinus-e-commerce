@@ -1,15 +1,25 @@
 import React from "react";
 import styled from "styled-components";
+import SearchIcon from "@mui/icons-material/Search";
+import IconButton from "@mui/material/IconButton";
 
-import { FilterItems, ItemsList, PageHero, BookInBooks } from "../components";
+import {
+  FilterItems,
+  ItemsList,
+  PageHero,
+  BookInBooks,
+  BooksSidebar
+} from "../components";
 import { useItemsContext } from "../contexts/items_context";
 import { useFilterContext } from "../contexts/filter_context";
 import { useLanguageContext } from "../contexts/language_context";
+import { useSidebarContext } from "../contexts/sidebar_context";
 
 const BooksPage = () => {
   const { items_loading: loading, items_error: error } = useItemsContext();
   const { filtered_books } = useFilterContext();
   const { translation } = useLanguageContext();
+  const { openSidebarAuthors } = useSidebarContext();
 
   if (loading) {
     return (
@@ -29,8 +39,18 @@ const BooksPage = () => {
   return (
     <main>
       <PageHero title={translation.books} />
-      <FilterItems />
+      <FilterContainer>
+        <div className="toggle-disp">
+          <FilterItems />
+        </div>
+        <div className="toggle-side">
+          <IconButton onClick={openSidebarAuthors}>
+            <SearchIcon />
+          </IconButton>
+        </div>
+      </FilterContainer>
       <Wrapper>
+        <BooksSidebar />
         <ItemsList
           initialItems={filtered_books}
           SingleItem={BookInBooks}
@@ -44,6 +64,13 @@ const BooksPage = () => {
 
 const Wrapper = styled.div`
   height: 100%;
+`;
+
+const FilterContainer = styled.div`
+  background: var(--clr-button-3);
+  padding: 0.5rem 0;
+  margin-top: -2rem;
+  margin-bottom: 2rem;
 `;
 
 export default BooksPage;

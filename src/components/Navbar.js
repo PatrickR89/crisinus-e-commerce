@@ -27,7 +27,7 @@ const Navbar = () => {
             <NavButtons nav={true} />
           </div>
           <IconButton
-            aria-label="open drawer"
+            aria-label="open nav sidebar"
             edge="end"
             onClick={openSidebarNav}
             sx={{ ...(isSidebarNavOpen && { display: "none" }) }}
@@ -80,16 +80,18 @@ const NavContainer = styled.nav`
     height: 10vh;
     width: 100%;
     align-items: center;
-    justify-content: space-between;
+    justify-content: end;
+    background: var(--clr-button-3);
   }
   .side-btn {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: center;
     text-transform: uppercase;
     background: var(--clr-button-3);
     color: var(--clr-primary-1);
-    padding: 3rem;
+    padding: 1rem !important;
+    margin: auto 0.5rem;
     letter-spacing: var(--spacing);
     font-weight: bold;
     transition: var(--transition);
@@ -97,22 +99,12 @@ const NavContainer = styled.nav`
     cursor: pointer;
     border-color: transparent;
     border-radius: 0;
-    width: 100%;
+    width: 30%;
     height: 100%;
   }
   .side-btn:hover {
     color: var(--clr-primary-2);
     background: var(--clr-button-4);
-  }
-  @media (min-width: 900px) {
-    .toggle-side {
-      display: none;
-    }
-  }
-  @media (max-width: 900px) {
-    .toggle-disp {
-      display: none;
-    }
   }
 `;
 

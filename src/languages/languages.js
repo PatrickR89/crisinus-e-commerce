@@ -77,7 +77,7 @@ const croatian = {
   shopBook: "kupiti knjigu",
   shopBooks: "kupite još knjiga",
   shopGifts: "kupite još poklona",
-  subscribeTo: "pretplatite se na newsletter",
+  subscribeTo: "pretplatite se na naš newsletter",
   subscribe: "pretplatite se",
   subtotal: "ukupno",
   title: "naslov",

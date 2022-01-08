@@ -17,7 +17,7 @@ const GiftshopFilter = () => {
 
   return (
     <Wrapper>
-      <form onSubmit={(e) => e.preventDefault()}>
+      <form onSubmit={(e) => e.preventDefault()} className="gift-form">
         <div className="filter-input">
           <label htmlFor="text">{translation.name}: </label>
           <input
@@ -45,9 +45,15 @@ const GiftshopFilter = () => {
           <p className="price">{priceFormat(price)}</p>
         </div>
       </form>
-      <button type="button" className="clear-filter" onClick={clearGiftsFilter}>
-        <FaRegTimesCircle />
-      </button>
+      <div className="btn-container">
+        <button
+          type="button"
+          className="clear-filter"
+          onClick={clearGiftsFilter}
+        >
+          <FaRegTimesCircle />
+        </button>
+      </div>
     </Wrapper>
   );
 };
@@ -139,6 +145,23 @@ const Wrapper = styled.div`
   .clear-filter:hover {
     cursor: pointer;
     color: var(--clr-clear-hover);
+  }
+  .btn-container{
+    margin: auto;
+  }
+  @media (max-width: 900px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .btn-container {
+      width:100%;
+      display: block;
+      align-items: center;
+      justify-content: center;
+    }
+  form {
+    flex-direction: column;
+    align-items: start;
   }
 `;
 

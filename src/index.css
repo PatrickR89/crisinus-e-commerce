@@ -167,3 +167,14 @@ main {
 .sidebar {
   background-color: var(--clr-button-3);
 }
+
+@media (min-width: 900px) {
+  .toggle-side {
+    display: none !important;
+  }
+}
+@media (max-width: 900px) {
+  .toggle-disp {
+    display: none !important;
+  }
+}

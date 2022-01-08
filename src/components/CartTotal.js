@@ -41,6 +41,12 @@ const Wrapper = styled.div`
   a {
     width: 90%;
   }
+  @media (max-width: 900px) {
+    width: 100%;
+    .boxin {
+      margin: auto;
+    }
+  }
 `;
 
 export default CartTotal;

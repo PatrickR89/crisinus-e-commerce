@@ -2,25 +2,47 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useLanguageContext } from "../contexts/language_context";
+import { useSidebarContext } from "../contexts/sidebar_context";
 
 const NavButtons = ({ nav }) => {
   const { translation } = useLanguageContext();
+  const { closeSidebarNav } = useSidebarContext();
   return (
     <Wrapper>
       <div className={nav ? "nav-container" : "side-container"}>
-        <Link to="/news" className={nav ? "nav-btn" : "nav-btn side-btn"}>
+        <Link
+          to="/news"
+          className={nav ? "nav-btn" : "nav-btn side-btn"}
+          onClick={closeSidebarNav}
+        >
           {translation.news}
         </Link>
-        <Link to="/books" className={nav ? "nav-btn" : "nav-btn side-btn"}>
+        <Link
+          to="/books"
+          className={nav ? "nav-btn" : "nav-btn side-btn"}
+          onClick={closeSidebarNav}
+        >
           {translation.books}
         </Link>
-        <Link to="/giftshop" className={nav ? "nav-btn" : "nav-btn side-btn"}>
+        <Link
+          to="/giftshop"
+          className={nav ? "nav-btn" : "nav-btn side-btn"}
+          onClick={closeSidebarNav}
+        >
           {translation.giftshop}
         </Link>
-        <Link to="/about" className={nav ? "nav-btn" : "nav-btn side-btn"}>
+        <Link
+          to="/about"
+          className={nav ? "nav-btn" : "nav-btn side-btn"}
+          onClick={closeSidebarNav}
+        >
           {translation.aboutUs}
         </Link>
-        <Link to="/contact" className={nav ? "nav-btn" : "nav-btn side-btn"}>
+        <Link
+          to="/contact"
+          className={nav ? "nav-btn" : "nav-btn side-btn"}
+          onClick={closeSidebarNav}
+        >
           {translation.contact}
         </Link>
       </div>

@@ -20,7 +20,7 @@ const CartContainer = () => {
 
   return (
     <Wrapper>
-      <div className="fields">
+      <div className="fields toggle-disp">
         <div className="item-name itm">
           <p>{translation.name}</p>
         </div>
@@ -141,6 +141,17 @@ const Wrapper = styled.div`
   }
   .btn-remove:hover {
     color: var(--clr-clear-hover);
+  }
+
+  @media (max-width: 900px) {
+    .totals {
+      width: 90%;
+      justify-content: center;
+      margin: 2rem auto;
+    }
+    .btn-container {
+      justify-content: center;
+    }
   }
 `;
 

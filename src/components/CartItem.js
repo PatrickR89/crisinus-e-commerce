@@ -4,10 +4,12 @@ import { useCartContext } from "../contexts/cart_context";
 import { useCurrencyContext } from "../contexts/currency_context";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { ItemAmount } from "../components";
+import { useLanguageContext } from "../contexts/language_context";
 
 const CartItem = ({ title, name, id, max, price, amount }) => {
   const { removeItem, toggleAmount } = useCartContext();
   const { priceFormat } = useCurrencyContext();
+  const { translation } = useLanguageContext();
 
   const increase = () => {
     toggleAmount(id, "inc");
@@ -22,6 +24,7 @@ const CartItem = ({ title, name, id, max, price, amount }) => {
           <h2>{name ? `${name}` : `${title}`}</h2>
         </div>
         <div className="item-col itm">
+          <p className="toggle-side">{translation.price}:</p>
           <p>{priceFormat(price)}</p>
         </div>
         <div className="item-col itm">
@@ -33,6 +36,7 @@ const CartItem = ({ title, name, id, max, price, amount }) => {
           />
         </div>
         <div className="item-col itm">
+          <p className="toggle-side">{translation.subtotal}: </p>
           <p>{priceFormat(price * amount)}</p>
         </div>
         <div className="itm">
@@ -59,6 +63,18 @@ const Wrapper = styled.div`
   }
   .btn-remove:hover {
     color: var(--clr-clear-hover);
+  }
+  .toggle-side {
+    margin-right: 1rem;
+  }
+  @media (max-width: 900px) {
+    .fields {
+      display: block;
+      justify-content: center;
+    }
+    .itm {
+      margin: auto;
+    }
   }
 `;
 

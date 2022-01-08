@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { PageHero, ContactForm } from "../components";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
 import { useLanguageContext } from "../contexts/language_context";
 
@@ -24,7 +24,7 @@ const ContactPage = () => {
             <FaInstagram />
           </Link>
           <Link to="#" className="logo">
-            <FaTwitter />
+            <FaYoutube />
           </Link>
           <Link to="#" className="logo">
             <FiMail />
@@ -57,6 +57,15 @@ const Wrapper = styled.div`
     }
     svg:hover {
       color: var(--clr-primary-2);
+    }
+  }
+
+  @media (max-width: 750px) {
+    flex-direction: column;
+    .info {
+      flex-direction: row;
+      width: 100%;
+      padding: 2rem 1rem;
     }
   }
 `;

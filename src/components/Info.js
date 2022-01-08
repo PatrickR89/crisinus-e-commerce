@@ -17,6 +17,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: start;
+  margin: auto;
   h1 {
     text-transform: capitalize;
     color: var(--clr-primary-1);
@@ -26,6 +27,15 @@ const Wrapper = styled.div`
   p {
     color: var(--clr-par-5);
     text-align: start;
+    margin: auto;
+  }
+  @media (max-width: 1190px) {
+    h1 {
+      margin-left: 3rem;
+    }
+    p {
+      margin: auto 2rem;
+    }
   }
 `;
 

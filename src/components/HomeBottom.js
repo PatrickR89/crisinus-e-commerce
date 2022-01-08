@@ -19,10 +19,9 @@ const HomeBottom = () => {
       <div>
         <form className="newsletter">
           <label htmlFor="email">
-            {" "}
-            <h2> {translation.subsrcibeTo} </h2>
+            <h2> {translation.subscribeTo} </h2>
           </label>
-          <div>
+          <div className="container-column">
             <input
               type="email"
               name="email"
@@ -35,7 +34,7 @@ const HomeBottom = () => {
           </div>
         </form>
       </div>
-      <div className="btn-container bottom-container">
+      <div className="btn-container home-bottom-order">
         <Link to="/order" className="bottom-btn">
           {translation.orderHowTo}
         </Link>
@@ -94,6 +93,7 @@ const Wrapper = styled.div`
     width: 100%;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 1rem;
   }
   .bottom-btn {
     display: flex;
@@ -124,8 +124,30 @@ const Wrapper = styled.div`
       height: 50%;
     }
   }
-  .bottom-container {
-    margin-bottom: 0.1rem;
+  @media (max-width: 900px) {
+    .home-bottom-order {
+      display: flex;
+      flex-direction: column !important;
+      height: auto;
+      margin-bottom: 2rem;
+    }
+    .home-bottom-order a {
+      padding: 1rem 0;
+    }
+    .newsletter {
+      input {
+        width: 90% !important;
+        margin: auto !important;
+      }
+      .btn {
+        width: 90% !important;
+        margin: 1rem auto !important;
+      }
+      div {
+        flex-direction: column;
+        height: auto;
+      }
+    }
   }
 `;
 
