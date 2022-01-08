@@ -116,7 +116,7 @@ const Wrapper = styled.div`
 
     .price-range::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 25px;
+      width: 15px;
       height: 15px;
       border-radius: 50%;
       background: var(--clr-primary-2);
@@ -125,7 +125,7 @@ const Wrapper = styled.div`
 
     .price-range::-moz-range-thumb {
       -webkit-appearance: none;
-      width: 25px;
+      width: 15px;
       height: 5px;
       border-radius: 50%;
       background: #04aa6d;
@@ -162,6 +162,23 @@ const Wrapper = styled.div`
   form {
     flex-direction: column;
     align-items: start;
+  }
+  @media (max-width: 500px) {
+    form{
+      label {
+        font-size: 0.9rem;
+      }
+      .filter-input {
+      input {
+        font-size: 0.9rem;
+      }
+    }
+    }
+    .price-form{
+    .price-range{
+      width: 8rem;
+    }
+    }
   }
 `;
 

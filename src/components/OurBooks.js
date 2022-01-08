@@ -41,8 +41,10 @@ const Wrapper = styled.div`
     }
   }
   @media (max-width: 650px) {
+    padding: 0.5rem;
     .home-books {
       grid-template-columns: repeat(2, 1fr);
+      justify-content: center;
     }
   }
 `;

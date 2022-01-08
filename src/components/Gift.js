@@ -32,6 +32,12 @@ const Wrapper = styled.div`
     text-transform: capitalize;
     font-size: 12px;
   }
+  @media (max-width: 650px) {
+    margin: 0.1rem;
+    .image {
+      margin: 0.5rem;
+    }
+  }
 `;
 
 export default Gift;

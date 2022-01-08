@@ -40,8 +40,10 @@ const Wrapper = styled.div`
     }
   }
   @media (max-width: 650px) {
+    padding: 0;
     .home-gifts {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, 0.5fr);
+      justify-content: center;
     }
   }
 `;
