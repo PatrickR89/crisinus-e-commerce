@@ -38,7 +38,7 @@ const filter_reducer = (state, action) => {
 
     if (title) {
       tempBooks = tempBooks.filter((book) => {
-        return book.title.toLowerCase().startsWith(title);
+        return book.title.toLowerCase().startsWith(title.toLowerCase());
       });
     }
     if (author !== "--") {
@@ -85,7 +85,7 @@ const filter_reducer = (state, action) => {
     let tempGifts = [...all_gifts];
     if (text) {
       tempGifts = tempGifts.filter((product) => {
-        return product.name.toLowerCase().startsWith(text);
+        return product.name.toLowerCase().startsWith(text.toLowerCase());
       });
     }
     tempGifts = tempGifts.filter((gift) => gift.price <= price);

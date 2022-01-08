@@ -23,7 +23,7 @@ const BooksPage = () => {
   } = useItemsContext();
   const { filtered_books } = useFilterContext();
   const { translation } = useLanguageContext();
-  const { openSidebarAuthors } = useSidebarContext();
+  const { openSidebarBooks } = useSidebarContext();
 
   if (loading) {
     return (
@@ -48,7 +48,7 @@ const BooksPage = () => {
           <FilterItems />
         </div>
         <div className="toggle-side">
-          <IconButton onClick={openSidebarAuthors}>
+          <IconButton onClick={openSidebarBooks}>
             <SearchIcon />
           </IconButton>
         </div>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import { Link } from "react-router-dom";
 import { PageHero } from "../components";
 import mockBooks from "../mockData/mockBooks";
@@ -7,71 +6,53 @@ import mockAuthors from "../mockData/mockAuthors";
 import styled from "styled-components";
 import { BookComponent } from "../components";
 import { useLanguageContext } from "../contexts/language_context";
+import { useAuthorsContext } from "../contexts/authors_context";
 
 const AuthorsPage = () => {
-  const Router = useRouter;
-  console.log(Router);
-
-  const [authorArray, setAuthorArray] = useState([]);
-  const [booksByAuthor, setBooksByAuthor] = useState([]);
-  const [authorName, setAuthorName] = useState("");
-  const [currentAuthor, setCurrentAuthor] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [shallowHref, setShallowHref] = useState("none");
+  const {
+    authorsList: authorArray,
+    authorName,
+    currentAuthor,
+    booksByAuthor,
+    isLoading,
+    authorChange
+  } = useAuthorsContext();
 
   const { translation } = useLanguageContext();
-
-  useEffect(() => {
-    setAuthorArray([
-      ...new Set(
-        mockBooks
-          .map((book) => {
-            return book.authors.map((author) => {
-              return `${author.name} ${author.last_name}`;
-            });
-          })
-          .flat(1)
-      )
-    ]);
-  }, []);
-
-  useEffect(() => {
-    setBooksByAuthor(booksPerAuthor(authorName));
-    setCurrentAuthor(switchAuthor);
-    setShallowHref(authorName.replace(/\s+/g, "_"));
-    console.log(shallowHref);
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 300);
-  }, [authorName, currentAuthor]);
-
-  // useEffect(() => {
-  //   Router.push("authors/", shallowHref, { shallow: true });
-  // }, [shallowHref]);
-
-  const booksPerAuthor = (name) => {
-    return mockBooks.filter((book) => {
-      return book.authors.find(
-        (author) => `${author.name} ${author.last_name}` === `${name}`
-      );
-    });
-  };
-
-  const authorChange = (author) => {
-    setIsLoading(true);
-    setAuthorName(author);
-  };
-
-  const switchAuthor = mockAuthors.find(
-    (author) => `${author.name} ${author.last_name}` === `${authorName}`
-  );
 
   if (isLoading) {
     return (
       <div className="loading">
         <h1>{translation.pleaseWait}...</h1>
       </div>
+    );
+  }
+
+  if (!currentAuthor) {
+    return (
+      <Wrapper className="solo">
+        <div className="menu-left center">
+          <ul>
+            {authorArray.map((author, index) => {
+              return (
+                <li key={index}>
+                  <button
+                    className={
+                      author === authorName
+                        ? "btn select current"
+                        : " btn select"
+                    }
+                    disabled={author === authorName ? true : false}
+                    onClick={() => authorChange(author)}
+                  >
+                    {author}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </Wrapper>
     );
   }
 
@@ -174,6 +155,20 @@ const Wrapper = styled.div`
   }
   .menu-left {
     margin-right: 2rem;
+  }
+
+  .center {
+    width: 25%;
+    margin: auto;
+  }
+  @media (max-width: 1000px) {
+  .center {
+    width: 60%;
+
+  }
+  @media (max-width: 600px) {
+  .center {
+    width: 100%;
   }
 `;
 

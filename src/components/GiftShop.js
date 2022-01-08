@@ -34,6 +34,11 @@ const Wrapper = styled.div`
     justify-content: space-between;
     margin: 0.5rem;
   }
+  @media (max-width: 1120px) {
+    .home-gifts {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
   @media (max-width: 1000px) {
     .home-gifts {
       grid-template-columns: repeat(3, 1fr);

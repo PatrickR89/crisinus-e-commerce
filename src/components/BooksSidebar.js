@@ -20,10 +20,10 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function PersistentDrawerRight() {
-  const { closeSidebarAuthors, isSidebarAuthorsOpen } = useSidebarContext();
+  const { closeSidebarBooks, isSidebarBooksOpen, ref } = useSidebarContext();
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }} ref={ref}>
       <Drawer
         sx={{
           width: drawerWidth,
@@ -35,10 +35,10 @@ export default function PersistentDrawerRight() {
         }}
         variant="persistent"
         anchor="right"
-        open={isSidebarAuthorsOpen}
+        open={isSidebarBooksOpen}
       >
         <DrawerHeader>
-          <IconButton onClick={closeSidebarAuthors}>
+          <IconButton onClick={closeSidebarBooks}>
             <ChevronRightIcon />
           </IconButton>
         </DrawerHeader>
