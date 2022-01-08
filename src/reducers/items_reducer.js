@@ -6,7 +6,10 @@ import {
   GET_SINGLE_ITEM_SUCCESS,
   GET_SINGLE_ITEM_ERROR,
   GET_ITEMS_DONE,
-  GET_SINGLE_ITEM_DONE
+  GET_SINGLE_ITEM_DONE,
+  UPDATE_SIZE,
+  UPDATE_LENGTH,
+  UPDATE_LENGTH_SEPARATE
 } from "../actions/items_actions";
 
 const items_reducer = (state, action) => {
@@ -45,6 +48,15 @@ const items_reducer = (state, action) => {
     return { ...state, single_item_loading: false };
   }
 
+  if (action.type === UPDATE_SIZE) {
+    return { ...state, screen_width: action.payload };
+  }
+  if (action.type === UPDATE_LENGTH) {
+    return { ...state, home_page_items: action.payload };
+  }
+  if (action.type === UPDATE_LENGTH_SEPARATE) {
+    return { ...state, items_list_length: action.payload };
+  }
   throw new Error(`No matching "${action.type}" action`);
 };
 

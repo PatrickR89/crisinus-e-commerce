@@ -16,11 +16,11 @@ const BooksList = ({ initialItems, SingleItem, url, pageItems }) => {
     if (loading) return;
     setItems(data[page]);
     setNbPages(Math.ceil(initialItems.length / pageItems));
-  }, [loading, page, data]);
+  }, [loading, page, data, pageItems]);
 
   useEffect(() => {
     setPage(0);
-  }, [initialItems]);
+  }, [initialItems, pageItems]);
 
   const nextPage = () => {
     setPage((oldPage) => {
@@ -97,8 +97,21 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: center;
     gap: 1rem;
+  }
+  .btn {
+    padding: 0.375rem 2.5rem;
+  }
+  @media (max-width: 1000px) {
+    .home-books {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 725px) {
+    .home-books {
+      grid-template-columns: repeat(2, 1fr);
+    }
     .btn {
-      padding: 0.375rem 2.5rem;
+      padding: 0.375rem 0.5rem;
     }
   }
 `;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { SingleNews, NewsList } from "../components";
 import { mockNews } from "../mockData/mockNews";
 
-const News = () => {
+const News = ({ page }) => {
   const [singleNews, setSingleNews] = useState(mockNews[0]);
   const [newId, setNewId] = useState(1);
 
@@ -18,7 +18,7 @@ const News = () => {
   return (
     <main>
       <Wrapper>
-        <div className="single">
+        <div className={page ? "n-page single" : "single"}>
           <SingleNews {...singleNews} />
         </div>
         <div className="list">
@@ -60,6 +60,17 @@ const Wrapper = styled.div`
   .li-item {
     transition: 0.1s ease-in;
     text-transform: capitalize;
+  }
+  .n-page {
+    font-size: 1.25rem;
+  }
+  @media (max-width: 650px) {
+    .single {
+      width: 85%;
+    }
+    .list {
+      width: 15%;
+    }
   }
 `;
 

@@ -7,7 +7,7 @@ export const useFetchItems = (inputData, itemsPerPage) => {
 
   useEffect(() => {
     getItems();
-  }, [inputData]);
+  }, [inputData, itemsPerPage]);
 
   const getItems = () => {
     setData(itemsPaging(inputData, itemsPerPage));

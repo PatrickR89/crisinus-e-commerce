@@ -1,4 +1,9 @@
-import React, { useContext, useEffect, useReducer } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useReducer
+} from "react";
 import reducer from "../reducers/items_reducer";
 import {
   GET_ITEMS_START,
@@ -8,7 +13,10 @@ import {
   GET_SINGLE_ITEM_SUCCESS,
   GET_SINGLE_ITEM_ERROR,
   GET_ITEMS_DONE,
-  GET_SINGLE_ITEM_DONE
+  GET_SINGLE_ITEM_DONE,
+  UPDATE_SIZE,
+  UPDATE_LENGTH,
+  UPDATE_LENGTH_SEPARATE
 } from "../actions/items_actions";
 
 import mockBooks from "../mockData/mockBooks";
@@ -21,7 +29,10 @@ const initialState = {
   gifts: [],
   single_item_loading: true,
   single_item_error: false,
-  single_item: {}
+  single_item: {},
+  screen_width: 0,
+  home_page_items: 10,
+  items_list_length: 8
 };
 
 const ItemsContext = React.createContext();
@@ -72,9 +83,34 @@ export const ItemsProvider = ({ children }) => {
     }
   };
 
+  const updateSize = () => {
+    dispatch({ type: UPDATE_SIZE, payload: window.innerWidth });
+  };
+
   useEffect(() => {
     fetchItems();
   }, []);
+
+  useLayoutEffect(() => {
+    window.addEventListener("resize", updateSize);
+    updateSize();
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
+  useEffect(() => {
+    if (state.screen_width > 1000) {
+      dispatch({ type: UPDATE_LENGTH, payload: 10 });
+      dispatch({ type: UPDATE_LENGTH_SEPARATE, payload: 8 });
+    }
+    if (state.screen_width < 1000) {
+      dispatch({ type: UPDATE_LENGTH, payload: 6 });
+      dispatch({ type: UPDATE_LENGTH_SEPARATE, payload: 6 });
+    }
+    if (state.screen_width < 650) {
+      dispatch({ type: UPDATE_LENGTH, payload: 4 });
+      dispatch({ type: UPDATE_LENGTH_SEPARATE, payload: 4 });
+    }
+  }, [state.screen_width]);
 
   return (
     <ItemsContext.Provider

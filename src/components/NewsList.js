@@ -5,7 +5,7 @@ const NewsList = ({ title, date }) => {
   return (
     <Wrapper>
       {title}
-      <p>{date}</p>
+      <p className="n-hide">{date}</p>
     </Wrapper>
   );
 };
@@ -17,6 +17,12 @@ const Wrapper = styled.div`
   p {
     font-size: 0.8rem;
     color: var(--clr-primary-1);
+  }
+  @media (max-width: 650px) {
+    justify-content: end;
+    .n-hide {
+      display: none;
+    }
   }
 `;
 

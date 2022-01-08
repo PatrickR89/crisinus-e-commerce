@@ -6,12 +6,12 @@ import Gift from "./Gift";
 import { Link } from "react-router-dom";
 
 const GiftShop = () => {
-  const { gifts } = useItemsContext();
+  const { gifts, home_page_items } = useItemsContext();
 
   return (
     <Wrapper>
       <ul className="home-gifts">
-        {gifts.slice(0, 10).map((gift) => {
+        {gifts.slice(0, home_page_items).map((gift) => {
           return (
             <li key={gift.id}>
               <Link to={`/giftshop/${gift.id}`}>
@@ -33,6 +33,16 @@ const Wrapper = styled.div`
     align-items: start;
     justify-content: space-between;
     margin: 0.5rem;
+  }
+  @media (max-width: 1000px) {
+    .home-gifts {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 650px) {
+    .home-gifts {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 `;
 

@@ -16,7 +16,11 @@ import { useLanguageContext } from "../contexts/language_context";
 import { useSidebarContext } from "../contexts/sidebar_context";
 
 const BooksPage = () => {
-  const { items_loading: loading, items_error: error } = useItemsContext();
+  const {
+    items_loading: loading,
+    items_error: error,
+    items_list_length
+  } = useItemsContext();
   const { filtered_books } = useFilterContext();
   const { translation } = useLanguageContext();
   const { openSidebarAuthors } = useSidebarContext();
@@ -54,7 +58,7 @@ const BooksPage = () => {
         <ItemsList
           initialItems={filtered_books}
           SingleItem={BookInBooks}
-          pageItems={8}
+          pageItems={items_list_length}
           url="/books/"
         />
       </Wrapper>

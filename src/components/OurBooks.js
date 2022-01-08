@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -6,12 +6,12 @@ import { useItemsContext } from "../contexts/items_context";
 import BookComponent from "./BookComponent";
 
 const OurBooks = () => {
-  const { books } = useItemsContext();
+  const { books, home_page_items } = useItemsContext();
 
   return (
     <Wrapper>
       <ul className="home-books">
-        {books.slice(0, 10).map((book) => {
+        {books.slice(0, home_page_items).map((book) => {
           return (
             <li key={book.id}>
               <Link to={`/books/${book.id}`}>
@@ -34,6 +34,16 @@ const Wrapper = styled.div`
     align-items: start;
     justify-content: space-between;
     margin: 0.5rem;
+  }
+  @media (max-width: 1000px) {
+    .home-books {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 650px) {
+    .home-books {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 `;
 

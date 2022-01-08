@@ -9,7 +9,11 @@ import { PageHero, ItemsList, GiftshopFilter } from "../components";
 import { Gift } from "../components";
 
 const GiftshopPage = () => {
-  const { items_loading: loading, items_error: error } = useItemsContext();
+  const {
+    items_loading: loading,
+    items_error: error,
+    items_list_length
+  } = useItemsContext();
   const { filtered_gifts } = useFilterContext();
   const { translation } = useLanguageContext();
 
@@ -37,7 +41,7 @@ const GiftshopPage = () => {
         <ItemsList
           initialItems={filtered_gifts}
           SingleItem={Gift}
-          pageItems={12}
+          pageItems={items_list_length + 4}
           url="/giftshop/"
         />
       </Wrapper>

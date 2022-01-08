@@ -11,7 +11,7 @@ const NewsPage = () => {
     <main>
       <PageHero title={translation.news} />
       <Wrapper>
-        <News />
+        <News page={true} />
       </Wrapper>
     </main>
   );
@@ -22,8 +22,7 @@ const Wrapper = styled.div`
   align-items: start;
   justify-content: center;
   height: 65vh;
-
-  font-size: 1.5rem;
+  margin: 1rem;
 `;
 
 export default NewsPage;
