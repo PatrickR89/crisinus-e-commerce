@@ -1,0 +1,7 @@
+export const SET_BOOK_IDS = "SET_BOOK_IDS";
+export const SET_BOOK_LIST = "SET_BOOK_LIST";
+export const SET_CURRENT_BOOK = "SET_CURRENT_BOOK";
+export const LOADING_START = "LOADING_START";
+export const LOADING_END = "LOADING_END";
+export const SET_REVIEWS_PER_BOOK = "SET_REVIEWS_PER_BOOK";
+export const SET_CURRENT_BOOK_OBJ = "SET_CURRENT_BOOK_OBJ";

@@ -2,54 +2,49 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useLanguageContext } from "../contexts/language_context";
+import { useReviewsContext } from "../contexts/reviews_context";
+import { useFetchItems } from "../hooks/useFetchItems";
 
-import { PageHero, RatingStars } from "../components";
-import mockReviews from "../mockData/mockReviews";
-import mockBooks from "../mockData/mockBooks";
+import { PageHero, RatingStars, ListMenu } from "../components";
 
 const ReviewsPage = () => {
   const { translation } = useLanguageContext();
+  const {
+    switchBook,
+    currentBook,
+    reviewsPerBook,
+    isLoading,
+    bookList,
+    currentBookObject: cB
+  } = useReviewsContext();
 
-  const [bookIds, setBookIds] = useState([]);
-  const [bookList, setBookList] = useState([]);
-  const [reviewsPerBook, setReviewsPerBook] = useState([]);
-  const [currentBook, setCurrentBook] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const [items, setItems] = useState([]);
 
-  useEffect(() => {
-    setBookIds([
-      ...new Set(
-        mockReviews.map((review) => {
-          return review.bookId;
-        })
-      )
-    ]);
-  }, []);
+  const { loading, data } = useFetchItems(bookList, 5);
 
   useEffect(() => {
-    setBookList(
-      bookIds
-        .map((id) => {
-          return mockBooks.filter((book) => book.id === id);
-        })
-        .flat(1)
-    );
-  }, [bookIds]);
+    if (loading) return;
+    setItems(data[page]);
+  }, [loading, page, data]);
 
-  useEffect(() => {
-    setReviewsPerBook(bookReviews(currentBook));
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 300);
-  }, [currentBook]);
-
-  const switchBook = (id) => {
-    setIsLoading(true);
-    setCurrentBook(id);
+  const nextPage = () => {
+    setPage((oldPage) => {
+      let nextPage = oldPage + 1;
+      if (nextPage > data.length - 1) {
+        nextPage = 0;
+      }
+      return nextPage;
+    });
   };
-
-  const bookReviews = (id) => {
-    return mockReviews.filter((review) => review.bookId === id);
+  const prevPage = () => {
+    setPage((oldPage) => {
+      let prevPage = oldPage - 1;
+      if (prevPage < 0) {
+        prevPage = data.length - 1;
+      }
+      return prevPage;
+    });
   };
 
   if (isLoading) {
@@ -64,28 +59,29 @@ const ReviewsPage = () => {
     <main>
       <PageHero title={translation.reviews} />
       <Wrapper>
-        <div className="menu-left">
-          <ul>
-            {bookList.map((book) => {
-              return (
-                <li key={book.id}>
-                  <button
-                    className={
-                      book.id === currentBook
-                        ? "btn select current"
-                        : " btn select"
-                    }
-                    disabled={book.id === currentBook ? true : false}
-                    onClick={() => switchBook(book.id)}
-                  >
-                    {book.title}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+        <ListMenu
+          items={items}
+          prevPage={prevPage}
+          nextPage={nextPage}
+          itemChange={switchBook}
+          itemCriteria={currentBook}
+          length={bookList.length}
+          byId={true}
+        />
         <div className="reviews">
+          {cB ? (
+            <h3
+              style={{
+                marginBottom: "2rem",
+                fontStyle: "italic",
+                textTransform: "capitalize"
+              }}
+            >
+              {cB.title}
+            </h3>
+          ) : (
+            ""
+          )}
           {reviewsPerBook.map((review) => {
             return (
               <div key={review.id}>

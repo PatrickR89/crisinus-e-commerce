@@ -12,25 +12,28 @@ import { CurrencyProvider } from "./contexts/currency_context";
 import { LanguageProvider } from "./contexts/language_context";
 import { SidebarProvider } from "./contexts/sidebar_context";
 import { AuthorsProvider } from "./contexts/authors_context";
+import { ReviewsProvider } from "./contexts/reviews_context";
 
 ReactDOM.render(
   <React.StrictMode>
     <CartProvider>
-      <ItemsProvider>
-        <FilterProvider>
-          <CurrencyProvider>
-            <LanguageProvider>
-              <SidebarProvider>
-                <AuthorsProvider>
-                  <Router>
-                    <App />
-                  </Router>
-                </AuthorsProvider>
-              </SidebarProvider>
-            </LanguageProvider>
-          </CurrencyProvider>
-        </FilterProvider>
-      </ItemsProvider>
+      <AuthorsProvider>
+        <ItemsProvider>
+          <ReviewsProvider>
+            <FilterProvider>
+              <CurrencyProvider>
+                <LanguageProvider>
+                  <SidebarProvider>
+                    <Router>
+                      <App />
+                    </Router>
+                  </SidebarProvider>
+                </LanguageProvider>
+              </CurrencyProvider>
+            </FilterProvider>
+          </ReviewsProvider>
+        </ItemsProvider>
+      </AuthorsProvider>
     </CartProvider>
   </React.StrictMode>,
   document.getElementById("root")

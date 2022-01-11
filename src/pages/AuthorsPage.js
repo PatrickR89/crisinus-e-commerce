@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PageHero } from "../components";
-import mockBooks from "../mockData/mockBooks";
-import mockAuthors from "../mockData/mockAuthors";
 import styled from "styled-components";
-import { BookComponent } from "../components";
+
+import { BookComponent, ListMenu } from "../components";
+import { useFetchItems } from "../hooks/useFetchItems";
 import { useLanguageContext } from "../contexts/language_context";
 import { useAuthorsContext } from "../contexts/authors_context";
 
 const AuthorsPage = () => {
+  const [page, setPage] = useState(0);
+  const [items, setItems] = useState([]);
+
   const {
     authorsList: authorArray,
     authorName,
@@ -18,7 +21,33 @@ const AuthorsPage = () => {
     authorChange
   } = useAuthorsContext();
 
+  const { loading, data } = useFetchItems(authorArray, 5);
+
   const { translation } = useLanguageContext();
+
+  useEffect(() => {
+    if (loading) return;
+    setItems(data[page]);
+  }, [loading, page, data]);
+
+  const nextPage = () => {
+    setPage((oldPage) => {
+      let nextPage = oldPage + 1;
+      if (nextPage > data.length - 1) {
+        nextPage = 0;
+      }
+      return nextPage;
+    });
+  };
+  const prevPage = () => {
+    setPage((oldPage) => {
+      let prevPage = oldPage - 1;
+      if (prevPage < 0) {
+        prevPage = data.length - 1;
+      }
+      return prevPage;
+    });
+  };
 
   if (isLoading) {
     return (
@@ -60,27 +89,14 @@ const AuthorsPage = () => {
     <main>
       <PageHero title={translation.authors} />
       <Wrapper>
-        <div className="menu-left">
-          <ul>
-            {authorArray.map((author, index) => {
-              return (
-                <li key={index}>
-                  <button
-                    className={
-                      author === authorName
-                        ? "btn select current"
-                        : " btn select"
-                    }
-                    disabled={author === authorName ? true : false}
-                    onClick={() => authorChange(author)}
-                  >
-                    {author}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+        <ListMenu
+          items={items}
+          prevPage={prevPage}
+          nextPage={nextPage}
+          itemChange={authorChange}
+          itemCriteria={authorName}
+          length={authorArray.length}
+        />
         {authorName && (
           <div className="about-author">
             <article className="name-about">

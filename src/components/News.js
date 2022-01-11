@@ -62,7 +62,7 @@ const Wrapper = styled.div`
     text-transform: capitalize;
   }
   .n-page {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
   @media (max-width: 650px) {
     .single {

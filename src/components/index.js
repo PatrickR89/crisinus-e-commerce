@@ -26,6 +26,7 @@ import Footer from "./Footer";
 import NavCart from "./NavCart";
 import NavButtons from "./NavButtons";
 import BooksSidebar from "./BooksSidebar";
+import ListMenu from "./ListMenu";
 
 export {
   News,
@@ -55,5 +56,6 @@ export {
   Footer,
   NavCart,
   NavButtons,
-  BooksSidebar
+  BooksSidebar,
+  ListMenu
 };
