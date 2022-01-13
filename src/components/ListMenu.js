@@ -1,6 +1,8 @@
 import React from "react";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
+import { useSidebarContext } from "../contexts/sidebar_context";
+
 const ListMenu = ({
   items,
   prevPage,
@@ -8,10 +10,16 @@ const ListMenu = ({
   itemChange,
   itemCriteria,
   length,
-  byId
+  byId,
+  sidebar
 }) => {
+  const { closeSidebarAR } = useSidebarContext();
+
   return (
-    <div className="menu-left">
+    <div
+      className={sidebar ? "menu-left" : "menu-left toggle-disp-1000"}
+      style={sidebar ? { width: "100%" } : {}}
+    >
       <ul>
         <li>
           <button
@@ -44,7 +52,15 @@ const ListMenu = ({
                     : false
                 }
                 onClick={
-                  byId ? () => itemChange(item.id) : () => itemChange(item)
+                  byId
+                    ? () => {
+                        itemChange(item.id);
+                        closeSidebarAR();
+                      }
+                    : () => {
+                        itemChange(item);
+                        closeSidebarAR();
+                      }
                 }
               >
                 {byId ? item.title : item}

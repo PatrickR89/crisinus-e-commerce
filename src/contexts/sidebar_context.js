@@ -4,12 +4,15 @@ import {
   SIDEBARNAV_CLOSE,
   SIDEBARNAV_OPEN,
   SIDEBAR_BOOKS_CLOSE,
-  SIDEBAR_BOOKS_OPEN
+  SIDEBAR_BOOKS_OPEN,
+  SIDEBAR_AR_CLOSE,
+  SIDEBAR_AR_OPEN
 } from "../actions/sidebar_actions";
 
 const initialState = {
   isSidebarNavOpen: false,
-  isSidebarBooksOpen: false
+  isSidebarBooksOpen: false,
+  isSidebarAROpen: false
 };
 
 const SidebarContext = React.createContext();
@@ -31,6 +34,12 @@ export const SidebarProvider = ({ children }) => {
   const closeSidebarBooks = () => {
     dispatch({ type: SIDEBAR_BOOKS_CLOSE });
   };
+  const openSidebarAR = () => {
+    dispatch({ type: SIDEBAR_AR_OPEN });
+  };
+  const closeSidebarAR = () => {
+    dispatch({ type: SIDEBAR_AR_CLOSE });
+  };
 
   useEffect(() => {
     const outsideClick = (e) => {
@@ -48,13 +57,20 @@ export const SidebarProvider = ({ children }) => {
       ) {
         closeSidebarBooks();
       }
+      if (
+        state.isSidebarAROpen &&
+        ref.current &&
+        !ref.current.contains(e.target)
+      ) {
+        closeSidebarAR();
+      }
     };
     document.addEventListener("mousedown", outsideClick);
 
     return () => {
       document.removeEventListener("mousedown", outsideClick);
     };
-  }, [state.isSidebarNavOpen, state.isSidebarBooksOpen]);
+  }, [state.isSidebarNavOpen, state.isSidebarBooksOpen, state.isSidebarAROpen]);
 
   return (
     <SidebarContext.Provider
@@ -64,6 +80,8 @@ export const SidebarProvider = ({ children }) => {
         closeSidebarNav,
         openSidebarBooks,
         closeSidebarBooks,
+        openSidebarAR,
+        closeSidebarAR,
         ref
       }}
     >

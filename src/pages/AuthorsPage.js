@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { PageHero } from "../components";
+import { PageHero, SidebarAR, BookComponent, ListMenu } from "../components";
 import styled from "styled-components";
+import { FaPenFancy } from "react-icons/fa";
 
-import { BookComponent, ListMenu } from "../components";
 import { useFetchItems } from "../hooks/useFetchItems";
 import { useLanguageContext } from "../contexts/language_context";
 import { useAuthorsContext } from "../contexts/authors_context";
+import { useSidebarContext } from "../contexts/sidebar_context";
 
 const AuthorsPage = () => {
   const [page, setPage] = useState(0);
@@ -24,6 +25,8 @@ const AuthorsPage = () => {
   const { loading, data } = useFetchItems(authorArray, 5);
 
   const { translation } = useLanguageContext();
+
+  const { openSidebarAR } = useSidebarContext();
 
   useEffect(() => {
     if (loading) return;
@@ -88,6 +91,11 @@ const AuthorsPage = () => {
   return (
     <main>
       <PageHero title={translation.authors} />
+      <ToggleAuthors>
+        <button className="btn" onClick={openSidebarAR}>
+          <FaPenFancy />
+        </button>
+      </ToggleAuthors>
       <Wrapper>
         <ListMenu
           items={items}
@@ -96,7 +104,9 @@ const AuthorsPage = () => {
           itemChange={authorChange}
           itemCriteria={authorName}
           length={authorArray.length}
+          className="toggle-disp"
         />
+
         {authorName && (
           <div className="about-author">
             <article className="name-about">
@@ -129,12 +139,38 @@ const AuthorsPage = () => {
           </div>
         )}
       </Wrapper>
+      <SidebarAR
+        items={items}
+        prevPage={prevPage}
+        nextPage={nextPage}
+        title={translation.authors}
+      />
     </main>
   );
 };
 
+const ToggleAuthors = styled.div`
+  height: 5vh;
+  width: 100%;
+  background-color: var(--clr-button-3);
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-top: -2rem;
+  font-size: 1.5rem;
+  .btn {
+    box-shadow: none;
+    height: 100%;
+    width: 35%;
+  }
+  @media (min-width: 1000px) {
+    display: none !important;
+  }
+`;
+
 const Wrapper = styled.div`
   display: flex;
+  margin: 2rem 1rem;
 
   .about-author: {
     display: flex;
@@ -178,13 +214,24 @@ const Wrapper = styled.div`
     margin: auto;
   }
   @media (max-width: 1000px) {
-  .center {
-    width: 60%;
-
+    flex-direction: column;
+    .center {
+      width: 60%;
+    }
+    .name-pic {
+      flex-direction: column;
+      align-items: center;
+      margin: 1rem;
+    }
+    .toggle-disp-1000 {
+      display: none !important;
+    }
   }
+
   @media (max-width: 600px) {
-  .center {
-    width: 100%;
+    .center {
+      width: 100%;
+    }
   }
 `;
 
