@@ -16,20 +16,26 @@ import {
   GET_SINGLE_ITEM_DONE,
   UPDATE_SIZE,
   UPDATE_LENGTH,
-  UPDATE_LENGTH_SEPARATE
+  UPDATE_LENGTH_SEPARATE,
+  CHANGE_NEWS_ID,
+  SET_SINGLE_NEWS
 } from "../actions/items_actions";
 
 import mockBooks from "../mockData/mockBooks";
 import mockGifts from "../mockData/mockGifts";
+import mockNews from "../mockData/mockNews";
 
 const initialState = {
   items_loading: true,
   items_error: false,
   books: [],
   gifts: [],
+  news: [],
+  newsID: 1,
   single_item_loading: true,
   single_item_error: false,
   single_item: {},
+  single_news: {},
   screen_width: 0,
   home_page_items: 10,
   items_list_length: 8
@@ -45,9 +51,10 @@ export const ItemsProvider = ({ children }) => {
     try {
       const books = await mockBooks;
       const gifts = await mockGifts;
+      const news = await mockNews;
       dispatch({
         type: GET_ITEMS_SUCCESS,
-        payload: [books, gifts]
+        payload: [books, gifts, news]
       });
       setTimeout(() => {
         dispatch({ type: GET_ITEMS_DONE });
@@ -82,10 +89,24 @@ export const ItemsProvider = ({ children }) => {
       dispatch({ type: GET_SINGLE_ITEM_ERROR });
     }
   };
+  const changeNews = (id) => {
+    dispatch({ type: CHANGE_NEWS_ID, payload: id });
+  };
+  const changeNewsAuto = (id) => {
+    dispatch({ type: CHANGE_NEWS_ID, payload: id });
+  };
 
   const updateSize = () => {
     dispatch({ type: UPDATE_SIZE, payload: window.innerWidth });
   };
+  useEffect(() => {
+    dispatch({ type: GET_SINGLE_ITEM_START });
+    const tempNews = state.news.filter((item) => item.id === state.newsID);
+    dispatch({ type: SET_SINGLE_NEWS, payload: tempNews[0] });
+    setTimeout(() => {
+      dispatch({ type: GET_SINGLE_ITEM_DONE });
+    }, 300);
+  }, [state.newsID, state.news]);
 
   useEffect(() => {
     fetchItems();
@@ -114,7 +135,13 @@ export const ItemsProvider = ({ children }) => {
 
   return (
     <ItemsContext.Provider
-      value={{ ...state, fetchSingleBook, fetchSingleGift }}
+      value={{
+        ...state,
+        fetchSingleBook,
+        fetchSingleGift,
+        changeNews,
+        changeNewsAuto
+      }}
     >
       {children}
     </ItemsContext.Provider>

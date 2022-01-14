@@ -9,6 +9,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useSidebarContext } from "../contexts/sidebar_context";
 import { useAuthorsContext } from "../contexts/authors_context";
 import { useReviewsContext } from "../contexts/reviews_context";
+import { useItemsContext } from "../contexts/items_context";
 
 import { ListMenu } from "../components";
 
@@ -28,7 +29,10 @@ export default function PersistentDrawerRight({
   prevPage,
   nextPage,
   title,
-  ver
+  ver,
+  mLength,
+  handleChange,
+  newId
 }) {
   const { closeSidebarAR, isSidebarAROpen, ref_ar } = useSidebarContext();
 
@@ -37,6 +41,7 @@ export default function PersistentDrawerRight({
     authorName,
     authorChange
   } = useAuthorsContext();
+  const { news, newsID, changeNews } = useItemsContext();
 
   const { switchBook, currentBook, bookList } = useReviewsContext();
 
@@ -83,6 +88,18 @@ export default function PersistentDrawerRight({
             itemChange={switchBook}
             itemCriteria={currentBook}
             length={bookList.length}
+            byId={true}
+            sidebar={true}
+          />
+        )}
+        {ver === "news" && (
+          <ListMenu
+            items={items}
+            prevPage={prevPage}
+            nextPage={nextPage}
+            itemChange={changeNews}
+            itemCriteria={newsID}
+            length={news.length}
             byId={true}
             sidebar={true}
           />

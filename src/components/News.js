@@ -1,41 +1,77 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { SingleNews, NewsList } from "../components";
-import { mockNews } from "../mockData/mockNews";
 
-const News = ({ page }) => {
-  const [singleNews, setSingleNews] = useState(mockNews[0]);
-  const [newId, setNewId] = useState(1);
+import { SingleNews, ListMenu, SidebarAR } from "../components";
+import { useFetchItems } from "../hooks/useFetchItems";
 
-  const handleChange = (id) => {
-    setNewId(id);
-  };
+import { useLanguageContext } from "../contexts/language_context";
+import { useItemsContext } from "../contexts/items_context";
+
+const News = ({ newsPage, home }) => {
+  const { translation } = useLanguageContext();
+  const { changeNews, changeNewsAuto, news, newsID, single_news } =
+    useItemsContext();
+
+  const [tempIndex, setTempIndex] = useState(0);
+  const [items, setItems] = useState([]);
+  const [page, setPage] = useState(0);
+
+  const { loading, data, prevPage, nextPage } = useFetchItems(news, 5, setPage);
+
   useEffect(() => {
-    const tempNews = mockNews.filter((item) => item.id === newId);
-    setSingleNews(tempNews[0]);
-  }, [newId]);
+    if (loading) return;
+    setItems(data[page]);
+  }, [loading, page, data]);
+
+  useEffect(() => {
+    if (home) {
+      setTimeout(() => {
+        if (tempIndex > 0) {
+          setTempIndex(tempIndex - 1);
+        } else {
+          setTempIndex(news.length - 1);
+        }
+      }, 5000);
+
+      changeNews(news[tempIndex].id);
+    }
+  }, [tempIndex, home]);
+
+  if (home) {
+    return (
+      <main>
+        <Wrapper>
+          <div className="single-home">
+            <SingleNews {...single_news} />
+          </div>
+        </Wrapper>
+      </main>
+    );
+  }
 
   return (
     <main>
       <Wrapper>
-        <div className={page ? "n-page single" : "single"}>
-          <SingleNews {...singleNews} />
+        <div className={newsPage ? "n-page single" : "single-home"}>
+          <SingleNews {...single_news} />
         </div>
-        <div className="list">
-          <ul>
-            {mockNews.map((news) => {
-              const { id } = news;
-              return (
-                <li key={id} onClick={() => handleChange(id)}>
-                  <div className="li-item select">
-                    <NewsList {...news} />
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+        <ListMenu
+          items={items}
+          prevPage={prevPage}
+          nextPage={nextPage}
+          itemChange={changeNews}
+          itemCriteria={newsID}
+          length={news.length}
+          byId={true}
+        />
       </Wrapper>
+      <SidebarAR
+        items={items}
+        prevPage={prevPage}
+        nextPage={nextPage}
+        title={translation.news}
+        ver="news"
+      />
     </main>
   );
 };
@@ -52,6 +88,13 @@ const Wrapper = styled.div`
     overflow: auto;
     position: relative;
   }
+  .single-home {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    position: relative;
+    margin: 0.5rem;
+  }
   .list {
     width: 24%;
     height: 100%;
@@ -63,6 +106,12 @@ const Wrapper = styled.div`
   }
   .n-page {
     font-size: 1rem;
+  }
+  @media (max-width: 1000px) {
+    .single {
+      width: 100%;
+      margin: auto;
+    }
   }
   @media (max-width: 650px) {
     .single {

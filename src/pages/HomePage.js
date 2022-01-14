@@ -9,7 +9,7 @@ const HomePage = () => {
       <Wrapper>
         <div className="container">
           <div className="col news">
-            <News />
+            <News home={true} />
           </div>
           <div className="col">
             <OurBooks />

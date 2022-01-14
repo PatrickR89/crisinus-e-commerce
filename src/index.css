@@ -198,11 +198,6 @@ main {
   .center {
     width: 60%;
   }
-  .name-pic {
-    flex-direction: column;
-    align-items: center;
-    margin: 1rem;
-  }
   .toggle-disp-1000 {
     display: none !important;
   }

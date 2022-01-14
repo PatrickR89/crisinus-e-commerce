@@ -159,11 +159,12 @@ const ToggleAuthors = styled.div`
   justify-content: end;
   margin-top: -2rem;
   margin-bottom: 1rem;
-  font-size: 1.5rem;
+
   .btn {
     box-shadow: none;
     height: 100%;
     width: 35%;
+    font-size: 1.5rem;
   }
   @media (min-width: 1000px) {
     display: none !important;
@@ -214,31 +215,12 @@ const Wrapper = styled.div`
   } */
   }
 
-  ${
-    "" /* .center {
-    width: 25%;
-    margin: auto;
-  }
   @media (max-width: 1000px) {
-    flex-direction: column;
-    .center {
-      width: 60%;
-    }
     .name-pic {
       flex-direction: column;
       align-items: center;
       margin: 1rem;
     }
-    .toggle-disp-1000 {
-      display: none !important;
-    }
-  }
-
-  @media (max-width: 600px) {
-    .center {
-      width: 100%;
-    }
-  }  */
   }
 `;
 

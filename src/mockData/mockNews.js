@@ -1,4 +1,4 @@
-export const mockNews = [
+export default [
   {
     title: "news #1",
     id: 1,

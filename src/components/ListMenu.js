@@ -18,7 +18,7 @@ const ListMenu = ({
   return (
     <div
       className={sidebar ? "menu-left" : "menu-left toggle-disp-1000"}
-      style={sidebar ? { width: "100%" } : {}}
+      style={sidebar && { width: "100%" }}
     >
       <ul>
         <li>
