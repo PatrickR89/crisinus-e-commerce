@@ -8,6 +8,8 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import { useSidebarContext } from "../contexts/sidebar_context";
 import { useAuthorsContext } from "../contexts/authors_context";
+import { useReviewsContext } from "../contexts/reviews_context";
+
 import { ListMenu } from "../components";
 
 const drawerWidth = 320;
@@ -25,9 +27,10 @@ export default function PersistentDrawerRight({
   items,
   prevPage,
   nextPage,
-  title
+  title,
+  ver
 }) {
-  const { closeSidebarAR, isSidebarAROpen, ref } = useSidebarContext();
+  const { closeSidebarAR, isSidebarAROpen, ref_ar } = useSidebarContext();
 
   const {
     authorsList: authorArray,
@@ -35,8 +38,10 @@ export default function PersistentDrawerRight({
     authorChange
   } = useAuthorsContext();
 
+  const { switchBook, currentBook, bookList } = useReviewsContext();
+
   return (
-    <Box sx={{ display: "flex" }} ref={ref}>
+    <Box sx={{ display: "flex" }} ref={ref_ar}>
       <Drawer
         sx={{
           width: drawerWidth,
@@ -59,15 +64,29 @@ export default function PersistentDrawerRight({
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <ListMenu
-          items={items}
-          prevPage={prevPage}
-          nextPage={nextPage}
-          itemChange={authorChange}
-          itemCriteria={authorName}
-          length={authorArray.length}
-          sidebar={true}
-        />
+        {ver === "authors" && (
+          <ListMenu
+            items={items}
+            prevPage={prevPage}
+            nextPage={nextPage}
+            itemChange={authorChange}
+            itemCriteria={authorName}
+            length={authorArray.length}
+            sidebar={true}
+          />
+        )}
+        {ver === "reviews" && (
+          <ListMenu
+            items={items}
+            prevPage={prevPage}
+            nextPage={nextPage}
+            itemChange={switchBook}
+            itemCriteria={currentBook}
+            length={bookList.length}
+            byId={true}
+            sidebar={true}
+          />
+        )}
       </Drawer>
     </Box>
   );

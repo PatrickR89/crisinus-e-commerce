@@ -20,7 +20,9 @@ const SidebarContext = React.createContext();
 export const SidebarProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const ref = useRef();
+  const ref_nav = useRef();
+  const ref_books = useRef();
+  const ref_ar = useRef();
 
   const openSidebarNav = () => {
     dispatch({ type: SIDEBARNAV_OPEN });
@@ -42,35 +44,53 @@ export const SidebarProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const outsideClick = (e) => {
+    const outsideClickNav = (e) => {
       if (
         state.isSidebarNavOpen &&
-        ref.current &&
-        !ref.current.contains(e.target)
+        ref_nav.current &&
+        !ref_nav.current.contains(e.target)
       ) {
         closeSidebarNav();
       }
+    };
+    document.addEventListener("mousedown", outsideClickNav);
+
+    return () => {
+      document.removeEventListener("mousedown", outsideClickNav);
+    };
+  }, [state.isSidebarNavOpen]);
+  useEffect(() => {
+    const outsideClickBooks = (e) => {
       if (
         state.isSidebarBooksOpen &&
-        ref.current &&
-        !ref.current.contains(e.target)
+        ref_books.current &&
+        !ref_books.current.contains(e.target)
       ) {
         closeSidebarBooks();
       }
+    };
+    document.addEventListener("mousedown", outsideClickBooks);
+
+    return () => {
+      document.removeEventListener("mousedown", outsideClickBooks);
+    };
+  }, [state.isSidebarBooksOpen]);
+  useEffect(() => {
+    const outsideClickAR = (e) => {
       if (
         state.isSidebarAROpen &&
-        ref.current &&
-        !ref.current.contains(e.target)
+        ref_ar.current &&
+        !ref_ar.current.contains(e.target)
       ) {
         closeSidebarAR();
       }
     };
-    document.addEventListener("mousedown", outsideClick);
+    document.addEventListener("mousedown", outsideClickAR);
 
     return () => {
-      document.removeEventListener("mousedown", outsideClick);
+      document.removeEventListener("mousedown", outsideClickAR);
     };
-  }, [state.isSidebarNavOpen, state.isSidebarBooksOpen, state.isSidebarAROpen]);
+  }, [state.isSidebarAROpen]);
 
   return (
     <SidebarContext.Provider
@@ -82,7 +102,9 @@ export const SidebarProvider = ({ children }) => {
         closeSidebarBooks,
         openSidebarAR,
         closeSidebarAR,
-        ref
+        ref_nav,
+        ref_books,
+        ref_ar
       }}
     >
       {children}

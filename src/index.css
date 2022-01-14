@@ -177,6 +177,9 @@ main {
   justify-content: center;
   margin-top: 2rem;
 }
+.center {
+  width: 25%;
+}
 
 @media (min-width: 900px) {
   .toggle-side {
@@ -186,5 +189,27 @@ main {
 @media (max-width: 900px) {
   .toggle-disp {
     display: none !important;
+  }
+}
+@media (max-width: 1000px) {
+  .solo {
+    flex-direction: column;
+  }
+  .center {
+    width: 60%;
+  }
+  .name-pic {
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem;
+  }
+  .toggle-disp-1000 {
+    display: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .center {
+    width: 100%;
   }
 }

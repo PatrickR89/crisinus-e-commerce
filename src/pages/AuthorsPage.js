@@ -144,6 +144,7 @@ const AuthorsPage = () => {
         prevPage={prevPage}
         nextPage={nextPage}
         title={translation.authors}
+        ver="authors"
       />
     </main>
   );
@@ -157,6 +158,7 @@ const ToggleAuthors = styled.div`
   align-items: center;
   justify-content: end;
   margin-top: -2rem;
+  margin-bottom: 1rem;
   font-size: 1.5rem;
   .btn {
     box-shadow: none;
@@ -176,7 +178,8 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 75%;
+    width: 70%;
+    padding-left: 2rem;
   }
   .name-about {
     display: block;
@@ -205,11 +208,14 @@ const Wrapper = styled.div`
       max-width: 300px;
     }
   }
-  .menu-left {
+  ${
+    "" /* .menu-left {
     margin-right: 2rem;
+  } */
   }
 
-  .center {
+  ${
+    "" /* .center {
     width: 25%;
     margin: auto;
   }
@@ -232,6 +238,7 @@ const Wrapper = styled.div`
     .center {
       width: 100%;
     }
+  }  */
   }
 `;
 

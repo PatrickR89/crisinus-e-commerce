@@ -21,10 +21,10 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function PersistentDrawerRight() {
-  const { closeSidebarNav, isSidebarNavOpen, ref } = useSidebarContext();
+  const { closeSidebarNav, isSidebarNavOpen, ref_nav } = useSidebarContext();
 
   return (
-    <Box sx={{ display: "flex" }} ref={ref}>
+    <Box sx={{ display: "flex" }} ref={ref_nav}>
       <Drawer
         sx={{
           width: drawerWidth,

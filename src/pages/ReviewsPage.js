@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { FaBook } from "react-icons/fa";
 import { useLanguageContext } from "../contexts/language_context";
 import { useReviewsContext } from "../contexts/reviews_context";
+import { useSidebarContext } from "../contexts/sidebar_context";
 import { useFetchItems } from "../hooks/useFetchItems";
 
-import { PageHero, RatingStars, ListMenu } from "../components";
+import { PageHero, RatingStars, ListMenu, SidebarAR } from "../components";
 
 const ReviewsPage = () => {
   const { translation } = useLanguageContext();
+  const { openSidebarAR } = useSidebarContext();
   const {
     switchBook,
     currentBook,
@@ -55,9 +58,42 @@ const ReviewsPage = () => {
     );
   }
 
+  if (!cB) {
+    return (
+      <NoCB className="solo">
+        <div className="menu-left center">
+          <ul>
+            {bookList.map((book, index) => {
+              return (
+                <li key={index}>
+                  <button
+                    className={
+                      book.id === currentBook
+                        ? "btn select current"
+                        : " btn select"
+                    }
+                    disabled={book.id === currentBook ? true : false}
+                    onClick={() => switchBook(book.id)}
+                  >
+                    {book.title}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </NoCB>
+    );
+  }
+
   return (
     <main>
       <PageHero title={translation.reviews} />
+      <ToggleBooks>
+        <button className="btn" onClick={openSidebarAR}>
+          <FaBook />
+        </button>
+      </ToggleBooks>
       <Wrapper>
         <ListMenu
           items={items}
@@ -101,6 +137,13 @@ const ReviewsPage = () => {
           </Link>
         </div>
       </Wrapper>
+      <SidebarAR
+        items={items}
+        prevPage={prevPage}
+        nextPage={nextPage}
+        title={translation.reviews}
+        ver="reviews"
+      />
     </main>
   );
 };
@@ -124,6 +167,36 @@ const Wrapper = styled.div`
   .stars-container {
     display: flex;
     justify-content: center;
+  }
+  @media (max-width: 1000px) {
+    align-items: center;
+    .reviews {
+      width: 100%;
+      margin: 1rem 1rem 2rem 1rem;
+    }
+  }
+`;
+const NoCB = styled.div`
+  display: flex;
+  margin: 2rem 1rem;
+`;
+const ToggleBooks = styled.div`
+  height: 5vh;
+  width: 100%;
+  background-color: var(--clr-button-3);
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-top: -2rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  .btn {
+    box-shadow: none;
+    height: 100%;
+    width: 35%;
+  }
+  @media (min-width: 1000px) {
+    display: none !important;
   }
 `;
 
