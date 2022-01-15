@@ -9,7 +9,7 @@ import { useItemsContext } from "../contexts/items_context";
 
 const News = ({ newsPage, home }) => {
   const { translation } = useLanguageContext();
-  const { changeNews, changeNewsAuto, news, newsID, single_news } =
+  const { changeNews, news, newsID, single_news, single_item_loading } =
     useItemsContext();
 
   const [tempIndex, setTempIndex] = useState(0);
@@ -24,7 +24,7 @@ const News = ({ newsPage, home }) => {
   }, [loading, page, data]);
 
   useEffect(() => {
-    if (home) {
+    if (home && news.length) {
       setTimeout(() => {
         if (tempIndex > 0) {
           setTempIndex(tempIndex - 1);
@@ -32,10 +32,21 @@ const News = ({ newsPage, home }) => {
           setTempIndex(news.length - 1);
         }
       }, 5000);
-
       changeNews(news[tempIndex].id);
     }
-  }, [tempIndex, home]);
+  }, [tempIndex, news]);
+
+  if (!news) {
+    return <div></div>;
+  }
+
+  if (single_item_loading) {
+    return (
+      <div className="loading">
+        <h1>{translation.pleaseWait}...</h1>
+      </div>
+    );
+  }
 
   if (home) {
     return (

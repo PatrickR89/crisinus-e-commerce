@@ -13,7 +13,7 @@ const SingleGiftPage = () => {
 
   const {
     fetchSingleGift,
-    single_item: gift,
+    single_gift: gift,
     single_item_loading: loading,
     single_item_error: error
   } = useItemsContext();

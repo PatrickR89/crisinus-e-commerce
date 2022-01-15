@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Slideshow, PageHero, AddToCart } from "../components";
@@ -10,15 +10,24 @@ const SingleBookPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const idInt = parseInt(id);
+
   const { translation } = useLanguageContext();
 
   const {
     fetchSingleBook,
-    single_item: book,
+    single_book: book,
     single_item_loading: loading,
-    single_item_error: error
+    single_item_error: error,
+    books
   } = useItemsContext();
   const { priceFormat } = useCurrencyContext();
+
+  useEffect(() => {
+    if (books.length) {
+      fetchSingleBook(idInt);
+    }
+  }, [idInt, books]);
 
   const {
     title,
@@ -33,29 +42,25 @@ const SingleBookPage = () => {
   } = book;
 
   useEffect(() => {
-    fetchSingleBook(id);
-  }, [id]);
-
-  useEffect(() => {
     if (error) {
       setTimeout(() => {
         navigate.push("/books");
       }, 1500);
     }
-  }, [error, !book]);
-
-  if (loading) {
-    return (
-      <div className="loading">
-        <h1>{translation.pleaseWait}...</h1>
-      </div>
-    );
-  }
+  }, [error]);
 
   if (error) {
     return (
       <div className="loading">
         <h1>Unfortunately an error occured</h1>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="loading">
+        <h1>{translation.pleaseWait}...</h1>
       </div>
     );
   }

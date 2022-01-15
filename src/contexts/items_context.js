@@ -9,11 +9,14 @@ import {
   GET_ITEMS_START,
   GET_ITEMS_SUCCESS,
   GET_ITEMS_ERROR,
-  GET_SINGLE_ITEM_START,
-  GET_SINGLE_ITEM_SUCCESS,
-  GET_SINGLE_ITEM_ERROR,
   GET_ITEMS_DONE,
+  GET_SINGLE_ITEM_START,
+  GET_SINGLE_BOOK_SUCCESS,
+  GET_SINGLE_ITEM_ERROR,
   GET_SINGLE_ITEM_DONE,
+  GET_SINGLE_GIFT_SUCCESS,
+  GET_SINGLE_GIFT_ID,
+  GET_SINGLE_BOOK_ID,
   UPDATE_SIZE,
   UPDATE_LENGTH,
   UPDATE_LENGTH_SEPARATE,
@@ -25,17 +28,24 @@ import mockBooks from "../mockData/mockBooks";
 import mockGifts from "../mockData/mockGifts";
 import mockNews from "../mockData/mockNews";
 
+const initialBook = mockBooks[0];
+const initialGift = mockGifts[0];
+const initialNews = mockNews[0];
+
 const initialState = {
   items_loading: true,
   items_error: false,
+  bookID: 1,
+  giftID: 51,
   books: [],
   gifts: [],
   news: [],
   newsID: 1,
   single_item_loading: true,
   single_item_error: false,
-  single_item: {},
-  single_news: {},
+  single_book: initialBook,
+  single_gift: initialGift,
+  single_news: initialNews,
   screen_width: 0,
   home_page_items: 10,
   items_list_length: 8
@@ -66,30 +76,15 @@ export const ItemsProvider = ({ children }) => {
 
   const fetchSingleBook = (id) => {
     dispatch({ type: GET_SINGLE_ITEM_START });
-    try {
-      const singleBook = mockBooks.find((book) => book.id === parseInt(id));
-      dispatch({ type: GET_SINGLE_ITEM_SUCCESS, payload: singleBook });
-      setTimeout(() => {
-        dispatch({ type: GET_SINGLE_ITEM_DONE });
-      }, 500);
-    } catch (error) {
-      dispatch({ type: GET_SINGLE_ITEM_ERROR });
-    }
+    dispatch({ type: GET_SINGLE_BOOK_ID, payload: id });
   };
 
   const fetchSingleGift = (id) => {
     dispatch({ type: GET_SINGLE_ITEM_START });
-    try {
-      const singleGift = mockGifts.find((gift) => gift.id === parseInt(id));
-      dispatch({ type: GET_SINGLE_ITEM_SUCCESS, payload: singleGift });
-      setTimeout(() => {
-        dispatch({ type: GET_SINGLE_ITEM_DONE });
-      }, 300);
-    } catch (error) {
-      dispatch({ type: GET_SINGLE_ITEM_ERROR });
-    }
+    dispatch({ type: GET_SINGLE_GIFT_ID, payload: id });
   };
   const changeNews = (id) => {
+    dispatch({ type: GET_SINGLE_ITEM_START });
     dispatch({ type: CHANGE_NEWS_ID, payload: id });
   };
   const changeNewsAuto = (id) => {
@@ -100,17 +95,44 @@ export const ItemsProvider = ({ children }) => {
     dispatch({ type: UPDATE_SIZE, payload: window.innerWidth });
   };
   useEffect(() => {
-    dispatch({ type: GET_SINGLE_ITEM_START });
-    const tempNews = state.news.filter((item) => item.id === state.newsID);
-    dispatch({ type: SET_SINGLE_NEWS, payload: tempNews[0] });
-    setTimeout(() => {
-      dispatch({ type: GET_SINGLE_ITEM_DONE });
-    }, 300);
-  }, [state.newsID, state.news]);
-
-  useEffect(() => {
     fetchItems();
   }, []);
+
+  useEffect(() => {
+    const singleBook = state.books.find(
+      (book) => book.id === parseInt(state.bookID)
+    );
+    if (state.books.length) {
+      dispatch({ type: GET_SINGLE_BOOK_SUCCESS, payload: singleBook });
+    }
+
+    const timeoutBook = setTimeout(() => {
+      dispatch({ type: GET_SINGLE_ITEM_DONE });
+    }, 800);
+    return () => clearTimeout(timeoutBook);
+  }, [state.books, state.bookID]);
+
+  useEffect(() => {
+    const singleGift = state.gifts.find(
+      (gift) => gift.id === parseInt(state.giftID)
+    );
+    if (state.gifts.length) {
+      dispatch({ type: GET_SINGLE_GIFT_SUCCESS, payload: singleGift });
+    }
+
+    setTimeout(() => {
+      dispatch({ type: GET_SINGLE_ITEM_DONE });
+    }, 500);
+  }, [state.giftID, state.gifts]);
+
+  useEffect(() => {
+    if (state.news.length) {
+      dispatch({ type: SET_SINGLE_NEWS, payload: [state.news, state.newsID] });
+    }
+    return () => {
+      dispatch({ type: GET_SINGLE_ITEM_DONE });
+    };
+  }, [state.newsID, state.news]);
 
   useLayoutEffect(() => {
     window.addEventListener("resize", updateSize);

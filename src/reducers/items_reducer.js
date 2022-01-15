@@ -3,10 +3,13 @@ import {
   GET_ITEMS_SUCCESS,
   GET_ITEMS_ERROR,
   GET_SINGLE_ITEM_START,
-  GET_SINGLE_ITEM_SUCCESS,
+  GET_SINGLE_BOOK_SUCCESS,
   GET_SINGLE_ITEM_ERROR,
-  GET_ITEMS_DONE,
   GET_SINGLE_ITEM_DONE,
+  GET_SINGLE_GIFT_SUCCESS,
+  GET_SINGLE_GIFT_ID,
+  GET_SINGLE_BOOK_ID,
+  GET_ITEMS_DONE,
   UPDATE_SIZE,
   UPDATE_LENGTH,
   UPDATE_LENGTH_SEPARATE,
@@ -34,17 +37,35 @@ const items_reducer = (state, action) => {
     return { ...state, items_loading: false };
   }
   if (action.type === GET_SINGLE_ITEM_START) {
-    return { ...state, single_item_loading: true, single_item_error: false };
+    return {
+      ...state,
+      single_item_loading: true,
+      single_item_error: false
+    };
+  }
+  if (action.type === GET_SINGLE_BOOK_ID) {
+    return { ...state, bookID: action.payload };
+  }
+  if (action.type === GET_SINGLE_GIFT_ID) {
+    return { ...state, giftID: action.payload };
   }
   if (action.type === GET_SINGLE_ITEM_ERROR) {
     return { ...state, single_item_error: true, single_item_loading: false };
   }
-  if (action.type === GET_SINGLE_ITEM_SUCCESS) {
+  if (action.type === GET_SINGLE_BOOK_SUCCESS) {
     return {
       ...state,
 
       single_item_error: false,
-      single_item: action.payload
+      single_book: action.payload
+    };
+  }
+  if (action.type === GET_SINGLE_GIFT_SUCCESS) {
+    return {
+      ...state,
+
+      single_item_error: false,
+      single_gift: action.payload
     };
   }
   if (action.type === GET_SINGLE_ITEM_DONE) {
@@ -64,7 +85,10 @@ const items_reducer = (state, action) => {
     return { ...state, newsID: action.payload };
   }
   if (action.type === SET_SINGLE_NEWS) {
-    return { ...state, single_news: action.payload };
+    const news = action.payload[0];
+    const newsID = action.payload[1];
+    const tempNews = news.find((item) => item.id === newsID);
+    return { ...state, single_news: tempNews };
   }
   throw new Error(`No matching "${action.type}" action`);
 };
