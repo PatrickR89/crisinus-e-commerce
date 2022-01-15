@@ -55,21 +55,19 @@ const SingleGiftPage = () => {
     <main>
       <PageHero title={name} adress={translation.giftshop} />
       <Wrapper>
-        <div>
-          <div className="title">
-            <h1>{name}</h1>
-          </div>
-          <div className="main">
-            {images && <Slideshow images={images} />}
-            <div className="info">
-              <p className="tag">{translation.price} : </p>
-              <span className="info-data">{priceFormat(price)}</span>
-              <AddToCart product={gift} />
-              <div className="secondary">
-                <div className="about">
-                  <p className="tag">{translation.about} :</p>
-                  <article>{description}</article>
-                </div>
+        <div className="title">
+          <h2>{name}</h2>
+          {images && <Slideshow images={images} />}
+        </div>
+        <div className="main">
+          <div className="info">
+            <p className="tag">{translation.price} : </p>
+            <span className="info-data">{priceFormat(price)}</span>
+            <AddToCart product={gift} />
+            <div className="secondary">
+              <div className="about">
+                <p className="tag">{translation.about} :</p>
+                <article>{description}</article>
               </div>
             </div>
           </div>
@@ -84,47 +82,61 @@ const Wrapper = styled.div`
   justify-content: center;
   margin: auto;
   .main {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     margin: 2rem;
   }
   .title {
     width: 100%;
     text-align: start;
-    margin: auto 8rem;
-  }
-  .tag {
-    color: var(--clr-primary-3);
-    margin: 1rem;
-    text-transform: capitalize;
-  }
-  .info {
-    font-size: 1.5rem;
-  }
-  .info-data {
-    font-weight: bold;
-    text-transform: capitalize;
+    margin: auto;
+    h2 {
+      text-transform: uppercase;
+      margin: 1rem;
+    }
   }
   .secondary {
     margin: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    .about {
-      display: grid;
-      grid-column: 1;
-      p {
-        text-align: start;
-        margin-left: 1rem;
-        font-size: 2rem;
-        font-weight: bold;
-      }
-      article {
-        font-size: 1.5rem;
-        text-align: start;
-      }
+  }
+
+  .about {
+    display: grid;
+    grid-column: 1;
+    justify-content: center;
+
+    article {
+      font-size: 1rem;
+      text-align: start;
+    }
+  }
+
+  .tag {
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--clr-primary-3);
+  }
+  .info-data {
+    margin-bottom: 1rem;
+  }
+
+  .info {
+    font-size: 1rem;
+    span {
+      font-weight: bold;
+      text-transform: capitalize;
+      margin-bottom: 2rem;
+    }
+  }
+
+  @media (max-width: 850px) {
+    flex-direction: column;
+    .title {
+      text-align: center;
     }
   }
 `;

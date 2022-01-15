@@ -25,7 +25,7 @@ const News = ({ newsPage, home }) => {
 
   useEffect(() => {
     if (home && news.length) {
-      setTimeout(() => {
+      const indexTimeout = setTimeout(() => {
         if (tempIndex > 0) {
           setTempIndex(tempIndex - 1);
         } else {
@@ -33,12 +33,11 @@ const News = ({ newsPage, home }) => {
         }
       }, 5000);
       changeNews(news[tempIndex].id);
+      return () => {
+        clearTimeout(indexTimeout);
+      };
     }
   }, [tempIndex, news]);
-
-  if (!news) {
-    return <div></div>;
-  }
 
   if (single_item_loading) {
     return (

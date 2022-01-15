@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useCallback } from "react";
+import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Slideshow, PageHero, AddToCart } from "../components";
@@ -69,7 +69,7 @@ const SingleBookPage = () => {
     <main>
       <PageHero title={title} adress={translation.books} />
       <Wrapper>
-        <div className="main">
+        <div className="main-book">
           <div className="title">
             <h1>{title}</h1>
           </div>
@@ -88,7 +88,7 @@ const SingleBookPage = () => {
               );
             })}
           </div>
-          {images && <Slideshow images={images} />}
+          {images.length > 0 && <Slideshow images={images} />}
           <div className="layout">
             <div className="info">
               <div>
@@ -126,20 +126,22 @@ const SingleBookPage = () => {
   );
 };
 const Wrapper = styled.div`
-  display: block;
-  .main {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  .main-book {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
-    justify-content: center;
-    margin: auto;
   }
   .tag {
     color: var(--clr-primary-3);
     text-transform: capitalize;
   }
   .info {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
     div {
       display: flex;
       flex-direction: row;
@@ -165,18 +167,43 @@ const Wrapper = styled.div`
       p {
         text-align: start;
         margin-left: 1rem;
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-weight: bold;
         text-transform: capitalize;
       }
       article {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
       }
     }
   }
   .layout {
+    width: 100%;
     display: flex;
-    flex-direction: row;
+    justify-content: space-around;
+  }
+  @media (max-width: 850px) {
+    .main-book {
+      flex-direction: column;
+      margin: 2rem 1rem;
+    }
+    .layout {
+      flex-direction: column;
+      font-size: 0.8rem;
+      .info {
+        margin: 2rem 1rem;
+      }
+    }
+    .secondary {
+      .about {
+        .tag {
+          font-size: 1.2rem;
+        }
+        article {
+          font-size: 1rem;
+          margin: 1.25rem;
+        }
+      }
+    }
   }
 `;
 

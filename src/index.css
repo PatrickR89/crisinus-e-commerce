@@ -181,6 +181,15 @@ main {
   width: 25%;
 }
 
+/* .main {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 2rem;
+} */
+
 @media (min-width: 900px) {
   .toggle-side {
     display: none !important;

@@ -202,6 +202,9 @@ const Wrapper = styled.div`
     overflow: auto;
     ul {
       display: flex;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
     }
   }
   .image {
@@ -220,6 +223,21 @@ const Wrapper = styled.div`
       flex-direction: column;
       align-items: center;
       margin: 1rem;
+      .image {
+        margin-bottom: 2rem;
+      }
+    }
+    .books {
+      ul {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+  @media (max-width: 550px) {
+    .books {
+      ul {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   }
 `;

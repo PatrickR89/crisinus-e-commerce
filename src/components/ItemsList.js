@@ -2,44 +2,46 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useFetchItems } from "../hooks/useFetchItems";
+import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { useLanguageContext } from "../contexts/language_context";
+import { useItemsContext } from "../contexts/items_context";
 
 const BooksList = ({ initialItems, SingleItem, url, pageItems }) => {
   const { translation } = useLanguageContext();
+  const { screen_width } = useItemsContext();
 
-  const { loading, data } = useFetchItems(initialItems, pageItems);
   const [page, setPage] = useState(0);
   const [items, setItems] = useState([]);
   const [nbPages, setNbPages] = useState(0);
 
+  const { loading, data, nextPage, prevPage } = useFetchItems(
+    initialItems,
+    pageItems,
+    setPage
+  );
+
+  const { total, loading: loadingIS } = useInfiniteScroll(
+    initialItems,
+    pageItems,
+    setPage,
+    page
+  );
+
   useEffect(() => {
-    if (loading) return;
-    setItems(data[page]);
-    setNbPages(Math.ceil(initialItems.length / pageItems));
-  }, [loading, page, data, pageItems]);
+    if (screen_width >= 725) {
+      if (loading) return;
+      setItems(data[page]);
+      setNbPages(Math.ceil(initialItems.length / pageItems));
+    }
+    if (screen_width < 725) {
+      if (loadingIS) return;
+      setItems(total);
+    }
+  }, [loading, page, data, pageItems, total]);
 
   useEffect(() => {
     setPage(0);
-  }, [initialItems, pageItems]);
-
-  const nextPage = () => {
-    setPage((oldPage) => {
-      let nextPage = oldPage + 1;
-      if (nextPage > data.length - 1) {
-        nextPage = 0;
-      }
-      return nextPage;
-    });
-  };
-  const prevPage = () => {
-    setPage((oldPage) => {
-      let prevPage = oldPage - 1;
-      if (prevPage < 0) {
-        prevPage = data.length - 1;
-      }
-      return prevPage;
-    });
-  };
+  }, [initialItems, pageItems, screen_width]);
 
   if (initialItems.length < 1 || !items) {
     return (
@@ -57,7 +59,7 @@ const BooksList = ({ initialItems, SingleItem, url, pageItems }) => {
 
   return (
     <Wrapper>
-      {!loading && initialItems.length > pageItems && (
+      {!loading && initialItems.length > pageItems && screen_width >= 725 && (
         <div className="btn-container">
           <button className="btn" onClick={prevPage}>
             {translation.prev}
@@ -79,6 +81,7 @@ const BooksList = ({ initialItems, SingleItem, url, pageItems }) => {
           );
         })}
       </ul>
+      {/* {loadingIS && <p>loading...</p>} */}
     </Wrapper>
   );
 };

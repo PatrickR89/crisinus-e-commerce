@@ -53,7 +53,6 @@ export const ReviewsProvider = ({ children }) => {
   useEffect(() => {
     const findReviews = bookReviews(state.currentBook);
     const chosen = getTitle(state.currentBook);
-    console.log(chosen);
     dispatch({ type: SET_REVIEWS_PER_BOOK, payload: findReviews });
     dispatch({ type: SET_CURRENT_BOOK_OBJ, payload: chosen });
     setTimeout(() => {

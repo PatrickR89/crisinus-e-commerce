@@ -104,6 +104,8 @@ export const ItemsProvider = ({ children }) => {
     );
     if (state.books.length) {
       dispatch({ type: GET_SINGLE_BOOK_SUCCESS, payload: singleBook });
+    } else {
+      fetchItems();
     }
 
     const timeoutBook = setTimeout(() => {
@@ -118,6 +120,8 @@ export const ItemsProvider = ({ children }) => {
     );
     if (state.gifts.length) {
       dispatch({ type: GET_SINGLE_GIFT_SUCCESS, payload: singleGift });
+    } else {
+      fetchItems();
     }
 
     setTimeout(() => {
@@ -128,6 +132,8 @@ export const ItemsProvider = ({ children }) => {
   useEffect(() => {
     if (state.news.length) {
       dispatch({ type: SET_SINGLE_NEWS, payload: [state.news, state.newsID] });
+    } else {
+      fetchItems();
     }
     return () => {
       dispatch({ type: GET_SINGLE_ITEM_DONE });

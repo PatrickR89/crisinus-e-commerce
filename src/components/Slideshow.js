@@ -29,7 +29,7 @@ const Slideshow = ({ images }) => {
         {images.map((image, index) => {
           return (
             <div key={index} className={index === n ? "fade" : "slide fade"}>
-              <img src={image} style={{ height: "500px" }} alt="" />
+              <img src={image} alt="" />
             </div>
           );
         })}
@@ -48,9 +48,16 @@ const Wrapper = styled.div`
   box-sizing: border-box;
   position: relative;
   .container {
-    max-width: 500px;
+    max-width: 350px;
+    height: 450px;
+    display: flex;
+    align-items: center;
     position: relative;
-    margin: auto;
+    margin: 1rem;
+    img {
+      max-width: 350px;
+      margin: auto;
+    }
   }
   .slide {
     display: none;
@@ -108,6 +115,30 @@ const Wrapper = styled.div`
     }
     to {
       opacity: 1;
+    }
+  }
+  @media (max-width: 1200px) {
+    .container {
+      width: 300px;
+      height: 400px;
+
+      img {
+        max-width: 300px;
+      }
+    }
+  }
+  @media (max-width: 850px) {
+    .container {
+      margin: auto;
+    }
+  }
+  @media (max-width: 600px) {
+    .container {
+      width: 250px;
+      height: 300px;
+      img {
+        max-width: 250px;
+      }
     }
   }
 `;
