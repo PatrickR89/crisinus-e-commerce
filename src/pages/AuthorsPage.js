@@ -85,6 +85,7 @@ const AuthorsPage = ({}) => {
         items={items}
         prevPage={prevPage}
         nextPage={nextPage}
+        authorNavigate={authorNavigate}
         title={translation.authors}
         ver="authors"
       />

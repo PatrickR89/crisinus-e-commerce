@@ -30,9 +30,7 @@ export default function PersistentDrawerRight({
   nextPage,
   title,
   ver,
-  mLength,
-  handleChange,
-  newId
+  authorNavigate
 }) {
   const { closeSidebarAR, isSidebarAROpen, ref_ar } = useSidebarContext();
 
@@ -74,7 +72,7 @@ export default function PersistentDrawerRight({
             items={items}
             prevPage={prevPage}
             nextPage={nextPage}
-            itemChange={authorChange}
+            itemChange={authorNavigate}
             itemCriteria={authorName}
             length={authorArray.length}
             sidebar={true}
