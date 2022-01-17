@@ -28,6 +28,8 @@ import NavButtons from "./NavButtons";
 import BooksSidebar from "./BooksSidebar";
 import SidebarAR from "./SidebarAR";
 import ListMenu from "./ListMenu";
+import NoCurrentAuthor from "./NoCurrentAuthor";
+import CurrentAuthor from "./CurrentAuthor";
 
 export {
   News,
@@ -59,5 +61,7 @@ export {
   NavButtons,
   BooksSidebar,
   ListMenu,
-  SidebarAR
+  SidebarAR,
+  NoCurrentAuthor,
+  CurrentAuthor
 };

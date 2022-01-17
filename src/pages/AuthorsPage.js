@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { PageHero, SidebarAR, BookComponent, ListMenu } from "../components";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { PageHero, SidebarAR, ListMenu, NoCurrentAuthor } from "../components";
 import styled from "styled-components";
 import { FaPenFancy } from "react-icons/fa";
 
@@ -9,48 +9,45 @@ import { useLanguageContext } from "../contexts/language_context";
 import { useAuthorsContext } from "../contexts/authors_context";
 import { useSidebarContext } from "../contexts/sidebar_context";
 
-const AuthorsPage = () => {
+const AuthorsPage = ({}) => {
   const [page, setPage] = useState(0);
   const [items, setItems] = useState([]);
+  const navigate = useNavigate();
+  const param = useParams();
 
   const {
     authorsList: authorArray,
     authorName,
     currentAuthor,
-    booksByAuthor,
     isLoading,
     authorChange
   } = useAuthorsContext();
 
-  const { loading, data } = useFetchItems(authorArray, 5);
+  const { loading, data, nextPage, prevPage } = useFetchItems(
+    authorArray,
+    5,
+    setPage
+  );
 
   const { translation } = useLanguageContext();
 
   const { openSidebarAR } = useSidebarContext();
+  useEffect(() => {
+    if (param.author_url) {
+      authorChange(param.author_url);
+    }
+  }, []);
+
+  const authorNavigate = (item) => {
+    const authorTo = item.replace(/\s+/g, "-").toLowerCase();
+    navigate(authorTo, { replace: true });
+    authorChange(authorTo);
+  };
 
   useEffect(() => {
     if (loading) return;
     setItems(data[page]);
   }, [loading, page, data]);
-
-  const nextPage = () => {
-    setPage((oldPage) => {
-      let nextPage = oldPage + 1;
-      if (nextPage > data.length - 1) {
-        nextPage = 0;
-      }
-      return nextPage;
-    });
-  };
-  const prevPage = () => {
-    setPage((oldPage) => {
-      let prevPage = oldPage - 1;
-      if (prevPage < 0) {
-        prevPage = data.length - 1;
-      }
-      return prevPage;
-    });
-  };
 
   if (isLoading) {
     return (
@@ -61,31 +58,7 @@ const AuthorsPage = () => {
   }
 
   if (!currentAuthor) {
-    return (
-      <Wrapper className="solo">
-        <div className="menu-left center">
-          <ul>
-            {authorArray.map((author, index) => {
-              return (
-                <li key={index}>
-                  <button
-                    className={
-                      author === authorName
-                        ? "btn select current"
-                        : " btn select"
-                    }
-                    disabled={author === authorName ? true : false}
-                    onClick={() => authorChange(author)}
-                  >
-                    {author}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </Wrapper>
-    );
+    return <NoCurrentAuthor authorNavigate={authorNavigate} />;
   }
 
   return (
@@ -101,43 +74,12 @@ const AuthorsPage = () => {
           items={items}
           prevPage={prevPage}
           nextPage={nextPage}
-          itemChange={authorChange}
+          itemChange={authorNavigate}
           itemCriteria={authorName}
           length={authorArray.length}
           className="toggle-disp"
         />
-
-        {authorName && (
-          <div className="about-author">
-            <article className="name-about">
-              <div className="name-pic">
-                <div className="image">
-                  <img src={currentAuthor.img} alt="" />
-                </div>
-                <div className="name">
-                  <h2 className="title">{authorName}</h2>
-                </div>
-              </div>
-              <div className="bio">
-                <p>{currentAuthor.bio}</p>
-                <a href={currentAuthor.url}>{translation.more} ...</a>
-              </div>
-            </article>
-            <div className="books">
-              <ul>
-                {booksByAuthor.map((book) => {
-                  return (
-                    <li key={book.id}>
-                      <Link to={`/books/${book.id}`}>
-                        <BookComponent {...book} />
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </div>
-        )}
+        <Outlet />
       </Wrapper>
       <SidebarAR
         items={items}
@@ -174,72 +116,6 @@ const ToggleAuthors = styled.div`
 const Wrapper = styled.div`
   display: flex;
   margin: 2rem 1rem;
-
-  .about-author: {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 70%;
-    padding-left: 2rem;
-  }
-  .name-about {
-    display: block;
-    align-items: start;
-  }
-  .name-pic {
-    display: flex;
-    align-items: start;
-    justify-content: start;
-    margin-bottom: 2rem;
-  }
-  .name {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-  }
-  .books {
-    overflow: auto;
-    ul {
-      display: flex;
-      width: 100%;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-  .image {
-    img {
-      max-width: 300px;
-    }
-  }
-  ${
-    "" /* .menu-left {
-    margin-right: 2rem;
-  } */
-  }
-
-  @media (max-width: 1000px) {
-    .name-pic {
-      flex-direction: column;
-      align-items: center;
-      margin: 1rem;
-      .image {
-        margin-bottom: 2rem;
-      }
-    }
-    .books {
-      ul {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-  }
-  @media (max-width: 550px) {
-    .books {
-      ul {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-  }
 `;
 
 export default AuthorsPage;

@@ -1,6 +1,12 @@
 import "./App.css";
 
-import { Navbar, Footer, SidebarNav } from "./components";
+import {
+  Navbar,
+  Footer,
+  SidebarNav,
+  NoCurrentAuthor,
+  CurrentAuthor
+} from "./components";
 import { Routes, Route } from "react-router-dom";
 import {
   HomePage,
@@ -42,7 +48,10 @@ function App() {
         {/* version 1 */}
         <Route path="/giftshop/:id" element={<SingleGiftPage />} />{" "}
         {/* version 1 */}
-        <Route path="/authors" element={<AuthorsPage />} /> {/* version 1 */}
+        <Route path="/authors" element={<AuthorsPage />}>
+          <Route path=":author_url" element={<CurrentAuthor />} />{" "}
+        </Route>
+        {/* version 1 */}
         <Route path="/cart" element={<CartPage />} /> {/* version 1 */}
       </Routes>
       <Footer />

@@ -43,7 +43,11 @@ const authors_reducer = (state, action) => {
     return { ...state, authorsList: tempAuthors };
   }
   if (action.type === SET_AUTHOR_NAME) {
-    return { ...state, authorName: action.payload };
+    return {
+      ...state,
+      authorName: action.payload.replace("-", " "),
+      author_url: action.payload
+    };
   }
   if (action.type === SET_BOOKS_PER_AUTHOR) {
     return { ...state, booksByAuthor: action.payload };
