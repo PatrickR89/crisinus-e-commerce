@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useSidebarContext } from "../contexts/sidebar_context";
+import crisinus from "../defaults/logo-crisinus-nb.png";
 
 import { NavCart, NavButtons } from "../components";
 
@@ -26,6 +27,9 @@ const Navbar = () => {
           <div className="disp-width toggle-disp ">
             <NavButtons nav={true} />
           </div>
+          <Link to="/" className="home-mini">
+            <img src={crisinus} className="logo-c" alt="home" />
+          </Link>
           <IconButton
             aria-label="open nav sidebar"
             edge="end"
@@ -105,6 +109,34 @@ const NavContainer = styled.nav`
   .side-btn:hover {
     color: var(--clr-primary-2);
     background: var(--clr-button-4);
+  }
+  .home-mini {
+    height: 90%;
+    margin: auto 1rem;
+  }
+  .logo-c {
+    height: 100%;
+    filter: brightness(70%);
+  }
+
+  @media (max-width: 900px) {
+    .nav-header {
+      height: auto;
+    }
+    .to-home {
+      display: none;
+    }
+    .btn-container {
+      justify-content: space-between;
+    }
+  }
+  @media (min-width: 900px) {
+    .home-mini {
+      display: none;
+    }
+    .logo-c {
+      display: none;
+    }
   }
 `;
 
