@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const AddBook = () => {
   const [title, setTitle] = useState("");
@@ -30,12 +31,33 @@ const AddBook = () => {
     setAuthors([...authors, { name: "", last_name: "" }]);
   };
 
+  const addBook = () => {
+    axios.post("http://localhost:3001/create", {
+      title,
+      authors,
+      images,
+      genre,
+      maxOrder,
+      price,
+      publisher,
+      language,
+      year,
+      desc
+    });
+  };
+
   return (
     <main>
       <Wrapper>
         <div className="info">
           <label htmlFor="title">Title:</label>
-          <input type="text" name="title" id="title" />
+          <input
+            type="text"
+            name="title"
+            id="title"
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
+          />
           <label htmlFor="authors">Authors:</label>
           <div className="authors" name="authors" id="authors">
             {authors.map((x, i) => {
@@ -75,21 +97,72 @@ const AddBook = () => {
             <div>{JSON.stringify(authors)}</div>
           </div>
           <label htmlFor="genre">Genre:</label>
-          <input type="text" name="genre" id="genre" />
+          <input
+            type="text"
+            name="genre"
+            id="genre"
+            value={genre}
+            onChange={(e) => setGenre(e.target.value)}
+          />
           <label htmlFor="publisher">Publisher:</label>
-          <input type="text" name="publisher" id="publisher" />
+          <input
+            type="text"
+            name="publisher"
+            id="publisher"
+            value={publisher}
+            onChange={(e) => setPublisher(e.target.value)}
+          />
           <label htmlFor="language">Language:</label>
-          <input type="text" name="language" id="language" />
-          <label htmlFor="title">Title:</label>
-          <input type="text" name="title" id="title" />
+          <input
+            type="text"
+            name="language"
+            id="language"
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+          />
+          <label htmlFor="images">Images:</label>
+          <input
+            type="text"
+            name="images"
+            id="images"
+            value={images}
+            onChange={(e) => setImages(e.target.value)}
+          />
           <label htmlFor="price">Price:</label>
-          <input type="number" name="price" id="price" />
+          <input
+            type="number"
+            name="price"
+            id="price"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          />
           <label htmlFor="year">Year:</label>
-          <input type="number" name="year" id="year" />
+          <input
+            type="number"
+            name="year"
+            id="year"
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+          />
           <label htmlFor="maxOrder">Maximum amount to order:</label>
-          <input type="number" name="maxOrder" id="maxOrder" />
+          <input
+            type="number"
+            name="maxOrder"
+            id="maxOrder"
+            value={maxOrder}
+            onChange={(e) => setMaxOrder(e.target.value)}
+          />
           <label htmlFor="title">Description:</label>
-          <textarea name="desc" id="desc" cols="30" rows="10"></textarea>
+          <textarea
+            name="desc"
+            id="desc"
+            cols="30"
+            rows="10"
+            onChange={(e) => setDesc(e.target.value)}
+          >
+            {desc}
+          </textarea>
+          <button onClick={addBook}>Add book</button>
         </div>
       </Wrapper>
     </main>
