@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -13,6 +13,17 @@ const AddBook = () => {
   const [language, setLanguage] = useState("");
   const [year, setYear] = useState(2000);
   const [desc, setDesc] = useState("");
+  const [authorsList, setAuthorsList] = useState([]);
+
+  useEffect(() => {
+    loadAuthors();
+  }, []);
+
+  const loadAuthors = () => {
+    axios.get("http://localhost:3001/authorList").then((response) => {
+      setAuthorsList(response.data);
+    });
+  };
 
   const handleAuthorInput = (e, index) => {
     const { name, value } = e.target;
@@ -32,18 +43,22 @@ const AddBook = () => {
   };
 
   const addBook = () => {
-    axios.post("http://localhost:3001/create", {
-      title,
-      authors,
-      images,
-      genre,
-      maxOrder,
-      price,
-      publisher,
-      language,
-      year,
-      desc
+    axios.post("http://localhost:3001/addauthors", {
+      authors
     });
+    setTimeout(() => {
+      axios.post("http://localhost:3001/addbook", {
+        title,
+        images,
+        genre,
+        maxOrder,
+        price,
+        publisher,
+        language,
+        year,
+        desc
+      });
+    }, 500);
   };
 
   return (
@@ -70,7 +85,13 @@ const AddBook = () => {
                     value={x.name}
                     onChange={(e) => handleAuthorInput(e, i)}
                     placeholder="name"
+                    list="authorsNames"
                   />
+                  <datalist id="authorsNames">
+                    {authorsList.map((author) => {
+                      return <option value={author.name}>{author.name}</option>;
+                    })}
+                  </datalist>
                   <input
                     type="text"
                     name="last_name"
@@ -78,7 +99,17 @@ const AddBook = () => {
                     value={x.last_name}
                     onChange={(e) => handleAuthorInput(e, i)}
                     placeholder="last name"
+                    list="autLast"
                   />
+                  <datalist id="autLast">
+                    {authorsList.map((author) => {
+                      return (
+                        <option value={author.last_name}>
+                          {author.last_name}
+                        </option>
+                      );
+                    })}
+                  </datalist>
                   <div className="list-com">
                     {authors.length !== 1 && (
                       <button className="btn" onClick={() => handleRemove(i)}>
