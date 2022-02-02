@@ -57,28 +57,21 @@ const AddBook = () => {
   };
 
   const addBook = () => {
-    // axios.post("http://localhost:3001/books/addauthors", {
-    //   authors
-    // });
-    // axios
-    //   .post("http://localhost:3001/books/addimages", {
-    //     data
-    //   })
-    //   .then((res) => {
-    //     console.log(res.statusText);
-    //   });
-    // setTimeout(() => {
-    //   axios.post("http://localhost:3001/books/addbook", {
-    //     title,
-    //     genre,
-    //     maxOrder,
-    //     price,
-    //     publisher,
-    //     language,
-    //     year,
-    //     desc
-    //   });
-    // }, 500);
+    axios.post("http://localhost:3001/books/addauthors", {
+      authors
+    });
+    setTimeout(() => {
+      axios.post("http://localhost:3001/books/addbook", {
+        title,
+        genre,
+        maxOrder,
+        price,
+        publisher,
+        language,
+        year,
+        desc
+      });
+    }, 500);
   };
 
   return (
