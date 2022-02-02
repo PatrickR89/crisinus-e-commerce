@@ -20,7 +20,7 @@ const AddBook = () => {
   }, []);
 
   const loadAuthors = () => {
-    axios.get("http://localhost:3001/authorList").then((response) => {
+    axios.get("http://localhost:3001/books/authorList").then((response) => {
       setAuthorsList(response.data);
     });
   };
@@ -42,23 +42,43 @@ const AddBook = () => {
     setAuthors([...authors, { name: "", last_name: "" }]);
   };
 
-  const addBook = () => {
-    axios.post("http://localhost:3001/addauthors", {
-      authors
+  const handleImages = (e) => {
+    const data = new FormData();
+    const files = [...e.target.files];
+    files.forEach((file) => {
+      data.append("images", file);
     });
-    setTimeout(() => {
-      axios.post("http://localhost:3001/addbook", {
-        title,
-        images,
-        genre,
-        maxOrder,
-        price,
-        publisher,
-        language,
-        year,
-        desc
-      });
-    }, 500);
+
+    axios.post("http://localhost:3001/books/addimages", data).then((res) => {
+      console.log(res.statusText);
+    });
+    setImages(data);
+    console.log(files);
+  };
+
+  const addBook = () => {
+    // axios.post("http://localhost:3001/books/addauthors", {
+    //   authors
+    // });
+    // axios
+    //   .post("http://localhost:3001/books/addimages", {
+    //     data
+    //   })
+    //   .then((res) => {
+    //     console.log(res.statusText);
+    //   });
+    // setTimeout(() => {
+    //   axios.post("http://localhost:3001/books/addbook", {
+    //     title,
+    //     genre,
+    //     maxOrder,
+    //     price,
+    //     publisher,
+    //     language,
+    //     year,
+    //     desc
+    //   });
+    // }, 500);
   };
 
   return (
@@ -153,11 +173,11 @@ const AddBook = () => {
           />
           <label htmlFor="images">Images:</label>
           <input
-            type="text"
+            type="file"
             name="images"
+            multiple
             id="images"
-            value={images}
-            onChange={(e) => setImages(e.target.value)}
+            onChange={handleImages}
           />
           <label htmlFor="price">Price:</label>
           <input
