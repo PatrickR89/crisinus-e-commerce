@@ -1,6 +1,7 @@
 import "./App.css";
 
 import { Navbar, Footer, SidebarNav, CurrentAuthor } from "./components";
+import { AddBook, BookList } from "./components/admin";
 import { Routes, Route } from "react-router-dom";
 import {
   HomePage,
@@ -48,7 +49,10 @@ function App() {
         </Route>
         {/* version 1 */}
         <Route path="/cart" element={<CartPage />} /> {/* version 1 */}
-        <Route path="/admin" element={<AdminPage />}></Route>
+        <Route path="/admin" element={<AdminPage />}>
+          <Route path="addbook" element={<AddBook />} />
+          <Route path="booklist" element={<BookList />} />
+        </Route>
       </Routes>
       <Footer />
     </div>

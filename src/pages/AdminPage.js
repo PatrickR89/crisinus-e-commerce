@@ -1,12 +1,12 @@
 import React from "react";
-import { AddBook } from "../components/admin";
+import { Outlet } from "react-router-dom";
 
 const AdminPage = () => {
   return (
-    <div>
+    <main>
       <h2>admin page!</h2>
-      <AddBook />
-    </div>
+      <Outlet />
+    </main>
   );
 };
 

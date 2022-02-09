@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { FaCameraRetro } from "react-icons/fa";
+
 import styled from "styled-components";
 import axios from "axios";
 
@@ -53,7 +55,6 @@ const AddBook = () => {
       console.log(res.statusText);
     });
     setImages(data);
-    console.log(files);
   };
 
   const addBook = () => {
@@ -164,14 +165,20 @@ const AddBook = () => {
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
           />
-          <label htmlFor="images">Images:</label>
-          <input
-            type="file"
-            name="images"
-            multiple
-            id="images"
-            onChange={handleImages}
-          />
+          <label htmlFor="images" className="photo-input">
+            Images:
+            <input
+              type="file"
+              name="images"
+              multiple
+              id="images"
+              className="hidden-input"
+              onChange={handleImages}
+            />
+            <article className="btn">
+              <FaCameraRetro className="icon-large" /> Add image
+            </article>
+          </label>
           <label htmlFor="price">Price:</label>
           <input
             type="number"
@@ -206,7 +213,9 @@ const AddBook = () => {
           >
             {desc}
           </textarea>
-          <button onClick={addBook}>Add book</button>
+          <button onClick={addBook} className="btn mt-1">
+            Add book
+          </button>
         </div>
       </Wrapper>
     </main>
@@ -224,6 +233,7 @@ const Wrapper = styled.div`
       font-size: 1.5rem;
       text-transform: capitalize;
       margin-top: 1rem;
+      margin-bottom: 0.5rem;
     }
     input {
       height: 2rem;
@@ -237,6 +247,20 @@ const Wrapper = styled.div`
   }
   .authors {
     width: 100%;
+  }
+  .hidden-input {
+    display: none;
+  }
+  .icon-large {
+    font-size: 1.2rem;
+  }
+  .photo-input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    article {
+      margin-top: 0.5rem;
+    }
   }
   .single-author {
     display: flex;

@@ -100,12 +100,7 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: center;
   }
-  .itm-background-one {
-    background: var(--clr-primary-8);
-  }
-  .itm-background-two {
-    background: var(--clr-button-6);
-  }
+
   .itm-list {
     margin-bottom: 2rem;
   }
