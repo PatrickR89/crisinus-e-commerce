@@ -1,7 +1,7 @@
 import "./App.css";
 
 import { Navbar, Footer, SidebarNav, CurrentAuthor } from "./components";
-import { AddBook, BookList } from "./components/admin";
+import { AddBook, BookList, EditBook } from "./components/admin";
 import { Routes, Route } from "react-router-dom";
 import {
   HomePage,
@@ -52,6 +52,7 @@ function App() {
         <Route path="/admin" element={<AdminPage />}>
           <Route path="addbook" element={<AddBook />} />
           <Route path="booklist" element={<BookList />} />
+          <Route path="editbook/:id" element={<EditBook />} />
         </Route>
       </Routes>
       <Footer />
