@@ -32,6 +32,7 @@ const EditBook = () => {
   const [language, setLanguage] = useState("");
   const [year, setYear] = useState(2000);
   const [desc, setDesc] = useState("");
+  const [bookId, setBookId] = useState("");
   const [authorsList, setAuthorsList] = useState([]);
 
   const initializeBook = () => {
@@ -44,6 +45,7 @@ const EditBook = () => {
     setYear(initialBook.year);
     setDesc(initialBook.description);
     setImages(initialBook.images);
+    setBookId(initialBook.id);
   };
 
   const loadAuthors = () => {
@@ -100,6 +102,21 @@ const EditBook = () => {
     });
     setImages([...images, data]);
     console.log(images);
+  };
+
+  const editBook = () => {
+    axios.post("http://localhost:3001/books/editbook", {
+      title,
+      genre,
+      maxOrder,
+      price,
+      publisher,
+      language,
+      year,
+      desc,
+      bookId,
+      authors
+    });
   };
 
   useEffect(() => {
@@ -262,9 +279,9 @@ const EditBook = () => {
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
           ></textarea>
-          {/* <button onClick={addBook} className="btn mt-1">
-            Add book
-          </button> */}
+          <button onClick={editBook} className="btn mt-1">
+            Edit book
+          </button>
         </div>
       </Wrapper>
     </main>

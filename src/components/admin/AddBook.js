@@ -52,27 +52,27 @@ const AddBook = () => {
     });
 
     axios.post("http://localhost:3001/books/addimages", data).then((res) => {
-      console.log(res.statusText);
+      const tempImages = [...images];
+      res.data.forEach((image) => {
+        tempImages.push(image.path);
+      });
+      setImages(tempImages);
     });
-    setImages(data);
   };
 
   const addBook = () => {
-    axios.post("http://localhost:3001/books/addauthors", {
+    axios.post("http://localhost:3001/books/addbook", {
+      title,
+      genre,
+      maxOrder,
+      price,
+      publisher,
+      language,
+      year,
+      desc,
+      images,
       authors
     });
-    setTimeout(() => {
-      axios.post("http://localhost:3001/books/addbook", {
-        title,
-        genre,
-        maxOrder,
-        price,
-        publisher,
-        language,
-        year,
-        desc
-      });
-    }, 500);
   };
 
   return (
@@ -213,7 +213,7 @@ const AddBook = () => {
           >
             {desc}
           </textarea>
-          <button onClick={addBook} className="btn mt-1">
+          <button onClick={addBook()} className="btn mt-1">
             Add book
           </button>
         </div>
