@@ -97,6 +97,15 @@ h2 {
   background: var(--clr-button-4);
 }
 
+.btn-delete {
+  background: var(--clr-clear-hover);
+  color: hsl(0, 0%, 100%);
+}
+.btn-delete:hover {
+  background: var(--clr-red-dark);
+  color: hsl(0, 0%, 70%);
+}
+
 a {
   text-decoration: none;
   color: var(--clr-primary-1);

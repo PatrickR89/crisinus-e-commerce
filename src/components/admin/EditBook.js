@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import { FaTrashAlt } from "react-icons/fa";
 
 import { FaCameraRetro } from "react-icons/fa";
 
@@ -98,10 +99,21 @@ const EditBook = () => {
     const files = [...e.target.files];
     files.forEach((file) => {
       data.append("images", file);
-      console.log(file);
     });
-    setImages([...images, data]);
-    console.log(images);
+
+    axios.post("http://localhost:3001/books/addimages", data).then((res) => {
+      const tempImages = [...images];
+      res.data.forEach((image) => {
+        tempImages.push(image.path);
+      });
+      setImages(tempImages);
+    });
+  };
+
+  const handleDelete = (url) => {
+    axios.post("http://localhost:3001/books/deleteimages", { url });
+    const tempUrls = images.filter((image) => image !== url);
+    setImages(tempUrls);
   };
 
   const editBook = () => {
@@ -115,7 +127,8 @@ const EditBook = () => {
       year,
       desc,
       bookId,
-      authors
+      authors,
+      images
     });
   };
 
@@ -133,16 +146,28 @@ const EditBook = () => {
   return (
     <main>
       <Wrapper>
-        <div>
+        <div className="edit-header">
           <h4>{initialBook.title}</h4>
-          {initialBook.images.map((url, index) => {
-            return (
-              <div key={index}>
-                <p>{url}</p>
-                <img src={`http://localhost:3001/${url}`} alt="" />
-              </div>
-            );
-          })}
+          <div className="thumb-container">
+            {images.map((url, index) => {
+              return (
+                <div key={index} className="single-thumb">
+                  <p>{url}</p>
+                  <img
+                    className="thumb"
+                    src={`http://localhost:3001/${url}`}
+                    alt=""
+                  />
+                  <button
+                    className="btn btn-delete"
+                    onClick={() => handleDelete(url)}
+                  >
+                    <FaTrashAlt />
+                  </button>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         <div className="info">
@@ -310,6 +335,28 @@ const Wrapper = styled.div`
       width: 100%;
       font-size: 1.2rem;
     }
+  }
+  .edit-header {
+    height: 250px;
+    margin-bottom: 2rem;
+  }
+  .thumb-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%;
+  }
+  .single-thumb {
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    justify-content: space-between;
+    height: 100%;
+    max-width: 200px;
+  }
+  .thumb {
+    max-width: 150px;
+    margin: auto;
   }
   .authors {
     width: 100%;
