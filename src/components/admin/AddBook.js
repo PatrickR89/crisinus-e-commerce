@@ -139,7 +139,6 @@ const AddBook = () => {
                 </div>
               );
             })}
-            <div>{JSON.stringify(authors)}</div>
           </div>
           <label htmlFor="genre">Genre:</label>
           <input

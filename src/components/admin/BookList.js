@@ -81,6 +81,7 @@ const BookList = () => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 2rem;
   .per-book {
     display: inline-grid;
     grid-template-columns: repeat(6, 1fr);

@@ -78,7 +78,6 @@ const EditBook = () => {
       .then((response) => {
         setInitialBook(response.data[0]);
         setInitialAuthors(response.data[1]);
-        console.log(response.data);
       });
   };
 
@@ -231,7 +230,6 @@ const EditBook = () => {
                 </div>
               );
             })}
-            <div>{JSON.stringify(authors)}</div>
           </div>
           <label htmlFor="genre">Genre:</label>
           <input
@@ -295,7 +293,7 @@ const EditBook = () => {
             value={maxOrder}
             onChange={(e) => setMaxOrder(e.target.value)}
           />
-          <label htmlFor="title">Description:</label>
+          <label htmlFor="desc">Description:</label>
           <textarea
             name="desc"
             id="desc"
@@ -304,7 +302,7 @@ const EditBook = () => {
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
           ></textarea>
-          <button onClick={editBook} className="btn mt-1">
+          <button onClick={() => editBook()} className="btn mt-1">
             Edit book
           </button>
         </div>
