@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import { FaTrashAlt } from "react-icons/fa";
@@ -8,6 +8,7 @@ import { FaCameraRetro } from "react-icons/fa";
 
 const EditBook = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [initialBook, setInitialBook] = useState({
     title: "",
@@ -100,7 +101,7 @@ const EditBook = () => {
       data.append("images", file);
     });
 
-    axios.post("http://localhost:3001/books/addimages", data).then((res) => {
+    axios.post("http://localhost:3001/images/addimages", data).then((res) => {
       const tempImages = [...images];
       res.data.forEach((image) => {
         tempImages.push(image.path);
@@ -110,13 +111,13 @@ const EditBook = () => {
   };
 
   const handleDelete = (url) => {
-    axios.post("http://localhost:3001/books/deleteimages", { url });
+    axios.post("http://localhost:3001/images/deleteimages", { url });
     const tempUrls = images.filter((image) => image !== url);
     setImages(tempUrls);
   };
 
   const editBook = () => {
-    axios.post("http://localhost:3001/books/editbook", {
+    axios.put("http://localhost:3001/books/editbook", {
       title,
       genre,
       maxOrder,
@@ -129,6 +130,14 @@ const EditBook = () => {
       authors,
       images
     });
+    navigate("/admin/booklist", { replace: true });
+  };
+
+  const deleteBook = () => {
+    axios.delete("http://localhost:3001/books/deleteBook", {
+      data: { id: id }
+    });
+    navigate("/admin/booklist", { replace: true });
   };
 
   useEffect(() => {
@@ -302,9 +311,14 @@ const EditBook = () => {
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
           ></textarea>
-          <button onClick={() => editBook()} className="btn mt-1">
-            Edit book
-          </button>
+          <div className="edit-container">
+            <button onClick={() => editBook()} className="btn mt-1">
+              Edit book
+            </button>
+            <button className="btn mt-1 btn-delete" onClick={deleteBook}>
+              DELETE BOOK
+            </button>
+          </div>
         </div>
       </Wrapper>
     </main>
@@ -394,6 +408,12 @@ const Wrapper = styled.div`
   }
   img {
     max-width: 200px;
+  }
+  .edit-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 `;
 

@@ -33,48 +33,53 @@ const BookList = () => {
   //   });
 
   return (
-    <Wrapper>
-      <div className="per-book head">
-        <section>ID</section>
-        <section>TITLE</section>
-        <section>AUTHORS</section>
-        <section>YEAR</section>
-        <section>LANGUAGE</section>
-        <section>PRICE</section>
-      </div>
-      {bookList.map((book, index) => {
-        return (
-          <div
-            key={index}
-            className={
-              index % 2 === 0
-                ? "itm-background-one per-book"
-                : "itm-background-two per-book"
-            }
-          >
-            <p>{book.id}</p>
+    <main>
+      <Wrapper>
+        <div className="per-book head">
+          <section>ID</section>
+          <section>TITLE</section>
+          <section>AUTHORS</section>
+          <section>YEAR</section>
+          <section>LANGUAGE</section>
+          <section>PRICE</section>
+        </div>
+        {bookList.map((book, index) => {
+          return (
             <Link to={`/admin/editbook/${book.id}`}>
-              <h4>{book.title}</h4>
-            </Link>
-            <div>
-              {book.authors.map((id, index) => {
-                const author = authorsList.find((author) => author.id == id);
-                if (author) {
-                  return (
-                    <p key={index}>
-                      {author.name} {author.last_name}
-                    </p>
-                  );
+              <div
+                key={index}
+                className={
+                  index % 2 === 0
+                    ? "itm-background-one per-book on-hover-list"
+                    : "itm-background-two per-book on-hover-list"
                 }
-              })}
-            </div>
-            <p>{book.year}</p>
-            <p>{book.language}</p>
-            <p>{priceFormat(book.price)}</p>
-          </div>
-        );
-      })}
-    </Wrapper>
+              >
+                <p>{book.id}</p>
+                <h4>{book.title}</h4>
+
+                <div>
+                  {book.authors.map((id, index) => {
+                    const author = authorsList.find(
+                      (author) => author.id == id
+                    );
+                    if (author) {
+                      return (
+                        <p key={index}>
+                          {author.name} {author.last_name}
+                        </p>
+                      );
+                    }
+                  })}
+                </div>
+                <p>{book.year}</p>
+                <p>{book.language}</p>
+                <p>{priceFormat(book.price)}</p>
+              </div>
+            </Link>
+          );
+        })}
+      </Wrapper>
+    </main>
   );
 };
 

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaCameraRetro } from "react-icons/fa";
 
 import styled from "styled-components";
 import axios from "axios";
 
 const AddBook = () => {
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [authors, setAuthors] = useState([{ name: "", last_name: "" }]);
   const [images, setImages] = useState([]);
@@ -51,7 +54,7 @@ const AddBook = () => {
       data.append("images", file);
     });
 
-    axios.post("http://localhost:3001/books/addimages", data).then((res) => {
+    axios.post("http://localhost:3001/images/addimages", data).then((res) => {
       const tempImages = [...images];
       res.data.forEach((image) => {
         tempImages.push(image.path);
@@ -73,6 +76,8 @@ const AddBook = () => {
       images,
       authors
     });
+
+    navigate("/admin/booklist", { replace: true });
   };
 
   return (
@@ -212,7 +217,7 @@ const AddBook = () => {
           >
             {desc}
           </textarea>
-          <button onClick={addBook()} className="btn mt-1">
+          <button onClick={addBook} className="btn mt-1">
             Add book
           </button>
         </div>

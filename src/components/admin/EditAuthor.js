@@ -12,7 +12,7 @@ const EditAuthor = () => {
     name: "",
     last_name: "",
     url: "",
-    images: [],
+    img: [],
     bio: ""
   });
 
@@ -25,9 +25,16 @@ const EditAuthor = () => {
   const initializeAuthor = () => {
     setName(initialAuthor.name);
     setLast_name(initialAuthor.last_name);
-    setImages(initialAuthor.images);
-    setUrl(initialAuthor.url);
-    setBio(initialAuthor.bio);
+    if (initialAuthor.img !== null && initialAuthor.img !== undefined) {
+      console.log(initialAuthor.img);
+      setImages(initialAuthor.img);
+    }
+    if (initialAuthor.url !== null) {
+      setUrl(initialAuthor.url);
+    }
+    if (initialAuthor.bio !== null) {
+      setBio(initialAuthor.bio);
+    }
   };
 
   const getAuthor = () => {
@@ -38,26 +45,45 @@ const EditAuthor = () => {
       });
   };
 
-  const handleImages = (e) => {
+  const handleAddImages = (e) => {
     const data = new FormData();
     const files = [...e.target.files];
     files.forEach((file) => {
       data.append("images", file);
     });
 
-    axios.post("http://localhost:3001/books/addimages", data).then((res) => {
+    axios.post("http://localhost:3001/images/addimages", data).then((res) => {
+      console.log(res.data);
       const tempImages = [...images];
       res.data.forEach((image) => {
+        console.log(image);
         tempImages.push(image.path);
       });
+      console.log(tempImages);
       setImages(tempImages);
     });
   };
 
-  const handleDelete = (url) => {
-    axios.post("http://localhost:3001/books/deleteimages", { url });
+  const handleDeleteImage = (url) => {
+    axios.post("http://localhost:3001/images/deleteimages", { url });
     const tempUrls = images.filter((image) => image !== url);
     setImages(tempUrls);
+  };
+
+  const handleEdit = () => {
+    axios.put("http://localhost:3001/authors/editauthor", {
+      id,
+      name,
+      last_name,
+      images,
+      url,
+      bio
+    });
+  };
+  const handleDelete = () => {
+    axios.delete("http://localhost:3001/authors/deleteauthor", {
+      data: { id: id }
+    });
   };
 
   useEffect(() => {
@@ -81,7 +107,7 @@ const EditAuthor = () => {
                 />
                 <button
                   className="btn btn-delete"
-                  onClick={() => handleDelete(url)}
+                  onClick={() => handleDeleteImage(url)}
                 >
                   <FaTrashAlt />
                 </button>
@@ -98,7 +124,7 @@ const EditAuthor = () => {
             multiple
             id="images"
             className="hidden-input"
-            onChange={handleImages}
+            onChange={handleAddImages}
           />
           <article className="btn">
             <FaCameraRetro className="icon-large" /> Add image
@@ -137,6 +163,14 @@ const EditAuthor = () => {
           value={bio}
           onChange={(e) => setBio(e.target.value)}
         ></textarea>
+        <div className="edit-container">
+          <button onClick={handleEdit} className="btn mt-1">
+            Edit author
+          </button>
+          <button className="btn mt-1 btn-delete" onClick={handleDelete}>
+            DELETE author
+          </button>
+        </div>
       </div>
     </Wrapper>
   );
@@ -173,7 +207,7 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    height: 100%;
+    height: 250px;
   }
   .single-thumb {
     display: flex;
@@ -225,6 +259,12 @@ const Wrapper = styled.div`
   }
   img {
     max-width: 200px;
+  }
+  .edit-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 `;
 

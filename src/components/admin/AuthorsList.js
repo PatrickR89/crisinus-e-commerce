@@ -28,23 +28,25 @@ const AuthorsList = () => {
       {authorList.length > 0 &&
         authorList.map((author, index) => {
           return (
-            <div
-              key={index}
-              className={
-                index % 2 === 0
-                  ? "itm-background-one per-author"
-                  : "itm-background-two per-author"
-              }
-            >
-              <p>{author.id}</p>
-              <Link to={`/admin/editauthor/${author.id}`}>
+            <Link to={`/admin/editauthor/${author.id}`}>
+              <div
+                key={index}
+                className={
+                  index % 2 === 0
+                    ? "itm-background-one per-author on-hover-list"
+                    : "itm-background-two per-author on-hover-list"
+                }
+              >
+                <p>{author.id}</p>
+
                 <h4>
                   {author.name} {author.last_name}
                 </h4>
-              </Link>
-              <p>{author.url}</p>
-              <p>{author.bio}</p>
-            </div>
+
+                <p>{author.url}</p>
+                {author.bio && <p>{author.bio.substring(0, 25)}...</p>}
+              </div>
+            </Link>
           );
         })}
     </Wrapper>

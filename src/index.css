@@ -200,6 +200,11 @@ main {
 .itm-background-two {
   background: var(--clr-button-6);
 }
+.on-hover-list:hover {
+  background-color: var(--clr-button-4);
+  font-size: 1.01em;
+  font-weight: bold;
+}
 
 /* .main {
   display: grid;
