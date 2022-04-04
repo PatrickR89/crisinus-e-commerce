@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import { FaTrashAlt } from "react-icons/fa";
@@ -7,6 +7,7 @@ import { FaCameraRetro } from "react-icons/fa";
 
 const EditAuthor = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [initialAuthor, setInitialAuthor] = useState({
     name: "",
@@ -84,6 +85,7 @@ const EditAuthor = () => {
     axios.delete("http://localhost:3001/authors/deleteauthor", {
       data: { id: id }
     });
+    navigate("/admin/authorslist", { replace: true });
   };
 
   useEffect(() => {
