@@ -1,12 +1,13 @@
 import "./App.css";
 
+import { Navbar, Footer, SidebarNav, CurrentAuthor } from "./components";
 import {
-  Navbar,
-  Footer,
-  SidebarNav,
-  NoCurrentAuthor,
-  CurrentAuthor
-} from "./components";
+  AddBook,
+  BookList,
+  EditBook,
+  AuthorsList,
+  EditAuthor
+} from "./components/admin";
 import { Routes, Route } from "react-router-dom";
 import {
   HomePage,
@@ -23,7 +24,8 @@ import {
   SingleBookPage,
   SingleGiftPage,
   AuthorsPage,
-  CartPage
+  CartPage,
+  AdminPage
 } from "./pages";
 
 function App() {
@@ -53,6 +55,13 @@ function App() {
         </Route>
         {/* version 1 */}
         <Route path="/cart" element={<CartPage />} /> {/* version 1 */}
+        <Route path="/admin" element={<AdminPage />}>
+          <Route path="addbook" element={<AddBook />} />
+          <Route path="booklist" element={<BookList />} />
+          <Route path="authorslist" element={<AuthorsList />} />
+          <Route path="editauthor/:id" element={<EditAuthor />} />
+          <Route path="editbook/:id" element={<EditBook />} />
+        </Route>
       </Routes>
       <Footer />
     </div>

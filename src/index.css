@@ -97,6 +97,15 @@ h2 {
   background: var(--clr-button-4);
 }
 
+.btn-delete {
+  background: var(--clr-clear-hover);
+  color: hsl(0, 0%, 100%);
+}
+.btn-delete:hover {
+  background: var(--clr-red-dark);
+  color: hsl(0, 0%, 70%);
+}
+
 a {
   text-decoration: none;
   color: var(--clr-primary-1);
@@ -179,6 +188,22 @@ main {
 }
 .center {
   width: 25%;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.itm-background-one {
+  background: var(--clr-primary-8);
+}
+.itm-background-two {
+  background: var(--clr-button-6);
+}
+.on-hover-list:hover {
+  background-color: var(--clr-button-4);
+  font-size: 1.01em;
+  font-weight: bold;
 }
 
 /* .main {
