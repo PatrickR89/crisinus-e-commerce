@@ -6,7 +6,10 @@ import {
   BookList,
   EditBook,
   AuthorsList,
-  EditAuthor
+  EditAuthor,
+  GiftshopList,
+  EditGift,
+  AddGift
 } from "./components/admin";
 import { Routes, Route } from "react-router-dom";
 import {
@@ -61,6 +64,9 @@ function App() {
           <Route path="authorslist" element={<AuthorsList />} />
           <Route path="editauthor/:id" element={<EditAuthor />} />
           <Route path="editbook/:id" element={<EditBook />} />
+          <Route path="giftshoplist" element={<GiftshopList />} />
+          <Route path="editgift/:id" element={<EditGift />} />
+          <Route path="addgift" element={<AddGift />} />
         </Route>
       </Routes>
       <Footer />
