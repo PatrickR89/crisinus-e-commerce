@@ -9,7 +9,10 @@ import {
   EditAuthor,
   GiftshopList,
   EditGift,
-  AddGift
+  AddGift,
+  AddRating,
+  EditRating,
+  ListRatings
 } from "./components/admin";
 import { Routes, Route } from "react-router-dom";
 import {
@@ -67,6 +70,9 @@ function App() {
           <Route path="giftshoplist" element={<GiftshopList />} />
           <Route path="editgift/:id" element={<EditGift />} />
           <Route path="addgift" element={<AddGift />} />
+          <Route path="addrating" element={<AddRating />} />
+          <Route path="editrating/:id" element={<EditRating />} />
+          <Route path="ratingslist" element={<ListRatings />} />
         </Route>
       </Routes>
       <Footer />

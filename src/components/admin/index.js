@@ -6,6 +6,9 @@ import EditAuthor from "./EditAuthor";
 import GiftshopList from "./GiftshopList";
 import EditGift from "./EditGift";
 import AddGift from "./AddGift";
+import AddRating from "./AddRating";
+import EditRating from "./EditRating";
+import ListRatings from "./ListRatings";
 
 export {
   AddBook,
@@ -15,5 +18,8 @@ export {
   EditAuthor,
   GiftshopList,
   EditGift,
-  AddGift
+  AddGift,
+  AddRating,
+  EditRating,
+  ListRatings
 };

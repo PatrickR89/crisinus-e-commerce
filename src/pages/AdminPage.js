@@ -22,6 +22,12 @@ const AdminPage = () => {
         <Link className="btn mg-1" to="/admin/giftshoplist">
           Giftshop List
         </Link>
+        <Link className="btn mg-1" to="/admin/addrating">
+          Add a new rating
+        </Link>
+        <Link className="btn mg-1" to="/admin/ratingslist">
+          Ratings List
+        </Link>
         <Outlet />
       </Wrapper>
     </main>
