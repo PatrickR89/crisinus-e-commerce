@@ -1,4 +1,5 @@
 import "./App.css";
+import { Routes, Route } from "react-router-dom";
 
 import { Navbar, Footer, SidebarNav, CurrentAuthor } from "./components";
 import {
@@ -12,9 +13,12 @@ import {
   AddGift,
   AddRating,
   EditRating,
-  ListRatings
+  ListRatings,
+  AddNews,
+  EditNews,
+  ListNews
 } from "./components/admin";
-import { Routes, Route } from "react-router-dom";
+
 import {
   HomePage,
   AboutUsPage,
@@ -64,15 +68,18 @@ function App() {
         <Route path="/admin" element={<AdminPage />}>
           <Route path="addbook" element={<AddBook />} />
           <Route path="booklist" element={<BookList />} />
+          <Route path="editbook/:id" element={<EditBook />} />
           <Route path="authorslist" element={<AuthorsList />} />
           <Route path="editauthor/:id" element={<EditAuthor />} />
-          <Route path="editbook/:id" element={<EditBook />} />
-          <Route path="giftshoplist" element={<GiftshopList />} />
-          <Route path="editgift/:id" element={<EditGift />} />
           <Route path="addgift" element={<AddGift />} />
+          <Route path="editgift/:id" element={<EditGift />} />
+          <Route path="giftshoplist" element={<GiftshopList />} />
           <Route path="addrating" element={<AddRating />} />
           <Route path="editrating/:id" element={<EditRating />} />
           <Route path="ratingslist" element={<ListRatings />} />
+          <Route path="addnews" element={<AddNews />} />
+          <Route path="editnews/:id" element={<EditNews />} />
+          <Route path="newslist" element={<ListNews />} />
         </Route>
       </Routes>
       <Footer />

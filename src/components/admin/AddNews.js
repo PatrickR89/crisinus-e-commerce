@@ -5,14 +5,12 @@ import { FaCameraRetro } from "react-icons/fa";
 import styled from "styled-components";
 import axios from "axios";
 
-const AddGift = () => {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [max_order, setMax_order] = useState(0);
-  const [images, setImages] = useState("");
-  const [description, setDescription] = useState("");
-
+const AddNews = () => {
   const navigate = useNavigate();
+
+  const [title, setTitle] = useState("");
+  const [images, setImages] = useState([]);
+  const [text, setText] = useState("");
 
   const handleAddImages = (e) => {
     const data = new FormData();
@@ -30,16 +28,14 @@ const AddGift = () => {
     });
   };
 
-  const addGift = () => {
-    axios.post("http://localhost:3001/giftshop/addgift", {
-      name,
-      price,
-      max_order,
+  const addNews = () => {
+    axios.post("http://localhost:3001/news/addnews", {
+      title,
       images,
-      description
+      text
     });
 
-    navigate("/admin/giftshoplist", { replace: true });
+    navigate("/admin/newslist", { replace: true });
   };
 
   return (
@@ -59,42 +55,26 @@ const AddGift = () => {
             <FaCameraRetro className="icon-large" /> Add image
           </article>
         </label>
-        <label htmlFor="name">Name:</label>
+        <label htmlFor="title">News title:</label>
         <input
           type="text"
-          name="name"
-          id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          name="title"
+          id="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
-        <label htmlFor="price">Price</label>
-        <input
-          type="number"
-          name="price"
-          id="price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
-        <label htmlFor="max_order">Maximum available amount:</label>
-        <input
-          type="number"
-          name="max_order"
-          id="max_order"
-          value={max_order}
-          onChange={(e) => setMax_order(e.target.value)}
-        />
-        <label htmlFor="description">Description:</label>
+        <label htmlFor="text">News text:</label>
         <textarea
-          name="description"
-          id="description"
+          name="text"
+          id="text"
           cols="30"
           rows="10"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
         ></textarea>
         <div className="edit-container">
-          <button onClick={addGift} className="btn mt-1">
-            Add item to giftshop
+          <button onClick={addNews} className="btn mt-1">
+            Add news
           </button>
         </div>
       </div>
@@ -125,31 +105,6 @@ const Wrapper = styled.div`
       font-size: 1.2rem;
     }
   }
-  .edit-header {
-    height: 250px;
-    margin-bottom: 2rem;
-  }
-  .thumb-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    height: 250px;
-  }
-  .single-thumb {
-    display: flex;
-    flex-direction: column;
-    align-items: space-around;
-    justify-content: space-between;
-    height: 100%;
-    max-width: 200px;
-  }
-  .thumb {
-    max-width: 150px;
-    margin: auto;
-  }
-  .authors {
-    width: 100%;
-  }
   .hidden-input {
     display: none;
   }
@@ -164,17 +119,6 @@ const Wrapper = styled.div`
       margin-top: 0.5rem;
     }
   }
-  .single-author {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    input {
-      margin: 1rem;
-      width: 40%;
-    }
-  }
   .list-com {
     width: 20%;
     display: flex;
@@ -182,9 +126,6 @@ const Wrapper = styled.div`
     .btn {
       margin: 0.2rem 0.5rem;
     }
-  }
-  img {
-    max-width: 200px;
   }
   .edit-container {
     width: 100%;
@@ -194,4 +135,4 @@ const Wrapper = styled.div`
   }
 `;
 
-export default AddGift;
+export default AddNews;

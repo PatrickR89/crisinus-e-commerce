@@ -9,6 +9,9 @@ import AddGift from "./AddGift";
 import AddRating from "./AddRating";
 import EditRating from "./EditRating";
 import ListRatings from "./ListRatings";
+import AddNews from "./AddNews";
+import EditNews from "./EditNews";
+import ListNews from "./ListNews";
 
 export {
   AddBook,
@@ -21,5 +24,8 @@ export {
   AddGift,
   AddRating,
   EditRating,
-  ListRatings
+  ListRatings,
+  AddNews,
+  EditNews,
+  ListNews
 };
