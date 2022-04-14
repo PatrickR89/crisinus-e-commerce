@@ -12,6 +12,8 @@ import ListRatings from "./ListRatings";
 import AddNews from "./AddNews";
 import EditNews from "./EditNews";
 import ListNews from "./ListNews";
+import EditInfo from "./EditInfo";
+import ListInfo from "./ListInfo";
 
 export {
   AddBook,
@@ -27,5 +29,7 @@ export {
   ListRatings,
   AddNews,
   EditNews,
-  ListNews
+  ListNews,
+  EditInfo,
+  ListInfo
 };
