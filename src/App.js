@@ -18,7 +18,8 @@ import {
   EditNews,
   ListNews,
   EditInfo,
-  ListInfo
+  ListInfo,
+  ImageList
 } from "./components/admin";
 
 import {
@@ -84,6 +85,7 @@ function App() {
           <Route path="newslist" element={<ListNews />} />
           <Route path="editinfo/:id" element={<EditInfo />} />
           <Route path="infolist" element={<ListInfo />} />
+          <Route path="imagelist" element={<ImageList />} />
         </Route>
       </Routes>
       <Footer />

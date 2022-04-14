@@ -37,6 +37,9 @@ const AdminPage = () => {
         <Link className="btn mg-1" to="/admin/infolist">
           List info pages
         </Link>
+        <Link className="btn mg-1" to="/admin/imagelist">
+          Images
+        </Link>
         <Outlet />
       </Wrapper>
     </main>

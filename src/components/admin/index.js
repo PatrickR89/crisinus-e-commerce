@@ -14,6 +14,7 @@ import EditNews from "./EditNews";
 import ListNews from "./ListNews";
 import EditInfo from "./EditInfo";
 import ListInfo from "./ListInfo";
+import ImageList from "./ImageList";
 
 export {
   AddBook,
@@ -31,5 +32,6 @@ export {
   EditNews,
   ListNews,
   EditInfo,
-  ListInfo
+  ListInfo,
+  ImageList
 };
