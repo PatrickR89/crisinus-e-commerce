@@ -7,6 +7,8 @@ import { FaTrashAlt } from "react-icons/fa";
 import { FaCameraRetro } from "react-icons/fa";
 
 const EditBook = () => {
+  axios.defaults.withCredentials = true;
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -75,12 +77,18 @@ const EditBook = () => {
 
   const getData = (id) => {
     axios
-      .post(`http://localhost:3001/books/singlebook`, { id })
+      .post(`http://localhost:3001/books/singlebook`, {
+        headers: { "x-access-token": localStorage.getItem("token") },
+        id
+      })
       .then((response) => {
+        console.log(response);
         setInitialBook(response.data[0]);
         setInitialAuthors(response.data[1]);
       });
   };
+
+  console.log(localStorage.getItem("token"));
 
   const initializeAuthors = () => {
     const tempAL = [];

@@ -22,6 +22,8 @@ import {
   ImageList
 } from "./components/admin";
 
+import Login from "./components/authentication/Login";
+
 import {
   HomePage,
   AboutUsPage,
@@ -69,6 +71,7 @@ function App() {
         {/* version 1 */}
         <Route path="/cart" element={<CartPage />} /> {/* version 1 */}
         <Route path="/admin" element={<AdminPage />}>
+          <Route path="login" element={<Login />} />
           <Route path="addbook" element={<AddBook />} />
           <Route path="booklist" element={<BookList />} />
           <Route path="editbook/:id" element={<EditBook />} />

@@ -13,6 +13,7 @@ import { LanguageProvider } from "./contexts/language_context";
 import { SidebarProvider } from "./contexts/sidebar_context";
 import { AuthorsProvider } from "./contexts/authors_context";
 import { ReviewsProvider } from "./contexts/reviews_context";
+import { AuthenticationProvider } from "./contexts/authentication_context";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -24,9 +25,11 @@ ReactDOM.render(
               <CurrencyProvider>
                 <LanguageProvider>
                   <SidebarProvider>
-                    <Router>
-                      <App />
-                    </Router>
+                    <AuthenticationProvider>
+                      <Router>
+                        <App />
+                      </Router>
+                    </AuthenticationProvider>
                   </SidebarProvider>
                 </LanguageProvider>
               </CurrencyProvider>
