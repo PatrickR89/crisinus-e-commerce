@@ -5,9 +5,13 @@ import styled from "styled-components";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaCameraRetro } from "react-icons/fa";
 
+import { useAuthenticationContext } from "../../contexts/authentication_context";
+
 const EditAuthor = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const { header } = useAuthenticationContext();
 
   const [initialAuthor, setInitialAuthor] = useState({
     name: "",
@@ -40,8 +44,13 @@ const EditAuthor = () => {
 
   const getAuthor = () => {
     axios
-      .post("http://localhost:3001/authors/getauthor", { id })
+      .post("http://localhost:3001/authors/getauthor", {
+        headers: header(),
+        id
+      })
       .then((response) => {
+        if (response.data === "Token required")
+          return navigate("/admin/login", { replace: true });
         setInitialAuthor(response.data[0]);
       });
   };
@@ -72,19 +81,32 @@ const EditAuthor = () => {
   };
 
   const handleEdit = () => {
-    axios.put("http://localhost:3001/authors/editauthor", {
-      id,
-      name,
-      last_name,
-      images,
-      url,
-      bio
-    });
+    axios
+      .put("http://localhost:3001/authors/editauthor", {
+        headers: header(),
+        id,
+        name,
+        last_name,
+        images,
+        url,
+        bio
+      })
+      .then((response) => {
+        if (response.data === "Token required")
+          return navigate("/admin/login", { replace: true });
+      });
+    navigate("/admin/authorslist", { replace: true });
   };
   const handleDelete = () => {
-    axios.delete("http://localhost:3001/authors/deleteauthor", {
-      data: { id: id }
-    });
+    axios
+      .delete("http://localhost:3001/authors/deleteauthor", {
+        headers: header(),
+        data: { id: id }
+      })
+      .then((response) => {
+        if (response.data === "Token required")
+          return navigate("/admin/login", { replace: true });
+      });
     navigate("/admin/authorslist", { replace: true });
   };
 

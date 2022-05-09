@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
+import { useAuthenticationContext } from "../../contexts/authentication_context";
+
 const ListInfo = () => {
+  const navigate = useNavigate();
+
+  const { header } = useAuthenticationContext();
+
   const [infoList, setInfoList] = useState([]);
 
   const getInfoPages = () => {
@@ -13,9 +19,19 @@ const ListInfo = () => {
   };
 
   const resetTable = () => {
-    axios.post("http://localhost:3001/infopages/resetinfo").then((response) => {
-      setInfoList(response.data);
-    });
+    axios
+      .post("http://localhost:3001/infopages/resetinfo", { headers: header() })
+      .then((response) => {
+        console.log(response);
+        if (
+          response.data === "Token required" ||
+          response.data.auth === false
+        ) {
+          return navigate("/admin/login", { replace: true });
+        } else {
+          setInfoList(response.data);
+        }
+      });
   };
 
   useEffect(() => {

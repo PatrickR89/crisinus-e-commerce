@@ -6,11 +6,15 @@ import { FaTrashAlt } from "react-icons/fa";
 
 import { FaCameraRetro } from "react-icons/fa";
 
+import { useAuthenticationContext } from "../../contexts/authentication_context";
+
 const EditBook = () => {
   axios.defaults.withCredentials = true;
 
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const { loggedIn, header } = useAuthenticationContext();
 
   const [initialBook, setInitialBook] = useState({
     title: "",
@@ -78,11 +82,13 @@ const EditBook = () => {
   const getData = (id) => {
     axios
       .post(`http://localhost:3001/books/singlebook`, {
-        headers: { "x-access-token": localStorage.getItem("token") },
+        headers: header(),
         id
       })
       .then((response) => {
         console.log(response);
+        if (response.data === "Token required" || response.data.auth === false)
+          return navigate("/admin/login", { replace: true });
         setInitialBook(response.data[0]);
         setInitialAuthors(response.data[1]);
       });

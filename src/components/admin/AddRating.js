@@ -4,8 +4,12 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
+import { useAuthenticationContext } from "../../contexts/authentication_context";
+
 const AddRating = () => {
   const navigate = useNavigate();
+
+  const { header } = useAuthenticationContext();
 
   const [book, setBook] = useState({});
   const [rating_title, setRating_title] = useState("");
@@ -22,13 +26,19 @@ const AddRating = () => {
   };
 
   const addReview = () => {
-    axios.post("http://localhost:3001/reviews/addreview", {
-      book,
-      rating_title,
-      rating,
-      reviewer,
-      review
-    });
+    axios
+      .post("http://localhost:3001/reviews/addreview", {
+        headers: header(),
+        book,
+        rating_title,
+        rating,
+        reviewer,
+        review
+      })
+      .then((response) => {
+        if (response.data === "Token required")
+          return navigate("/admin/login", { replace: true });
+      });
 
     navigate("/admin/ratingslist", { replace: true });
   };

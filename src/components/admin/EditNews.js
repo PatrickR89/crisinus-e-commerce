@@ -5,9 +5,13 @@ import styled from "styled-components";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaCameraRetro } from "react-icons/fa";
 
+import { useAuthenticationContext } from "../../contexts/authentication_context";
+
 const EditNews = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const { header } = useAuthenticationContext();
 
   const [initialNews, setInitialNews] = useState({
     title: "",
@@ -28,19 +32,27 @@ const EditNews = () => {
 
   const getNews = () => {
     axios
-      .post("http://localhost:3001/news/newsbyid", { id })
+      .post("http://localhost:3001/news/newsbyid", { headers: header(), id })
       .then((response) => {
+        if (response.data === "Token required")
+          return navigate("/admin/login", { replace: true });
         setInitialNews(response.data[0]);
       });
   };
 
   const editNews = () => {
-    axios.put("http://localhost:3001/news/editnews", {
-      id,
-      title,
-      images,
-      text
-    });
+    axios
+      .put("http://localhost:3001/news/editnews", {
+        headers: header(),
+        id,
+        title,
+        images,
+        text
+      })
+      .then((response) => {
+        if (response.data === "Token required")
+          return navigate("/admin/login", { replace: true });
+      });
 
     navigate("/admin/newslist", { replace: true });
   };
@@ -71,9 +83,15 @@ const EditNews = () => {
   };
 
   const handleDelete = () => {
-    axios.delete("http://localhost:3001/news/deletenews", {
-      data: { id: id }
-    });
+    axios
+      .delete("http://localhost:3001/news/deletenews", {
+        headers: header(),
+        data: { id: id }
+      })
+      .then((response) => {
+        if (response.data === "Token required")
+          return navigate("/admin/login", { replace: true });
+      });
     navigate("/admin/newslist", { replace: true });
   };
 

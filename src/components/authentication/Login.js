@@ -16,7 +16,6 @@ const Login = () => {
   const userAuthenticated = () => {
     axios
       .get("http://localhost:3001/authentication", {
-        // headers: { "x-access-token": localStorage.getItem("token") }
         headers: header()
       })
       .then((response) => {
@@ -63,7 +62,6 @@ const Login = () => {
           name="username"
           id="username"
           placeholder="Username..."
-          //   onChange={(e) => setUsername(e.target.value)}
           onChange={updateUser}
         />
 
@@ -72,7 +70,6 @@ const Login = () => {
           name="password"
           id="password"
           placeholder="Password..."
-          //   onChange={(e) => setPassword(e.target.value)}
           onChange={updateUser}
         />
         <button className="btn" onClick={login}>
@@ -83,11 +80,9 @@ const Login = () => {
         </button>
       </div>
 
-      {loggedIn && (
-        <button className="btn" onClick={userAuthenticated}>
-          Check auth
-        </button>
-      )}
+      <button className="btn" onClick={userAuthenticated}>
+        Check auth
+      </button>
     </Wrapper>
   );
 };

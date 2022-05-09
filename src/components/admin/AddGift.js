@@ -5,7 +5,11 @@ import { FaCameraRetro } from "react-icons/fa";
 import styled from "styled-components";
 import axios from "axios";
 
+import { useAuthenticationContext } from "../../contexts/authentication_context";
+
 const AddGift = () => {
+  const { header } = useAuthenticationContext();
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [max_order, setMax_order] = useState(0);
@@ -31,13 +35,19 @@ const AddGift = () => {
   };
 
   const addGift = () => {
-    axios.post("http://localhost:3001/giftshop/addgift", {
-      name,
-      price,
-      max_order,
-      images,
-      description
-    });
+    axios
+      .post("http://localhost:3001/giftshop/addgift", {
+        headers: header(),
+        name,
+        price,
+        max_order,
+        images,
+        description
+      })
+      .then((response) => {
+        if (response.data === "Token required")
+          return navigate("/admin/login", { replace: true });
+      });
 
     navigate("/admin/giftshoplist", { replace: true });
   };

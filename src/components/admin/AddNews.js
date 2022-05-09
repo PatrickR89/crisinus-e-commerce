@@ -5,8 +5,12 @@ import { FaCameraRetro } from "react-icons/fa";
 import styled from "styled-components";
 import axios from "axios";
 
+import { useAuthenticationContext } from "../../contexts/authentication_context";
+
 const AddNews = () => {
   const navigate = useNavigate();
+
+  const { header } = useAuthenticationContext();
 
   const [title, setTitle] = useState("");
   const [images, setImages] = useState([]);
@@ -29,11 +33,17 @@ const AddNews = () => {
   };
 
   const addNews = () => {
-    axios.post("http://localhost:3001/news/addnews", {
-      title,
-      images,
-      text
-    });
+    axios
+      .post("http://localhost:3001/news/addnews", {
+        headers: header(),
+        title,
+        images,
+        text
+      })
+      .then((response) => {
+        if (response.data === "Token required")
+          return navigate("/admin/login", { replace: true });
+      });
 
     navigate("/admin/newslist", { replace: true });
   };

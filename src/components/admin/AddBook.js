@@ -5,8 +5,12 @@ import { FaCameraRetro } from "react-icons/fa";
 import styled from "styled-components";
 import axios from "axios";
 
+import { useAuthenticationContext } from "../../contexts/authentication_context";
+
 const AddBook = () => {
   const navigate = useNavigate();
+
+  const { header } = useAuthenticationContext();
 
   const [title, setTitle] = useState("");
   const [authors, setAuthors] = useState([{ name: "", last_name: "" }]);
@@ -64,18 +68,24 @@ const AddBook = () => {
   };
 
   const addBook = () => {
-    axios.post("http://localhost:3001/books/addbook", {
-      title,
-      genre,
-      maxOrder,
-      price,
-      publisher,
-      language,
-      year,
-      desc,
-      images,
-      authors
-    });
+    axios
+      .post("http://localhost:3001/books/addbook", {
+        headers: header(),
+        title,
+        genre,
+        maxOrder,
+        price,
+        publisher,
+        language,
+        year,
+        desc,
+        images,
+        authors
+      })
+      .then((response) => {
+        if (response.data === "Token required" || response.data.auth === false)
+          return navigate("/admin/login", { replace: true });
+      });
 
     navigate("/admin/booklist", { replace: true });
   };

@@ -6,9 +6,13 @@ import { FaTrashAlt } from "react-icons/fa";
 import styled from "styled-components";
 import axios from "axios";
 
+import { useAuthenticationContext } from "../../contexts/authentication_context";
+
 const EditInfo = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const { header } = useAuthenticationContext();
 
   const [initialPage, setInitialPage] = useState({
     title: "",
@@ -35,8 +39,13 @@ const EditInfo = () => {
 
   const getPage = () => {
     axios
-      .post("http://localhost:3001/infopages/getinfobyid", { id })
+      .post("http://localhost:3001/infopages/getinfobyid", {
+        headers: header(),
+        id
+      })
       .then((response) => {
+        if (response.data === "Token required" || response.data.auth === false)
+          return navigate("/admin/login", { replace: true });
         setInitialPage(response.data[0]);
       });
   };
@@ -64,11 +73,17 @@ const EditInfo = () => {
   };
 
   const editInfo = () => {
-    axios.put("http://localhost:3001/infopages/editinfo", {
-      id,
-      images,
-      content
-    });
+    axios
+      .put("http://localhost:3001/infopages/editinfo", {
+        headers: header(),
+        id,
+        images,
+        content
+      })
+      .then((response) => {
+        if (response.data === "Token required" || response.data.auth === false)
+          return navigate("/admin/login", { replace: true });
+      });
     navigate("/admin/infolist", { replace: true });
   };
   return (

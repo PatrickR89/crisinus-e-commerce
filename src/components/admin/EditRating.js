@@ -4,9 +4,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
+import { useAuthenticationContext } from "../../contexts/authentication_context";
+
 const EditRating = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const { header } = useAuthenticationContext();
 
   const [initialReview, setInitialReview] = useState({
     book_id: "",
@@ -27,8 +31,13 @@ const EditRating = () => {
 
   const loadInitialReview = () => {
     axios
-      .post("http://localhost:3001/reviews/getInitialReview", { id })
+      .post("http://localhost:3001/reviews/getInitialReview", {
+        headers: header(),
+        id
+      })
       .then((response) => {
+        if (response.data === "Token required")
+          return navigate("/admin/login", { replace: true });
         setInitialReview(response.data);
       });
   };
@@ -42,28 +51,46 @@ const EditRating = () => {
   };
 
   const loadBooks = () => {
-    axios.get("http://localhost:3001/reviews/bookList").then((response) => {
-      setBookList(response.data);
-    });
+    axios
+      .get("http://localhost:3001/reviews/bookList")
+      .then((response) => {
+        setBookList(response.data);
+      })
+      .then((response) => {
+        if (response.data === "Token required")
+          return navigate("/admin/login", { replace: true });
+      });
   };
 
   const editReview = () => {
-    axios.put("http://localhost:3001/reviews/editreview", {
-      id,
-      book,
-      rating_title,
-      rating,
-      reviewer,
-      review
-    });
+    axios
+      .put("http://localhost:3001/reviews/editreview", {
+        headers: header(),
+        id,
+        book,
+        rating_title,
+        rating,
+        reviewer,
+        review
+      })
+      .then((response) => {
+        if (response.data === "Token required")
+          return navigate("/admin/login", { replace: true });
+      });
 
     navigate("/admin/ratingslist", { replace: true });
   };
 
   const handleDelete = () => {
-    axios.delete("http://localhost:3001/reviews/deletereview", {
-      data: { id: id }
-    });
+    axios
+      .delete("http://localhost:3001/reviews/deletereview", {
+        headers: header(),
+        data: { id: id }
+      })
+      .then((response) => {
+        if (response.data === "Token required")
+          return navigate("/admin/login", { replace: true });
+      });
     navigate("/admin/ratingslist", { replace: true });
   };
 
