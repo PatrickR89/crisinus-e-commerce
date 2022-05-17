@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 import { useLanguageContext } from "../contexts/language_context";
 
 const HomeBottom = () => {
   const { translation } = useLanguageContext();
+
+  const [email, setEmail] = useState("");
+
+  const submitEmail = () => {
+    let isEmail = email.includes("@") && email.includes(".");
+    if (isEmail === true) {
+      console.log(email);
+      axios
+        .post("http://localhost:3001/newsletter", { email: email })
+        .then((response) => {
+          alert(response.data);
+        });
+    } else {
+      alert("Invalid email");
+    }
+  };
 
   return (
     <Wrapper>
@@ -27,8 +44,9 @@ const HomeBottom = () => {
               name="email"
               id="email"
               placeholder={translation.enterEmail}
+              onChange={(e) => setEmail(e.target.value)}
             />
-            <button type="submit" className="btn">
+            <button className="btn" onClick={submitEmail}>
               {translation.subscribe}
             </button>
           </div>
