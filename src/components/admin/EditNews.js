@@ -34,7 +34,7 @@ const EditNews = () => {
     axios
       .post("http://localhost:3001/news/newsbyid", { headers: header(), id })
       .then((response) => {
-        if (response.data === "Token required")
+        if (response.data === "Token required" || response.data.auth === false)
           return navigate("/admin/login", { replace: true });
         setInitialNews(response.data[0]);
       });
@@ -50,7 +50,7 @@ const EditNews = () => {
         text
       })
       .then((response) => {
-        if (response.data === "Token required")
+        if (response.data === "Token required" || response.data.auth === false)
           return navigate("/admin/login", { replace: true });
       });
 
@@ -89,7 +89,7 @@ const EditNews = () => {
         data: { id: id }
       })
       .then((response) => {
-        if (response.data === "Token required")
+        if (response.data === "Token required" || response.data.auth === false)
           return navigate("/admin/login", { replace: true });
       });
     navigate("/admin/newslist", { replace: true });

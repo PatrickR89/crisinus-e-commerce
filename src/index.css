@@ -206,6 +206,42 @@ main {
   font-weight: bold;
 }
 
+.nav-container {
+  display: flex;
+  height: 10vh;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+.side-container {
+  width: 100%;
+}
+.nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  background: var(--clr-button-3);
+  color: var(--clr-primary-1);
+  padding: auto;
+  letter-spacing: var(--spacing);
+  font-weight: bold;
+  transition: var(--transition);
+  font-size: 1rem;
+  cursor: pointer;
+  border-color: transparent;
+  width: 20%;
+  height: 100%;
+}
+.side-btn {
+  width: 100%;
+  height: 3rem;
+}
+.nav-btn:hover {
+  color: var(--clr-primary-2);
+  background: var(--clr-button-4);
+}
+
 /* .main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

@@ -36,7 +36,7 @@ const EditRating = () => {
         id
       })
       .then((response) => {
-        if (response.data === "Token required")
+        if (response.data === "Token required" || response.data.auth === false)
           return navigate("/admin/login", { replace: true });
         setInitialReview(response.data);
       });

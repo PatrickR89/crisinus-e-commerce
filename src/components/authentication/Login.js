@@ -34,7 +34,7 @@ const Login = () => {
 
   return (
     <Wrapper>
-      <div className="registration">
+      {/* <div className="registration">
         <h2>Registration</h2>
         <label htmlFor="usernamereg">Username:</label>
         <input
@@ -53,36 +53,44 @@ const Login = () => {
         <button className="btn" onClick={register}>
           Register
         </button>
-      </div>
+      </div> */}
+      {!loggedIn && (
+        <div className="login">
+          <h2>Login</h2>
+
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Username..."
+            onChange={updateUser}
+          />
+
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password..."
+            onChange={updateUser}
+          />
+
+          <button className="btn" onClick={login}>
+            Login
+          </button>
+        </div>
+      )}
       <div className="login">
-        <h2>Login</h2>
-
-        <input
-          type="text"
-          name="username"
-          id="username"
-          placeholder="Username..."
-          onChange={updateUser}
-        />
-
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Password..."
-          onChange={updateUser}
-        />
-        <button className="btn" onClick={login}>
-          Login
-        </button>
-        <button className="btn" onClick={logout}>
-          Logout
-        </button>
+        {loggedIn && (
+          <button className="btn" onClick={logout}>
+            Logout
+          </button>
+        )}
+        {loggedIn && (
+          <button className="btn" onClick={userAuthenticated}>
+            Check auth
+          </button>
+        )}
       </div>
-
-      <button className="btn" onClick={userAuthenticated}>
-        Check auth
-      </button>
     </Wrapper>
   );
 };
@@ -91,9 +99,9 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2rem;
   flex-direction: column;
   width: 100%;
+  margin-top: 2rem;
 
   .registration,
   .login {

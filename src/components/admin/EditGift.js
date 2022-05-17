@@ -40,7 +40,7 @@ const EditGift = () => {
     axios
       .post("http://localhost:3001/giftshop/getitem", { headers: header(), id })
       .then((response) => {
-        if (response.data === "Token required")
+        if (response.data === "Token required" || response.data.auth === false)
           return navigate("/admin/login", { replace: true });
         setInitialItem(response.data[0]);
       });
@@ -88,7 +88,7 @@ const EditGift = () => {
         description
       })
       .then((response) => {
-        if (response.data === "Token required")
+        if (response.data === "Token required" || response.data.auth === false)
           return navigate("/admin/login", { replace: true });
       });
     navigate("/admin/giftshoplist", { replace: true });
@@ -101,7 +101,7 @@ const EditGift = () => {
         data: { id: id }
       })
       .then((response) => {
-        if (response.data === "Token required")
+        if (response.data === "Token required" || response.data.auth === false)
           return navigate("/admin/login", { replace: true });
       });
     navigate("/admin/giftshoplist", { replace: true });

@@ -10,7 +10,7 @@ import { useAuthenticationContext } from "../../contexts/authentication_context"
 const AddBook = () => {
   const navigate = useNavigate();
 
-  const { header } = useAuthenticationContext();
+  const { header, loggedIn } = useAuthenticationContext();
 
   const [title, setTitle] = useState("");
   const [authors, setAuthors] = useState([{ name: "", last_name: "" }]);
@@ -25,6 +25,9 @@ const AddBook = () => {
   const [authorsList, setAuthorsList] = useState([]);
 
   useEffect(() => {
+    if (!loggedIn) {
+      navigate("/admin/login", { replace: true });
+    }
     loadAuthors();
   }, []);
 
