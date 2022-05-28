@@ -106,6 +106,13 @@ export const ItemsProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    dispatch({
+      type: SET_SINGLE_NEWS,
+      payload: [state.news, state.newsPageID]
+    });
+  }, [state.newsPageID]);
+
+  useEffect(() => {
     const singleBook = state.books.find(
       (book) => book.id === parseInt(state.bookID)
     );

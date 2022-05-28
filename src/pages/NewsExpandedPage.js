@@ -9,8 +9,8 @@ const NewsExpandedPage = () => {
   const { id } = useParams();
 
   const { translation } = useLanguageContext();
-  const { fetchSingleNews } = useItemsContext();
-
+  const { fetchSingleNews, single_news } = useItemsContext();
+  console.log(single_news);
   useEffect(() => {
     const idInt = parseInt(id);
     fetchSingleNews(idInt);
