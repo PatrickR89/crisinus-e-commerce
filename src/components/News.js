@@ -65,23 +65,7 @@ const News = ({ newsPage, home }) => {
         <div className={newsPage ? "n-page single" : "single-home"}>
           <SingleNews {...single_news} />
         </div>
-        <ListMenu
-          items={items}
-          prevPage={prevPage}
-          nextPage={nextPage}
-          itemChange={changeNews}
-          itemCriteria={newsID}
-          length={news.length}
-          byId={true}
-        />
       </Wrapper>
-      <SidebarAR
-        items={items}
-        prevPage={prevPage}
-        nextPage={nextPage}
-        title={translation.news}
-        ver="news"
-      />
     </main>
   );
 };
