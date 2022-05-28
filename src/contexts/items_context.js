@@ -17,6 +17,7 @@ import {
   GET_SINGLE_GIFT_SUCCESS,
   GET_SINGLE_GIFT_ID,
   GET_SINGLE_BOOK_ID,
+  GET_SINGLE_NEWS_ID,
   UPDATE_SIZE,
   UPDATE_LENGTH,
   UPDATE_LENGTH_SEPARATE,
@@ -41,6 +42,7 @@ const initialState = {
   gifts: [],
   news: [],
   newsID: 1,
+  newsPageID: 1,
   single_item_loading: true,
   single_item_error: false,
   single_book: initialBook,
@@ -77,6 +79,11 @@ export const ItemsProvider = ({ children }) => {
   const fetchSingleBook = (id) => {
     dispatch({ type: GET_SINGLE_ITEM_START });
     dispatch({ type: GET_SINGLE_BOOK_ID, payload: id });
+  };
+
+  const fetchSingleNews = (id) => {
+    dispatch({ type: GET_SINGLE_ITEM_START });
+    dispatch({ type: GET_SINGLE_NEWS_ID, payload: id });
   };
 
   const fetchSingleGift = (id) => {
@@ -167,6 +174,7 @@ export const ItemsProvider = ({ children }) => {
         ...state,
         fetchSingleBook,
         fetchSingleGift,
+        fetchSingleNews,
         changeNews,
         changeNewsAuto
       }}

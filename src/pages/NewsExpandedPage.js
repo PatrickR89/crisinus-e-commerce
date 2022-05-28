@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { PageHero } from "../components";
@@ -7,7 +7,14 @@ import { useItemsContext } from "../contexts/items_context";
 
 const NewsExpandedPage = () => {
   const { id } = useParams();
+
   const { translation } = useLanguageContext();
+  const { fetchSingleNews } = useItemsContext();
+
+  useEffect(() => {
+    const idInt = parseInt(id);
+    fetchSingleNews(idInt);
+  }, [id]);
 
   return (
     <main>
