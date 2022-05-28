@@ -1,5 +1,5 @@
 import React from "react";
-import { News } from "../components";
+import { NewsPageComponent } from "../components";
 import styled from "styled-components";
 import { PageHero } from "../components";
 import { useLanguageContext } from "../contexts/language_context";
@@ -21,7 +21,7 @@ const NewsPage = () => {
     <main>
       <PageHero title={translation.news} />
       <Wrapper>
-        <News newsPage={true} />
+        <NewsPageComponent />
       </Wrapper>
     </main>
   );

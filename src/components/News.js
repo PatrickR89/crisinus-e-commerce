@@ -8,7 +8,7 @@ import { useItemsContext } from "../contexts/items_context";
 
 const News = ({ newsPage, home }) => {
   const { translation } = useLanguageContext();
-  const { changeNews, news, newsID, single_news, single_item_loading } =
+  const { changeNews, news, single_news, single_item_loading } =
     useItemsContext();
 
   const [tempIndex, setTempIndex] = useState(0);

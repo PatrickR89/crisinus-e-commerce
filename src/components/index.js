@@ -30,6 +30,7 @@ import SidebarAR from "./SidebarAR";
 import ListMenu from "./ListMenu";
 import NoCurrentAuthor from "./NoCurrentAuthor";
 import CurrentAuthor from "./CurrentAuthor";
+import NewsPageComponent from "./NewsPageComponent";
 
 export {
   News,
@@ -63,5 +64,6 @@ export {
   ListMenu,
   SidebarAR,
   NoCurrentAuthor,
-  CurrentAuthor
+  CurrentAuthor,
+  NewsPageComponent
 };
