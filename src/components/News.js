@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import { SingleNews, ListMenu, SidebarAR } from "../components";
-import { useFetchItems } from "../hooks/useFetchItems";
+import { SingleNews } from "../components";
 
 import { useLanguageContext } from "../contexts/language_context";
 import { useItemsContext } from "../contexts/items_context";
@@ -13,15 +12,6 @@ const News = ({ newsPage, home }) => {
     useItemsContext();
 
   const [tempIndex, setTempIndex] = useState(0);
-  const [items, setItems] = useState([]);
-  const [page, setPage] = useState(0);
-
-  const { loading, data, prevPage, nextPage } = useFetchItems(news, 5, setPage);
-
-  useEffect(() => {
-    if (loading) return;
-    setItems(data[page]);
-  }, [loading, page, data]);
 
   useEffect(() => {
     if (home && news.length) {
