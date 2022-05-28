@@ -40,7 +40,8 @@ import {
   SingleGiftPage,
   AuthorsPage,
   CartPage,
-  AdminPage
+  AdminPage,
+  NewsExpandedPage
 } from "./pages";
 
 function App() {
@@ -57,7 +58,8 @@ function App() {
         {/* version 1 */}
         <Route path="/giftshop" element={<GiftshopPage />} /> {/* version 1 */}
         <Route path="/info" element={<InfoPage />} /> {/* version 1 */}
-        <Route path="/news" element={<NewsPage />} /> {/* version 1 */}
+        <Route exact path="/news" element={<NewsPage />} /> {/* version 1 */}
+        <Route exact path="/news/:id" element={<NewsExpandedPage />} />
         <Route path="/order" element={<OrderPage />} /> {/* version 1 */}
         <Route path="/payment" element={<PaymentPage />} /> {/* version 1 */}
         <Route path="/reviews" element={<ReviewsPage />} />

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { useItemsContext } from "../contexts/items_context";
 
 const NewsPageComponent = () => {
@@ -16,7 +17,9 @@ const NewsPageComponent = () => {
             <article className="news-text">
               <div>
                 {index === 0 && <hr />}
-                <h2>{n.title}</h2>
+                <Link to={`/news/${n.id}`}>
+                  <h2>{n.title}</h2>
+                </Link>
                 <p className="news-paragraph">{n.text.substring(0, 500)}</p>
               </div>
               <div>

@@ -14,6 +14,7 @@ import SingleBookPage from "./SingleBookPage";
 import SingleGiftPage from "./SingleGiftPage";
 import CartPage from "./CartPage";
 import AdminPage from "./AdminPage";
+import NewsExpandedPage from "./NewsExpandedPage";
 
 export {
   AboutUsPage,
@@ -31,5 +32,6 @@ export {
   SingleBookPage,
   SingleGiftPage,
   CartPage,
-  AdminPage
+  AdminPage,
+  NewsExpandedPage
 };
