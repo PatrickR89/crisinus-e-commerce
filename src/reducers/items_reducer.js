@@ -47,9 +47,9 @@ const items_reducer = (state, action) => {
   if (action.type === GET_SINGLE_BOOK_ID) {
     return { ...state, bookID: action.payload };
   }
-  if (action.type === GET_SINGLE_NEWS_ID) {
-    return { ...state, newsPageID: action.payload };
-  }
+  // if (action.type === GET_SINGLE_NEWS_ID) {
+  //   return { ...state, newsID: action.payload };
+  // }
   if (action.type === GET_SINGLE_GIFT_ID) {
     return { ...state, giftID: action.payload };
   }

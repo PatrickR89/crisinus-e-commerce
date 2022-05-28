@@ -81,20 +81,12 @@ export const ItemsProvider = ({ children }) => {
     dispatch({ type: GET_SINGLE_BOOK_ID, payload: id });
   };
 
-  const fetchSingleNews = (id) => {
-    dispatch({ type: GET_SINGLE_ITEM_START });
-    dispatch({ type: GET_SINGLE_NEWS_ID, payload: id });
-  };
-
   const fetchSingleGift = (id) => {
     dispatch({ type: GET_SINGLE_ITEM_START });
     dispatch({ type: GET_SINGLE_GIFT_ID, payload: id });
   };
   const changeNews = (id) => {
     dispatch({ type: GET_SINGLE_ITEM_START });
-    dispatch({ type: CHANGE_NEWS_ID, payload: id });
-  };
-  const changeNewsAuto = (id) => {
     dispatch({ type: CHANGE_NEWS_ID, payload: id });
   };
 
@@ -104,13 +96,6 @@ export const ItemsProvider = ({ children }) => {
   useEffect(() => {
     fetchItems();
   }, []);
-
-  useEffect(() => {
-    dispatch({
-      type: SET_SINGLE_NEWS,
-      payload: [state.news, state.newsPageID]
-    });
-  }, [state.newsPageID]);
 
   useEffect(() => {
     const singleBook = state.books.find(
@@ -181,9 +166,7 @@ export const ItemsProvider = ({ children }) => {
         ...state,
         fetchSingleBook,
         fetchSingleGift,
-        fetchSingleNews,
-        changeNews,
-        changeNewsAuto
+        changeNews
       }}
     >
       {children}
