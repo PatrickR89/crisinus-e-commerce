@@ -7,7 +7,8 @@ import {
   CLEAR_CART,
   COUNT_TOTALS,
   OPEN_MODAL,
-  CLOSE_MODAL
+  CLOSE_MODAL,
+  UPDATE_CLIENT
 } from "../actions/cart_actions";
 
 const getLocalStorage = () => {
@@ -29,12 +30,10 @@ const initialState = {
     clientName: "",
     clientLastName: "",
     clientEmail: "",
-    clientAdress: {
-      streetNumber: "",
-      streetName: "",
-      city: "",
-      postalCode: 0
-    }
+    streetNumber: "",
+    streetName: "",
+    city: "",
+    postalCode: 0
   }
 };
 
@@ -67,6 +66,13 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: CLOSE_MODAL });
   };
 
+  const updateClient = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+
+    dispatch({ type: UPDATE_CLIENT, payload: { name, value } });
+  };
+
   useEffect(() => {
     dispatch({ type: COUNT_TOTALS });
     localStorage.setItem("cart", JSON.stringify(state.cart));
@@ -81,7 +87,8 @@ export const CartProvider = ({ children }) => {
         clearCart,
         toggleAmount,
         openModal,
-        closeModal
+        closeModal,
+        updateClient
       }}
     >
       {children}

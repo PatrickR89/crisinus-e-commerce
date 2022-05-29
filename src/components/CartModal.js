@@ -2,66 +2,83 @@ import React from "react";
 import styled from "styled-components";
 
 import { useCartContext } from "../contexts/cart_context";
+import { useLanguageContext } from "../contexts/language_context";
 
 const CartModal = () => {
-  const { closeModal } = useCartContext();
+  const { closeModal, updateClient } = useCartContext();
+  const { translation } = useLanguageContext();
+
   return (
     <Wrapper>
       <div className="content glass">
         <div className="header">
-          <h2>Purchase</h2>
+          <h2>{translation.purchaseAdress}</h2>
         </div>
         <div className="body">
-          <label htmlFor="clientName">Name:</label>
+          <label htmlFor="clientName">{translation.clientName}:</label>
           <input
             type="text"
             name="clientName"
             id="clientLastName"
             className="glass"
+            onChange={updateClient}
           />
-          <label htmlFor="clientLastName">Lastname:</label>
+          <label htmlFor="clientLastName">{translation.clientLastName}:</label>
           <input
             type="text"
             name="clientLastName"
             id="clientLastName"
             className="glass"
+            onChange={updateClient}
           />
-          <label htmlFor="clientEmail">Email:</label>
+          <label htmlFor="clientEmail">{translation.clientEmail}:</label>
           <input
             type="email"
             name="clientEmail"
             id="clientEmail"
             className="glass"
+            onChange={updateClient}
           />
-          <label htmlFor="city">City:</label>
-          <input type="text" name="city" id="city" className="glass" />
-          <label htmlFor="postalCode">Postal Code:</label>
+          <label htmlFor="city">{translation.clientCity}:</label>
+          <input
+            type="text"
+            name="city"
+            id="city"
+            className="glass"
+            onChange={updateClient}
+          />
+          <label htmlFor="postalCode">{translation.clientPostalCode}:</label>
           <input
             type="number"
             name="postalCode"
             id="postalCode"
             className="glass"
+            onChange={updateClient}
           />
-          <label htmlFor="streetName">Street name:</label>
+          <label htmlFor="streetName">{translation.clientStreetName}:</label>
           <input
             type="text"
             name="streetName"
             id="streetName"
             className="glass"
+            onChange={updateClient}
           />
-          <label htmlFor="streetNumber">Street number:</label>
+          <label htmlFor="streetNumber">
+            {translation.clientStreetNumber}:
+          </label>
           <input
             type="text"
             name="streetNumber"
             id="streetNumber"
             className="glass"
+            onChange={updateClient}
           />
         </div>
         <div className="footer">
           <button className="btn" onClick={closeModal}>
-            BACK
+            {translation.back}
           </button>
-          <button className="btn">SEND</button>
+          <button className="btn">{translation.send}</button>
         </div>
       </div>
     </Wrapper>
@@ -96,6 +113,7 @@ const Wrapper = styled.div`
       margin-bottom: 0.5rem;
       text-align: start;
       color: var(--clr-par-5);
+      text-transform: capitalize;
     }
     input {
       border: none;

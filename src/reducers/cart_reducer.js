@@ -5,7 +5,8 @@ import {
   CLEAR_CART,
   COUNT_TOTALS,
   OPEN_MODAL,
-  CLOSE_MODAL
+  CLOSE_MODAL,
+  UPDATE_CLIENT
 } from "../actions/cart_actions";
 
 const cart_reducer = (state, action) => {
@@ -95,6 +96,11 @@ const cart_reducer = (state, action) => {
 
   if (action.type === CLOSE_MODAL) {
     return { ...state, isModalOpen: false };
+  }
+
+  if (action.type === UPDATE_CLIENT) {
+    const { name, value } = action.payload;
+    return { ...state, cartOrder: { ...state.cartOrder, [name]: value } };
   }
 
   throw new Error(`No matshing "${action.type}" action type`);

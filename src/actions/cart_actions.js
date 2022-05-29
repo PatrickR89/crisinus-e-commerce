@@ -5,3 +5,4 @@ export const CLEAR_CART = "CLEAR_CART";
 export const COUNT_TOTALS = "COUNT_TOTALS";
 export const OPEN_MODAL = "OPEN_MODAL";
 export const CLOSE_MODAL = "CLOSE_MODAL";
+export const UPDATE_CLIENT = "UPDATE_CLIENT";
