@@ -6,7 +6,21 @@ import {
   COUNT_TOTALS,
   OPEN_MODAL,
   CLOSE_MODAL,
-  UPDATE_CLIENT
+  UPDATE_CLIENT,
+  SET_CL_NAME_ERR_TRUE,
+  SET_CL_NAME_ERR_FALSE,
+  SET_CL_LASTNAME_ERR_TRUE,
+  SET_CL_LASTNAME_ERR_FALSE,
+  SET_CL_EMAIL_ERR_TRUE,
+  SET_CL_EMAIL_ERR_FALSE,
+  SET_CL_ST_NUM_ERR_TRUE,
+  SET_CL_ST_NUM_ERR_FALSE,
+  SET_CL_ST_NAME_ERR_TRUE,
+  SET_CL_ST_NAME_ERR_FALSE,
+  SET_CL_CITY_ERR_TRUE,
+  SET_CL_CITY_ERR_FALSE,
+  SET_CL_POST_CODE_ERR_TRUE,
+  SET_CL_POST_CODE_ERR_FALSE
 } from "../actions/cart_actions";
 
 const cart_reducer = (state, action) => {
@@ -103,6 +117,93 @@ const cart_reducer = (state, action) => {
     return { ...state, cartOrder: { ...state.cartOrder, [name]: value } };
   }
 
+  //CLIENT VALIDATION
+  if (action.type === SET_CL_NAME_ERR_TRUE) {
+    return {
+      ...state,
+      cartError: { ...state.cartError, clientNameError: true }
+    };
+  }
+  if (action.type === SET_CL_NAME_ERR_FALSE) {
+    return {
+      ...state,
+      cartError: { ...state.cartError, clientNameError: false }
+    };
+  }
+  if (action.type === SET_CL_LASTNAME_ERR_TRUE) {
+    return {
+      ...state,
+      cartError: { ...state.cartError, clientLastNameError: true }
+    };
+  }
+  if (action.type === SET_CL_LASTNAME_ERR_FALSE) {
+    return {
+      ...state,
+      cartError: { ...state.cartError, clientLastNameError: false }
+    };
+  }
+  if (action.type === SET_CL_EMAIL_ERR_TRUE) {
+    return {
+      ...state,
+      cartError: { ...state.cartError, clientEmailError: true }
+    };
+  }
+  if (action.type === SET_CL_EMAIL_ERR_FALSE) {
+    return {
+      ...state,
+      cartError: { ...state.cartError, clientEmailError: false }
+    };
+  }
+  if (action.type === SET_CL_ST_NUM_ERR_TRUE) {
+    return {
+      ...state,
+      cartError: { ...state.cartError, streetNumberError: true }
+    };
+  }
+  if (action.type === SET_CL_ST_NUM_ERR_FALSE) {
+    return {
+      ...state,
+      cartError: { ...state.cartError, streetNumberError: false }
+    };
+  }
+  if (action.type === SET_CL_ST_NAME_ERR_TRUE) {
+    return {
+      ...state,
+      cartError: { ...state.cartError, streetNameError: true }
+    };
+  }
+  if (action.type === SET_CL_ST_NAME_ERR_FALSE) {
+    return {
+      ...state,
+      cartError: { ...state.cartError, streetNameError: false }
+    };
+  }
+  if (action.type === SET_CL_CITY_ERR_TRUE) {
+    return {
+      ...state,
+      cartError: { ...state.cartError, cityError: true }
+    };
+  }
+  if (action.type === SET_CL_CITY_ERR_FALSE) {
+    return {
+      ...state,
+      cartError: { ...state.cartError, cityError: false }
+    };
+  }
+  if (action.type === SET_CL_POST_CODE_ERR_TRUE) {
+    return {
+      ...state,
+      cartError: { ...state.cartError, postalCodeError: true }
+    };
+  }
+  if (action.type === SET_CL_POST_CODE_ERR_FALSE) {
+    return {
+      ...state,
+      cartError: { ...state.cartError, postalCodeError: false }
+    };
+  }
+
+  // CLIENT VALIDATION END
   throw new Error(`No matshing "${action.type}" action type`);
 };
 

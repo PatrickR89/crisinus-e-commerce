@@ -5,8 +5,8 @@ import axios from "axios";
 import { useAuthenticationContext } from "../../contexts/authentication_context";
 
 const Login = () => {
-  const [usernameReg, setUsernameReg] = useState("");
-  const [passwordReg, setPasswordReg] = useState("");
+  // const [usernameReg, setUsernameReg] = useState("");
+  // const [passwordReg, setPasswordReg] = useState("");
 
   axios.defaults.withCredentials = true;
 
@@ -23,14 +23,14 @@ const Login = () => {
       });
   };
 
-  const register = () => {
-    axios
-      .post("http://localhost:3001/register", {
-        username: usernameReg,
-        password: passwordReg
-      })
-      .then((response) => {});
-  };
+  // const register = () => {
+  //   axios
+  //     .post("http://localhost:3001/register", {
+  //       username: usernameReg,
+  //       password: passwordReg
+  //     })
+  //     .then((response) => {});
+  // };
 
   return (
     <Wrapper>

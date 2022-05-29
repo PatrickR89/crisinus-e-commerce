@@ -8,7 +8,21 @@ import {
   COUNT_TOTALS,
   OPEN_MODAL,
   CLOSE_MODAL,
-  UPDATE_CLIENT
+  UPDATE_CLIENT,
+  SET_CL_NAME_ERR_TRUE,
+  SET_CL_NAME_ERR_FALSE,
+  SET_CL_LASTNAME_ERR_TRUE,
+  SET_CL_LASTNAME_ERR_FALSE,
+  SET_CL_EMAIL_ERR_TRUE,
+  SET_CL_EMAIL_ERR_FALSE,
+  SET_CL_ST_NUM_ERR_TRUE,
+  SET_CL_ST_NUM_ERR_FALSE,
+  SET_CL_ST_NAME_ERR_TRUE,
+  SET_CL_ST_NAME_ERR_FALSE,
+  SET_CL_CITY_ERR_TRUE,
+  SET_CL_CITY_ERR_FALSE,
+  SET_CL_POST_CODE_ERR_TRUE,
+  SET_CL_POST_CODE_ERR_FALSE
 } from "../actions/cart_actions";
 
 const getLocalStorage = () => {
@@ -34,6 +48,15 @@ const initialState = {
     streetName: "",
     city: "",
     postalCode: 0
+  },
+  cartError: {
+    clientNameError: true,
+    clientLastNameError: true,
+    clientEmailError: true,
+    streetNumberError: true,
+    streetNameError: true,
+    cityError: true,
+    postalCodeError: true
   }
 };
 
@@ -72,6 +95,64 @@ export const CartProvider = ({ children }) => {
 
     dispatch({ type: UPDATE_CLIENT, payload: { name, value } });
   };
+
+  // CART VALIDATION
+
+  useEffect(() => {
+    if (state.cartOrder.clientName === "") {
+      dispatch({ type: SET_CL_NAME_ERR_TRUE });
+    } else {
+      dispatch({ type: SET_CL_NAME_ERR_FALSE });
+    }
+  }, [state.cartOrder.clientName]);
+
+  useEffect(() => {
+    if (state.cartOrder.clientLastName === "") {
+      dispatch({ type: SET_CL_LASTNAME_ERR_TRUE });
+    } else {
+      dispatch({ type: SET_CL_LASTNAME_ERR_FALSE });
+    }
+  }, [state.cartOrder.clientLastName]);
+
+  useEffect(() => {
+    if (state.cartOrder.clientEmail === "") {
+      dispatch({ type: SET_CL_EMAIL_ERR_TRUE });
+    } else {
+      dispatch({ type: SET_CL_EMAIL_ERR_FALSE });
+    }
+  }, [state.cartOrder.clientEmail]);
+
+  useEffect(() => {
+    if (state.cartOrder.streetNumber === "") {
+      dispatch({ type: SET_CL_ST_NUM_ERR_TRUE });
+    } else {
+      dispatch({ type: SET_CL_ST_NUM_ERR_FALSE });
+    }
+  }, [state.cartOrder.streetNumber]);
+
+  useEffect(() => {
+    if (state.cartOrder.streetName === "") {
+      dispatch({ type: SET_CL_ST_NAME_ERR_TRUE });
+    } else {
+      dispatch({ type: SET_CL_ST_NAME_ERR_FALSE });
+    }
+  }, [state.cartOrder.streetName]);
+
+  useEffect(() => {
+    if (state.cartOrder.city === "") {
+      dispatch({ type: SET_CL_CITY_ERR_TRUE });
+    } else {
+      dispatch({ type: SET_CL_CITY_ERR_FALSE });
+    }
+  }, [state.cartOrder.city]);
+
+  useEffect(() => {
+    if (state.cartOrder.postalCode === 0) {
+      dispatch({ type: SET_CL_POST_CODE_ERR_TRUE });
+    } else {
+      dispatch({ type: SET_CL_POST_CODE_ERR_FALSE });
+    }
+  }, [state.cartOrder.postalCode]);
 
   useEffect(() => {
     dispatch({ type: COUNT_TOTALS });

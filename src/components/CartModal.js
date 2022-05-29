@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import TextField from "@mui/material/TextField";
 
 import { useCartContext } from "../contexts/cart_context";
 import { useLanguageContext } from "../contexts/language_context";
 
 const CartModal = () => {
-  const { closeModal, updateClient } = useCartContext();
+  const {
+    closeModal,
+    updateClient,
+    clientName,
+    clientLastName,
+    clientEmail,
+    streetName,
+    streetNumber,
+    city,
+    postalCode,
+    cartError
+  } = useCartContext();
   const { translation } = useLanguageContext();
+
+  useEffect(() => {
+    console.log(cartError.clientNameError);
+  }, [clientName]);
 
   return (
     <Wrapper>
@@ -16,7 +32,11 @@ const CartModal = () => {
         </div>
         <div className="body">
           <label htmlFor="clientName">{translation.clientName}:</label>
-          <input
+          <TextField
+            value={clientName}
+            error={cartError.clientNameError}
+            variant="standard"
+            helperText={cartError.clientNameError && "Please enter your name"}
             type="text"
             name="clientName"
             id="clientLastName"
@@ -24,7 +44,13 @@ const CartModal = () => {
             onChange={updateClient}
           />
           <label htmlFor="clientLastName">{translation.clientLastName}:</label>
-          <input
+          <TextField
+            value={clientLastName}
+            error={cartError.clientLastNameError}
+            variant="standard"
+            helperText={
+              cartError.clientLastNameError && "Please enter your last name"
+            }
             type="text"
             name="clientLastName"
             id="clientLastName"
@@ -32,7 +58,13 @@ const CartModal = () => {
             onChange={updateClient}
           />
           <label htmlFor="clientEmail">{translation.clientEmail}:</label>
-          <input
+          <TextField
+            value={clientEmail}
+            error={cartError.clientEmailError}
+            variant="standard"
+            helperText={
+              cartError.clientEmailError && "Please enter email adress"
+            }
             type="email"
             name="clientEmail"
             id="clientEmail"
@@ -40,7 +72,11 @@ const CartModal = () => {
             onChange={updateClient}
           />
           <label htmlFor="city">{translation.clientCity}:</label>
-          <input
+          <TextField
+            value={city}
+            error={cartError.cityError}
+            variant="standard"
+            helperText={cartError.cityError && "Please enter city name"}
             type="text"
             name="city"
             id="city"
@@ -48,7 +84,13 @@ const CartModal = () => {
             onChange={updateClient}
           />
           <label htmlFor="postalCode">{translation.clientPostalCode}:</label>
-          <input
+          <TextField
+            value={postalCode}
+            error={cartError.postalCodeError}
+            variant="standard"
+            helperText={
+              cartError.postalCodeError && "Please enter your area postal code"
+            }
             type="number"
             name="postalCode"
             id="postalCode"
@@ -56,7 +98,11 @@ const CartModal = () => {
             onChange={updateClient}
           />
           <label htmlFor="streetName">{translation.clientStreetName}:</label>
-          <input
+          <TextField
+            value={streetName}
+            error={cartError.streetNameError}
+            variant="standard"
+            helperText={cartError.streetNameError && "Please enter street name"}
             type="text"
             name="streetName"
             id="streetName"
@@ -66,7 +112,13 @@ const CartModal = () => {
           <label htmlFor="streetNumber">
             {translation.clientStreetNumber}:
           </label>
-          <input
+          <TextField
+            value={streetNumber}
+            error={cartError.streetNumberError}
+            variant="standard"
+            helperText={
+              cartError.streetNumberError && "Please enter street number"
+            }
             type="text"
             name="streetNumber"
             id="streetNumber"
@@ -78,7 +130,9 @@ const CartModal = () => {
           <button className="btn" onClick={closeModal}>
             {translation.back}
           </button>
-          <button className="btn">{translation.send}</button>
+          <button className="btn" type="submit">
+            {translation.send}
+          </button>
         </div>
       </div>
     </Wrapper>
