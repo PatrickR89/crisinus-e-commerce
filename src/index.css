@@ -26,9 +26,11 @@
   --clr-par-10: hsl(30, 93%, 80%);
   /* buttons and links  */
   --clr-button-1: hsl(45, 88%, 35%);
+  --clr-button-1-tp: hsl(45, 88%, 35%, 0.15);
   --clr-button-2: hsl(45, 88%, 45%);
   --clr-button-3: hsl(45, 88%, 60%);
   --clr-button-4: hsl(45, 88%, 75%);
+  --clr-button-4-tp: hsla(45, 88%, 75%, 0.5);
   --clr-button-5: hsl(45, 88%, 85%);
   --clr-button-6: hsl(45, 88%, 95%);
 

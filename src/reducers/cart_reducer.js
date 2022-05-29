@@ -3,7 +3,9 @@ import {
   REMOVE_ITEM,
   TOGGLE_ITEM_AMOUNT,
   CLEAR_CART,
-  COUNT_TOTALS
+  COUNT_TOTALS,
+  OPEN_MODAL,
+  CLOSE_MODAL
 } from "../actions/cart_actions";
 
 const cart_reducer = (state, action) => {
@@ -85,6 +87,14 @@ const cart_reducer = (state, action) => {
       }
     );
     return { ...state, total_amount, total_items };
+  }
+
+  if (action.type === OPEN_MODAL) {
+    return { ...state, isModalOpen: true };
+  }
+
+  if (action.type === CLOSE_MODAL) {
+    return { ...state, isModalOpen: false };
   }
 
   throw new Error(`No matshing "${action.type}" action type`);

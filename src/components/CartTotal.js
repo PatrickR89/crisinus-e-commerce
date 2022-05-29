@@ -7,7 +7,7 @@ import { useLanguageContext } from "../contexts/language_context";
 import { Link } from "react-router-dom";
 
 const CartTotal = () => {
-  const { total_amount } = useCartContext();
+  const { total_amount, openModal } = useCartContext();
   const { priceFormat } = useCurrencyContext();
   const { translation } = useLanguageContext();
 
@@ -18,9 +18,9 @@ const CartTotal = () => {
           {translation.total}: {priceFormat(total_amount)}
         </h2>
         <hr />
-        <Link to="#" className="btn">
+        <button className="btn" onClick={openModal}>
           {translation.order}
-        </Link>
+        </button>
       </div>
     </Wrapper>
   );
@@ -38,7 +38,7 @@ const Wrapper = styled.div`
   hr {
     margin-bottom: 1rem;
   }
-  a {
+  button {
     width: 90%;
   }
   @media (max-width: 900px) {

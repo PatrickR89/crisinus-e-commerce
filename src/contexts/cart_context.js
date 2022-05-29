@@ -5,7 +5,9 @@ import {
   REMOVE_ITEM,
   TOGGLE_ITEM_AMOUNT,
   CLEAR_CART,
-  COUNT_TOTALS
+  COUNT_TOTALS,
+  OPEN_MODAL,
+  CLOSE_MODAL
 } from "../actions/cart_actions";
 
 const getLocalStorage = () => {
@@ -21,7 +23,19 @@ const getLocalStorage = () => {
 const initialState = {
   cart: getLocalStorage(),
   total_items: 0,
-  total_amount: 0
+  total_amount: 0,
+  isModalOpen: false,
+  cartOrder: {
+    clientName: "",
+    clientLastName: "",
+    clientEmail: "",
+    clientAdress: {
+      streetNumber: "",
+      streetName: "",
+      city: "",
+      postalCode: 0
+    }
+  }
 };
 
 const CartContext = React.createContext();
@@ -45,6 +59,14 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: TOGGLE_ITEM_AMOUNT, payload: { id, value } });
   };
 
+  const openModal = () => {
+    dispatch({ type: OPEN_MODAL });
+  };
+
+  const closeModal = () => {
+    dispatch({ type: CLOSE_MODAL });
+  };
+
   useEffect(() => {
     dispatch({ type: COUNT_TOTALS });
     localStorage.setItem("cart", JSON.stringify(state.cart));
@@ -52,7 +74,15 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ ...state, addToCart, removeItem, clearCart, toggleAmount }}
+      value={{
+        ...state,
+        addToCart,
+        removeItem,
+        clearCart,
+        toggleAmount,
+        openModal,
+        closeModal
+      }}
     >
       {children}
     </CartContext.Provider>
