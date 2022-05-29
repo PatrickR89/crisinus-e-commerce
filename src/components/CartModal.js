@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import TextField from "@mui/material/TextField";
 
@@ -19,10 +19,6 @@ const CartModal = () => {
     cartError
   } = useCartContext();
   const { translation } = useLanguageContext();
-
-  useEffect(() => {
-    console.log(cartError.clientNameError);
-  }, [clientName]);
 
   return (
     <Wrapper>

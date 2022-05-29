@@ -98,6 +98,16 @@ export const CartProvider = ({ children }) => {
 
   // CART VALIDATION
 
+  function validateEmail(email) {
+    var mailFormat =
+      /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
+    if (email.match(mailFormat)) {
+      dispatch({ type: SET_CL_EMAIL_ERR_FALSE });
+    } else {
+      dispatch({ type: SET_CL_EMAIL_ERR_TRUE });
+    }
+  }
+
   useEffect(() => {
     if (state.cartOrder.clientName === "") {
       dispatch({ type: SET_CL_NAME_ERR_TRUE });
@@ -118,7 +128,7 @@ export const CartProvider = ({ children }) => {
     if (state.cartOrder.clientEmail === "") {
       dispatch({ type: SET_CL_EMAIL_ERR_TRUE });
     } else {
-      dispatch({ type: SET_CL_EMAIL_ERR_FALSE });
+      validateEmail(state.cartOrder.clientEmail);
     }
   }, [state.cartOrder.clientEmail]);
 
