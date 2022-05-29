@@ -16,7 +16,8 @@ const CartModal = () => {
     streetNumber,
     city,
     postalCode,
-    cartError
+    cartError,
+    cartFinalError
   } = useCartContext();
   const { translation } = useLanguageContext();
 
@@ -126,7 +127,7 @@ const CartModal = () => {
           <button className="btn" onClick={closeModal}>
             {translation.back}
           </button>
-          <button className="btn" type="submit">
+          <button className="btn" disabled={cartFinalError}>
             {translation.send}
           </button>
         </div>
@@ -186,9 +187,17 @@ const Wrapper = styled.div`
   }
   .header,
   .footer {
-    padding: 2rem;
+    padding: 1rem;
     display: flex;
     justify-content: space-between;
+  }
+
+  .footer {
+    button: disabled, button[disabled] {
+      background-color: var(--clr-button-3-tp);
+      color: var(--clr-button-1-tp);
+    }
+    margin-bottom: 1rem;
   }
 `;
 

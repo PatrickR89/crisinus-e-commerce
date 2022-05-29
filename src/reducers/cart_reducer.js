@@ -20,7 +20,9 @@ import {
   SET_CL_CITY_ERR_TRUE,
   SET_CL_CITY_ERR_FALSE,
   SET_CL_POST_CODE_ERR_TRUE,
-  SET_CL_POST_CODE_ERR_FALSE
+  SET_CL_POST_CODE_ERR_FALSE,
+  SET_CART_ERROR_TRUE,
+  SET_CART_ERROR_FALSE
 } from "../actions/cart_actions";
 
 const cart_reducer = (state, action) => {
@@ -200,6 +202,18 @@ const cart_reducer = (state, action) => {
     return {
       ...state,
       cartError: { ...state.cartError, postalCodeError: false }
+    };
+  }
+  if (action.type === SET_CART_ERROR_TRUE) {
+    return {
+      ...state,
+      cartFinalError: true
+    };
+  }
+  if (action.type === SET_CART_ERROR_FALSE) {
+    return {
+      ...state,
+      cartFinalError: false
     };
   }
 

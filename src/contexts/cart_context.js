@@ -22,7 +22,9 @@ import {
   SET_CL_CITY_ERR_TRUE,
   SET_CL_CITY_ERR_FALSE,
   SET_CL_POST_CODE_ERR_TRUE,
-  SET_CL_POST_CODE_ERR_FALSE
+  SET_CL_POST_CODE_ERR_FALSE,
+  SET_CART_ERROR_TRUE,
+  SET_CART_ERROR_FALSE
 } from "../actions/cart_actions";
 
 const getLocalStorage = () => {
@@ -57,7 +59,8 @@ const initialState = {
     streetNameError: true,
     cityError: true,
     postalCodeError: true
-  }
+  },
+  cartFinalError: true
 };
 
 const CartContext = React.createContext();
@@ -163,6 +166,24 @@ export const CartProvider = ({ children }) => {
       dispatch({ type: SET_CL_POST_CODE_ERR_FALSE });
     }
   }, [state.cartOrder.postalCode]);
+
+  useEffect(() => {
+    if (
+      state.cartError.clientNameError ||
+      state.cartError.clientLastNameError ||
+      state.cartError.clientEmailError ||
+      state.cartError.streetNameError ||
+      state.cartError.streetNumberError ||
+      state.cartError.cityError ||
+      state.cartError.postalCodeError
+    ) {
+      dispatch({ type: SET_CART_ERROR_TRUE });
+    } else {
+      dispatch({ type: SET_CART_ERROR_FALSE });
+    }
+  }, [state.cartError]);
+
+  //  CART VALIDATION END
 
   useEffect(() => {
     dispatch({ type: COUNT_TOTALS });
