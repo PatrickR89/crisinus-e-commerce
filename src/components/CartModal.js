@@ -6,19 +6,8 @@ import { useCartContext } from "../contexts/cart_context";
 import { useLanguageContext } from "../contexts/language_context";
 
 const CartModal = () => {
-  const {
-    closeModal,
-    updateClient,
-    clientName,
-    clientLastName,
-    clientEmail,
-    streetName,
-    streetNumber,
-    city,
-    postalCode,
-    cartError,
-    cartFinalError
-  } = useCartContext();
+  const { closeModal, updateClient, cartOrder, cartError, cartFinalError } =
+    useCartContext();
   const { translation } = useLanguageContext();
 
   return (
@@ -30,7 +19,7 @@ const CartModal = () => {
         <div className="body">
           <label htmlFor="clientName">{translation.clientName}:</label>
           <TextField
-            value={clientName}
+            value={cartOrder.clientName}
             error={cartError.clientNameError}
             variant="standard"
             helperText={cartError.clientNameError && translation.clientNameMsg}
@@ -42,7 +31,7 @@ const CartModal = () => {
           />
           <label htmlFor="clientLastName">{translation.clientLastName}:</label>
           <TextField
-            value={clientLastName}
+            value={cartOrder.clientLastName}
             error={cartError.clientLastNameError}
             variant="standard"
             helperText={
@@ -56,7 +45,7 @@ const CartModal = () => {
           />
           <label htmlFor="clientEmail">{translation.clientEmail}:</label>
           <TextField
-            value={clientEmail}
+            value={cartOrder.clientEmail}
             error={cartError.clientEmailError}
             variant="standard"
             helperText={
@@ -70,7 +59,7 @@ const CartModal = () => {
           />
           <label htmlFor="city">{translation.clientCity}:</label>
           <TextField
-            value={city}
+            value={cartOrder.city}
             error={cartError.cityError}
             variant="standard"
             helperText={cartError.cityError && translation.clientCityMsg}
@@ -82,7 +71,7 @@ const CartModal = () => {
           />
           <label htmlFor="postalCode">{translation.clientPostalCode}:</label>
           <TextField
-            value={postalCode}
+            value={cartOrder.postalCode}
             error={cartError.postalCodeError}
             variant="standard"
             helperText={
@@ -96,7 +85,7 @@ const CartModal = () => {
           />
           <label htmlFor="streetName">{translation.clientStreetName}:</label>
           <TextField
-            value={streetName}
+            value={cartOrder.streetName}
             error={cartError.streetNameError}
             variant="standard"
             helperText={
@@ -112,7 +101,7 @@ const CartModal = () => {
             {translation.clientStreetNumber}:
           </label>
           <TextField
-            value={streetNumber}
+            value={cartOrder.streetNumber}
             error={cartError.streetNumberError}
             variant="standard"
             helperText={
