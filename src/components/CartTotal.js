@@ -4,10 +4,8 @@ import { useCartContext } from "../contexts/cart_context";
 import { useCurrencyContext } from "../contexts/currency_context";
 import { useLanguageContext } from "../contexts/language_context";
 
-import { Link } from "react-router-dom";
-
 const CartTotal = () => {
-  const { total_amount, openModal } = useCartContext();
+  const { total_amount, openModal, cart } = useCartContext();
   const { priceFormat } = useCurrencyContext();
   const { translation } = useLanguageContext();
 

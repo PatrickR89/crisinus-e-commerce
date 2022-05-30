@@ -12,9 +12,17 @@ const CartContainer = () => {
 
   if (cart.length < 1) {
     return (
-      <div>
-        <h2>empty cart</h2>
-      </div>
+      <Wrapper>
+        <h2>{translation.emptyCart}</h2>
+        <div className="btn-container">
+          <Link to="/books" className="btn" style={{ margin: "1rem" }}>
+            {translation.shopBooks}
+          </Link>
+          <Link to="/giftshop" className="btn" style={{ margin: "1rem" }}>
+            {translation.shopGifts}
+          </Link>
+        </div>
+      </Wrapper>
     );
   }
 

@@ -109,6 +109,11 @@ h2 {
   color: hsl(0, 0%, 70%);
 }
 
+button:disabled,
+button[disabled] {
+  background-color: var(--clr-button-3-tp);
+  color: var(--clr-button-1-tp);
+}
 a {
   text-decoration: none;
   color: var(--clr-primary-1);

@@ -33,7 +33,7 @@ const CartModal = () => {
             value={clientName}
             error={cartError.clientNameError}
             variant="standard"
-            helperText={cartError.clientNameError && "Please enter your name"}
+            helperText={cartError.clientNameError && translation.clientNameMsg}
             type="text"
             name="clientName"
             id="clientLastName"
@@ -46,7 +46,7 @@ const CartModal = () => {
             error={cartError.clientLastNameError}
             variant="standard"
             helperText={
-              cartError.clientLastNameError && "Please enter your last name"
+              cartError.clientLastNameError && translation.clientLastNameMsg
             }
             type="text"
             name="clientLastName"
@@ -60,7 +60,7 @@ const CartModal = () => {
             error={cartError.clientEmailError}
             variant="standard"
             helperText={
-              cartError.clientEmailError && "Please enter email adress"
+              cartError.clientEmailError && translation.clientEmailMsg
             }
             type="email"
             name="clientEmail"
@@ -73,7 +73,7 @@ const CartModal = () => {
             value={city}
             error={cartError.cityError}
             variant="standard"
-            helperText={cartError.cityError && "Please enter city name"}
+            helperText={cartError.cityError && translation.clientCityMsg}
             type="text"
             name="city"
             id="city"
@@ -86,7 +86,7 @@ const CartModal = () => {
             error={cartError.postalCodeError}
             variant="standard"
             helperText={
-              cartError.postalCodeError && "Please enter your area postal code"
+              cartError.postalCodeError && translation.clientPostalCodeMsg
             }
             type="number"
             name="postalCode"
@@ -99,7 +99,9 @@ const CartModal = () => {
             value={streetName}
             error={cartError.streetNameError}
             variant="standard"
-            helperText={cartError.streetNameError && "Please enter street name"}
+            helperText={
+              cartError.streetNameError && translation.clientStreetNameMsg
+            }
             type="text"
             name="streetName"
             id="streetName"
@@ -114,7 +116,7 @@ const CartModal = () => {
             error={cartError.streetNumberError}
             variant="standard"
             helperText={
-              cartError.streetNumberError && "Please enter street number"
+              cartError.streetNumberError && translation.clientStreetNumberMsg
             }
             type="text"
             name="streetNumber"
