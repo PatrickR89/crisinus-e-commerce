@@ -6,7 +6,8 @@ import { useItemsContext } from "../contexts/items_context";
 
 const ContactForm = () => {
   const { translation } = useLanguageContext();
-  const { updateContactForm, contactForm } = useItemsContext();
+  const { updateContactForm, contactForm, submitContactForm } =
+    useItemsContext();
 
   return (
     <Wrapper>
@@ -58,6 +59,7 @@ const ContactForm = () => {
           type="submit"
           className="btn"
           disabled={contactForm.contactFormError}
+          onClick={submitContactForm}
         >
           {translation.send}
         </button>

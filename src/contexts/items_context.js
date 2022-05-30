@@ -4,6 +4,7 @@ import React, {
   useLayoutEffect,
   useReducer
 } from "react";
+import axios from "axios";
 import reducer from "../reducers/items_reducer";
 import {
   GET_ITEMS_START,
@@ -29,7 +30,8 @@ import {
   SET_CONT_EMAIL_ERR_FALSE,
   UPDATE_CONTACT_FORM,
   SET_CONT_FORM_ERR_TRUE,
-  SET_CONT_FORM_ERR_FALSE
+  SET_CONT_FORM_ERR_FALSE,
+  RESET_CONTACT_FORM
 } from "../actions/items_actions";
 
 import mockBooks from "../mockData/mockBooks";
@@ -158,6 +160,8 @@ export const ItemsProvider = ({ children }) => {
     };
   }, [state.newsID, state.news]);
 
+  // CONTACT FORM
+
   const updateContactForm = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -207,6 +211,22 @@ export const ItemsProvider = ({ children }) => {
     state.contactForm.values.contactMessage
   ]);
 
+  function submitContactForm() {
+    const contactForm = state.contactForm.values;
+    try {
+      axios
+        .post("http://localhost:3001/public/submitmessage", {
+          contactForm
+        })
+        .then((response) => {
+          dispatch({ type: RESET_CONTACT_FORM });
+          return alert(response.data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  // CONTACT FORM END
   // WINDOW RESIZING EFFECT
 
   useLayoutEffect(() => {
@@ -239,7 +259,8 @@ export const ItemsProvider = ({ children }) => {
         fetchSingleBook,
         fetchSingleGift,
         changeNews,
-        updateContactForm
+        updateContactForm,
+        submitContactForm
       }}
     >
       {children}

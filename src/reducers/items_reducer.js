@@ -22,7 +22,8 @@ import {
   SET_CONT_EMAIL_ERR_FALSE,
   UPDATE_CONTACT_FORM,
   SET_CONT_FORM_ERR_TRUE,
-  SET_CONT_FORM_ERR_FALSE
+  SET_CONT_FORM_ERR_FALSE,
+  RESET_CONTACT_FORM
 } from "../actions/items_actions";
 
 const items_reducer = (state, action) => {
@@ -163,6 +164,19 @@ const items_reducer = (state, action) => {
       contactForm: {
         ...state.contactForm,
         contactFormError: false
+      }
+    };
+  }
+  if (action.type === RESET_CONTACT_FORM) {
+    return {
+      ...state,
+      contactForm: {
+        ...state.contactForm,
+        values: {
+          contactName: "",
+          contactEmail: "",
+          contactMessage: ""
+        }
       }
     };
   }
