@@ -20,7 +20,9 @@ import {
   SET_CONT_NAME_ERR_FALSE,
   SET_CONT_EMAIL_ERR_TRUE,
   SET_CONT_EMAIL_ERR_FALSE,
-  UPDATE_CONTACT_FORM
+  UPDATE_CONTACT_FORM,
+  SET_CONT_FORM_ERR_TRUE,
+  SET_CONT_FORM_ERR_FALSE
 } from "../actions/items_actions";
 
 const items_reducer = (state, action) => {
@@ -109,7 +111,60 @@ const items_reducer = (state, action) => {
         values: { ...state.contactForm.values, [name]: value }
       }
     };
-    // return { ...state, cartOrder: { ...state.cartOrder, [name]: value } };
+  }
+  if (action.type === SET_CONT_NAME_ERR_TRUE) {
+    return {
+      ...state,
+      contactForm: {
+        ...state.contactForm,
+        errors: { ...state.contactForm.errors, contactNameError: true }
+      }
+    };
+  }
+  if (action.type === SET_CONT_NAME_ERR_FALSE) {
+    return {
+      ...state,
+      contactForm: {
+        ...state.contactForm,
+        errors: { ...state.contactForm.errors, contactNameError: false }
+      }
+    };
+  }
+  if (action.type === SET_CONT_EMAIL_ERR_TRUE) {
+    return {
+      ...state,
+      contactForm: {
+        ...state.contactForm,
+        errors: { ...state.contactForm.errors, contactEmailError: true }
+      }
+    };
+  }
+  if (action.type === SET_CONT_EMAIL_ERR_FALSE) {
+    return {
+      ...state,
+      contactForm: {
+        ...state.contactForm,
+        errors: { ...state.contactForm.errors, contactEmailError: false }
+      }
+    };
+  }
+  if (action.type === SET_CONT_FORM_ERR_TRUE) {
+    return {
+      ...state,
+      contactForm: {
+        ...state.contactForm,
+        contactFormError: true
+      }
+    };
+  }
+  if (action.type === SET_CONT_FORM_ERR_FALSE) {
+    return {
+      ...state,
+      contactForm: {
+        ...state.contactForm,
+        contactFormError: false
+      }
+    };
   }
   throw new Error(`No matching "${action.type}" action`);
 };

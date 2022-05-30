@@ -27,7 +27,9 @@ import {
   SET_CONT_NAME_ERR_FALSE,
   SET_CONT_EMAIL_ERR_TRUE,
   SET_CONT_EMAIL_ERR_FALSE,
-  UPDATE_CONTACT_FORM
+  UPDATE_CONTACT_FORM,
+  SET_CONT_FORM_ERR_TRUE,
+  SET_CONT_FORM_ERR_FALSE
 } from "../actions/items_actions";
 
 import mockBooks from "../mockData/mockBooks";
@@ -59,13 +61,14 @@ const initialState = {
   contactForm: {
     values: {
       contactName: "",
-      conatctEmail: "",
+      contactEmail: "",
       contactMessage: ""
     },
     errors: {
       contactNameError: true,
-      conatctEmailError: true
-    }
+      contactEmailError: true
+    },
+    contactFormError: true
   }
 };
 
@@ -161,6 +164,48 @@ export const ItemsProvider = ({ children }) => {
 
     dispatch({ type: UPDATE_CONTACT_FORM, payload: { name, value } });
   };
+
+  function validateEmail(email) {
+    var mailFormat =
+      /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
+    if (email.match(mailFormat)) {
+      dispatch({ type: SET_CONT_EMAIL_ERR_FALSE });
+    } else {
+      dispatch({ type: SET_CONT_EMAIL_ERR_TRUE });
+    }
+  }
+
+  useEffect(() => {
+    if (state.contactForm.values.contactName === "") {
+      dispatch({ type: SET_CONT_NAME_ERR_TRUE });
+    } else {
+      dispatch({ type: SET_CONT_NAME_ERR_FALSE });
+    }
+  }, [state.contactForm.values.contactName]);
+
+  useEffect(() => {
+    if (state.contactForm.values.contactEmail === "") {
+      dispatch({ type: SET_CONT_EMAIL_ERR_TRUE });
+    } else {
+      validateEmail(state.contactForm.values.contactEmail);
+    }
+  }, [state.contactForm.values.contactEmail]);
+
+  useEffect(() => {
+    if (
+      state.contactForm.errors.contactNameError ||
+      state.contactForm.errors.contactEmailError ||
+      state.contactForm.values.contactMessage === ""
+    ) {
+      dispatch({ type: SET_CONT_FORM_ERR_TRUE });
+    } else {
+      dispatch({ type: SET_CONT_FORM_ERR_FALSE });
+    }
+  }, [
+    state.contactForm.errors.contactNameError,
+    state.contactForm.errors.contactEmailError,
+    state.contactForm.values.contactMessage
+  ]);
 
   // WINDOW RESIZING EFFECT
 

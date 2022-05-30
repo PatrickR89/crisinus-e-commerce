@@ -6,7 +6,7 @@ import { useItemsContext } from "../contexts/items_context";
 
 const ContactForm = () => {
   const { translation } = useLanguageContext();
-  const { updateContactForm } = useItemsContext();
+  const { updateContactForm, contactForm } = useItemsContext();
 
   return (
     <Wrapper>
@@ -21,17 +21,27 @@ const ContactForm = () => {
           name="contactName"
           onChange={updateContactForm}
           variant="standard"
+          value={contactForm.values.contactName}
+          error={contactForm.errors.contactNameError}
+          helperText={
+            contactForm.errors.contactNameError && translation.clientNameMsg
+          }
         />
-        <label className="title" htmlFor="conatctEmail">
+        <label className="title" htmlFor="contactEmail">
           Email:
         </label>
         <TextField
           className="contact-input"
           type="email"
-          id="conatctEmail"
-          name="conatctEmail"
+          id="contactEmail"
+          name="contactEmail"
           onChange={updateContactForm}
           variant="standard"
+          value={contactForm.values.contactEmail}
+          error={contactForm.errors.contactEmailError}
+          helperText={
+            contactForm.errors.contactEmailError && translation.clientEmailMsg
+          }
         />
         <label className="title" htmlFor="contactMessage">
           {translation.yourMsg}:
@@ -44,7 +54,11 @@ const ContactForm = () => {
           rows="10"
           onChange={updateContactForm}
         ></textarea>
-        <button type="submit" className="btn">
+        <button
+          type="submit"
+          className="btn"
+          disabled={contactForm.contactFormError}
+        >
           {translation.send}
         </button>
       </div>
