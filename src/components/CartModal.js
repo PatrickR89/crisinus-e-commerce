@@ -1,14 +1,27 @@
 import React from "react";
 import styled from "styled-components";
 import TextField from "@mui/material/TextField";
+import { useNavigate } from "react-router-dom";
 
 import { useCartContext } from "../contexts/cart_context";
 import { useLanguageContext } from "../contexts/language_context";
 
 const CartModal = () => {
-  const { closeModal, updateClient, cartOrder, cartError, cartFinalError } =
-    useCartContext();
+  const {
+    closeModal,
+    updateClient,
+    cartOrder,
+    cartError,
+    cartFinalError,
+    submitCart
+  } = useCartContext();
   const { translation } = useLanguageContext();
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    submitCart();
+    return navigate("/", { replace: true });
+  };
 
   return (
     <Wrapper>
@@ -118,7 +131,11 @@ const CartModal = () => {
           <button className="btn" onClick={closeModal}>
             {translation.back}
           </button>
-          <button className="btn" disabled={cartFinalError}>
+          <button
+            className="btn"
+            disabled={cartFinalError}
+            onClick={handleSubmit}
+          >
             {translation.send}
           </button>
         </div>

@@ -22,7 +22,8 @@ import {
   SET_CL_POST_CODE_ERR_TRUE,
   SET_CL_POST_CODE_ERR_FALSE,
   SET_CART_ERROR_TRUE,
-  SET_CART_ERROR_FALSE
+  SET_CART_ERROR_FALSE,
+  RESET_CART
 } from "../actions/cart_actions";
 
 const cart_reducer = (state, action) => {
@@ -218,7 +219,24 @@ const cart_reducer = (state, action) => {
   }
 
   // CLIENT VALIDATION END
-  throw new Error(`No matshing "${action.type}" action type`);
+
+  if (action.type === RESET_CART) {
+    return {
+      ...state,
+      cartOrder: {
+        clientName: "",
+        clientLastName: "",
+        clientEmail: "",
+        streetNumber: "",
+        streetName: "",
+        city: "",
+        postalCode: 0
+      },
+      cart: []
+    };
+  }
+
+  throw new Error(`No matching "${action.type}" action type`);
 };
 
 export default cart_reducer;

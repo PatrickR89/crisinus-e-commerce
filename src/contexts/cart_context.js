@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useReducer } from "react";
 import reducer from "../reducers/cart_reducer";
+import axios from "axios";
 import {
   ADD_ITEM,
   REMOVE_ITEM,
@@ -24,7 +25,8 @@ import {
   SET_CL_POST_CODE_ERR_TRUE,
   SET_CL_POST_CODE_ERR_FALSE,
   SET_CART_ERROR_TRUE,
-  SET_CART_ERROR_FALSE
+  SET_CART_ERROR_FALSE,
+  RESET_CART
 } from "../actions/cart_actions";
 
 const getLocalStorage = () => {
@@ -98,6 +100,25 @@ export const CartProvider = ({ children }) => {
 
     dispatch({ type: UPDATE_CLIENT, payload: { name, value } });
   };
+
+  function submitCart() {
+    const cart = state.cart;
+    const cartOrder = state.cartOrder;
+    try {
+      axios
+        .post("http://localhost:3001/public/submitcart", {
+          cart,
+          cartOrder
+        })
+        .then((response) => {
+          dispatch({ type: RESET_CART });
+          dispatch({ type: CLOSE_MODAL });
+          return alert(response.data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   // CART VALIDATION
 
@@ -200,7 +221,8 @@ export const CartProvider = ({ children }) => {
         toggleAmount,
         openModal,
         closeModal,
-        updateClient
+        updateClient,
+        submitCart
       }}
     >
       {children}
