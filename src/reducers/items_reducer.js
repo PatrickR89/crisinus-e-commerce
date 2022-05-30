@@ -15,7 +15,12 @@ import {
   UPDATE_LENGTH,
   UPDATE_LENGTH_SEPARATE,
   CHANGE_NEWS_ID,
-  SET_SINGLE_NEWS
+  SET_SINGLE_NEWS,
+  SET_CONT_NAME_ERR_TRUE,
+  SET_CONT_NAME_ERR_FALSE,
+  SET_CONT_EMAIL_ERR_TRUE,
+  SET_CONT_EMAIL_ERR_FALSE,
+  UPDATE_CONTACT_FORM
 } from "../actions/items_actions";
 
 const items_reducer = (state, action) => {
@@ -93,6 +98,18 @@ const items_reducer = (state, action) => {
     const newsID = action.payload[1];
     const tempNews = news.find((item) => item.id === newsID);
     return { ...state, single_news: tempNews };
+  }
+
+  if (action.type === UPDATE_CONTACT_FORM) {
+    const { name, value } = action.payload;
+    return {
+      ...state,
+      contactForm: {
+        ...state.contactForm,
+        values: { ...state.contactForm.values, [name]: value }
+      }
+    };
+    // return { ...state, cartOrder: { ...state.cartOrder, [name]: value } };
   }
   throw new Error(`No matching "${action.type}" action`);
 };

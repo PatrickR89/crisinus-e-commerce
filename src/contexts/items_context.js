@@ -22,7 +22,12 @@ import {
   UPDATE_LENGTH,
   UPDATE_LENGTH_SEPARATE,
   CHANGE_NEWS_ID,
-  SET_SINGLE_NEWS
+  SET_SINGLE_NEWS,
+  SET_CONT_NAME_ERR_TRUE,
+  SET_CONT_NAME_ERR_FALSE,
+  SET_CONT_EMAIL_ERR_TRUE,
+  SET_CONT_EMAIL_ERR_FALSE,
+  UPDATE_CONTACT_FORM
 } from "../actions/items_actions";
 
 import mockBooks from "../mockData/mockBooks";
@@ -50,7 +55,18 @@ const initialState = {
   single_news: initialNews,
   screen_width: 0,
   home_page_items: 10,
-  items_list_length: 8
+  items_list_length: 8,
+  contactForm: {
+    values: {
+      contactName: "",
+      conatctEmail: "",
+      contactMessage: ""
+    },
+    errors: {
+      contactNameError: true,
+      conatctEmailError: true
+    }
+  }
 };
 
 const ItemsContext = React.createContext();
@@ -139,6 +155,15 @@ export const ItemsProvider = ({ children }) => {
     };
   }, [state.newsID, state.news]);
 
+  const updateContactForm = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+
+    dispatch({ type: UPDATE_CONTACT_FORM, payload: { name, value } });
+  };
+
+  // WINDOW RESIZING EFFECT
+
   useLayoutEffect(() => {
     window.addEventListener("resize", updateSize);
     updateSize();
@@ -160,13 +185,16 @@ export const ItemsProvider = ({ children }) => {
     }
   }, [state.screen_width]);
 
+  // WINDOW RESIZING EFFECT END
+
   return (
     <ItemsContext.Provider
       value={{
         ...state,
         fetchSingleBook,
         fetchSingleGift,
-        changeNews
+        changeNews,
+        updateContactForm
       }}
     >
       {children}
