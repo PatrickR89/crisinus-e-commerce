@@ -9,8 +9,7 @@ import { useLanguageContext } from "../contexts/language_context";
 const SingleBookPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const idInt = parseInt(id);
+  // const idStr = JSON.stringify(id);
 
   const { translation } = useLanguageContext();
 
@@ -25,9 +24,9 @@ const SingleBookPage = () => {
 
   useEffect(() => {
     if (books.length) {
-      fetchSingleBook(idInt);
+      fetchSingleBook(id);
     }
-  }, [idInt, books]);
+  }, [id]);
 
   const {
     title,
@@ -37,7 +36,7 @@ const SingleBookPage = () => {
     publisher,
     language,
     year,
-    desc,
+    description,
     genre
   } = book;
 
@@ -118,7 +117,7 @@ const SingleBookPage = () => {
         <div className="secondary">
           <div className="about">
             <p className="tag">{translation.about} :</p>
-            <article>{desc}</article>
+            <article>{description}</article>
           </div>
         </div>
       </Wrapper>

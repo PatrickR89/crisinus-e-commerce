@@ -53,7 +53,8 @@ const items_reducer = (state, action) => {
     };
   }
   if (action.type === GET_SINGLE_BOOK_ID) {
-    return { ...state, bookID: action.payload };
+    const book = action.payload;
+    return { ...state, single_book: book };
   }
   // if (action.type === GET_SINGLE_NEWS_ID) {
   //   return { ...state, newsID: action.payload };

@@ -45,7 +45,7 @@ const initialNews = mockNews[0];
 const initialState = {
   items_loading: true,
   items_error: false,
-  bookID: 1,
+  bookID: "i",
   giftID: 51,
   books: [],
   gifts: [],
@@ -82,11 +82,9 @@ export const ItemsProvider = ({ children }) => {
   const fetchItems = async () => {
     dispatch({ type: GET_ITEMS_START });
     try {
-      const aBooks = await axios.get("http://localhost:3001/public/books");
-      const books = await aBooks.data;
+      const axiosBooks = await axios.get("http://localhost:3001/public/books");
+      const books = await axiosBooks.data;
       console.log(books);
-      // const books = await mockBooks;
-
       const gifts = await mockGifts;
       const news = await mockNews;
       dispatch({
@@ -101,9 +99,18 @@ export const ItemsProvider = ({ children }) => {
     }
   };
 
-  const fetchSingleBook = (id) => {
-    dispatch({ type: GET_SINGLE_ITEM_START });
-    dispatch({ type: GET_SINGLE_BOOK_ID, payload: id });
+  const fetchSingleBook = async (id) => {
+    try {
+      const response = await axios
+        .post("http://localhost:3001/public/bookss", { id })
+        .then((response) => response);
+      const book = response.data;
+      console.log(book);
+      dispatch({ type: GET_SINGLE_BOOK_ID, payload: book });
+    } catch (err) {
+      console.log(err);
+      dispatch({ type: GET_SINGLE_ITEM_ERROR });
+    }
   };
 
   const fetchSingleGift = (id) => {
@@ -122,21 +129,15 @@ export const ItemsProvider = ({ children }) => {
     fetchItems();
   }, []);
 
-  useEffect(() => {
-    const singleBook = state.books.find(
-      (book) => book.id === parseInt(state.bookID)
-    );
-    if (state.books.length) {
-      dispatch({ type: GET_SINGLE_BOOK_SUCCESS, payload: singleBook });
-    } else {
-      fetchItems();
-    }
-
-    const timeoutBook = setTimeout(() => {
-      dispatch({ type: GET_SINGLE_ITEM_DONE });
-    }, 800);
-    return () => clearTimeout(timeoutBook);
-  }, [state.books, state.bookID]);
+  // useEffect(() => {
+  //   const singleBook = state.books.find((book) => book.id === state.bookID);
+  //   console.log(state.bookID);
+  //   if (state.books.length) {
+  //     dispatch({ type: GET_SINGLE_BOOK_SUCCESS, payload: singleBook });
+  //   } else {
+  //     fetchItems();
+  //   }
+  // }, [state.bookID]);
 
   useEffect(() => {
     const singleGift = state.gifts.find(

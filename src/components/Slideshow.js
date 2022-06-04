@@ -29,7 +29,7 @@ const Slideshow = ({ images }) => {
         {images.map((image, index) => {
           return (
             <div key={index} className={index === n ? "fade" : "slide fade"}>
-              <img src={image} alt="" />
+              <img src={`http://localhost:3001/${image}`} alt="" />
             </div>
           );
         })}
