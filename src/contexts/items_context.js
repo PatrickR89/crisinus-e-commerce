@@ -82,7 +82,11 @@ export const ItemsProvider = ({ children }) => {
   const fetchItems = async () => {
     dispatch({ type: GET_ITEMS_START });
     try {
-      const books = await mockBooks;
+      const aBooks = await axios.get("http://localhost:3001/public/books");
+      const books = await aBooks.data;
+      console.log(books);
+      // const books = await mockBooks;
+
       const gifts = await mockGifts;
       const news = await mockNews;
       dispatch({
