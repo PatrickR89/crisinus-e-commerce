@@ -90,8 +90,6 @@ export const ItemsProvider = ({ children }) => {
                 "http://localhost:3001/public/gifts"
             );
             const gifts = await axiosGifts.data;
-            console.log(gifts);
-
             // const gifts = await mockGifts;
             const news = await mockNews;
             dispatch({
@@ -107,22 +105,30 @@ export const ItemsProvider = ({ children }) => {
     };
 
     const fetchSingleBook = async (id) => {
+        dispatch({ type: GET_SINGLE_ITEM_START });
         try {
             const response = await axios
-                .post("http://localhost:3001/public/singlebook", { id })
-                .then((response) => response);
-            const book = response.data;
-            console.log(book);
-            dispatch({ type: GET_SINGLE_BOOK_ID, payload: book });
+                .post("http://localhost:3001/public/books", { id })
+                .then((response) => response.data);
+
+            dispatch({ type: GET_SINGLE_BOOK_ID, payload: response });
         } catch (err) {
             console.log(err);
             dispatch({ type: GET_SINGLE_ITEM_ERROR });
         }
     };
 
-    const fetchSingleGift = (id) => {
+    const fetchSingleGift = async (id) => {
         dispatch({ type: GET_SINGLE_ITEM_START });
-        dispatch({ type: GET_SINGLE_GIFT_ID, payload: id });
+        try {
+            const response = await axios
+                .post("http://localhost:3001/public/gifts", { id })
+                .then((response) => response.data[0]);
+            dispatch({ type: GET_SINGLE_GIFT_ID, payload: response });
+        } catch (error) {
+            console.log(error);
+            dispatch({ type: GET_SINGLE_ITEM_ERROR });
+        }
     };
     const changeNews = (id) => {
         dispatch({ type: GET_SINGLE_ITEM_START });
@@ -135,19 +141,6 @@ export const ItemsProvider = ({ children }) => {
     useEffect(() => {
         fetchItems();
     }, []);
-
-    useEffect(() => {
-        const singleGift = state.gifts.find((gift) => gift.id === state.giftID);
-        if (state.gifts.length) {
-            dispatch({ type: GET_SINGLE_GIFT_SUCCESS, payload: singleGift });
-        } else {
-            fetchItems();
-        }
-
-        setTimeout(() => {
-            dispatch({ type: GET_SINGLE_ITEM_DONE });
-        }, 500);
-    }, [state.giftID, state.gifts]);
 
     useEffect(() => {
         if (state.news.length) {
