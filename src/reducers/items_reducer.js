@@ -113,10 +113,13 @@ const items_reducer = (state, action) => {
         return { ...state, newsID: action.payload };
     }
     if (action.type === SET_SINGLE_NEWS) {
-        const news = action.payload[0];
-        const newsID = action.payload[1];
-        const tempNews = news.find((item) => item.id === newsID);
-        return { ...state, single_news: tempNews };
+        const news = action.payload;
+        return {
+            ...state,
+            single_news: news,
+            single_item_error: false,
+            single_item_loading: false
+        };
     }
 
     if (action.type === UPDATE_CONTACT_FORM) {

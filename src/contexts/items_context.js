@@ -90,8 +90,11 @@ export const ItemsProvider = ({ children }) => {
                 "http://localhost:3001/public/gifts"
             );
             const gifts = await axiosGifts.data;
-            // const gifts = await mockGifts;
-            const news = await mockNews;
+            const axiosNews = await axios.get(
+                "http://localhost:3001/public/news"
+            );
+            const news = await axiosNews.data;
+            // const news = await mockNews;
             dispatch({
                 type: GET_ITEMS_SUCCESS,
                 payload: [books, gifts, news]
@@ -130,10 +133,23 @@ export const ItemsProvider = ({ children }) => {
             dispatch({ type: GET_SINGLE_ITEM_ERROR });
         }
     };
-    const changeNews = (id) => {
+
+    const fetchSingleNews = async (id) => {
         dispatch({ type: GET_SINGLE_ITEM_START });
-        dispatch({ type: CHANGE_NEWS_ID, payload: id });
+        try {
+            const response = await axios
+                .post("http://localhost:3001/public/news", { id })
+                .then((response) => response.data[0]);
+            dispatch({ type: SET_SINGLE_NEWS, payload: response });
+        } catch (error) {
+            console.log(error);
+            dispatch({ type: GET_SINGLE_ITEM_ERROR });
+        }
     };
+    // const changeNews = (id) => {
+    //     dispatch({ type: GET_SINGLE_ITEM_START });
+    //     dispatch({ type: CHANGE_NEWS_ID, payload: id });
+    // };
 
     const updateSize = () => {
         dispatch({ type: UPDATE_SIZE, payload: window.innerWidth });
@@ -142,19 +158,19 @@ export const ItemsProvider = ({ children }) => {
         fetchItems();
     }, []);
 
-    useEffect(() => {
-        if (state.news.length) {
-            dispatch({
-                type: SET_SINGLE_NEWS,
-                payload: [state.news, state.newsID]
-            });
-        } else {
-            fetchItems();
-        }
-        return () => {
-            dispatch({ type: GET_SINGLE_ITEM_DONE });
-        };
-    }, [state.newsID, state.news]);
+    // useEffect(() => {
+    //     if (state.news.length) {
+    //         dispatch({
+    //             type: SET_SINGLE_NEWS,
+    //             payload: [state.news, state.newsID]
+    //         });
+    //     } else {
+    //         fetchItems();
+    //     }
+    //     return () => {
+    //         dispatch({ type: GET_SINGLE_ITEM_DONE });
+    //     };
+    // }, [state.newsID, state.news]);
 
     // CONTACT FORM
 
@@ -254,7 +270,7 @@ export const ItemsProvider = ({ children }) => {
                 ...state,
                 fetchSingleBook,
                 fetchSingleGift,
-                changeNews,
+                fetchSingleNews,
                 updateContactForm,
                 submitContactForm
             }}
