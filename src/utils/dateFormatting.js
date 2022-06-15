@@ -1,6 +1,5 @@
 const formatDate = (inputDate) => {
     const date = new Date(inputDate);
-    console.log(date);
     const d = date.getDate().toLocaleString("en-US", {
         minimumIntegerDigits: 2,
         useGrouping: false

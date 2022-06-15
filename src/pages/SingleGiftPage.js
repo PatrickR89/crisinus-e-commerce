@@ -53,7 +53,11 @@ const SingleGiftPage = () => {
 
     return (
         <main>
-            <PageHero title={name} adress={translation.giftshop} />
+            <PageHero
+                title={name}
+                adress={translation.giftshop}
+                link={"giftshop"}
+            />
             <Wrapper>
                 <div className="title">
                     <h2>{name}</h2>

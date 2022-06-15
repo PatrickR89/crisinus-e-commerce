@@ -19,7 +19,11 @@ const NewsExpandedPage = () => {
 
     return (
         <main>
-            <PageHero title={single_news.title} adress={translation.news} />
+            <PageHero
+                title={single_news.title}
+                adress={translation.news}
+                link={"news"}
+            />
             <Wrapper>
                 <div className="title">
                     <h2>{single_news.title}</h2>

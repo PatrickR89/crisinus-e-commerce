@@ -66,7 +66,7 @@ const SingleBookPage = () => {
 
     return (
         <main>
-            <PageHero title={title} adress={translation.books} />
+            <PageHero title={title} adress={translation.books} link={"books"} />
             <Wrapper>
                 <div className="main-book">
                     <div className="title">
