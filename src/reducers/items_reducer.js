@@ -36,7 +36,10 @@ const items_reducer = (state, action) => {
 
             books: action.payload[0],
             gifts: action.payload[1],
-            news: action.payload[2]
+            news: action.payload[2],
+            informations: action.payload[3],
+            items_loading: false,
+            items_error: false
         };
     }
     if (action.type === GET_ITEMS_ERROR) {

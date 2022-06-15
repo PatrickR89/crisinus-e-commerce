@@ -1,18 +1,18 @@
 import React from "react";
 import { PageHero, Info } from "../components";
 import { useLanguageContext } from "../contexts/language_context";
-
-import mockInformation from "../mockData/mockInformation";
+import { useItemsContext } from "../contexts/items_context";
 
 const InfoPage = () => {
-  const { translation } = useLanguageContext();
+    const { translation } = useLanguageContext();
+    const { informations } = useItemsContext();
 
-  return (
-    <main>
-      <PageHero title={translation.genInfo} />
-      <Info {...mockInformation[2]} />
-    </main>
-  );
+    return (
+        <main>
+            <PageHero title={translation.genInfo} />
+            <Info {...informations[0]} />
+        </main>
+    );
 };
 
 export default InfoPage;

@@ -60,6 +60,7 @@ const initialState = {
     screen_width: 0,
     home_page_items: 10,
     items_list_length: 8,
+    informations: [],
     contactForm: {
         values: {
             contactName: "",
@@ -94,14 +95,16 @@ export const ItemsProvider = ({ children }) => {
                 "http://localhost:3001/public/news"
             );
             const news = await axiosNews.data;
+
+            const axiosInfo = await axios.get(
+                "http://localhost:3001/public/informations"
+            );
+            const infos = await axiosInfo.data;
             // const news = await mockNews;
             dispatch({
                 type: GET_ITEMS_SUCCESS,
-                payload: [books, gifts, news]
+                payload: [books, gifts, news, infos]
             });
-            setTimeout(() => {
-                dispatch({ type: GET_ITEMS_DONE });
-            }, 300);
         } catch (error) {
             dispatch({ GET_ITEMS_ERROR });
         }
