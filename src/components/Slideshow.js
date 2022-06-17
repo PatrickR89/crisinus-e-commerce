@@ -11,7 +11,6 @@ const Slideshow = ({ images }) => {
         if (tempN < 0) {
             tempN = images.length - 1;
         }
-        console.log(tempN);
         setN(tempN);
     };
     const nextSlide = () => {
@@ -19,7 +18,6 @@ const Slideshow = ({ images }) => {
         if (tempN > images.length - 1) {
             tempN = 0;
         }
-        console.log(tempN);
         setN(tempN);
     };
 

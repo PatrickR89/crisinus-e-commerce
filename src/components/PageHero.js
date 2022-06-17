@@ -2,15 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useLanguageContext } from "../contexts/language_context";
-import { english } from "../languages/languages";
 
 const PageHero = ({ title, adress, link }) => {
     const { translation } = useLanguageContext();
 
-    const keepEnglish = (word) => {
-        console.log(english);
-    };
-    console.log(keepEnglish(adress));
     return (
         <Wrapper>
             <div className="section">

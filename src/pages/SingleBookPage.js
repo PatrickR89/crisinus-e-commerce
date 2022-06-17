@@ -26,7 +26,7 @@ const SingleBookPage = () => {
         if (books.length) {
             fetchSingleBook(id);
         }
-    }, [id]);
+    }, []);
 
     const {
         title,

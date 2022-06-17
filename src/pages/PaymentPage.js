@@ -3,8 +3,6 @@ import { PageHero, Info } from "../components";
 import { useLanguageContext } from "../contexts/language_context";
 import { useItemsContext } from "../contexts/items_context";
 
-import mockInformation from "../mockData/mockInformation";
-
 const PaymentPage = () => {
     const { translation } = useLanguageContext();
     const { informations } = useItemsContext();

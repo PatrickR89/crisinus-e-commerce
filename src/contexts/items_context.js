@@ -113,11 +113,14 @@ export const ItemsProvider = ({ children }) => {
     const fetchSingleBook = async (id) => {
         dispatch({ type: GET_SINGLE_ITEM_START });
         try {
-            const response = await axios
+            await axios
                 .post("http://localhost:3001/public/books", { id })
-                .then((response) => response.data);
-
-            dispatch({ type: GET_SINGLE_BOOK_ID, payload: response });
+                .then((response) => {
+                    dispatch({
+                        type: GET_SINGLE_BOOK_ID,
+                        payload: response.data
+                    });
+                });
         } catch (err) {
             console.log(err);
             dispatch({ type: GET_SINGLE_ITEM_ERROR });
