@@ -37,7 +37,7 @@ export const ReviewsProvider = ({ children }) => {
     const fetchReviews = async () => {
         try {
             const axiosReviews = await axios.get(
-                "http://localhost:3001/public/review"
+                "http://localhost:3001/public/reviews"
             );
             const reviews = await axiosReviews.data;
             dispatch({ type: SET_BOOK_IDS, payload: reviews });
