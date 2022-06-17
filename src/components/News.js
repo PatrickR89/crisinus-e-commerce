@@ -2,14 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { SingleNews } from "../components";
-
-import { useLanguageContext } from "../contexts/language_context";
 import { useItemsContext } from "../contexts/items_context";
 
 const News = ({ newsPage, home }) => {
-    const { translation } = useLanguageContext();
-    const { fetchSingleNews, news, single_news, single_item_loading } =
-        useItemsContext();
+    const { fetchSingleNews, news, single_news } = useItemsContext();
 
     const [tempIndex, setTempIndex] = useState(0);
 
@@ -56,7 +52,7 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 100%;
+    height: 23vh;
 
     .single {
         width: 74%;
