@@ -39,7 +39,7 @@ const SingleBookPage = () => {
     useEffect(() => {
         if (error) {
             setTimeout(() => {
-                navigate.push("/books");
+                navigate("/books", { replace: true });
             }, 1500);
         }
     }, [error]);

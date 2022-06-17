@@ -5,3 +5,4 @@ export const LOADING_START = "LOADING_START";
 export const LOADING_END = "LOADING_END";
 export const SET_REVIEWS_PER_BOOK = "SET_REVIEWS_PER_BOOK";
 export const SET_CURRENT_BOOK_OBJ = "SET_CURRENT_BOOK_OBJ";
+export const SET_ERROR = "SET_ERROR";
