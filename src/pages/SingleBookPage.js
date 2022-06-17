@@ -9,7 +9,6 @@ import { useLanguageContext } from "../contexts/language_context";
 const SingleBookPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    // const idStr = JSON.stringify(id);
 
     const { translation } = useLanguageContext();
 
@@ -17,15 +16,12 @@ const SingleBookPage = () => {
         fetchSingleBook,
         single_book: book,
         single_item_loading: loading,
-        single_item_error: error,
-        books
+        single_item_error: error
     } = useItemsContext();
     const { priceFormat } = useCurrencyContext();
 
     useEffect(() => {
-        if (books.length) {
-            fetchSingleBook(id);
-        }
+        fetchSingleBook(id);
     }, []);
 
     const {

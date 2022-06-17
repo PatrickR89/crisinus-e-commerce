@@ -46,7 +46,7 @@ const items_reducer = (state, action) => {
         return { ...state, items_loading: false, items_error: true };
     }
     if (action.type === GET_ITEMS_DONE) {
-        return { ...state, items_loading: false };
+        return { ...state, items_loading: false, items_error: false };
     }
     if (action.type === GET_SINGLE_ITEM_START) {
         return {
