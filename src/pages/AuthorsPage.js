@@ -10,113 +10,113 @@ import { useAuthorsContext } from "../contexts/authors_context";
 import { useSidebarContext } from "../contexts/sidebar_context";
 
 const AuthorsPage = ({}) => {
-  const [page, setPage] = useState(0);
-  const [items, setItems] = useState([]);
-  const navigate = useNavigate();
-  const param = useParams();
+    const [page, setPage] = useState(0);
+    const [items, setItems] = useState([]);
+    const navigate = useNavigate();
+    const params = useParams();
 
-  const {
-    authorsList: authorArray,
-    authorName,
-    currentAuthor,
-    isLoading,
-    authorChange
-  } = useAuthorsContext();
+    const { isLoading, authors, changeAuthor, activeAuthor } =
+        useAuthorsContext();
 
-  const { loading, data, nextPage, prevPage } = useFetchItems(
-    authorArray,
-    5,
-    setPage
-  );
-
-  const { translation } = useLanguageContext();
-
-  const { openSidebarAR } = useSidebarContext();
-  useEffect(() => {
-    if (param.author_url) {
-      authorChange(param.author_url);
-    }
-  }, []);
-
-  const authorNavigate = (item) => {
-    const authorTo = item.replace(/\s+/g, "-").toLowerCase();
-    navigate(authorTo, { replace: true });
-    authorChange(authorTo);
-  };
-
-  useEffect(() => {
-    if (loading) return;
-    setItems(data[page]);
-  }, [loading, page, data]);
-
-  if (isLoading) {
-    return (
-      <div className="loading">
-        <h1>{translation.pleaseWait}...</h1>
-      </div>
+    const { loading, data, nextPage, prevPage } = useFetchItems(
+        authors,
+        5,
+        setPage
     );
-  }
 
-  if (!currentAuthor) {
-    return <NoCurrentAuthor authorNavigate={authorNavigate} />;
-  }
+    const { translation } = useLanguageContext();
 
-  return (
-    <main>
-      <PageHero title={translation.authors} />
-      <ToggleAuthors>
-        <button className="btn" onClick={openSidebarAR}>
-          <FaPenFancy />
-        </button>
-      </ToggleAuthors>
-      <Wrapper>
-        <ListMenu
-          items={items}
-          prevPage={prevPage}
-          nextPage={nextPage}
-          itemChange={authorNavigate}
-          itemCriteria={authorName}
-          length={authorArray.length}
-          className="toggle-disp"
-        />
-        <Outlet />
-      </Wrapper>
-      <SidebarAR
-        items={items}
-        prevPage={prevPage}
-        nextPage={nextPage}
-        authorNavigate={authorNavigate}
-        title={translation.authors}
-        ver="authors"
-      />
-    </main>
-  );
+    const { openSidebarAR } = useSidebarContext();
+
+    useEffect(() => {
+        if (activeAuthor.id) {
+            authorNavigate(activeAuthor.id);
+        }
+
+        if (params.author_url) {
+            authorNavigate(params.author_url);
+        }
+    }, []);
+
+    const authorNavigate = (item) => {
+        navigate(item, { replace: true });
+        changeAuthor(item);
+    };
+
+    useEffect(() => {
+        if (loading) return;
+        setItems(data[page]);
+    }, [loading, page, data]);
+
+    if (isLoading) {
+        return (
+            <div className="loading">
+                <h1>{translation.pleaseWait}...</h1>
+            </div>
+        );
+    }
+
+    if (!activeAuthor.id) {
+        return <NoCurrentAuthor authorNavigate={authorNavigate} />;
+    }
+
+    return (
+        <main>
+            <PageHero title={translation.authors} />
+            <ToggleAuthors>
+                <button className="btn" onClick={openSidebarAR}>
+                    <FaPenFancy />
+                </button>
+            </ToggleAuthors>
+            <Wrapper>
+                <ListMenu
+                    items={items}
+                    prevPage={prevPage}
+                    nextPage={nextPage}
+                    itemChange={authorNavigate}
+                    byId={true}
+                    itemCriteria={activeAuthor.id}
+                    length={authors.length}
+                    className="toggle-disp"
+                />
+                <Outlet />
+            </Wrapper>
+            <SidebarAR
+                items={items}
+                prevPage={prevPage}
+                nextPage={nextPage}
+                authorNavigate={authorNavigate}
+                title={translation.authors}
+                ver="authors"
+            />
+        </main>
+    );
 };
 
 const ToggleAuthors = styled.div`
-  height: 5vh;
-  width: 100%;
-  background-color: var(--clr-button-3);
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  margin-top: -2rem;
-  margin-bottom: 1rem;
+    height: 5vh;
+    width: 100%;
+    background-color: var(--clr-button-3);
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-top: -2rem;
+    margin-bottom: 1rem;
 
-  .btn {
-    box-shadow: none;
-    height: 100%;
-    width: 35%;
-    font-size: 1.5rem;
-  }
-  @media (min-width: 1000px) {
-    display: none !important;
-  }
+    .btn {
+        box-shadow: none;
+        height: 100%;
+        width: 35%;
+        font-size: 1.5rem;
+    }
+    @media (min-width: 1000px) {
+        display: none !important;
+    }
 `;
 
 const Wrapper = styled.div`
-  display: flex;
-  margin: 2rem 1rem;
+    display: flex;
+    margin: 2rem 1rem;
 `;
 
 export default AuthorsPage;

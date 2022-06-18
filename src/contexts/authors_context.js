@@ -1,111 +1,78 @@
 import React, { useContext, useEffect, useReducer } from "react";
+import axios from "axios";
 import reducer from "../reducers/authors_reducer";
 
 import {
-  GET_ITEMS_START,
-  GET_ITEMS_SUCCESS,
-  GET_ITEMS_ERROR,
-  GET_ITEMS_DONE,
-  ASSIGN_AUTHORS,
-  SET_AUTHOR_NAME,
-  SET_BOOKS_PER_AUTHOR,
-  SET_CURRENT_AUTHOR
+    GET_ITEMS_START,
+    GET_ITEMS_SUCCESS,
+    GET_ITEMS_ERROR,
+    SET_BOOKS_PER_AUTHOR,
+    SET_AUTHORS_IDS,
+    SET_ACTIVE_AUTHOR
 } from "../actions/authors_actions";
 
-import mockBooks from "../mockData/mockBooks";
-import mockAuthors from "../mockData/mockAuthors";
-
 const initialState = {
-  authorArray: [],
-  booksArray: [],
-  authorsList: [],
-  booksByAuthor: [],
-  authorName: "",
-  author_url: "",
-  currentAuthor: {},
-  isLoading: true
+    booksByAuthor: [],
+    isLoading: true,
+    isError: false,
+    authors: [],
+    books: [],
+    authorID: "",
+    activeAuthor: {}
 };
 
 const AuthorsContext = React.createContext();
 
 export const AuthorsProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(reducer, initialState);
 
-  const fetchItems = () => {
-    dispatch({ type: GET_ITEMS_START });
-    try {
-      const books = mockBooks;
-      const authors = mockAuthors;
-      dispatch({
-        type: GET_ITEMS_SUCCESS,
-        payload: [books, authors]
-      });
-      setTimeout(() => {
-        dispatch({ type: GET_ITEMS_DONE });
-      }, 300);
-    } catch (error) {
-      dispatch({ GET_ITEMS_ERROR });
-    }
-  };
+    const fetchItems = async () => {
+        dispatch({ type: GET_ITEMS_START });
+        try {
+            const axiosResponse = await axios.get(
+                "http://localhost:3001/public/authors"
+            );
+            const booksImport = await axiosResponse.data[1];
+            const authorsImport = await axiosResponse.data[0];
+            dispatch({
+                type: GET_ITEMS_SUCCESS,
+                payload: [booksImport, authorsImport]
+            });
+        } catch (error) {
+            dispatch({ GET_ITEMS_ERROR });
+        }
+    };
 
-  useEffect(() => {
-    fetchItems();
-  }, []);
+    useEffect(() => {
+        fetchItems();
+    }, []);
 
-  useEffect(() => {
-    dispatch({ type: ASSIGN_AUTHORS, payload: state.booksArray });
-  }, [state.booksArray]);
+    useEffect(() => {
+        dispatch({ type: SET_AUTHORS_IDS, payload: state.books });
+    }, [state.books]);
 
-  useEffect(() => {
-    dispatch({ type: GET_ITEMS_START });
-    if (
-      !state.currentAuthor ||
-      JSON.stringify(
-        `${state.currentAuthor.name} ${state.currentAuthor.last_name}`
-          .replace(/\s+/g, "-")
-          .toLowerCase()
-      ) !== JSON.stringify(`${state.author_url}`)
-    ) {
-      const tempBooks = booksPerAuthor(state.authorName);
-      dispatch({ type: SET_BOOKS_PER_AUTHOR, payload: tempBooks });
-      const switchAuthor = state.authorArray.find(
-        (author) =>
-          JSON.stringify(
-            `${author.name} ${author.last_name}`
-              .replace(/\s+/g, "-")
-              .toLowerCase()
-          ) === JSON.stringify(`${state.author_url}`)
-      );
+    const changeAuthor = async (author) => {
+        dispatch({ type: GET_ITEMS_START });
 
-      dispatch({ type: SET_CURRENT_AUTHOR, payload: switchAuthor });
-    }
+        const response = await axios.post(
+            "http://localhost:3001/public/authors",
+            { author }
+        );
+        const fullAuthor = await response.data[0];
+        dispatch({ type: SET_ACTIVE_AUTHOR, payload: fullAuthor });
+        dispatch({
+            type: SET_BOOKS_PER_AUTHOR,
+            payload: [state.books, fullAuthor.id]
+        });
+    };
 
-    setTimeout(() => {
-      dispatch({ type: GET_ITEMS_DONE });
-    }, 300);
-  }, [state.author_url, state.currentAuthor, state.authorName]);
-
-  const booksPerAuthor = (name) => {
-    return state.booksArray.filter((book) => {
-      return book.authors.find(
-        (author) => `${author.name} ${author.last_name}` === `${name}`
-      );
-    });
-  };
-
-  const authorChange = (author) => {
-    dispatch({ type: GET_ITEMS_START });
-    console.log(author);
-    dispatch({ type: SET_AUTHOR_NAME, payload: author });
-  };
-
-  return (
-    <AuthorsContext.Provider value={{ ...state, authorChange }}>
-      {children}
-    </AuthorsContext.Provider>
-  );
+    return (
+        <AuthorsContext.Provider value={{ ...state, changeAuthor }}>
+            {children}
+        </AuthorsContext.Provider>
+    );
 };
 
 export const useAuthorsContext = () => {
-  return useContext(AuthorsContext);
+    return useContext(AuthorsContext);
 };
