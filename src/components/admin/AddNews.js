@@ -8,141 +8,144 @@ import axios from "axios";
 import { useAuthenticationContext } from "../../contexts/authentication_context";
 
 const AddNews = () => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const { header } = useAuthenticationContext();
+    const { header } = useAuthenticationContext();
 
-  const [title, setTitle] = useState("");
-  const [images, setImages] = useState([]);
-  const [text, setText] = useState("");
+    const [title, setTitle] = useState("");
+    const [images, setImages] = useState([]);
+    const [text, setText] = useState("");
 
-  const handleAddImages = (e) => {
-    const data = new FormData();
-    const files = [...e.target.files];
-    files.forEach((file) => {
-      data.append("images", file);
-    });
+    const handleAddImages = (e) => {
+        const data = new FormData();
+        const files = [...e.target.files];
+        files.forEach((file) => {
+            data.append("images", file);
+        });
 
-    axios.post("http://localhost:3001/images/addimages", data).then((res) => {
-      const tempImages = [...images];
-      res.data.forEach((image) => {
-        tempImages.push(image.path);
-      });
-      setImages(tempImages);
-    });
-  };
+        axios.post("/images/addimages", data).then((res) => {
+            const tempImages = [...images];
+            res.data.forEach((image) => {
+                tempImages.push(image.path);
+            });
+            setImages(tempImages);
+        });
+    };
 
-  const addNews = () => {
-    axios
-      .post("http://localhost:3001/news/addnews", {
-        headers: header(),
-        title,
-        images,
-        text
-      })
-      .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
-      });
+    const addNews = () => {
+        axios
+            .post("/news/addnews", {
+                headers: header(),
+                title,
+                images,
+                text
+            })
+            .then((response) => {
+                if (
+                    response.data === "Token required" ||
+                    response.data.auth === false
+                )
+                    return navigate("/admin/login", { replace: true });
+            });
 
-    navigate("/admin/newslist", { replace: true });
-  };
+        navigate("/admin/newslist", { replace: true });
+    };
 
-  return (
-    <Wrapper>
-      <div className="info">
-        <label htmlFor="images" className="photo-input">
-          Images:
-          <input
-            type="file"
-            name="images"
-            multiple
-            id="images"
-            className="hidden-input"
-            onChange={handleAddImages}
-          />
-          <article className="btn">
-            <FaCameraRetro className="icon-large" /> Add image
-          </article>
-        </label>
-        <label htmlFor="title">News title:</label>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <label htmlFor="text">News text:</label>
-        <textarea
-          name="text"
-          id="text"
-          cols="30"
-          rows="10"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        ></textarea>
-        <div className="edit-container">
-          <button onClick={addNews} className="btn mt-1">
-            Add news
-          </button>
-        </div>
-      </div>
-    </Wrapper>
-  );
+    return (
+        <Wrapper>
+            <div className="info">
+                <label htmlFor="images" className="photo-input">
+                    Images:
+                    <input
+                        type="file"
+                        name="images"
+                        multiple
+                        id="images"
+                        className="hidden-input"
+                        onChange={handleAddImages}
+                    />
+                    <article className="btn">
+                        <FaCameraRetro className="icon-large" /> Add image
+                    </article>
+                </label>
+                <label htmlFor="title">News title:</label>
+                <input
+                    type="text"
+                    name="title"
+                    id="title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
+                <label htmlFor="text">News text:</label>
+                <textarea
+                    name="text"
+                    id="text"
+                    cols="30"
+                    rows="10"
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                ></textarea>
+                <div className="edit-container">
+                    <button onClick={addNews} className="btn mt-1">
+                        Add news
+                    </button>
+                </div>
+            </div>
+        </Wrapper>
+    );
 };
 
 const Wrapper = styled.div`
-  .info {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    margin-bottom: 2rem;
-    label {
-      font-size: 1.5rem;
-      text-transform: capitalize;
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
+    .info {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        margin-bottom: 2rem;
+        label {
+            font-size: 1.5rem;
+            text-transform: capitalize;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        input {
+            height: 2rem;
+            font-size: 1.5rem;
+            width: 100%;
+        }
+        textarea {
+            width: 100%;
+            font-size: 1.2rem;
+        }
     }
-    input {
-      height: 2rem;
-      font-size: 1.5rem;
-      width: 100%;
+    .hidden-input {
+        display: none;
     }
-    textarea {
-      width: 100%;
-      font-size: 1.2rem;
+    .icon-large {
+        font-size: 1.2rem;
     }
-  }
-  .hidden-input {
-    display: none;
-  }
-  .icon-large {
-    font-size: 1.2rem;
-  }
-  .photo-input {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    article {
-      margin-top: 0.5rem;
+    .photo-input {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        article {
+            margin-top: 0.5rem;
+        }
     }
-  }
-  .list-com {
-    width: 20%;
-    display: flex;
-    flex-direction: row;
-    .btn {
-      margin: 0.2rem 0.5rem;
+    .list-com {
+        width: 20%;
+        display: flex;
+        flex-direction: row;
+        .btn {
+            margin: 0.2rem 0.5rem;
+        }
     }
-  }
-  .edit-container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+    .edit-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 `;
 
 export default AddNews;

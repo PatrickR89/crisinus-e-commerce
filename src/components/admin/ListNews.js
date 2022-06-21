@@ -4,77 +4,79 @@ import axios from "axios";
 import styled from "styled-components";
 
 const ListNews = () => {
-  const [newsList, setNewsList] = useState([]);
+    const [newsList, setNewsList] = useState([]);
 
-  const getNews = () => {
-    axios.get("http://localhost:3001/news/getnews").then((response) => {
-      setNewsList(response.data);
-    });
-  };
-
-  const formatDate = (date) => {
-    const tempDate = new Date(date);
-    const doubleDigit = (num) => {
-      return num.toString().padStart(2, "0");
+    const getNews = () => {
+        axios.get("/news/getnews").then((response) => {
+            setNewsList(response.data);
+        });
     };
-    return [
-      doubleDigit(tempDate.getDate()),
-      doubleDigit(tempDate.getMonth() + 1),
-      tempDate.getFullYear()
-    ].join("/");
-  };
 
-  useEffect(() => {
-    getNews();
-  }, []);
+    const formatDate = (date) => {
+        const tempDate = new Date(date);
+        const doubleDigit = (num) => {
+            return num.toString().padStart(2, "0");
+        };
+        return [
+            doubleDigit(tempDate.getDate()),
+            doubleDigit(tempDate.getMonth() + 1),
+            tempDate.getFullYear()
+        ].join("/");
+    };
 
-  return (
-    <Wrapper>
-      Giftshop List
-      <div className="per-gift head">
-        <section>ID</section>
-        <section>NEWS TITLE</section>
-        <section>TEXT</section>
-        <section>DATE</section>
-      </div>
-      {newsList.length > 0 &&
-        newsList.map((news, index) => {
-          return (
-            <Link to={`/admin/editnews/${news.id}`}>
-              <div
-                key={index}
-                className={
-                  index % 2 === 0
-                    ? "itm-background-one per-gift on-hover-list"
-                    : "itm-background-two per-gift on-hover-list"
-                }
-              >
-                <p>{news.id}</p>
+    useEffect(() => {
+        getNews();
+    }, []);
 
-                <h4>{news.title}</h4>
+    return (
+        <Wrapper>
+            Giftshop List
+            <div className="per-gift head">
+                <section>ID</section>
+                <section>NEWS TITLE</section>
+                <section>TEXT</section>
+                <section>DATE</section>
+            </div>
+            {newsList.length > 0 &&
+                newsList.map((news, index) => {
+                    return (
+                        <Link to={`/admin/editnews/${news.id}`}>
+                            <div
+                                key={index}
+                                className={
+                                    index % 2 === 0
+                                        ? "itm-background-one per-gift on-hover-list"
+                                        : "itm-background-two per-gift on-hover-list"
+                                }
+                            >
+                                <p>{news.id}</p>
 
-                {news.text && <p>{news.text.substring(0, 15)}...</p>}
-                <p>{news.date && formatDate(news.date)}</p>
-              </div>
-            </Link>
-          );
-        })}
-    </Wrapper>
-  );
+                                <h4>{news.title}</h4>
+
+                                {news.text && (
+                                    <p>{news.text.substring(0, 15)}...</p>
+                                )}
+                                <p>{news.date && formatDate(news.date)}</p>
+                            </div>
+                        </Link>
+                    );
+                })}
+        </Wrapper>
+    );
 };
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2rem;
-  .head {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 2rem;
-  }
-  .per-gift {
-    display: inline-grid;
-    grid-template-columns: repeat(4, 1fr);
-    align-items: center;
-  }
+    .head {
+        margin-bottom: 2rem;
+    }
+    .per-gift {
+        display: inline-grid;
+        grid-template-columns: repeat(4, 1fr);
+        align-items: center;
+    }
 `;
 
 export default ListNews;
