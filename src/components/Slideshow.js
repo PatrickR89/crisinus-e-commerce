@@ -30,10 +30,7 @@ const Slideshow = ({ images }) => {
                             key={index}
                             className={index === n ? "fade" : "slide fade"}
                         >
-                            <img
-                                src={`http://localhost:3001/${image}`}
-                                alt=""
-                            />
+                            <img src={`/${image}`} alt="" />
                         </div>
                     );
                 })}

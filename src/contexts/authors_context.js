@@ -29,9 +29,7 @@ export const AuthorsProvider = ({ children }) => {
     const fetchItems = async () => {
         dispatch({ type: GET_ITEMS_START });
         try {
-            const axiosResponse = await axios.get(
-                "http://localhost:3001/public/authors"
-            );
+            const axiosResponse = await axios.get("/public/authors");
             const booksImport = await axiosResponse.data[1];
             const authorsImport = await axiosResponse.data[0];
             dispatch({
@@ -54,10 +52,7 @@ export const AuthorsProvider = ({ children }) => {
     const changeAuthor = async (author) => {
         dispatch({ type: GET_ITEMS_START });
 
-        const response = await axios.post(
-            "http://localhost:3001/public/authors",
-            { author }
-        );
+        const response = await axios.post("/public/authors", { author });
         const fullAuthor = await response.data[0];
         dispatch({ type: SET_ACTIVE_AUTHOR, payload: fullAuthor });
         dispatch({

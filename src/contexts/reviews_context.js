@@ -14,7 +14,6 @@ import {
     SET_ERROR
 } from "../actions/reviews_actions";
 
-import mockReviews from "../mockData/mockReviews";
 import { useItemsContext } from "../contexts/items_context";
 
 const initialState = {
@@ -36,9 +35,7 @@ export const ReviewsProvider = ({ children }) => {
 
     const fetchReviews = async () => {
         try {
-            const axiosReviews = await axios.get(
-                "http://localhost:3001/public/reviews"
-            );
+            const axiosReviews = await axios.get("/public/reviews");
             const reviews = await axiosReviews.data;
             dispatch({ type: SET_BOOK_IDS, payload: reviews });
         } catch (error) {

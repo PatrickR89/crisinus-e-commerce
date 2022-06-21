@@ -16,7 +16,7 @@ const NewsPageComponent = () => {
                             <div className="image-container">
                                 {n.images[0] && (
                                     <img
-                                        src={`http://localhost:3001/${n.images[0]}`}
+                                        src={`/${n.images[0]}`}
                                         alt={n.title}
                                     />
                                 )}

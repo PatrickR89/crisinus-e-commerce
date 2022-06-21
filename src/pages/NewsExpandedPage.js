@@ -32,7 +32,7 @@ const NewsExpandedPage = () => {
                 <article className="news-text">
                     {single_news.images[0] && (
                         <img
-                            src={`http://localhost:3001/${single_news.images[0]}`}
+                            src={`${single_news.images[0]}`}
                             alt={single_news.title}
                             className="small-size left"
                         />

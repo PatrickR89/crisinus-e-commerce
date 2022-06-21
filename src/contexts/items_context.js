@@ -83,22 +83,14 @@ export const ItemsProvider = ({ children }) => {
     const fetchItems = async () => {
         dispatch({ type: GET_ITEMS_START });
         try {
-            const axiosBooks = await axios.get(
-                "http://localhost:3001/public/books"
-            );
+            const axiosBooks = await axios.get("/public/books");
             const books = await axiosBooks.data;
-            const axiosGifts = await axios.get(
-                "http://localhost:3001/public/gifts"
-            );
+            const axiosGifts = await axios.get("/public/gifts");
             const gifts = await axiosGifts.data;
-            const axiosNews = await axios.get(
-                "http://localhost:3001/public/news"
-            );
+            const axiosNews = await axios.get("/public/news");
             const news = await axiosNews.data;
 
-            const axiosInfo = await axios.get(
-                "http://localhost:3001/public/informations"
-            );
+            const axiosInfo = await axios.get("/public/informations");
             const infos = await axiosInfo.data;
             // const news = await mockNews;
             dispatch({
@@ -113,14 +105,12 @@ export const ItemsProvider = ({ children }) => {
     const fetchSingleBook = async (id) => {
         dispatch({ type: GET_SINGLE_ITEM_START });
         try {
-            await axios
-                .post("http://localhost:3001/public/books", { id })
-                .then((response) => {
-                    dispatch({
-                        type: GET_SINGLE_BOOK_ID,
-                        payload: response.data
-                    });
+            await axios.post("/public/books", { id }).then((response) => {
+                dispatch({
+                    type: GET_SINGLE_BOOK_ID,
+                    payload: response.data
                 });
+            });
         } catch (err) {
             console.log(err);
             dispatch({ type: GET_SINGLE_ITEM_ERROR });
@@ -131,7 +121,7 @@ export const ItemsProvider = ({ children }) => {
         dispatch({ type: GET_SINGLE_ITEM_START });
         try {
             const response = await axios
-                .post("http://localhost:3001/public/gifts", { id })
+                .post("/public/gifts", { id })
                 .then((response) => response.data[0]);
             dispatch({ type: GET_SINGLE_GIFT_ID, payload: response });
         } catch (error) {
@@ -144,7 +134,7 @@ export const ItemsProvider = ({ children }) => {
         dispatch({ type: GET_SINGLE_ITEM_START });
         try {
             const response = await axios
-                .post("http://localhost:3001/public/news", { id })
+                .post("/public/news", { id })
                 .then((response) => response.data[0]);
             dispatch({ type: SET_SINGLE_NEWS, payload: response });
         } catch (error) {

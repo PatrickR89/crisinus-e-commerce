@@ -30,7 +30,7 @@ const SingleGiftPage = () => {
     useEffect(() => {
         if (error) {
             setTimeout(() => {
-                navigate.push("/books");
+                navigate("/giftshop", { replace: true });
             }, 1500);
         }
     }, [error]);

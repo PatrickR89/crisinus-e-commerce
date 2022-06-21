@@ -8,11 +8,7 @@ const Gift = ({ name, price, images }) => {
     return (
         <Wrapper>
             <div className="select">
-                <img
-                    src={`http://localhost:3001/${images[0]}`}
-                    alt={name}
-                    className="image"
-                />
+                <img src={`/${images[0]}`} alt={name} className="image" />
                 <h4 className="title">{name}</h4>
                 <p>{priceFormat(price)}</p>
             </div>
