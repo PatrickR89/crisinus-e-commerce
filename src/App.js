@@ -20,7 +20,9 @@ import {
     ListNews,
     EditInfo,
     ListInfo,
-    ImageList
+    ImageList,
+    ListLinks,
+    EditLinks
 } from "./components/admin";
 
 import Login from "./components/authentication/Login";
@@ -53,34 +55,23 @@ function App() {
             <SidebarNav />
             <Routes>
                 <Route exact path="/" element={<HomePage />} />{" "}
-                {/* version 1 */}
                 <Route path="/about" element={<AboutUsPage />} />{" "}
-                {/* version 1 */}
                 <Route path="/books" element={<BooksPage />} />{" "}
-                {/* version 1 */}
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/disclaimer" element={<DisclaimerPage />} />{" "}
-                {/* version 1 */}
                 <Route path="/giftshop" element={<GiftshopPage />} />{" "}
-                {/* version 1 */}
-                <Route path="/info" element={<InfoPage />} /> {/* version 1 */}
+                <Route path="/info" element={<InfoPage />} />
                 <Route exact path="/news" element={<NewsPage />} />{" "}
-                {/* version 1 */}
                 <Route exact path="/news/:id" element={<NewsExpandedPage />} />
                 <Route path="/order" element={<OrderPage />} />{" "}
-                {/* version 1 */}
                 <Route path="/payment" element={<PaymentPage />} />{" "}
-                {/* version 1 */}
                 <Route path="/reviews" element={<ReviewsPage />} />
                 <Route path="/books/:id" element={<SingleBookPage />} />{" "}
-                {/* version 1 */}
                 <Route path="/giftshop/:id" element={<SingleGiftPage />} />{" "}
-                {/* version 1 */}
                 <Route path="/authors" element={<AuthorsPage />}>
                     <Route path=":author_url" element={<CurrentAuthor />} />{" "}
                 </Route>
-                {/* version 1 */}
-                <Route path="/cart" element={<CartPage />} /> {/* version 1 */}
+                <Route path="/cart" element={<CartPage />} />
                 <Route path="/admin" element={<AdminPage />}>
                     <Route path="login" element={<Login />} />
                     <Route path="addbook" element={<AddBook />} />
@@ -100,6 +91,8 @@ function App() {
                     <Route path="editinfo/:id" element={<EditInfo />} />
                     <Route path="infolist" element={<ListInfo />} />
                     <Route path="imagelist" element={<ImageList />} />
+                    <Route path="linkslist" element={<ListLinks />} />
+                    <Route path="editlink/:id" element={<EditLinks />} />
                 </Route>
             </Routes>
             <Footer />

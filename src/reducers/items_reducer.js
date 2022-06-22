@@ -9,7 +9,7 @@ import {
     GET_SINGLE_GIFT_SUCCESS,
     GET_SINGLE_GIFT_ID,
     GET_SINGLE_BOOK_ID,
-    GET_SINGLE_NEWS_ID,
+    FETCH_LINKS,
     GET_ITEMS_DONE,
     UPDATE_SIZE,
     UPDATE_LENGTH,
@@ -64,9 +64,14 @@ const items_reducer = (state, action) => {
             single_item_error: false
         };
     }
-    // if (action.type === GET_SINGLE_NEWS_ID) {
-    //   return { ...state, newsID: action.payload };
-    // }
+    if (action.type === FETCH_LINKS) {
+        return {
+            ...state,
+            anchorLinks: action.payload,
+            items_loading: false,
+            items_error: false
+        };
+    }
     if (action.type === GET_SINGLE_GIFT_ID) {
         const gift = action.payload;
         return {

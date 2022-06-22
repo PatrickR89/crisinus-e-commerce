@@ -31,7 +31,8 @@ import {
     UPDATE_CONTACT_FORM,
     SET_CONT_FORM_ERR_TRUE,
     SET_CONT_FORM_ERR_FALSE,
-    RESET_CONTACT_FORM
+    RESET_CONTACT_FORM,
+    FETCH_LINKS
 } from "../actions/items_actions";
 
 import mockBooks from "../mockData/mockBooks";
@@ -61,6 +62,7 @@ const initialState = {
     home_page_items: 10,
     items_list_length: 8,
     informations: [],
+    anchorLinks: [],
     contactForm: {
         values: {
             contactName: "",
@@ -92,7 +94,7 @@ export const ItemsProvider = ({ children }) => {
 
             const axiosInfo = await axios.get("/public/informations");
             const infos = await axiosInfo.data;
-            // const news = await mockNews;
+
             dispatch({
                 type: GET_ITEMS_SUCCESS,
                 payload: [books, gifts, news, infos]
@@ -142,10 +144,17 @@ export const ItemsProvider = ({ children }) => {
             dispatch({ type: GET_SINGLE_ITEM_ERROR });
         }
     };
-    // const changeNews = (id) => {
-    //     dispatch({ type: GET_SINGLE_ITEM_START });
-    //     dispatch({ type: CHANGE_NEWS_ID, payload: id });
-    // };
+
+    const fetchLinks = async () => {
+        dispatch({ type: GET_SINGLE_ITEM_START });
+        try {
+            const axiosLinks = await axios.get("/public/links");
+            const anchorLinks = await axiosLinks.data;
+            dispatch({ type: FETCH_LINKS, payload: anchorLinks });
+        } catch (error) {
+            dispatch({ GET_ITEMS_ERROR });
+        }
+    };
 
     const updateSize = () => {
         dispatch({ type: UPDATE_SIZE, payload: window.innerWidth });
@@ -153,20 +162,6 @@ export const ItemsProvider = ({ children }) => {
     useEffect(() => {
         fetchItems();
     }, []);
-
-    // useEffect(() => {
-    //     if (state.news.length) {
-    //         dispatch({
-    //             type: SET_SINGLE_NEWS,
-    //             payload: [state.news, state.newsID]
-    //         });
-    //     } else {
-    //         fetchItems();
-    //     }
-    //     return () => {
-    //         dispatch({ type: GET_SINGLE_ITEM_DONE });
-    //     };
-    // }, [state.newsID, state.news]);
 
     // CONTACT FORM
 
@@ -268,7 +263,8 @@ export const ItemsProvider = ({ children }) => {
                 fetchSingleGift,
                 fetchSingleNews,
                 updateContactForm,
-                submitContactForm
+                submitContactForm,
+                fetchLinks
             }}
         >
             {children}

@@ -15,23 +15,27 @@ import ListNews from "./ListNews";
 import EditInfo from "./EditInfo";
 import ListInfo from "./ListInfo";
 import ImageList from "./ImageList";
+import ListLinks from "./ListLinks";
+import EditLinks from "./EditLinks";
 
 export {
-  AddBook,
-  BookList,
-  EditBook,
-  AuthorsList,
-  EditAuthor,
-  GiftshopList,
-  EditGift,
-  AddGift,
-  AddRating,
-  EditRating,
-  ListRatings,
-  AddNews,
-  EditNews,
-  ListNews,
-  EditInfo,
-  ListInfo,
-  ImageList
+    AddBook,
+    BookList,
+    EditBook,
+    AuthorsList,
+    EditAuthor,
+    GiftshopList,
+    EditGift,
+    AddGift,
+    AddRating,
+    EditRating,
+    ListRatings,
+    AddNews,
+    EditNews,
+    ListNews,
+    EditInfo,
+    ListInfo,
+    ImageList,
+    ListLinks,
+    EditLinks
 };
