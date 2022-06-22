@@ -2,7 +2,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 
-import { CurrentAuthor } from "./components";
+import { CurrentAuthor } from "./components/public/authors";
 import { Navbar, Footer, SidebarNav } from "./components/public/elements";
 import {
     EditInfo,

@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { useAuthorsContext } from "../contexts/authors_context";
-import { useLanguageContext } from "../contexts/language_context";
+import { useAuthorsContext } from "../../../contexts/authors_context";
+import { useLanguageContext } from "../../../contexts/language_context";
 
-import { BookComponent } from "../components/public/books";
+import { BookComponent } from "../books";
 
 const CurrentAuthor = () => {
     const { booksByAuthor, activeAuthor } = useAuthorsContext();

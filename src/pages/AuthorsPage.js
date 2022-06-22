@@ -8,7 +8,7 @@ import { useLanguageContext } from "../contexts/language_context";
 import { useAuthorsContext } from "../contexts/authors_context";
 import { useSidebarContext } from "../contexts/sidebar_context";
 
-import { NoCurrentAuthor } from "../components";
+import { NoCurrentAuthor } from "../components/public/authors";
 import { PageHero, SidebarAR, ListMenu } from "../components/public/elements";
 
 const AuthorsPage = ({}) => {

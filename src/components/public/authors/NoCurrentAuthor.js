@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useAuthorsContext } from "../contexts/authors_context";
+import { useAuthorsContext } from "../../../contexts/authors_context";
 
 const NoCurrentAuthor = ({ authorNavigate }) => {
     const { authors, activeAuthor } = useAuthorsContext();
