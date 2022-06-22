@@ -21,13 +21,8 @@ import Login from "./components/authentication/Login";
 
 import {
     HomePage,
-    AboutUsPage,
     ContactPage,
-    DisclaimerPage,
-    InfoPage,
     NewsPage,
-    OrderPage,
-    PaymentPage,
     ReviewsPage,
     AuthorsPage,
     CartPage,
@@ -41,6 +36,14 @@ import {
     SingleBookPage,
     SingleGiftPage
 } from "./pages/products";
+
+import {
+    AboutUsPage,
+    DisclaimerPage,
+    InfoPage,
+    OrderPage,
+    PaymentPage
+} from "./pages/information";
 
 function App() {
     axios.withCredentials = true;
