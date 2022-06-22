@@ -3,13 +3,17 @@ import { Outlet, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { FaPenFancy } from "react-icons/fa";
 
-import { useFetchItems } from "../hooks/useFetchItems";
-import { useLanguageContext } from "../contexts/language_context";
-import { useAuthorsContext } from "../contexts/authors_context";
-import { useSidebarContext } from "../contexts/sidebar_context";
+import { useFetchItems } from "../../hooks/useFetchItems";
+import { useLanguageContext } from "../../contexts/language_context";
+import { useAuthorsContext } from "../../contexts/authors_context";
+import { useSidebarContext } from "../../contexts/sidebar_context";
 
-import { NoCurrentAuthor } from "../components/public/authors";
-import { PageHero, SidebarAR, ListMenu } from "../components/public/elements";
+import { NoCurrentAuthor } from "../../components/public/authors";
+import {
+    PageHero,
+    SidebarAR,
+    ListMenu
+} from "../../components/public/elements";
 
 const AuthorsPage = ({}) => {
     const [page, setPage] = useState(0);

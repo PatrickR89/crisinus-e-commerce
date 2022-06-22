@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { useLanguageContext } from "../contexts/language_context";
-import { useItemsContext } from "../contexts/items_context";
-import { NewsPageComponent } from "../components/public/news";
-import { PageHero } from "../components/public/elements";
+import { useLanguageContext } from "../../contexts/language_context";
+import { useItemsContext } from "../../contexts/items_context";
+import { NewsPageComponent } from "../../components/public/news";
+import { PageHero } from "../../components/public/elements";
 
 const NewsPage = () => {
     const { translation } = useLanguageContext();

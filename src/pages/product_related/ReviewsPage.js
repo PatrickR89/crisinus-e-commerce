@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FaBook } from "react-icons/fa";
-import { useLanguageContext } from "../contexts/language_context";
-import { useReviewsContext } from "../contexts/reviews_context";
-import { useSidebarContext } from "../contexts/sidebar_context";
-import { useFetchItems } from "../hooks/useFetchItems";
+import { useLanguageContext } from "../../contexts/language_context";
+import { useReviewsContext } from "../../contexts/reviews_context";
+import { useSidebarContext } from "../../contexts/sidebar_context";
+import { useFetchItems } from "../../hooks/useFetchItems";
 
 import {
     PageHero,
     ListMenu,
     SidebarAR,
     RatingStars
-} from "../components/public/elements";
+} from "../../components/public/elements";
 
 const ReviewsPage = () => {
     const navigate = useNavigate();

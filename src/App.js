@@ -19,16 +19,7 @@ import { AddRating, EditRating, ListRatings } from "./components/admin/ratings";
 
 import Login from "./components/authentication/Login";
 
-import {
-    HomePage,
-    ContactPage,
-    NewsPage,
-    ReviewsPage,
-    AuthorsPage,
-    CartPage,
-    AdminPage,
-    NewsExpandedPage
-} from "./pages";
+import { HomePage, ContactPage, AdminPage } from "./pages";
 
 import {
     BooksPage,
@@ -44,6 +35,14 @@ import {
     OrderPage,
     PaymentPage
 } from "./pages/information";
+
+import {
+    NewsPage,
+    ReviewsPage,
+    AuthorsPage,
+    CartPage,
+    NewsExpandedPage
+} from "./pages/product_related";
 
 function App() {
     axios.withCredentials = true;
