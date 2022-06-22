@@ -57,7 +57,7 @@ const EditBook = () => {
     };
 
     const loadAuthors = () => {
-        axios.get("/books/authorList").then((response) => {
+        axios.get("/authors/authorlist").then((response) => {
             setAuthorsList(response.data);
         });
     };
@@ -81,7 +81,7 @@ const EditBook = () => {
 
     const getData = (id) => {
         axios
-            .post(`/books/singlebook`, {
+            .post(`/books/`, {
                 headers: header(),
                 id
             })
@@ -131,26 +131,44 @@ const EditBook = () => {
     };
 
     const editBook = () => {
-        axios.put("/books/editbook", {
-            title,
-            genre,
-            maxOrder,
-            price,
-            publisher,
-            language,
-            year,
-            desc,
-            bookId,
-            authors,
-            images
-        });
+        axios
+            .put("/books/", {
+                headers: header(),
+                title,
+                genre,
+                maxOrder,
+                price,
+                publisher,
+                language,
+                year,
+                desc,
+                bookId,
+                authors,
+                images
+            })
+            .then((response) => {
+                if (
+                    response.data === "Token required" ||
+                    response.data.auth === false
+                )
+                    return navigate("/admin/login", { replace: true });
+            });
         navigate("/admin/booklist", { replace: true });
     };
 
     const deleteBook = () => {
-        axios.delete("/books/deleteBook", {
-            data: { id: id }
-        });
+        axios
+            .delete("/books/", {
+                headers: header(),
+                data: { id: id }
+            })
+            .then((response) => {
+                if (
+                    response.data === "Token required" ||
+                    response.data.auth === false
+                )
+                    return navigate("/admin/login", { replace: true });
+            });
         navigate("/admin/booklist", { replace: true });
     };
 

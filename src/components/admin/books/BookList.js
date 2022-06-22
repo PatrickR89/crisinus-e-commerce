@@ -12,12 +12,12 @@ const BookList = () => {
     const { priceFormat } = useCurrencyContext();
 
     const retrieveBooks = () => {
-        axios.get("/books/booklist").then((response) => {
+        axios.get("/books/").then((response) => {
             setBookList(response.data);
         });
     };
     const retrieveAuthors = () => {
-        axios.get("/books/authorList").then((response) => {
+        axios.get("/authors/authorlist").then((response) => {
             setAuthorsList(response.data);
         });
     };

@@ -32,7 +32,7 @@ const AddBook = () => {
     }, []);
 
     const loadAuthors = () => {
-        axios.get("/books/authorList").then((response) => {
+        axios.get("/authors/authorList").then((response) => {
             setAuthorsList(response.data);
         });
     };
@@ -72,7 +72,7 @@ const AddBook = () => {
 
     const addBook = () => {
         axios
-            .post("/books/addbook", {
+            .post("/books/newbook", {
                 headers: header(),
                 title,
                 genre,
