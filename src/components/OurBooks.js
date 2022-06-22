@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import { useItemsContext } from "../contexts/items_context";
 import BookComponent from "./BookComponent";
+import shuffle from "../utils/shuffleItems";
 
 const OurBooks = () => {
     const { books, home_page_items } = useItemsContext();
 
     let tempBooks = books;
 
-    function shuffle(array) {
-        array.sort(() => Math.random() - 0.5);
-    }
     useEffect(() => {
         shuffle(tempBooks);
     }, []);
+
     return (
         <Wrapper>
             <ul className="home-books">
-                {books.slice(0, home_page_items).map((book) => {
+                {tempBooks.slice(0, home_page_items).map((book) => {
                     return (
                         <li key={book.id}>
                             <Link to={`/books/${book.id}`}>

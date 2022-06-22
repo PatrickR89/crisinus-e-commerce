@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useItemsContext } from "../contexts/items_context";
 
 import Gift from "./Gift";
 import { Link } from "react-router-dom";
+import shuffle from "../utils/shuffleItems";
 
 const GiftShop = () => {
     const { gifts, home_page_items } = useItemsContext();
 
+    let tempGifts = gifts;
+
+    useEffect(() => {
+        shuffle(tempGifts);
+    }, []);
+
     return (
         <Wrapper>
             <ul className="home-gifts">
-                {gifts.slice(0, home_page_items).map((gift) => {
+                {tempGifts.slice(0, home_page_items).map((gift) => {
                     return (
                         <li key={gift.id}>
                             <Link to={`/giftshop/${gift.id}`}>
