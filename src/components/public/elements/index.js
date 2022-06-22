@@ -7,6 +7,8 @@ import NavCart from "./NavCart";
 import PageHero from "./PageHero";
 import SidebarAR from "./SidebarAR";
 import SidebarNav from "./SidebarNav";
+import ItemsList from "./ItemsList";
+import RatingStars from "./RatingStars";
 
 export {
     SidebarNav,
@@ -17,5 +19,7 @@ export {
     ListMenu,
     SidebarAR,
     PageHero,
-    HomeBottom
+    HomeBottom,
+    ItemsList,
+    RatingStars
 };

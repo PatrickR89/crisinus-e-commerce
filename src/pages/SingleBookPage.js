@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Slideshow } from "../components";
+import Slideshow from "../components/public/elements/slideshow/Slideshow";
 import { PageHero } from "../components/public/elements";
 import { AddToCart } from "../components/public/cart";
 import { useItemsContext } from "../contexts/items_context";

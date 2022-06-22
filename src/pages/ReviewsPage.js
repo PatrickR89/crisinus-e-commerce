@@ -7,8 +7,12 @@ import { useReviewsContext } from "../contexts/reviews_context";
 import { useSidebarContext } from "../contexts/sidebar_context";
 import { useFetchItems } from "../hooks/useFetchItems";
 
-import { RatingStars } from "../components";
-import { PageHero, ListMenu, SidebarAR } from "../components/public/elements";
+import {
+    PageHero,
+    ListMenu,
+    SidebarAR,
+    RatingStars
+} from "../components/public/elements";
 
 const ReviewsPage = () => {
     const navigate = useNavigate();
