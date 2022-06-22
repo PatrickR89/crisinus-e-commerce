@@ -7,7 +7,7 @@ const ListRatings = () => {
     const [reviewsList, setReviewsList] = useState([]);
 
     const getReviews = () => {
-        axios.get("/reviews/reviewslist").then((response) => {
+        axios.get("/reviews/").then((response) => {
             setReviewsList(response.data);
         });
     };

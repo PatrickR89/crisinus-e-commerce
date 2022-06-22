@@ -20,14 +20,14 @@ const AddRating = () => {
     const [bookList, setBookList] = useState([]);
 
     const loadBooks = () => {
-        axios.get("/reviews/bookList").then((response) => {
+        axios.get("/books/").then((response) => {
             setBookList(response.data);
         });
     };
 
     const addReview = () => {
         axios
-            .post("/reviews/addreview", {
+            .post("/reviews/", {
                 headers: header(),
                 book,
                 rating_title,
