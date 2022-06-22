@@ -39,7 +39,7 @@ const EditInfo = () => {
 
     const getPage = () => {
         axios
-            .post("/infopages/getinfobyid", {
+            .post(`/infopages/${id}`, {
                 headers: header(),
                 id
             })
@@ -77,7 +77,7 @@ const EditInfo = () => {
 
     const editInfo = () => {
         axios
-            .put("/infopages/editinfo", {
+            .put(`/infopages/${id}`, {
                 headers: header(),
                 id,
                 images,

@@ -13,14 +13,14 @@ const ListInfo = () => {
     const [infoList, setInfoList] = useState([]);
 
     const getInfoPages = () => {
-        axios.get("/infopages/getinfo").then((response) => {
+        axios.get("/infopages/").then((response) => {
             setInfoList(response.data);
         });
     };
 
     const resetTable = () => {
         axios
-            .post("/infopages/resetinfo", { headers: header() })
+            .post("/infopages/reset", { headers: header() })
             .then((response) => {
                 console.log(response);
                 if (
