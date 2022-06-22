@@ -57,7 +57,7 @@ const EditBook = () => {
     };
 
     const loadAuthors = () => {
-        axios.get("/authors/authorlist").then((response) => {
+        axios.get("/authors/").then((response) => {
             setAuthorsList(response.data);
         });
     };

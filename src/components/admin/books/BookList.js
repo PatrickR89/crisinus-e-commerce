@@ -17,7 +17,7 @@ const BookList = () => {
         });
     };
     const retrieveAuthors = () => {
-        axios.get("/authors/authorlist").then((response) => {
+        axios.get("/authors/").then((response) => {
             setAuthorsList(response.data);
         });
     };

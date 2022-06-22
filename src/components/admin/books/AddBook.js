@@ -32,7 +32,7 @@ const AddBook = () => {
     }, []);
 
     const loadAuthors = () => {
-        axios.get("/authors/authorList").then((response) => {
+        axios.get("/authors/").then((response) => {
             setAuthorsList(response.data);
         });
     };
