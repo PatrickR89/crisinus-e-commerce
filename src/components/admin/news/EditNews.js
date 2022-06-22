@@ -32,7 +32,7 @@ const EditNews = () => {
 
     const getNews = () => {
         axios
-            .post("/news/newsbyid", { headers: header(), id })
+            .post(`/news/${id}`, { headers: header(), id })
             .then((response) => {
                 if (
                     response.data === "Token required" ||
@@ -45,7 +45,7 @@ const EditNews = () => {
 
     const editNews = () => {
         axios
-            .put("/news/editnews", {
+            .put(`/news/${id}`, {
                 headers: header(),
                 id,
                 title,
@@ -90,7 +90,7 @@ const EditNews = () => {
 
     const handleDelete = () => {
         axios
-            .delete("/news/deletenews", {
+            .delete(`/news/${id}`, {
                 headers: header(),
                 data: { id: id }
             })

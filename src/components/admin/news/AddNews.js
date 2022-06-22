@@ -34,7 +34,7 @@ const AddNews = () => {
 
     const addNews = () => {
         axios
-            .post("/news/addnews", {
+            .post("/news/", {
                 headers: header(),
                 title,
                 images,

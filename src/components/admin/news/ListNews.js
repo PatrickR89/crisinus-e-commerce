@@ -7,7 +7,7 @@ const ListNews = () => {
     const [newsList, setNewsList] = useState([]);
 
     const getNews = () => {
-        axios.get("/news/getnews").then((response) => {
+        axios.get("/news/").then((response) => {
             setNewsList(response.data);
         });
     };
