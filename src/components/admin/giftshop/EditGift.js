@@ -38,7 +38,7 @@ const EditGift = () => {
 
     const getItem = () => {
         axios
-            .post("/giftshop/getitem", { headers: header(), id })
+            .post(`/giftshop/${id}`, { headers: header(), id })
             .then((response) => {
                 if (
                     response.data === "Token required" ||
@@ -81,7 +81,7 @@ const EditGift = () => {
 
     const editGift = () => {
         axios
-            .put("/giftshop/editgift", {
+            .put(`/giftshop/${id}`, {
                 headers: header(),
                 id,
                 name,
@@ -102,7 +102,7 @@ const EditGift = () => {
 
     const handleDelete = () => {
         axios
-            .delete("/giftshop/deleteitem", {
+            .delete(`/giftshop/${id}`, {
                 headers: header(),
                 data: { id: id }
             })

@@ -7,7 +7,7 @@ const AuthorsList = () => {
     const [authorList, setAuthorList] = useState([]);
 
     const getAuthors = () => {
-        axios.get("/authors/authorlist").then((response) => {
+        axios.get("/authors/").then((response) => {
             setAuthorList(response.data);
         });
     };

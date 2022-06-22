@@ -36,7 +36,7 @@ const AddGift = () => {
 
     const addGift = () => {
         axios
-            .post("/giftshop/addgift", {
+            .post("/giftshop/", {
                 headers: header(),
                 name,
                 price,

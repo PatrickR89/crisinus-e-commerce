@@ -7,7 +7,7 @@ const GiftshopList = () => {
     const [gsList, setGsList] = useState([]);
 
     const getGifts = () => {
-        axios.get("/giftshop/giftlist").then((response) => {
+        axios.get("/giftshop/").then((response) => {
             setGsList(response.data);
         });
     };
