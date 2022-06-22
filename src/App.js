@@ -67,7 +67,7 @@ function App() {
                 <Route path="/books/:id" element={<SingleBookPage />} />{" "}
                 <Route path="/giftshop/:id" element={<SingleGiftPage />} />{" "}
                 <Route path="/authors" element={<AuthorsPage />}>
-                    <Route path=":author_url" element={<CurrentAuthor />} />{" "}
+                    <Route path=":id" element={<CurrentAuthor />} />{" "}
                 </Route>
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/admin" element={<AdminPage />}>

@@ -34,8 +34,7 @@ export default function PersistentDrawerRight({
 }) {
     const { closeSidebarAR, isSidebarAROpen, ref_ar } = useSidebarContext();
 
-    const { authors, authorName, activeAuthor, authorChange } =
-        useAuthorsContext();
+    const { authors, activeAuthor } = useAuthorsContext();
     const { news, newsID, changeNews } = useItemsContext();
 
     const { switchBook, currentBook, bookList } = useReviewsContext();

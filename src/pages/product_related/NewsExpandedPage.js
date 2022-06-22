@@ -14,7 +14,8 @@ const NewsExpandedPage = () => {
     console.log(single_news);
     useEffect(() => {
         fetchSingleNews(id);
-    }, []);
+        // eslint-disable-next-line
+    }, [id]);
 
     return (
         <main>

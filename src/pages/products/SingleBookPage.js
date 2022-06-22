@@ -24,7 +24,8 @@ const SingleBookPage = () => {
 
     useEffect(() => {
         fetchSingleBook(id);
-    }, []);
+        // eslint-disable-next-line
+    }, [id]);
 
     const {
         title,
@@ -44,6 +45,7 @@ const SingleBookPage = () => {
                 navigate("/books", { replace: true });
             }, 1500);
         }
+        // eslint-disable-next-line
     }, [error]);
 
     if (error) {

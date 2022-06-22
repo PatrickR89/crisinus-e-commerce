@@ -44,6 +44,7 @@ const ReviewsPage = () => {
                 navigate("/", { replace: true });
             }, 1500);
         }
+        // eslint-disable-next-line
     }, [isError]);
 
     const nextPage = () => {

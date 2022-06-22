@@ -5,7 +5,7 @@ import { useCurrencyContext } from "../../../contexts/currency_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 
 const CartTotal = () => {
-    const { total_amount, openModal, cart } = useCartContext();
+    const { total_amount, openModal } = useCartContext();
     const { priceFormat } = useCurrencyContext();
     const { translation } = useLanguageContext();
 

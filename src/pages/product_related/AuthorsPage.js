@@ -15,7 +15,7 @@ import {
     ListMenu
 } from "../../components/public/elements";
 
-const AuthorsPage = ({}) => {
+const AuthorsPage = () => {
     const [page, setPage] = useState(0);
     const [items, setItems] = useState([]);
     const navigate = useNavigate();
@@ -42,6 +42,7 @@ const AuthorsPage = ({}) => {
         if (params.author_url) {
             authorNavigate(params.author_url);
         }
+        // eslint-disable-next-line
     }, []);
 
     const authorNavigate = (item) => {

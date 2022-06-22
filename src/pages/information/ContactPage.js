@@ -13,6 +13,7 @@ const ContactPage = () => {
 
     useEffect(() => {
         fetchLinks();
+        // eslint-disable-next-line
     }, []);
 
     const filterLinks = (id) => {

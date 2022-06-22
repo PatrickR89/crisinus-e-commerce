@@ -26,11 +26,6 @@ const BookList = () => {
         retrieveBooks();
         retrieveAuthors();
     }, []);
-    //   bookList.map((book) => {
-    //     book.authors.forEach((id, index) => {
-    //       const author = authorsList.find((author) => author.id == id);
-    //     });
-    //   });
 
     return (
         <main>
@@ -60,7 +55,7 @@ const BookList = () => {
                                 <div>
                                     {book.authors.map((id, index) => {
                                         const author = authorsList.find(
-                                            (author) => author.id == id
+                                            (author) => author.id === id
                                         );
                                         if (author) {
                                             return (
