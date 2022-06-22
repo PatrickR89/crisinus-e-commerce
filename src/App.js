@@ -2,7 +2,8 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 
-import { Navbar, Footer, SidebarNav, CurrentAuthor } from "./components";
+import { CurrentAuthor } from "./components";
+import { Navbar, Footer, SidebarNav } from "./components/public/elements";
 import {
     EditInfo,
     ListInfo,

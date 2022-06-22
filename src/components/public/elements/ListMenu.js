@@ -1,7 +1,7 @@
 import React from "react";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
-import { useSidebarContext } from "../contexts/sidebar_context";
+import { useSidebarContext } from "../../../contexts/sidebar_context";
 
 const ListMenu = ({
     items,

@@ -5,7 +5,8 @@ import { useItemsContext } from "../contexts/items_context";
 import { useFilterContext } from "../contexts/filter_context";
 import { useLanguageContext } from "../contexts/language_context";
 
-import { PageHero, ItemsList } from "../components";
+import { ItemsList } from "../components";
+import { PageHero } from "../components/public/elements";
 import { Gift, GiftshopFilter } from "../components/public/giftshop";
 
 const GiftshopPage = () => {

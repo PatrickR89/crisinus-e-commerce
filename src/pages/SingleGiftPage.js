@@ -5,7 +5,8 @@ import { useItemsContext } from "../contexts/items_context";
 import { useCurrencyContext } from "../contexts/currency_context";
 import { useLanguageContext } from "../contexts/language_context";
 
-import { Slideshow, PageHero } from "../components";
+import { Slideshow } from "../components";
+import { PageHero } from "../components/public/elements";
 import { AddToCart } from "../components/public/cart";
 
 const SingleGiftPage = () => {

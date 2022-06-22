@@ -6,12 +6,12 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-import { useSidebarContext } from "../contexts/sidebar_context";
-import { useAuthorsContext } from "../contexts/authors_context";
-import { useReviewsContext } from "../contexts/reviews_context";
-import { useItemsContext } from "../contexts/items_context";
+import { useSidebarContext } from "../../../contexts/sidebar_context";
+import { useAuthorsContext } from "../../../contexts/authors_context";
+import { useReviewsContext } from "../../../contexts/reviews_context";
+import { useItemsContext } from "../../../contexts/items_context";
 
-import { ListMenu } from "../components";
+import { ListMenu } from "../elements";
 
 const drawerWidth = 320;
 

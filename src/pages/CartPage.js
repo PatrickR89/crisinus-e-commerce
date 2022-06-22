@@ -1,5 +1,5 @@
 import React from "react";
-import { PageHero } from "../components";
+import { PageHero } from "../components/public/elements";
 import { CartContainer, CartModal } from "../components/public/cart";
 import { useLanguageContext } from "../contexts/language_context";
 import { useCartContext } from "../contexts/cart_context";

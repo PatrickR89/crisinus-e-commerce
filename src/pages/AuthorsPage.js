@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
-import { PageHero, SidebarAR, ListMenu, NoCurrentAuthor } from "../components";
 import styled from "styled-components";
 import { FaPenFancy } from "react-icons/fa";
 
@@ -8,6 +7,9 @@ import { useFetchItems } from "../hooks/useFetchItems";
 import { useLanguageContext } from "../contexts/language_context";
 import { useAuthorsContext } from "../contexts/authors_context";
 import { useSidebarContext } from "../contexts/sidebar_context";
+
+import { NoCurrentAuthor } from "../components";
+import { PageHero, SidebarAR, ListMenu } from "../components/public/elements";
 
 const AuthorsPage = ({}) => {
     const [page, setPage] = useState(0);

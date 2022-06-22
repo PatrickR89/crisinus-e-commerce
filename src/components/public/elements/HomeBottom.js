@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import { useLanguageContext } from "../contexts/language_context";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 const HomeBottom = () => {
     const { translation } = useLanguageContext();

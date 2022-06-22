@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-
-import { PageHero } from "../components";
+import { PageHero } from "../components/public/elements";
 import { useLanguageContext } from "../contexts/language_context";
 import { useItemsContext } from "../contexts/items_context";
 import formatDate from "../utils/dateFormatting";

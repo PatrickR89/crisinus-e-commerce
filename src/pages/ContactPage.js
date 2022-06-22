@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { PageHero, ContactForm } from "../components";
+import { ContactForm } from "../components";
+import { PageHero } from "../components/public/elements";
 import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
 import { useLanguageContext } from "../contexts/language_context";
