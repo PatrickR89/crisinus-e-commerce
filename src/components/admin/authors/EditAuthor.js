@@ -1,45 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { FaCameraRetro } from "react-icons/fa";
-import { FaTrashAlt } from "react-icons/fa";
-
-import styled from "styled-components";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import styled from "styled-components";
+import { FaTrashAlt } from "react-icons/fa";
+import { FaCameraRetro } from "react-icons/fa";
 
-import { useAuthenticationContext } from "../../contexts/authentication_context";
+import { useAuthenticationContext } from "../../../contexts/authentication_context";
 
-const EditInfo = () => {
+const EditAuthor = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
     const { header } = useAuthenticationContext();
 
-    const [initialPage, setInitialPage] = useState({
-        title: "",
-        show_title: "",
-        images: [],
-        content: ""
+    const [initialAuthor, setInitialAuthor] = useState({
+        name: "",
+        last_name: "",
+        url: "",
+        img: [],
+        bio: ""
     });
 
+    const [name, setName] = useState("");
+    const [last_name, setLast_name] = useState("");
     const [images, setImages] = useState([]);
-    const [content, setContent] = useState("");
+    const [url, setUrl] = useState("");
+    const [bio, setBio] = useState("");
 
-    const initializeItem = () => {
-        setImages(initialPage.images);
-        setContent(initialPage.content);
+    const initializeAuthor = () => {
+        setName(initialAuthor.name);
+        setLast_name(initialAuthor.last_name);
+        if (initialAuthor.img !== null && initialAuthor.img !== undefined) {
+            console.log(initialAuthor.img);
+            setImages(initialAuthor.img);
+        }
+        if (initialAuthor.url !== null) {
+            setUrl(initialAuthor.url);
+        }
+        if (initialAuthor.bio !== null) {
+            setBio(initialAuthor.bio);
+        }
     };
 
-    useEffect(() => {
-        getPage();
-    }, []);
-
-    useEffect(() => {
-        initializeItem();
-    }, [initialPage]);
-
-    const getPage = () => {
+    const getAuthor = () => {
         axios
-            .post("/infopages/getinfobyid", {
+            .post("/authors/getauthor", {
                 headers: header(),
                 id
             })
@@ -49,7 +54,7 @@ const EditInfo = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
-                setInitialPage(response.data[0]);
+                setInitialAuthor(response.data[0]);
             });
     };
 
@@ -61,10 +66,13 @@ const EditInfo = () => {
         });
 
         axios.post("/images/addimages", data).then((res) => {
+            console.log(res.data);
             const tempImages = [...images];
             res.data.forEach((image) => {
+                console.log(image);
                 tempImages.push(image.path);
             });
+            console.log(tempImages);
             setImages(tempImages);
         });
     };
@@ -75,26 +83,44 @@ const EditInfo = () => {
         setImages(tempUrls);
     };
 
-    const editInfo = () => {
+    const handleEdit = () => {
         axios
-            .put("/infopages/editinfo", {
+            .put("/authors/editauthor", {
                 headers: header(),
                 id,
+                name,
+                last_name,
                 images,
-                content
+                url,
+                bio
             })
             .then((response) => {
-                if (
-                    response.data === "Token required" ||
-                    response.data.auth === false
-                )
+                if (response.data === "Token required")
                     return navigate("/admin/login", { replace: true });
             });
-        navigate("/admin/infolist", { replace: true });
+        navigate("/admin/authorslist", { replace: true });
     };
+    const handleDelete = () => {
+        axios
+            .delete("/authors/deleteauthor", {
+                headers: header(),
+                data: { id: id }
+            })
+            .then((response) => {
+                if (response.data === "Token required")
+                    return navigate("/admin/login", { replace: true });
+            });
+        navigate("/admin/authorslist", { replace: true });
+    };
+
+    useEffect(() => {
+        getAuthor();
+    }, []);
+    useEffect(() => {
+        initializeAuthor();
+    }, [initialAuthor]);
     return (
         <Wrapper>
-            <h2>{initialPage.show_title}</h2>
             <div className="thumb-container">
                 {images &&
                     images.map((url, index) => {
@@ -127,19 +153,48 @@ const EditInfo = () => {
                         <FaCameraRetro className="icon-large" /> Add image
                     </article>
                 </label>
-
-                <label htmlFor="content">Content:</label>
+                <label htmlFor="name">Name:</label>
+                <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <label htmlFor="last_name">Last name:</label>
+                <input
+                    type="text"
+                    name="last_name"
+                    id="last_name"
+                    value={last_name}
+                    onChange={(e) => setLast_name(e.target.value)}
+                />
+                <label htmlFor="url">Url:</label>
+                <input
+                    type="text"
+                    name="url"
+                    id="url"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                />
+                <label htmlFor="bio">Bio:</label>
                 <textarea
-                    name="content"
-                    id="content"
+                    name="bio"
+                    id="bio"
                     cols="30"
                     rows="10"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
                 ></textarea>
                 <div className="edit-container">
-                    <button onClick={editInfo} className="btn mt-1">
-                        Edit page
+                    <button onClick={handleEdit} className="btn mt-1">
+                        Edit author
+                    </button>
+                    <button
+                        className="btn mt-1 btn-delete"
+                        onClick={handleDelete}
+                    >
+                        DELETE author
                     </button>
                 </div>
             </div>
@@ -148,9 +203,6 @@ const EditInfo = () => {
 };
 
 const Wrapper = styled.div`
-    h2 {
-        color: var(--clr-red-dark);
-    }
     .info {
         display: flex;
         flex-direction: column;
@@ -242,4 +294,4 @@ const Wrapper = styled.div`
     }
 `;
 
-export default EditInfo;
+export default EditAuthor;

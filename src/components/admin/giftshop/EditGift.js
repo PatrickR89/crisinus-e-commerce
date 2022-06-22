@@ -1,61 +1,60 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import styled from "styled-components";
-import { FaTrashAlt } from "react-icons/fa";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaCameraRetro } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 
-import { useAuthenticationContext } from "../../contexts/authentication_context";
+import styled from "styled-components";
+import axios from "axios";
 
-const EditAuthor = () => {
+import { useAuthenticationContext } from "../../../contexts/authentication_context";
+
+const EditGift = () => {
+    const { header } = useAuthenticationContext();
+
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState(0);
+    const [max_order, setMax_order] = useState(0);
+    const [images, setImages] = useState("");
+    const [description, setDescription] = useState("");
+
+    const [initialItem, setInitialItem] = useState({
+        name: "",
+        price: 0,
+        max_order: 0,
+        images: [],
+        description: ""
+    });
+
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const { header } = useAuthenticationContext();
+    useEffect(() => {
+        getItem();
+    }, []);
 
-    const [initialAuthor, setInitialAuthor] = useState({
-        name: "",
-        last_name: "",
-        url: "",
-        img: [],
-        bio: ""
-    });
+    useEffect(() => {
+        initializeItem();
+    }, [initialItem]);
 
-    const [name, setName] = useState("");
-    const [last_name, setLast_name] = useState("");
-    const [images, setImages] = useState([]);
-    const [url, setUrl] = useState("");
-    const [bio, setBio] = useState("");
-
-    const initializeAuthor = () => {
-        setName(initialAuthor.name);
-        setLast_name(initialAuthor.last_name);
-        if (initialAuthor.img !== null && initialAuthor.img !== undefined) {
-            console.log(initialAuthor.img);
-            setImages(initialAuthor.img);
-        }
-        if (initialAuthor.url !== null) {
-            setUrl(initialAuthor.url);
-        }
-        if (initialAuthor.bio !== null) {
-            setBio(initialAuthor.bio);
-        }
-    };
-
-    const getAuthor = () => {
+    const getItem = () => {
         axios
-            .post("/authors/getauthor", {
-                headers: header(),
-                id
-            })
+            .post("/giftshop/getitem", { headers: header(), id })
             .then((response) => {
                 if (
                     response.data === "Token required" ||
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
-                setInitialAuthor(response.data[0]);
+                setInitialItem(response.data[0]);
             });
+    };
+
+    const initializeItem = () => {
+        setName(initialItem.name);
+        setPrice(initialItem.price);
+        setMax_order(initialItem.max_order);
+        setImages(initialItem.images);
+        setDescription(initialItem.description);
     };
 
     const handleAddImages = (e) => {
@@ -66,13 +65,10 @@ const EditAuthor = () => {
         });
 
         axios.post("/images/addimages", data).then((res) => {
-            console.log(res.data);
             const tempImages = [...images];
             res.data.forEach((image) => {
-                console.log(image);
                 tempImages.push(image.path);
             });
-            console.log(tempImages);
             setImages(tempImages);
         });
     };
@@ -83,42 +79,43 @@ const EditAuthor = () => {
         setImages(tempUrls);
     };
 
-    const handleEdit = () => {
+    const editGift = () => {
         axios
-            .put("/authors/editauthor", {
+            .put("/giftshop/editgift", {
                 headers: header(),
                 id,
                 name,
-                last_name,
+                price,
+                max_order,
                 images,
-                url,
-                bio
+                description
             })
             .then((response) => {
-                if (response.data === "Token required")
+                if (
+                    response.data === "Token required" ||
+                    response.data.auth === false
+                )
                     return navigate("/admin/login", { replace: true });
             });
-        navigate("/admin/authorslist", { replace: true });
+        navigate("/admin/giftshoplist", { replace: true });
     };
+
     const handleDelete = () => {
         axios
-            .delete("/authors/deleteauthor", {
+            .delete("/giftshop/deleteitem", {
                 headers: header(),
                 data: { id: id }
             })
             .then((response) => {
-                if (response.data === "Token required")
+                if (
+                    response.data === "Token required" ||
+                    response.data.auth === false
+                )
                     return navigate("/admin/login", { replace: true });
             });
-        navigate("/admin/authorslist", { replace: true });
+        navigate("/admin/giftshoplist", { replace: true });
     };
 
-    useEffect(() => {
-        getAuthor();
-    }, []);
-    useEffect(() => {
-        initializeAuthor();
-    }, [initialAuthor]);
     return (
         <Wrapper>
             <div className="thumb-container">
@@ -161,40 +158,40 @@ const EditAuthor = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <label htmlFor="last_name">Last name:</label>
+                <label htmlFor="price">Price</label>
                 <input
-                    type="text"
-                    name="last_name"
-                    id="last_name"
-                    value={last_name}
-                    onChange={(e) => setLast_name(e.target.value)}
+                    type="number"
+                    name="price"
+                    id="price"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
                 />
-                <label htmlFor="url">Url:</label>
+                <label htmlFor="max_order">Maximum available amount:</label>
                 <input
-                    type="text"
-                    name="url"
-                    id="url"
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)}
+                    type="number"
+                    name="max_order"
+                    id="max_order"
+                    value={max_order}
+                    onChange={(e) => setMax_order(e.target.value)}
                 />
-                <label htmlFor="bio">Bio:</label>
+                <label htmlFor="description">Description:</label>
                 <textarea
-                    name="bio"
-                    id="bio"
+                    name="description"
+                    id="description"
                     cols="30"
                     rows="10"
-                    value={bio}
-                    onChange={(e) => setBio(e.target.value)}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                 ></textarea>
                 <div className="edit-container">
-                    <button onClick={handleEdit} className="btn mt-1">
-                        Edit author
+                    <button onClick={editGift} className="btn mt-1">
+                        Edit item
                     </button>
                     <button
                         className="btn mt-1 btn-delete"
                         onClick={handleDelete}
                     >
-                        DELETE author
+                        DELETE item
                     </button>
                 </div>
             </div>
@@ -294,4 +291,4 @@ const Wrapper = styled.div`
     }
 `;
 
-export default EditAuthor;
+export default EditGift;

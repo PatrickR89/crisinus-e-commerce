@@ -1,19 +1,37 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import styled from "styled-components";
+import { FaTrashAlt } from "react-icons/fa";
+
 import { FaCameraRetro } from "react-icons/fa";
 
-import styled from "styled-components";
-import axios from "axios";
+import { useAuthenticationContext } from "../../../contexts/authentication_context";
 
-import { useAuthenticationContext } from "../../contexts/authentication_context";
+const EditBook = () => {
+    axios.defaults.withCredentials = true;
 
-const AddBook = () => {
+    const { id } = useParams();
     const navigate = useNavigate();
 
-    const { header, loggedIn } = useAuthenticationContext();
+    const { header } = useAuthenticationContext();
+
+    const [initialBook, setInitialBook] = useState({
+        title: "",
+        authors: [],
+        genre: "",
+        max_order: 0,
+        price: 0,
+        publisher: "",
+        language: "",
+        year: 0,
+        description: "",
+        images: []
+    });
+    const [initialAuthors, setInitialAuthors] = useState([]);
+    const [authors, setAuthors] = useState([{ name: "", last_name: "" }]);
 
     const [title, setTitle] = useState("");
-    const [authors, setAuthors] = useState([{ name: "", last_name: "" }]);
     const [images, setImages] = useState([]);
     const [genre, setGenre] = useState("");
     const [maxOrder, setMaxOrder] = useState(0);
@@ -22,14 +40,21 @@ const AddBook = () => {
     const [language, setLanguage] = useState("");
     const [year, setYear] = useState(2000);
     const [desc, setDesc] = useState("");
+    const [bookId, setBookId] = useState("");
     const [authorsList, setAuthorsList] = useState([]);
 
-    useEffect(() => {
-        if (!loggedIn) {
-            navigate("/admin/login", { replace: true });
-        }
-        loadAuthors();
-    }, []);
+    const initializeBook = () => {
+        setTitle(initialBook.title);
+        setGenre(initialBook.genre);
+        setMaxOrder(initialBook.max_order);
+        setPrice(initialBook.price);
+        setPublisher(initialBook.publisher);
+        setLanguage(initialBook.language);
+        setYear(initialBook.year);
+        setDesc(initialBook.description);
+        setImages(initialBook.images);
+        setBookId(initialBook.id);
+    };
 
     const loadAuthors = () => {
         axios.get("/books/authorList").then((response) => {
@@ -54,6 +79,35 @@ const AddBook = () => {
         setAuthors([...authors, { name: "", last_name: "" }]);
     };
 
+    const getData = (id) => {
+        axios
+            .post(`/books/singlebook`, {
+                headers: header(),
+                id
+            })
+            .then((response) => {
+                if (
+                    response.data === "Token required" ||
+                    response.data.auth === false
+                )
+                    return navigate("/admin/login", { replace: true });
+                setInitialBook(response.data[0]);
+                setInitialAuthors(response.data[1]);
+            });
+    };
+
+    const initializeAuthors = () => {
+        const tempAL = [];
+        initialAuthors.map((initAuthor) => {
+            const tempAut = {
+                name: initAuthor.name,
+                last_name: initAuthor.last_name
+            };
+            tempAL.push(tempAut);
+        });
+        setAuthors(tempAL);
+    };
+
     const handleImages = (e) => {
         const data = new FormData();
         const files = [...e.target.files];
@@ -70,35 +124,74 @@ const AddBook = () => {
         });
     };
 
-    const addBook = () => {
-        axios
-            .post("/books/addbook", {
-                headers: header(),
-                title,
-                genre,
-                maxOrder,
-                price,
-                publisher,
-                language,
-                year,
-                desc,
-                images,
-                authors
-            })
-            .then((response) => {
-                if (
-                    response.data === "Token required" ||
-                    response.data.auth === false
-                )
-                    return navigate("/admin/login", { replace: true });
-            });
+    const handleDelete = (url) => {
+        axios.post("/images/deleteimages", { url });
+        const tempUrls = images.filter((image) => image !== url);
+        setImages(tempUrls);
+    };
 
+    const editBook = () => {
+        axios.put("/books/editbook", {
+            title,
+            genre,
+            maxOrder,
+            price,
+            publisher,
+            language,
+            year,
+            desc,
+            bookId,
+            authors,
+            images
+        });
         navigate("/admin/booklist", { replace: true });
     };
+
+    const deleteBook = () => {
+        axios.delete("/books/deleteBook", {
+            data: { id: id }
+        });
+        navigate("/admin/booklist", { replace: true });
+    };
+
+    useEffect(() => {
+        getData(id);
+        loadAuthors();
+    }, []);
+    useEffect(() => {
+        initializeAuthors();
+    }, [initialAuthors]);
+    useEffect(() => {
+        initializeBook();
+    }, [initialBook]);
 
     return (
         <main>
             <Wrapper>
+                <div className="edit-header">
+                    <h4>{initialBook.title}</h4>
+                    <div className="thumb-container">
+                        {images.map((url, index) => {
+                            return (
+                                <div key={index} className="single-thumb">
+                                    <p>{url}</p>
+                                    <img
+                                        className="thumb"
+                                        src={`/${url}`}
+                                        alt=""
+                                    />
+                                    <button
+                                        className="btn btn-delete"
+                                        onClick={() => handleDelete(url)}
+                                    >
+                                        <FaTrashAlt />
+                                    </button>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+
                 <div className="info">
                     <label htmlFor="title">Title:</label>
                     <input
@@ -239,19 +332,26 @@ const AddBook = () => {
                         value={maxOrder}
                         onChange={(e) => setMaxOrder(e.target.value)}
                     />
-                    <label htmlFor="title">Description:</label>
+                    <label htmlFor="desc">Description:</label>
                     <textarea
                         name="desc"
                         id="desc"
                         cols="30"
                         rows="10"
+                        value={desc}
                         onChange={(e) => setDesc(e.target.value)}
-                    >
-                        {desc}
-                    </textarea>
-                    <button onClick={addBook} className="btn mt-1">
-                        Add book
-                    </button>
+                    ></textarea>
+                    <div className="edit-container">
+                        <button onClick={() => editBook()} className="btn mt-1">
+                            Edit book
+                        </button>
+                        <button
+                            className="btn mt-1 btn-delete"
+                            onClick={deleteBook}
+                        >
+                            DELETE BOOK
+                        </button>
+                    </div>
                 </div>
             </Wrapper>
         </main>
@@ -280,6 +380,28 @@ const Wrapper = styled.div`
             width: 100%;
             font-size: 1.2rem;
         }
+    }
+    .edit-header {
+        height: 250px;
+        margin-bottom: 2rem;
+    }
+    .thumb-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        height: 100%;
+    }
+    .single-thumb {
+        display: flex;
+        flex-direction: column;
+        align-items: space-around;
+        justify-content: space-between;
+        height: 100%;
+        max-width: 200px;
+    }
+    .thumb {
+        max-width: 150px;
+        margin: auto;
     }
     .authors {
         width: 100%;
@@ -317,6 +439,15 @@ const Wrapper = styled.div`
             margin: 0.2rem 0.5rem;
         }
     }
+    img {
+        max-width: 200px;
+    }
+    .edit-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 `;
 
-export default AddBook;
+export default EditBook;

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaCameraRetro } from "react-icons/fa";
 
-import { useAuthenticationContext } from "../../contexts/authentication_context";
+import { useAuthenticationContext } from "../../../contexts/authentication_context";
 
 const EditNews = () => {
     const { id } = useParams();

@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { FaCameraRetro } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
+
 import styled from "styled-components";
 import axios from "axios";
 
-import { useAuthenticationContext } from "../../contexts/authentication_context";
+import { useAuthenticationContext } from "../../../contexts/authentication_context";
 
 const EditInfo = () => {
     const { id } = useParams();
@@ -11,28 +14,32 @@ const EditInfo = () => {
 
     const { header } = useAuthenticationContext();
 
-    const [initialLink, setInitialLink] = useState({
-        id: "",
-        link: ""
+    const [initialPage, setInitialPage] = useState({
+        title: "",
+        show_title: "",
+        images: [],
+        content: ""
     });
 
-    const [linkPath, setLinkPath] = useState("");
+    const [images, setImages] = useState([]);
+    const [content, setContent] = useState("");
 
     const initializeItem = () => {
-        setLinkPath(initialLink.link);
+        setImages(initialPage.images);
+        setContent(initialPage.content);
     };
 
     useEffect(() => {
-        fetchDBLink();
+        getPage();
     }, []);
 
     useEffect(() => {
         initializeItem();
-    }, [initialLink]);
+    }, [initialPage]);
 
-    const fetchDBLink = () => {
+    const getPage = () => {
         axios
-            .post("/links", {
+            .post("/infopages/getinfobyid", {
                 headers: header(),
                 id
             })
@@ -42,16 +49,39 @@ const EditInfo = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
-                setInitialLink(response.data[0]);
+                setInitialPage(response.data[0]);
             });
     };
 
-    const editLink = () => {
+    const handleAddImages = (e) => {
+        const data = new FormData();
+        const files = [...e.target.files];
+        files.forEach((file) => {
+            data.append("images", file);
+        });
+
+        axios.post("/images/addimages", data).then((res) => {
+            const tempImages = [...images];
+            res.data.forEach((image) => {
+                tempImages.push(image.path);
+            });
+            setImages(tempImages);
+        });
+    };
+
+    const handleDeleteImage = (url) => {
+        axios.post("/images/deleteimages", { url });
+        const tempUrls = images.filter((image) => image !== url);
+        setImages(tempUrls);
+    };
+
+    const editInfo = () => {
         axios
-            .put(`/links/${id}`, {
+            .put("/infopages/editinfo", {
                 headers: header(),
                 id,
-                link: linkPath
+                images,
+                content
             })
             .then((response) => {
                 if (
@@ -60,26 +90,56 @@ const EditInfo = () => {
                 )
                     return navigate("/admin/login", { replace: true });
             });
-        navigate("/admin/linkslist", { replace: true });
+        navigate("/admin/infolist", { replace: true });
     };
     return (
         <Wrapper>
-            <h2>{initialLink.id}</h2>
+            <h2>{initialPage.show_title}</h2>
+            <div className="thumb-container">
+                {images &&
+                    images.map((url, index) => {
+                        return (
+                            <div key={index} className="single-thumb">
+                                <p>{url}</p>
+                                <img className="thumb" src={`/${url}`} alt="" />
+                                <button
+                                    className="btn btn-delete"
+                                    onClick={() => handleDeleteImage(url)}
+                                >
+                                    <FaTrashAlt />
+                                </button>
+                            </div>
+                        );
+                    })}
+            </div>
             <div className="info">
-                <label htmlFor="content">link to:</label>
+                <label htmlFor="images" className="photo-input">
+                    Images:
+                    <input
+                        type="file"
+                        name="images"
+                        multiple
+                        id="images"
+                        className="hidden-input"
+                        onChange={handleAddImages}
+                    />
+                    <article className="btn">
+                        <FaCameraRetro className="icon-large" /> Add image
+                    </article>
+                </label>
+
+                <label htmlFor="content">Content:</label>
                 <textarea
                     name="content"
                     id="content"
                     cols="30"
                     rows="10"
-                    value={linkPath}
-                    onChange={(e) => setLinkPath(e.target.value)}
-                >
-                    {initialLink.link}
-                </textarea>
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                ></textarea>
                 <div className="edit-container">
-                    <button onClick={editLink} className="btn mt-1">
-                        Edit link
+                    <button onClick={editInfo} className="btn mt-1">
+                        Edit page
                     </button>
                 </div>
             </div>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
-import { useCurrencyContext } from "../../contexts/currency_context";
+import { useCurrencyContext } from "../../../contexts/currency_context";
 
 const BookList = () => {
     const [bookList, setBookList] = useState([]);

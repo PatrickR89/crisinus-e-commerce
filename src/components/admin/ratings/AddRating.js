@@ -1,25 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 import axios from "axios";
 
-import { useAuthenticationContext } from "../../contexts/authentication_context";
+import { useAuthenticationContext } from "../../../contexts/authentication_context";
 
-const EditRating = () => {
+const AddRating = () => {
     const navigate = useNavigate();
-    const { id } = useParams();
 
     const { header } = useAuthenticationContext();
-
-    const [initialReview, setInitialReview] = useState({
-        book_id: "",
-        book_title: "",
-        rating_title: "",
-        rating: 0,
-        reviewer: "",
-        review: ""
-    });
 
     const [book, setBook] = useState({});
     const [rating_title, setRating_title] = useState("");
@@ -29,47 +19,16 @@ const EditRating = () => {
 
     const [bookList, setBookList] = useState([]);
 
-    const loadInitialReview = () => {
-        axios
-            .post("/reviews/getInitialReview", {
-                headers: header(),
-                id
-            })
-            .then((response) => {
-                if (
-                    response.data === "Token required" ||
-                    response.data.auth === false
-                )
-                    return navigate("/admin/login", { replace: true });
-                setInitialReview(response.data);
-            });
-    };
-
-    const initializeReview = () => {
-        setBook(initialReview.book_id);
-        setRating_title(initialReview.rating_title);
-        setRating(initialReview.rating);
-        setReviewer(initialReview.reviewer);
-        setReview(initialReview.review);
-    };
-
     const loadBooks = () => {
-        axios
-            .get("/reviews/bookList")
-            .then((response) => {
-                setBookList(response.data);
-            })
-            .then((response) => {
-                if (response.data === "Token required")
-                    return navigate("/admin/login", { replace: true });
-            });
+        axios.get("/reviews/bookList").then((response) => {
+            setBookList(response.data);
+        });
     };
 
-    const editReview = () => {
+    const addReview = () => {
         axios
-            .put("/reviews/editreview", {
+            .post("/reviews/addreview", {
                 headers: header(),
-                id,
                 book,
                 rating_title,
                 rating,
@@ -77,33 +36,19 @@ const EditRating = () => {
                 review
             })
             .then((response) => {
-                if (response.data === "Token required")
+                if (
+                    response.data === "Token required" ||
+                    response.data.auth === false
+                )
                     return navigate("/admin/login", { replace: true });
             });
 
-        navigate("/admin/ratingslist", { replace: true });
-    };
-
-    const handleDelete = () => {
-        axios
-            .delete("/reviews/deletereview", {
-                headers: header(),
-                data: { id: id }
-            })
-            .then((response) => {
-                if (response.data === "Token required")
-                    return navigate("/admin/login", { replace: true });
-            });
         navigate("/admin/ratingslist", { replace: true });
     };
 
     useEffect(() => {
-        loadInitialReview();
         loadBooks();
     }, []);
-    useEffect(() => {
-        initializeReview();
-    }, [initialReview]);
 
     return (
         <main>
@@ -115,12 +60,6 @@ const EditRating = () => {
                         id="book"
                         onChange={(e) => setBook(e.target.value)}
                     >
-                        <option
-                            value={initialReview.book_id}
-                            selected="selected"
-                        >
-                            {initialReview.book_title}
-                        </option>
                         {bookList.map((book) => {
                             return (
                                 <option value={book.id}>{book.title}</option>
@@ -160,20 +99,13 @@ const EditRating = () => {
                         id="review"
                         cols="30"
                         rows="10"
-                        value={review}
                         onChange={(e) => setReview(e.target.value)}
-                    ></textarea>
-                    <div className="edit-container">
-                        <button onClick={editReview} className="btn mt-1">
-                            Edit review
-                        </button>
-                        <button
-                            onClick={handleDelete}
-                            className="btn mt-1 btn-delete"
-                        >
-                            DELETE review
-                        </button>
-                    </div>
+                    >
+                        {review}
+                    </textarea>
+                    <button onClick={addReview} className="btn mt-1">
+                        Add review
+                    </button>
                 </div>
             </Wrapper>
         </main>
@@ -217,13 +149,6 @@ const Wrapper = styled.div`
             margin: 0.2rem 0.5rem;
         }
     }
-
-    .edit-container {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
 `;
 
-export default EditRating;
+export default AddRating;

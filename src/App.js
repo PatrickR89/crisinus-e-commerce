@@ -4,26 +4,17 @@ import axios from "axios";
 
 import { Navbar, Footer, SidebarNav, CurrentAuthor } from "./components";
 import {
-    AddBook,
-    BookList,
-    EditBook,
-    AuthorsList,
-    EditAuthor,
-    GiftshopList,
-    EditGift,
-    AddGift,
-    AddRating,
-    EditRating,
-    ListRatings,
-    AddNews,
-    EditNews,
-    ListNews,
     EditInfo,
     ListInfo,
     ImageList,
     ListLinks,
     EditLinks
-} from "./components/admin";
+} from "./components/admin/info";
+import { AddBook, BookList, EditBook } from "./components/admin/books";
+import { GiftshopList, EditGift, AddGift } from "./components/admin/giftshop";
+import { AuthorsList, EditAuthor } from "./components/admin/authors";
+import { AddNews, EditNews, ListNews } from "./components/admin/news";
+import { AddRating, EditRating, ListRatings } from "./components/admin/ratings";
 
 import Login from "./components/authentication/Login";
 
