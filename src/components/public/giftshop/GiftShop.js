@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useItemsContext } from "../contexts/items_context";
+import { useItemsContext } from "../../../contexts/items_context";
 
 import Gift from "./Gift";
 import { Link } from "react-router-dom";
-import shuffle from "../utils/shuffleItems";
+import shuffle from "../../../utils/shuffleItems";
 
 const GiftShop = () => {
     const { gifts, home_page_items } = useItemsContext();

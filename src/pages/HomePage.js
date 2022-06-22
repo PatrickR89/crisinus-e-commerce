@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { News, GiftShop, PageHero, HomeBottom } from "../components";
+import { News, PageHero, HomeBottom } from "../components";
+import { GiftShop } from "../components/public/giftshop";
 import { OurBooks } from "../components/public/books";
 
 const HomePage = () => {

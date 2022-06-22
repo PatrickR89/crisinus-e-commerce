@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useCurrencyContext } from "../contexts/currency_context";
+import { useCurrencyContext } from "../../../contexts/currency_context";
 
 const Gift = ({ name, price, images }) => {
     const { priceFormat } = useCurrencyContext();
