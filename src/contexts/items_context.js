@@ -10,19 +10,13 @@ import {
     GET_ITEMS_START,
     GET_ITEMS_SUCCESS,
     GET_ITEMS_ERROR,
-    GET_ITEMS_DONE,
     GET_SINGLE_ITEM_START,
-    GET_SINGLE_BOOK_SUCCESS,
     GET_SINGLE_ITEM_ERROR,
-    GET_SINGLE_ITEM_DONE,
-    GET_SINGLE_GIFT_SUCCESS,
-    GET_SINGLE_GIFT_ID,
-    GET_SINGLE_BOOK_ID,
-    GET_SINGLE_NEWS_ID,
+    GET_SINGLE_GIFT,
+    GET_SINGLE_BOOK,
     UPDATE_SIZE,
     UPDATE_LENGTH,
     UPDATE_LENGTH_SEPARATE,
-    CHANGE_NEWS_ID,
     SET_SINGLE_NEWS,
     SET_CONT_NAME_ERR_TRUE,
     SET_CONT_NAME_ERR_FALSE,
@@ -82,6 +76,8 @@ const ItemsContext = React.createContext();
 export const ItemsProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
+    // FETCH AND POPULATE REQUIRED ITEMS
+
     const fetchItems = async () => {
         dispatch({ type: GET_ITEMS_START });
         try {
@@ -109,7 +105,7 @@ export const ItemsProvider = ({ children }) => {
         try {
             await axios.post("/public/books", { id }).then((response) => {
                 dispatch({
-                    type: GET_SINGLE_BOOK_ID,
+                    type: GET_SINGLE_BOOK,
                     payload: response.data
                 });
             });
@@ -125,7 +121,7 @@ export const ItemsProvider = ({ children }) => {
             const response = await axios
                 .post("/public/gifts", { id })
                 .then((response) => response.data[0]);
-            dispatch({ type: GET_SINGLE_GIFT_ID, payload: response });
+            dispatch({ type: GET_SINGLE_GIFT, payload: response });
         } catch (error) {
             console.log(error);
             dispatch({ type: GET_SINGLE_ITEM_ERROR });
@@ -155,6 +151,8 @@ export const ItemsProvider = ({ children }) => {
             dispatch({ GET_ITEMS_ERROR });
         }
     };
+
+    // FETCH AND POPULATE REQUIRED ITEMS END
 
     const updateSize = () => {
         dispatch({ type: UPDATE_SIZE, payload: window.innerWidth });
@@ -230,6 +228,7 @@ export const ItemsProvider = ({ children }) => {
         }
     }
     // CONTACT FORM END
+
     // WINDOW RESIZING EFFECT
 
     useLayoutEffect(() => {
