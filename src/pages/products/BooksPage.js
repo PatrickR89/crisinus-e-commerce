@@ -3,13 +3,13 @@ import styled from "styled-components";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 
-import { BookInBooks, BooksSidebar } from "../components/public/books";
-import { FilterItems } from "../components/public/books";
-import { PageHero, ItemsList } from "../components/public/elements";
-import { useItemsContext } from "../contexts/items_context";
-import { useFilterContext } from "../contexts/filter_context";
-import { useLanguageContext } from "../contexts/language_context";
-import { useSidebarContext } from "../contexts/sidebar_context";
+import { BookInBooks, BooksSidebar } from "../../components/public/books";
+import { FilterItems } from "../../components/public/books";
+import { PageHero, ItemsList } from "../../components/public/elements";
+import { useItemsContext } from "../../contexts/items_context";
+import { useFilterContext } from "../../contexts/filter_context";
+import { useLanguageContext } from "../../contexts/language_context";
+import { useSidebarContext } from "../../contexts/sidebar_context";
 
 const BooksPage = () => {
     const {

@@ -22,22 +22,25 @@ import Login from "./components/authentication/Login";
 import {
     HomePage,
     AboutUsPage,
-    BooksPage,
     ContactPage,
     DisclaimerPage,
-    GiftshopPage,
     InfoPage,
     NewsPage,
     OrderPage,
     PaymentPage,
     ReviewsPage,
-    SingleBookPage,
-    SingleGiftPage,
     AuthorsPage,
     CartPage,
     AdminPage,
     NewsExpandedPage
 } from "./pages";
+
+import {
+    BooksPage,
+    GiftshopPage,
+    SingleBookPage,
+    SingleGiftPage
+} from "./pages/products";
 
 function App() {
     axios.withCredentials = true;

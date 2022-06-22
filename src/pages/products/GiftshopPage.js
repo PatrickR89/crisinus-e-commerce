@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-import { useItemsContext } from "../contexts/items_context";
-import { useFilterContext } from "../contexts/filter_context";
-import { useLanguageContext } from "../contexts/language_context";
+import { useItemsContext } from "../../contexts/items_context";
+import { useFilterContext } from "../../contexts/filter_context";
+import { useLanguageContext } from "../../contexts/language_context";
 
-import { PageHero, ItemsList } from "../components/public/elements";
-import { Gift, GiftshopFilter } from "../components/public/giftshop";
+import { PageHero, ItemsList } from "../../components/public/elements";
+import { Gift, GiftshopFilter } from "../../components/public/giftshop";
 
 const GiftshopPage = () => {
     const {

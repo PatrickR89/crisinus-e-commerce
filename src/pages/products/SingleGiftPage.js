@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useItemsContext } from "../contexts/items_context";
-import { useCurrencyContext } from "../contexts/currency_context";
-import { useLanguageContext } from "../contexts/language_context";
+import { useItemsContext } from "../../contexts/items_context";
+import { useCurrencyContext } from "../../contexts/currency_context";
+import { useLanguageContext } from "../../contexts/language_context";
 
-import Slideshow from "../components/public/elements/slideshow/Slideshow";
-import { PageHero } from "../components/public/elements";
-import { AddToCart } from "../components/public/cart";
+import Slideshow from "../../components/public/elements/slideshow/Slideshow";
+import { PageHero } from "../../components/public/elements";
+import { AddToCart } from "../../components/public/cart";
 
 const SingleGiftPage = () => {
     const { id } = useParams();
