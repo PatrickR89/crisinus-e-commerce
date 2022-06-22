@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useAuthorsContext } from "../contexts/authors_context";
 import { useLanguageContext } from "../contexts/language_context";
 
-import { BookComponent } from "../components";
+import { BookComponent } from "../components/public/books";
 
 const CurrentAuthor = () => {
     const { booksByAuthor, activeAuthor } = useAuthorsContext();

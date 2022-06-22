@@ -1,10 +1,7 @@
 import News from "./News";
 import GiftShop from "./GiftShop";
-import OurBooks from "./OurBooks";
 import SingleNews from "./SingleNews";
 import NewsList from "./NewsList";
-import BookComponent from "./BookComponent";
-import BookInBooks from "./BookInBooks";
 import Slideshow from "./Slideshow";
 import Gift from "./Gift";
 import PageHero from "./PageHero";
@@ -25,7 +22,6 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import NavCart from "./NavCart";
 import NavButtons from "./NavButtons";
-import BooksSidebar from "./BooksSidebar";
 import SidebarAR from "./SidebarAR";
 import ListMenu from "./ListMenu";
 import NoCurrentAuthor from "./NoCurrentAuthor";
@@ -34,38 +30,34 @@ import NewsPageComponent from "./NewsPageComponent";
 import CartModal from "./CartModal";
 
 export {
-  News,
-  GiftShop,
-  OurBooks,
-  SingleNews,
-  NewsList,
-  BookComponent,
-  BookInBooks,
-  Slideshow,
-  Gift,
-  PageHero,
-  Info,
-  HomeBottom,
-  RatingStars,
-  ContactForm,
-  ItemAmount,
-  AddToCart,
-  CartContainer,
-  CartItem,
-  CartTotal,
-  FilterItems,
-  ItemsList,
-  GiftshopFilter,
-  SidebarNav,
-  Navbar,
-  Footer,
-  NavCart,
-  NavButtons,
-  BooksSidebar,
-  ListMenu,
-  SidebarAR,
-  NoCurrentAuthor,
-  CurrentAuthor,
-  NewsPageComponent,
-  CartModal
+    News,
+    GiftShop,
+    SingleNews,
+    NewsList,
+    Slideshow,
+    Gift,
+    PageHero,
+    Info,
+    HomeBottom,
+    RatingStars,
+    ContactForm,
+    ItemAmount,
+    AddToCart,
+    CartContainer,
+    CartItem,
+    CartTotal,
+    FilterItems,
+    ItemsList,
+    GiftshopFilter,
+    SidebarNav,
+    Navbar,
+    Footer,
+    NavCart,
+    NavButtons,
+    ListMenu,
+    SidebarAR,
+    NoCurrentAuthor,
+    CurrentAuthor,
+    NewsPageComponent,
+    CartModal
 };

@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { useItemsContext } from "../contexts/items_context";
+import { useItemsContext } from "../../../contexts/items_context";
 import BookComponent from "./BookComponent";
-import shuffle from "../utils/shuffleItems";
+import shuffle from "../../../utils/shuffleItems";
 
 const OurBooks = () => {
     const { books, home_page_items } = useItemsContext();

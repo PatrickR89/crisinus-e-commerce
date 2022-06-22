@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import noPic from "../defaults/bookCover.jpeg";
-import { useCurrencyContext } from "../contexts/currency_context";
+import noPic from "../../../defaults/bookCover.jpeg";
+import { useCurrencyContext } from "../../../contexts/currency_context";
 
 const BookInBooks = ({ title, authors, price, language, year, images }) => {
     const { priceFormat } = useCurrencyContext();
