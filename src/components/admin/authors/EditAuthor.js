@@ -44,7 +44,7 @@ const EditAuthor = () => {
 
     const getAuthor = () => {
         axios
-            .post("/authors/getauthor", {
+            .post(`/authors/${id}`, {
                 headers: header(),
                 id
             })
@@ -85,7 +85,7 @@ const EditAuthor = () => {
 
     const handleEdit = () => {
         axios
-            .put("/authors/editauthor", {
+            .put(`/authors/${id}`, {
                 headers: header(),
                 id,
                 name,
@@ -102,7 +102,7 @@ const EditAuthor = () => {
     };
     const handleDelete = () => {
         axios
-            .delete("/authors/deleteauthor", {
+            .delete(`/authors/${id}`, {
                 headers: header(),
                 data: { id: id }
             })
