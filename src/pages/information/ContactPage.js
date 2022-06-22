@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { ContactForm } from "../components/public/info";
-import { PageHero } from "../components/public/elements";
+import { ContactForm } from "../../components/public/info";
+import { PageHero } from "../../components/public/elements";
 import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
-import { useLanguageContext } from "../contexts/language_context";
-import { useItemsContext } from "../contexts/items_context";
+import { useLanguageContext } from "../../contexts/language_context";
+import { useItemsContext } from "../../contexts/items_context";
 
 const ContactPage = () => {
     const { translation } = useLanguageContext();

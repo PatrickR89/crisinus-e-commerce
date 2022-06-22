@@ -19,7 +19,7 @@ import { AddRating, EditRating, ListRatings } from "./components/admin/ratings";
 
 import Login from "./components/authentication/Login";
 
-import { HomePage, ContactPage, AdminPage } from "./pages";
+import { HomePage, AdminPage } from "./pages";
 
 import {
     BooksPage,
@@ -33,7 +33,8 @@ import {
     DisclaimerPage,
     InfoPage,
     OrderPage,
-    PaymentPage
+    PaymentPage,
+    ContactPage
 } from "./pages/information";
 
 import {
