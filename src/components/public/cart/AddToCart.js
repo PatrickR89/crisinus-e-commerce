@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { ItemAmount } from "../../../components";
+import { ItemAmount } from "../cart";
 import { useCartContext } from "../../../contexts/cart_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 

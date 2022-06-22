@@ -6,7 +6,7 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useSidebarContext } from "../../../contexts/sidebar_context";
-import { FilterItems } from "../../../components";
+import { FilterItems } from "./";
 
 const drawerWidth = 320;
 

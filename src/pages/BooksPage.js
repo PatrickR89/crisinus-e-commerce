@@ -4,7 +4,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 
 import { BookInBooks, BooksSidebar } from "../components/public/books";
-import { FilterItems, ItemsList } from "../components";
+import { ItemsList } from "../components";
+import { FilterItems } from "../components/public/books";
 import { PageHero } from "../components/public/elements";
 import { useItemsContext } from "../contexts/items_context";
 import { useFilterContext } from "../contexts/filter_context";

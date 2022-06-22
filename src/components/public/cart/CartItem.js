@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useCartContext } from "../../../contexts/cart_context";
 import { useCurrencyContext } from "../../../contexts/currency_context";
 import { FaRegTimesCircle } from "react-icons/fa";
-import { ItemAmount } from "../../../components";
+import { ItemAmount } from "./";
 import { useLanguageContext } from "../../../contexts/language_context";
 
 const CartItem = ({ title, name, id, max, price, amount }) => {
