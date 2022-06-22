@@ -8,10 +8,6 @@ import HomeBottom from "./HomeBottom";
 import RatingStars from "./RatingStars";
 import ContactForm from "./ContactForm";
 import ItemAmount from "./ItemAmount";
-import AddToCart from "./AddToCart";
-import CartContainer from "./CartContainer";
-import CartItem from "./CartItem";
-import CartTotal from "./CartTotal";
 import FilterItems from "./FilterItems";
 import ItemsList from "./ItemsList";
 import SidebarNav from "./SidebarNav";
@@ -24,7 +20,6 @@ import ListMenu from "./ListMenu";
 import NoCurrentAuthor from "./NoCurrentAuthor";
 import CurrentAuthor from "./CurrentAuthor";
 import NewsPageComponent from "./NewsPageComponent";
-import CartModal from "./CartModal";
 
 export {
     News,
@@ -37,10 +32,6 @@ export {
     RatingStars,
     ContactForm,
     ItemAmount,
-    AddToCart,
-    CartContainer,
-    CartItem,
-    CartTotal,
     FilterItems,
     ItemsList,
     SidebarNav,
@@ -52,6 +43,5 @@ export {
     SidebarAR,
     NoCurrentAuthor,
     CurrentAuthor,
-    NewsPageComponent,
-    CartModal
+    NewsPageComponent
 };
