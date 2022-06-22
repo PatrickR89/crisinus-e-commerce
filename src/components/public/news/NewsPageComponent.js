@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useItemsContext } from "../contexts/items_context";
-import formatDate from "../utils/dateFormatting";
+import { useItemsContext } from "../../../contexts/items_context";
+import formatDate from "../../../utils/dateFormatting";
 
 const NewsPageComponent = () => {
     const { news } = useItemsContext();

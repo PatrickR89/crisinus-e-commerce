@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { News, PageHero, HomeBottom } from "../components";
+import { PageHero, HomeBottom } from "../components";
+import { News } from "../components/public/news";
 import { GiftShop } from "../components/public/giftshop";
 import { OurBooks } from "../components/public/books";
 

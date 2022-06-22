@@ -1,6 +1,3 @@
-import News from "./News";
-import SingleNews from "./SingleNews";
-import NewsList from "./NewsList";
 import Slideshow from "./Slideshow";
 import PageHero from "./PageHero";
 import Info from "./Info";
@@ -19,12 +16,8 @@ import SidebarAR from "./SidebarAR";
 import ListMenu from "./ListMenu";
 import NoCurrentAuthor from "./NoCurrentAuthor";
 import CurrentAuthor from "./CurrentAuthor";
-import NewsPageComponent from "./NewsPageComponent";
 
 export {
-    News,
-    SingleNews,
-    NewsList,
     Slideshow,
     PageHero,
     Info,
@@ -42,6 +35,5 @@ export {
     ListMenu,
     SidebarAR,
     NoCurrentAuthor,
-    CurrentAuthor,
-    NewsPageComponent
+    CurrentAuthor
 };

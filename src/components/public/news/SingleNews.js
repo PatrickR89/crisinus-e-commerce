@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import formatDate from "../utils/dateFormatting";
+import formatDate from "../../../utils/dateFormatting";
 
 const SingleNews = ({ title, text, date }) => {
     return (

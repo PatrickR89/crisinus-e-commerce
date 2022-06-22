@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import { SingleNews } from "../components";
-import { useItemsContext } from "../contexts/items_context";
+import { SingleNews } from "../news";
+import { useItemsContext } from "../../../contexts/items_context";
 
 const News = ({ newsPage, home }) => {
     const { fetchSingleNews, news, single_news } = useItemsContext();
