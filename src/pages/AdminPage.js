@@ -101,6 +101,12 @@ const AdminPage = () => {
                                 <Link className="nav-btn" to="/admin/linkslist">
                                     List links
                                 </Link>
+                                <Link
+                                    className="nav-btn"
+                                    to="/admin/orderslist"
+                                >
+                                    List orders
+                                </Link>
                                 <Link className="nav-btn" to="/admin/imagelist">
                                     Images
                                 </Link>

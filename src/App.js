@@ -16,6 +16,7 @@ import { GiftshopList, EditGift, AddGift } from "./components/admin/giftshop";
 import { AuthorsList, EditAuthor } from "./components/admin/authors";
 import { AddNews, EditNews, ListNews } from "./components/admin/news";
 import { AddRating, EditRating, ListRatings } from "./components/admin/ratings";
+import { OrderList } from "./components/admin/orders/";
 
 import Login from "./components/authentication/Login";
 
@@ -91,6 +92,7 @@ function App() {
                     <Route path="imagelist" element={<ImageList />} />
                     <Route path="linkslist" element={<ListLinks />} />
                     <Route path="editlink/:id" element={<EditLinks />} />
+                    <Route path="ordersList" element={<OrderList />} />
                 </Route>
             </Routes>
             <Footer />
