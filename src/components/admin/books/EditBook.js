@@ -81,7 +81,7 @@ const EditBook = () => {
 
     const getData = (id) => {
         axios
-            .post(`/books/`, {
+            .post(`/books/${id}`, {
                 headers: header(),
                 id
             })
@@ -132,7 +132,7 @@ const EditBook = () => {
 
     const editBook = () => {
         axios
-            .put("/books/", {
+            .put(`/books/${id}`, {
                 headers: header(),
                 title,
                 genre,
@@ -158,7 +158,7 @@ const EditBook = () => {
 
     const deleteBook = () => {
         axios
-            .delete("/books/", {
+            .delete(`/books/${id}`, {
                 headers: header(),
                 data: { id: id }
             })

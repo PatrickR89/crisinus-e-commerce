@@ -72,7 +72,7 @@ const AddBook = () => {
 
     const addBook = () => {
         axios
-            .post("/books/newbook", {
+            .post("/books/", {
                 headers: header(),
                 title,
                 genre,
