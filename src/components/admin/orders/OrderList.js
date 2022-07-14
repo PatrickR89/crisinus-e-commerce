@@ -24,6 +24,16 @@ const OrderList = () => {
         }
     };
 
+    const setStatusColor = (orderStatus) => {
+        if (orderStatus === "NEW ORDER") {
+            return "red-background";
+        } else if (orderStatus === "READ") {
+            return "yellow-background";
+        } else if (orderStatus === "APPROVED") {
+            return "green-background";
+        }
+    };
+
     return (
         <main>
             <Wrapper>
@@ -49,7 +59,11 @@ const OrderList = () => {
 
                                     <h4>{order.order_date}</h4>
 
-                                    <p>{order.order_status}</p>
+                                    <div
+                                        className={`status-color ${setStatusColor(
+                                            order.order_status
+                                        )}`}
+                                    ></div>
                                 </div>
                             </Link>
                         );
@@ -70,7 +84,23 @@ const Wrapper = styled.div`
         display: inline-grid;
         grid-template-columns: repeat(3, 1fr);
         align-items: center;
+        text-align: center;
         width: 100%;
+    }
+    .status-color {
+        width: 50px;
+        height: 15px;
+        margin: auto;
+    }
+
+    .red-background {
+        background-color: var(--clr-red-dark);
+    }
+    .yellow-background {
+        background-color: var(--clr-yellow);
+    }
+    .green-background {
+        background-color: var(--clr-green-dark);
     }
 `;
 
