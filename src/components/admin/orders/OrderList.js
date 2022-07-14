@@ -46,7 +46,7 @@ const OrderList = () => {
                 {orderList.length > 0 &&
                     orderList.map((order, index) => {
                         return (
-                            <Link to={`/admin/editauthor/`}>
+                            <Link to={`/admin/orderlist/${order.id}`}>
                                 <div
                                     key={index}
                                     className={
@@ -88,9 +88,10 @@ const Wrapper = styled.div`
         width: 100%;
     }
     .status-color {
-        width: 50px;
+        width: 15px;
         height: 15px;
         margin: auto;
+        border-radius: 50%;
     }
 
     .red-background {
