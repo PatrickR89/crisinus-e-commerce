@@ -18,7 +18,7 @@ const OrderList = () => {
         try {
             const response = await axios.get("/orders/", { headers: header() });
             const data = await response.data;
-            setOrderList(data);
+            setOrderList(data.reverse());
         } catch (error) {
             console.log(error);
         }
@@ -46,9 +46,11 @@ const OrderList = () => {
                 {orderList.length > 0 &&
                     orderList.map((order, index) => {
                         return (
-                            <Link to={`/admin/orderlist/${order.id}`}>
+                            <Link
+                                key={index}
+                                to={`/admin/orderlist/${order.id}`}
+                            >
                                 <div
-                                    key={index}
                                     className={
                                         index % 2 === 0
                                             ? "itm-background-one per-order on-hover-list"

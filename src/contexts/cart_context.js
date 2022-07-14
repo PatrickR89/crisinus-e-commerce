@@ -104,11 +104,13 @@ export const CartProvider = ({ children }) => {
     function submitCart() {
         const cart = state.cart;
         const cartOrder = state.cartOrder;
+        const totalAmount = state.total_amount;
         try {
             axios
                 .post("/public/submitcart", {
                     cart,
-                    cartOrder
+                    cartOrder,
+                    totalAmount
                 })
                 .then((response) => {
                     dispatch({ type: RESET_CART });
