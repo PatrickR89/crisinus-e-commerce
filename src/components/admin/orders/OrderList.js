@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 
 const OrderList = () => {
+    const navigate = useNavigate();
     const [orderList, setOrderList] = useState([]);
-
-    const { header, loggedIn } = useAuthenticationContext();
+    const { header } = useAuthenticationContext();
 
     useEffect(() => {
         retrieveOrders();
@@ -16,9 +16,17 @@ const OrderList = () => {
 
     const retrieveOrders = async () => {
         try {
-            const response = await axios.get("/orders/", { headers: header() });
-            const data = await response.data;
-            setOrderList(data.reverse());
+            const response = await axios
+                .get("/orders/", { headers: header() })
+                .then((response) => {
+                    if (
+                        response.data === "Token required" ||
+                        response.data.auth === false
+                    )
+                        return navigate("/admin/login", { replace: true });
+                    const data = response.data;
+                    setOrderList(data.reverse());
+                });
         } catch (error) {
             console.log(error);
         }
@@ -27,9 +35,9 @@ const OrderList = () => {
     const setStatusColor = (orderStatus) => {
         if (orderStatus === "NEW ORDER") {
             return "red-background";
-        } else if (orderStatus === "READ") {
+        } else if (orderStatus === "CHECKED") {
             return "yellow-background";
-        } else if (orderStatus === "APPROVED") {
+        } else if (orderStatus === "CONFIRMED") {
             return "green-background";
         }
     };
@@ -88,22 +96,6 @@ const Wrapper = styled.div`
         align-items: center;
         text-align: center;
         width: 100%;
-    }
-    .status-color {
-        width: 15px;
-        height: 15px;
-        margin: auto;
-        border-radius: 50%;
-    }
-
-    .red-background {
-        background-color: var(--clr-red-dark);
-    }
-    .yellow-background {
-        background-color: var(--clr-yellow);
-    }
-    .green-background {
-        background-color: var(--clr-green-dark);
     }
 `;
 

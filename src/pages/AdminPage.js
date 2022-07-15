@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Outlet, Link } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 import Login from "../components/authentication/Login";
 
@@ -7,8 +8,24 @@ import { useAuthenticationContext } from "../contexts/authentication_context";
 
 const AdminPage = () => {
     const { loggedIn, logout } = useAuthenticationContext();
+    const [newOrder, setNewOrder] = useState(false);
 
     const [category, setCategory] = useState("books");
+
+    const statusReport = async () => {
+        try {
+            await axios.get("/orders/status").then((response) => {
+                const data = response.data;
+                setNewOrder(data);
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        statusReport();
+    }, []);
 
     if (!loggedIn) {
         return <Login />;
@@ -17,7 +34,13 @@ const AdminPage = () => {
         return (
             <main>
                 <Wrapper>
-                    <div className="nav-container">
+                    <div
+                        className={
+                            newOrder === true
+                                ? "nav-container red-backgrnd"
+                                : "nav-container normal-backgrnd"
+                        }
+                    >
                         <select
                             name="editorial"
                             id="editorial"
@@ -135,10 +158,16 @@ const Wrapper = styled.div`
     }
     .nav-container {
         justify-content: flex-end;
-        background-color: var(--clr-button-3);
     }
     .mg-1 {
         margin: 1rem;
+    }
+    .red-backgrnd {
+        background-color: var(--clr-red-dark);
+    }
+
+    .normal-backgrnd {
+        background-color: var(--clr-button-3);
     }
 `;
 

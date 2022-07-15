@@ -41,6 +41,8 @@
     --clr-white-transparent: hsla(0, 0%, 100%, 0);
     --clr-white-semi-transparent: hsla(0, 0%, 100%, 0.3);
     --clr-red-dark: hsl(360, 67%, 44%);
+    --clr-red-glass: hsla(0, 95%, 44%, 0.308);
+    --clr-red-warning: hsl(0, 100%, 50%);
     --clr-red-light: hsl(360, 71%, 66%);
     --clr-green-dark: hsl(125, 67%, 44%);
     --clr-green-light: hsl(125, 71%, 66%);
@@ -213,6 +215,23 @@ main {
     background-color: var(--clr-button-4);
     font-size: 1.01em;
     font-weight: bold;
+}
+
+.status-color {
+    width: 15px;
+    height: 15px;
+    margin: auto;
+    border-radius: 50%;
+}
+
+.red-background {
+    background-color: var(--clr-red-dark) !important;
+}
+.yellow-background {
+    background-color: var(--clr-yellow);
+}
+.green-background {
+    background-color: var(--clr-green-dark);
 }
 
 .nav-container {
