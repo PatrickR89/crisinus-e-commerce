@@ -58,7 +58,6 @@ export const AuthenticationProvider = ({ children }) => {
         axios.get("/login").then((response) => {
             if (response.data.loggedIn === true) {
                 dispatch({ type: SET_LOGIN_TRUE });
-                console.log(response.data);
             }
         });
     }, []);

@@ -225,7 +225,7 @@ main {
 }
 
 .red-background {
-    background-color: var(--clr-red-dark) !important;
+    background-color: var(--clr-red-dark);
 }
 .yellow-background {
     background-color: var(--clr-yellow);
