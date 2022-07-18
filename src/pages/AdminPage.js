@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Outlet, Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-import Login from "../components/authentication/Login";
 
+import Login from "../components/authentication/Login";
 import { useAuthenticationContext } from "../contexts/authentication_context";
+import { NewOrderModal } from "../components/admin/orders";
 
 const AdminPage = () => {
     const { loggedIn, logout } = useAuthenticationContext();
     const [newOrder, setNewOrder] = useState(false);
+    const [newModalOpen, setNewModalOpen] = useState(false);
 
     const [category, setCategory] = useState("books");
 
@@ -23,9 +25,20 @@ const AdminPage = () => {
         }
     };
 
+    const closeModal = () => {
+        setNewModalOpen(false);
+    };
+
     useEffect(() => {
         statusReport();
     }, []);
+
+    useEffect(() => {
+        if (newOrder) {
+            setNewModalOpen(true);
+        }
+        return;
+    }, [newOrder]);
 
     if (!loggedIn) {
         return <Login />;
@@ -34,13 +47,7 @@ const AdminPage = () => {
         return (
             <main>
                 <Wrapper>
-                    <div
-                        className={
-                            newOrder === true
-                                ? "nav-container red-backgrnd"
-                                : "nav-container normal-backgrnd"
-                        }
-                    >
+                    <div className="nav-container normal-backgrnd">
                         <select
                             name="editorial"
                             id="editorial"
@@ -141,6 +148,9 @@ const AdminPage = () => {
                         </button>
                     </div>
                     <Outlet />
+                    {loggedIn && newModalOpen && (
+                        <NewOrderModal closeModal={closeModal} />
+                    )}
                 </Wrapper>
             </main>
         );
@@ -161,9 +171,6 @@ const Wrapper = styled.div`
     }
     .mg-1 {
         margin: 1rem;
-    }
-    .red-backgrnd {
-        background-color: var(--clr-red-dark);
     }
 
     .normal-backgrnd {
