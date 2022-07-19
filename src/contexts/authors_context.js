@@ -26,19 +26,20 @@ const AuthorsContext = React.createContext();
 export const AuthorsProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const fetchItems = async () => {
+    const fetchItems = () => {
         dispatch({ type: GET_ITEMS_START });
-        try {
-            const axiosResponse = await axios.get("/public/authors");
-            const booksImport = await axiosResponse.data[1];
-            const authorsImport = await axiosResponse.data[0];
+
+        axios.get("/public/authors").then((response) => {
+            const booksImport = response.data[1];
+            const authorsImport = response.data[0];
             dispatch({
                 type: GET_ITEMS_SUCCESS,
                 payload: [booksImport, authorsImport]
+            }).catch((err) => {
+                axios.post("/system/error", { err });
+                dispatch({ GET_ITEMS_ERROR });
             });
-        } catch (error) {
-            dispatch({ GET_ITEMS_ERROR });
-        }
+        });
     };
 
     useEffect(() => {
@@ -52,12 +53,16 @@ export const AuthorsProvider = ({ children }) => {
     const changeAuthor = async (author) => {
         dispatch({ type: GET_ITEMS_START });
 
-        const response = await axios.post("/public/authors", { author });
-        const fullAuthor = await response.data[0];
-        dispatch({ type: SET_ACTIVE_AUTHOR, payload: fullAuthor });
-        dispatch({
-            type: SET_BOOKS_PER_AUTHOR,
-            payload: [state.books, fullAuthor.id]
+        axios.post("/public/authors", { author }).then((response) => {
+            const fullAuthor = response.data[0];
+            dispatch({ type: SET_ACTIVE_AUTHOR, payload: fullAuthor });
+            dispatch({
+                type: SET_BOOKS_PER_AUTHOR,
+                payload: [state.books, fullAuthor.id]
+            }).catch((err) => {
+                axios.post("/system/error", { err });
+                dispatch({ GET_ITEMS_ERROR });
+            });
         });
     };
 

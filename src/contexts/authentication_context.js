@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useReducer } from "react";
 
 import axios from "axios";
+import handleError from "../utils/clientLogger";
 
 import {
     SET_LOGIN_TRUE,
@@ -35,6 +36,9 @@ export const AuthenticationProvider = ({ children }) => {
                     localStorage.setItem("token", response.data.token);
                     dispatch({ type: SET_LOGIN_TRUE });
                 }
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
     };
 
@@ -55,11 +59,16 @@ export const AuthenticationProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        axios.get("/login").then((response) => {
-            if (response.data.loggedIn === true) {
-                dispatch({ type: SET_LOGIN_TRUE });
-            }
-        });
+        axios
+            .get("/login")
+            .then((response) => {
+                if (response.data.loggedIn === true) {
+                    dispatch({ type: SET_LOGIN_TRUE });
+                }
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
+            });
     }, []);
 
     return (

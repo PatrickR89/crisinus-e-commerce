@@ -33,14 +33,16 @@ export const ReviewsProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const { books } = useItemsContext();
 
-    const fetchReviews = async () => {
-        try {
-            const axiosReviews = await axios.get("/public/reviews");
-            const reviews = await axiosReviews.data;
-            dispatch({ type: SET_BOOK_IDS, payload: reviews });
-        } catch (error) {
-            dispatch({ type: SET_ERROR });
-        }
+    const fetchReviews = () => {
+        axios
+            .get("/public/reviews")
+            .then((resp) => {
+                dispatch({ type: SET_BOOK_IDS, payload: resp.data });
+            })
+            .catch((err) => {
+                dispatch({ type: SET_ERROR });
+                axios.post("/system/error", { err });
+            });
     };
 
     useEffect(() => {

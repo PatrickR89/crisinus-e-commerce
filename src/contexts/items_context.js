@@ -95,61 +95,70 @@ export const ItemsProvider = ({ children }) => {
                 type: GET_ITEMS_SUCCESS,
                 payload: [books, gifts, news, infos]
             });
-        } catch (error) {
+        } catch (err) {
+            axios.post("/system/error", { err });
             dispatch({ GET_ITEMS_ERROR });
         }
     };
 
-    const fetchSingleBook = async (id) => {
+    const fetchSingleBook = (id) => {
         dispatch({ type: GET_SINGLE_ITEM_START });
-        try {
-            await axios.post("/public/books", { id }).then((response) => {
+        axios
+            .post("/public/books", { id })
+            .then((response) => {
                 dispatch({
                     type: GET_SINGLE_BOOK,
                     payload: response.data
                 });
+            })
+            .catch((err) => {
+                dispatch({ type: GET_SINGLE_ITEM_ERROR });
+                axios.post("/system/error", { err });
             });
-        } catch (err) {
-            console.log(err);
-            dispatch({ type: GET_SINGLE_ITEM_ERROR });
-        }
     };
 
-    const fetchSingleGift = async (id) => {
+    const fetchSingleGift = (id) => {
         dispatch({ type: GET_SINGLE_ITEM_START });
-        try {
-            const response = await axios
-                .post("/public/gifts", { id })
-                .then((response) => response.data[0]);
-            dispatch({ type: GET_SINGLE_GIFT, payload: response });
-        } catch (error) {
-            console.log(error);
-            dispatch({ type: GET_SINGLE_ITEM_ERROR });
-        }
+        axios
+            .post("/public/gifts", { id })
+            .then((response) => {
+                dispatch({ type: GET_SINGLE_GIFT, payload: response.data[0] });
+            })
+            .catch((err) => {
+                dispatch({ type: GET_SINGLE_ITEM_ERROR });
+                axios.post("/system/error", { err });
+            });
     };
 
-    const fetchSingleNews = async (id) => {
+    const fetchSingleNews = (id) => {
         dispatch({ type: GET_SINGLE_ITEM_START });
-        try {
-            const response = await axios
-                .post("/public/news", { id })
-                .then((response) => response.data[0]);
-            dispatch({ type: SET_SINGLE_NEWS, payload: response });
-        } catch (error) {
-            console.log(error);
-            dispatch({ type: GET_SINGLE_ITEM_ERROR });
-        }
+
+        axios
+            .post("/public/news", { id })
+            .then((response) => {
+                dispatch({
+                    type: SET_SINGLE_NEWS,
+                    payload: response.data[0]
+                });
+            })
+            .catch((err) => {
+                dispatch({ type: GET_SINGLE_ITEM_ERROR });
+                axios.post("/system/error", { err });
+            });
     };
 
-    const fetchLinks = async () => {
+    const fetchLinks = () => {
         dispatch({ type: GET_SINGLE_ITEM_START });
-        try {
-            const axiosLinks = await axios.get("/public/links");
-            const anchorLinks = await axiosLinks.data;
-            dispatch({ type: FETCH_LINKS, payload: anchorLinks });
-        } catch (error) {
-            dispatch({ GET_ITEMS_ERROR });
-        }
+
+        axios
+            .get("/public/links")
+            .then((resp) => {
+                dispatch({ type: FETCH_LINKS, payload: resp.data });
+            })
+            .catch((err) => {
+                dispatch({ GET_ITEMS_ERROR });
+                axios.post("/system/error", { err });
+            });
     };
 
     // FETCH AND POPULATE REQUIRED ITEMS END
@@ -214,18 +223,18 @@ export const ItemsProvider = ({ children }) => {
 
     function submitContactForm() {
         const contactForm = state.contactForm.values;
-        try {
-            axios
-                .post("http://localhost:3001/public/submitmessage", {
-                    contactForm
-                })
-                .then((response) => {
-                    dispatch({ type: RESET_CONTACT_FORM });
-                    return alert(response.data);
-                });
-        } catch (err) {
-            console.log(err);
-        }
+        axios
+            .post("http://localhost:3001/public/submitmessage", {
+                contactForm
+            })
+            .then((response) => {
+                dispatch({ type: RESET_CONTACT_FORM });
+                return alert(response.data);
+            })
+            .catch((err) => {
+                dispatch({ GET_ITEMS_ERROR });
+                axios.post("/system/error", { err });
+            });
     }
     // CONTACT FORM END
 

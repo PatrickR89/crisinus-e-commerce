@@ -105,21 +105,21 @@ export const CartProvider = ({ children }) => {
         const cart = state.cart;
         const cartOrder = state.cartOrder;
         const totalAmount = state.total_amount;
-        try {
-            axios
-                .post("/public/submitcart", {
-                    cart,
-                    cartOrder,
-                    totalAmount
-                })
-                .then((response) => {
-                    dispatch({ type: RESET_CART });
-                    dispatch({ type: CLOSE_MODAL });
-                    return alert(response.data);
-                });
-        } catch (err) {
-            console.log(err);
-        }
+
+        axios
+            .post("/public/submitcart", {
+                cart,
+                cartOrder,
+                totalAmount
+            })
+            .then((response) => {
+                dispatch({ type: RESET_CART });
+                dispatch({ type: CLOSE_MODAL });
+                return alert(response.data);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
+            });
     }
 
     // CART VALIDATION
