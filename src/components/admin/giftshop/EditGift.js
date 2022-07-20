@@ -46,6 +46,9 @@ const EditGift = () => {
                 )
                     return navigate("/admin/login", { replace: true });
                 setInitialItem(response.data[0]);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
     };
 
@@ -64,17 +67,24 @@ const EditGift = () => {
             data.append("images", file);
         });
 
-        axios.post("/images/addimages", data).then((res) => {
-            const tempImages = [...images];
-            res.data.forEach((image) => {
-                tempImages.push(image.path);
+        axios
+            .post("/images/addimages", data)
+            .then((res) => {
+                const tempImages = [...images];
+                res.data.forEach((image) => {
+                    tempImages.push(image.path);
+                });
+                setImages(tempImages);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
-            setImages(tempImages);
-        });
     };
 
     const handleDeleteImage = (url) => {
-        axios.post("/images/deleteimages", { url });
+        axios.post("/images/deleteimages", { url }).catch((err) => {
+            axios.post("/system/error", { err });
+        });
         const tempUrls = images.filter((image) => image !== url);
         setImages(tempUrls);
     };
@@ -96,6 +106,9 @@ const EditGift = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
         navigate("/admin/giftshoplist", { replace: true });
     };
@@ -112,6 +125,9 @@ const EditGift = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
         navigate("/admin/giftshoplist", { replace: true });
     };

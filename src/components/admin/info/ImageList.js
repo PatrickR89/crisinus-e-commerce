@@ -10,13 +10,20 @@ const ImageList = () => {
     const [images, setImages] = useState([]);
 
     const getImages = () => {
-        axios.get("/images/getimages").then((response) => {
-            setImages(response.data);
-        });
+        axios
+            .get("/images/getimages")
+            .then((response) => {
+                setImages(response.data);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
+            });
     };
 
     const handleDeleteImage = (url) => {
-        axios.post("/images/deleteimages", { url });
+        axios.post("/images/deleteimages", { url }).catch((err) => {
+            axios.post("/system/error", { err });
+        });
     };
 
     useEffect(() => {

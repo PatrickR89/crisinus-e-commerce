@@ -23,13 +23,18 @@ const AddNews = () => {
             data.append("images", file);
         });
 
-        axios.post("/images/addimages", data).then((res) => {
-            const tempImages = [...images];
-            res.data.forEach((image) => {
-                tempImages.push(image.path);
+        axios
+            .post("/images/addimages", data)
+            .then((res) => {
+                const tempImages = [...images];
+                res.data.forEach((image) => {
+                    tempImages.push(image.path);
+                });
+                setImages(tempImages);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
-            setImages(tempImages);
-        });
     };
 
     const addNews = () => {
@@ -46,6 +51,9 @@ const AddNews = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
 
         navigate("/admin/newslist", { replace: true });

@@ -13,9 +13,14 @@ const ListInfo = () => {
     const [infoList, setInfoList] = useState([]);
 
     const getInfoPages = () => {
-        axios.get("/infopages/").then((response) => {
-            setInfoList(response.data);
-        });
+        axios
+            .get("/infopages/")
+            .then((response) => {
+                setInfoList(response.data);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
+            });
     };
 
     const resetTable = () => {
@@ -31,6 +36,9 @@ const ListInfo = () => {
                 } else {
                     setInfoList(response.data);
                 }
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
     };
 

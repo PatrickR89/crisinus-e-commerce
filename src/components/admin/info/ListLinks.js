@@ -7,9 +7,14 @@ const ListLinks = () => {
     const [linkList, setLinkList] = useState([]);
 
     const getLinks = () => {
-        axios.get("/links").then((response) => {
-            setLinkList(response.data);
-        });
+        axios
+            .get("/links")
+            .then((response) => {
+                setLinkList(response.data);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
+            });
     };
 
     useEffect(() => {

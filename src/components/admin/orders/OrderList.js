@@ -14,22 +14,21 @@ const OrderList = () => {
         retrieveOrders();
     }, []);
 
-    const retrieveOrders = async () => {
-        try {
-            const response = await axios
-                .get("/orders/", { headers: header() })
-                .then((response) => {
-                    if (
-                        response.data === "Token required" ||
-                        response.data.auth === false
-                    )
-                        return navigate("/admin/login", { replace: true });
-                    const data = response.data;
-                    setOrderList(data.reverse());
-                });
-        } catch (error) {
-            console.log(error);
-        }
+    const retrieveOrders = () => {
+        axios
+            .get("/orders/", { headers: header() })
+            .then((response) => {
+                if (
+                    response.data === "Token required" ||
+                    response.data.auth === false
+                )
+                    return navigate("/admin/login", { replace: true });
+                const data = response.data;
+                setOrderList(data.reverse());
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
+            });
     };
 
     const setStatusColor = (orderStatus) => {

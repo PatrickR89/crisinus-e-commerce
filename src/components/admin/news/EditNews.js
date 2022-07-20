@@ -40,6 +40,9 @@ const EditNews = () => {
                 )
                     return navigate("/admin/login", { replace: true });
                 setInitialNews(response.data[0]);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
     };
 
@@ -58,6 +61,9 @@ const EditNews = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
 
         navigate("/admin/newslist", { replace: true });
@@ -70,20 +76,27 @@ const EditNews = () => {
             data.append("images", file);
         });
 
-        axios.post("/images/addimages", data).then((res) => {
-            console.log(res.data);
-            const tempImages = [...images];
-            res.data.forEach((image) => {
-                console.log(image);
-                tempImages.push(image.path);
+        axios
+            .post("/images/addimages", data)
+            .then((res) => {
+                console.log(res.data);
+                const tempImages = [...images];
+                res.data.forEach((image) => {
+                    console.log(image);
+                    tempImages.push(image.path);
+                });
+                console.log(tempImages);
+                setImages(tempImages);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
-            console.log(tempImages);
-            setImages(tempImages);
-        });
     };
 
     const handleDeleteImage = (url) => {
-        axios.post("/images/deleteimages", { url });
+        axios.post("/images/deleteimages", { url }).catch((err) => {
+            axios.post("/system/error", { err });
+        });
         const tempUrls = images.filter((image) => image !== url);
         setImages(tempUrls);
     };
@@ -100,6 +113,9 @@ const EditNews = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
         navigate("/admin/newslist", { replace: true });
     };

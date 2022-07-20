@@ -7,9 +7,14 @@ const ListNews = () => {
     const [newsList, setNewsList] = useState([]);
 
     const getNews = () => {
-        axios.get("/news/").then((response) => {
-            setNewsList(response.data);
-        });
+        axios
+            .get("/news/")
+            .then((response) => {
+                setNewsList(response.data);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
+            });
     };
 
     const formatDate = (date) => {
@@ -30,7 +35,7 @@ const ListNews = () => {
 
     return (
         <Wrapper>
-            Giftshop List
+            News List
             <div className="per-gift head">
                 <section>ID</section>
                 <section>NEWS TITLE</section>

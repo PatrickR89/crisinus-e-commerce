@@ -43,6 +43,9 @@ const EditInfo = () => {
                 )
                     return navigate("/admin/login", { replace: true });
                 setInitialLink(response.data[0]);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
     };
 
@@ -59,6 +62,9 @@ const EditInfo = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
         navigate("/admin/linkslist", { replace: true });
     };

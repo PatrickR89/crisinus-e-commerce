@@ -7,9 +7,14 @@ const AuthorsList = () => {
     const [authorList, setAuthorList] = useState([]);
 
     const getAuthors = () => {
-        axios.get("/authors/").then((response) => {
-            setAuthorList(response.data);
-        });
+        axios
+            .get("/authors/")
+            .then((response) => {
+                setAuthorList(response.data);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
+            });
     };
 
     useEffect(() => {

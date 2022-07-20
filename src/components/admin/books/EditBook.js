@@ -57,9 +57,14 @@ const EditBook = () => {
     };
 
     const loadAuthors = () => {
-        axios.get("/authors/").then((response) => {
-            setAuthorsList(response.data);
-        });
+        axios
+            .get("/authors/")
+            .then((response) => {
+                setAuthorsList(response.data);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
+            });
     };
 
     const handleAuthorInput = (e, index) => {
@@ -93,6 +98,9 @@ const EditBook = () => {
                     return navigate("/admin/login", { replace: true });
                 setInitialBook(response.data[0]);
                 setInitialAuthors(response.data[1]);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
     };
 
@@ -115,17 +123,24 @@ const EditBook = () => {
             data.append("images", file);
         });
 
-        axios.post("/images/addimages", data).then((res) => {
-            const tempImages = [...images];
-            res.data.forEach((image) => {
-                tempImages.push(image.path);
+        axios
+            .post("/images/addimages", data)
+            .then((res) => {
+                const tempImages = [...images];
+                res.data.forEach((image) => {
+                    tempImages.push(image.path);
+                });
+                setImages(tempImages);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
-            setImages(tempImages);
-        });
     };
 
     const handleDelete = (url) => {
-        axios.post("/images/deleteimages", { url });
+        axios.post("/images/deleteimages", { url }).catch((err) => {
+            axios.post("/system/error", { err });
+        });
         const tempUrls = images.filter((image) => image !== url);
         setImages(tempUrls);
     };
@@ -152,6 +167,9 @@ const EditBook = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
         navigate("/admin/booklist", { replace: true });
     };
@@ -168,6 +186,9 @@ const EditBook = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
         navigate("/admin/booklist", { replace: true });
     };

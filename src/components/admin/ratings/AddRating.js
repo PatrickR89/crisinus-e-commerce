@@ -20,9 +20,14 @@ const AddRating = () => {
     const [bookList, setBookList] = useState([]);
 
     const loadBooks = () => {
-        axios.get("/books/").then((response) => {
-            setBookList(response.data);
-        });
+        axios
+            .get("/books/")
+            .then((response) => {
+                setBookList(response.data);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
+            });
     };
 
     const addReview = () => {
@@ -41,6 +46,9 @@ const AddRating = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
 
         navigate("/admin/ratingslist", { replace: true });

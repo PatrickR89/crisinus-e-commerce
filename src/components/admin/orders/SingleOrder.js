@@ -37,8 +37,10 @@ const SingleOrder = () => {
                 setOrder(parsedOrder.cartOrder);
                 setCart(parsedOrder.cart);
                 setStatus(data.order_status);
-                console.log(data.order_status);
                 setTotalAmount(parsedOrder.totalAmount);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
     };
 
@@ -60,6 +62,9 @@ const SingleOrder = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
     };
 
@@ -75,6 +80,9 @@ const SingleOrder = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
     };
 

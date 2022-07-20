@@ -31,7 +31,6 @@ const EditAuthor = () => {
         setName(initialAuthor.name);
         setLast_name(initialAuthor.last_name);
         if (initialAuthor.img !== null && initialAuthor.img !== undefined) {
-            console.log(initialAuthor.img);
             setImages(initialAuthor.img);
         }
         if (initialAuthor.url !== null) {
@@ -55,6 +54,9 @@ const EditAuthor = () => {
                 )
                     return navigate("/admin/login", { replace: true });
                 setInitialAuthor(response.data[0]);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
     };
 
@@ -65,20 +67,25 @@ const EditAuthor = () => {
             data.append("images", file);
         });
 
-        axios.post("/images/addimages", data).then((res) => {
-            console.log(res.data);
-            const tempImages = [...images];
-            res.data.forEach((image) => {
-                console.log(image);
-                tempImages.push(image.path);
+        axios
+            .post("/images/addimages", data)
+            .then((res) => {
+                console.log(res.data);
+                const tempImages = [...images];
+                res.data.forEach((image) => {
+                    tempImages.push(image.path);
+                });
+                setImages(tempImages);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
-            console.log(tempImages);
-            setImages(tempImages);
-        });
     };
 
     const handleDeleteImage = (url) => {
-        axios.post("/images/deleteimages", { url });
+        axios.post("/images/deleteimages", { url }).catch((err) => {
+            axios.post("/system/error", { err });
+        });
         const tempUrls = images.filter((image) => image !== url);
         setImages(tempUrls);
     };
@@ -97,6 +104,9 @@ const EditAuthor = () => {
             .then((response) => {
                 if (response.data === "Token required")
                     return navigate("/admin/login", { replace: true });
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
         navigate("/admin/authorslist", { replace: true });
     };
@@ -109,6 +119,9 @@ const EditAuthor = () => {
             .then((response) => {
                 if (response.data === "Token required")
                     return navigate("/admin/login", { replace: true });
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
         navigate("/admin/authorslist", { replace: true });
     };

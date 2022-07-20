@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useReducer } from "react";
 
 import axios from "axios";
-import handleError from "../utils/clientLogger";
 
 import {
     SET_LOGIN_TRUE,

@@ -42,6 +42,9 @@ const EditRating = () => {
                 )
                     return navigate("/admin/login", { replace: true });
                 setInitialReview(response.data);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
     };
 
@@ -59,9 +62,8 @@ const EditRating = () => {
             .then((response) => {
                 setBookList(response.data);
             })
-            .then((response) => {
-                if (response.data === "Token required")
-                    return navigate("/admin/login", { replace: true });
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
     };
 
@@ -77,8 +79,14 @@ const EditRating = () => {
                 review
             })
             .then((response) => {
-                if (response.data === "Token required")
+                if (
+                    response.data === "Token required" ||
+                    response.data.auth === false
+                )
                     return navigate("/admin/login", { replace: true });
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
 
         navigate("/admin/ratingslist", { replace: true });
@@ -91,8 +99,14 @@ const EditRating = () => {
                 data: { id: id }
             })
             .then((response) => {
-                if (response.data === "Token required")
+                if (
+                    response.data === "Token required" ||
+                    response.data.auth === false
+                )
                     return navigate("/admin/login", { replace: true });
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
             });
         navigate("/admin/ratingslist", { replace: true });
     };

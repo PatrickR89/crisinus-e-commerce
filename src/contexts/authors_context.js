@@ -29,17 +29,20 @@ export const AuthorsProvider = ({ children }) => {
     const fetchItems = () => {
         dispatch({ type: GET_ITEMS_START });
 
-        axios.get("/public/authors").then((response) => {
-            const booksImport = response.data[1];
-            const authorsImport = response.data[0];
-            dispatch({
-                type: GET_ITEMS_SUCCESS,
-                payload: [booksImport, authorsImport]
-            }).catch((err) => {
+        axios
+            .get("/public/authors")
+            .then((response) => {
+                const booksImport = response.data[1];
+                const authorsImport = response.data[0];
+                dispatch({
+                    type: GET_ITEMS_SUCCESS,
+                    payload: [booksImport, authorsImport]
+                });
+            })
+            .catch((err) => {
                 axios.post("/system/error", { err });
                 dispatch({ GET_ITEMS_ERROR });
             });
-        });
     };
 
     useEffect(() => {

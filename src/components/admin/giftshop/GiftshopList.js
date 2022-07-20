@@ -7,9 +7,14 @@ const GiftshopList = () => {
     const [gsList, setGsList] = useState([]);
 
     const getGifts = () => {
-        axios.get("/giftshop/").then((response) => {
-            setGsList(response.data);
-        });
+        axios
+            .get("/giftshop/")
+            .then((response) => {
+                setGsList(response.data);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
+            });
     };
 
     useEffect(() => {

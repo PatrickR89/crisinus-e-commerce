@@ -7,9 +7,14 @@ const ListRatings = () => {
     const [reviewsList, setReviewsList] = useState([]);
 
     const getReviews = () => {
-        axios.get("/reviews/").then((response) => {
-            setReviewsList(response.data);
-        });
+        axios
+            .get("/reviews/")
+            .then((response) => {
+                setReviewsList(response.data);
+            })
+            .catch((err) => {
+                axios.post("/system/error", { err });
+            });
     };
 
     useEffect(() => {
