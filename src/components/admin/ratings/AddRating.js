@@ -46,6 +46,8 @@ const AddRating = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+                const info = `${rating_title} rating added`;
+                axios.post("/system/info", { info });
             })
             .catch((err) => {
                 axios.post("/system/error", { err });

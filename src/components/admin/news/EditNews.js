@@ -61,6 +61,8 @@ const EditNews = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+                const info = `${id} news edited`;
+                axios.post("/system/info", { info });
             })
             .catch((err) => {
                 axios.post("/system/error", { err });
@@ -85,7 +87,6 @@ const EditNews = () => {
                     console.log(image);
                     tempImages.push(image.path);
                 });
-                console.log(tempImages);
                 setImages(tempImages);
             })
             .catch((err) => {
@@ -113,6 +114,8 @@ const EditNews = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+                const info = `${id} news deleted`;
+                axios.post("/system/info", { info });
             })
             .catch((err) => {
                 axios.post("/system/error", { err });

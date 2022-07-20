@@ -106,6 +106,8 @@ const EditGift = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+                const info = `${id} gift edited`;
+                axios.post("/system/info", { info });
             })
             .catch((err) => {
                 axios.post("/system/error", { err });
@@ -125,6 +127,8 @@ const EditGift = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+                const info = `${id} gift deleted`;
+                axios.post("/system/info", { info });
             })
             .catch((err) => {
                 axios.post("/system/error", { err });

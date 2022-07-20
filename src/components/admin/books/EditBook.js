@@ -167,6 +167,8 @@ const EditBook = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+                const info = `${id} book edited`;
+                axios.post("/system/info", { info });
             })
             .catch((err) => {
                 axios.post("/system/error", { err });
@@ -186,6 +188,8 @@ const EditBook = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+                const info = `${id} book deleted`;
+                axios.post("/system/info", { info });
             })
             .catch((err) => {
                 axios.post("/system/error", { err });

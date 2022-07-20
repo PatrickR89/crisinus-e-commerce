@@ -101,6 +101,8 @@ const AddBook = () => {
                     response.data.auth === false
                 )
                     return navigate("/admin/login", { replace: true });
+                const info = `${title} book added`;
+                axios.post("/system/info", { info });
             })
             .catch((err) => {
                 axios.post("/system/error", { err });

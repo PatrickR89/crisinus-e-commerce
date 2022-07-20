@@ -102,8 +102,13 @@ const EditAuthor = () => {
                 bio
             })
             .then((response) => {
-                if (response.data === "Token required")
+                if (
+                    response.data === "Token required" ||
+                    response.data.auth === false
+                )
                     return navigate("/admin/login", { replace: true });
+                const info = `${id} author edited`;
+                axios.post("/system/info", { info });
             })
             .catch((err) => {
                 axios.post("/system/error", { err });
@@ -117,8 +122,13 @@ const EditAuthor = () => {
                 data: { id: id }
             })
             .then((response) => {
-                if (response.data === "Token required")
+                if (
+                    response.data === "Token required" ||
+                    response.data.auth === false
+                )
                     return navigate("/admin/login", { replace: true });
+                const info = `${id} author deleted`;
+                axios.post("/system/info", { info });
             })
             .catch((err) => {
                 axios.post("/system/error", { err });
