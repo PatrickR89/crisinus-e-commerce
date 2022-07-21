@@ -59,9 +59,7 @@ export const CurrencyProvider = ({ children }) => {
         axios
             .get("/system/currency")
             .then((resp) => {
-                console.log(resp.data);
-                const value = Number(resp.data.replace(/,/g, "."));
-                dispatch({ type: SET_EXCHANGE, payload: value });
+                dispatch({ type: SET_EXCHANGE, payload: resp.data });
             })
             .catch((err) => {
                 axios.post("/system/error", { err });

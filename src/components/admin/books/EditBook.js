@@ -312,6 +312,11 @@ const EditBook = () => {
                                 </div>
                             );
                         })}
+                        {authors.length === 0 && (
+                            <button className="btn" onClick={handleAdd}>
+                                Add
+                            </button>
+                        )}
                     </div>
                     <label htmlFor="genre">Genre:</label>
                     <input
