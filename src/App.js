@@ -20,7 +20,7 @@ import { OrderList, SingleOrder } from "./components/admin/orders/";
 
 import Login from "./components/authentication/Login";
 
-import { HomePage, AdminPage } from "./pages";
+import { HomePage, AdminPage, ErrorPage } from "./pages";
 
 import {
     BooksPage,
@@ -95,6 +95,7 @@ function App() {
                     <Route path="orderslist" element={<OrderList />} />
                     <Route path="orderlist/:id" element={<SingleOrder />} />
                 </Route>
+                <Route path="/*" element={<ErrorPage />} />
             </Routes>
             <Footer />
         </div>
