@@ -7,9 +7,9 @@ import { PageHero } from "../../components/public/elements";
 
 const NewsPage = () => {
     const { translation } = useLanguageContext();
-    const { single_item_loading } = useItemsContext();
+    const { items_loading } = useItemsContext();
 
-    if (single_item_loading) {
+    if (items_loading) {
         return (
             <div className="loading">
                 <h1>{translation.pleaseWait}...</h1>
