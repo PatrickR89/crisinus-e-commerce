@@ -57,12 +57,12 @@ export const CurrencyProvider = ({ children }) => {
 
     function setEuro() {
         axios
-            .get("/system/currency")
+            .get("/api/system/currency")
             .then((resp) => {
                 dispatch({ type: SET_EXCHANGE, payload: resp.data });
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     }
 

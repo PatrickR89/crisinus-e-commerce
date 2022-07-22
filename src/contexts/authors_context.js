@@ -30,7 +30,7 @@ export const AuthorsProvider = ({ children }) => {
         dispatch({ type: GET_ITEMS_START });
 
         axios
-            .get("/public/authors")
+            .get("/api/public/authors")
             .then((response) => {
                 const booksImport = response.data[1];
                 const authorsImport = response.data[0];
@@ -40,7 +40,7 @@ export const AuthorsProvider = ({ children }) => {
                 });
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
                 dispatch({ GET_ITEMS_ERROR });
             });
     };
@@ -56,14 +56,14 @@ export const AuthorsProvider = ({ children }) => {
     const changeAuthor = async (author) => {
         dispatch({ type: GET_ITEMS_START });
 
-        axios.post("/public/authors", { author }).then((response) => {
+        axios.post("/api/public/authors", { author }).then((response) => {
             const fullAuthor = response.data[0];
             dispatch({ type: SET_ACTIVE_AUTHOR, payload: fullAuthor });
             dispatch({
                 type: SET_BOOKS_PER_AUTHOR,
                 payload: [state.books, fullAuthor.id]
             }).catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
                 dispatch({ GET_ITEMS_ERROR });
             });
         });

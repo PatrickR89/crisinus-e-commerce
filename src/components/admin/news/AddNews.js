@@ -24,7 +24,7 @@ const AddNews = () => {
         });
 
         axios
-            .post("/images/addimages", data)
+            .post("/api/images/addimages", data)
             .then((res) => {
                 const tempImages = [...images];
                 res.data.forEach((image) => {
@@ -33,13 +33,13 @@ const AddNews = () => {
                 setImages(tempImages);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
     const addNews = () => {
         axios
-            .post("/news/", {
+            .post("/api/news/", {
                 headers: header(),
                 title,
                 images,
@@ -52,10 +52,10 @@ const AddNews = () => {
                 )
                     return navigate("/admin/login", { replace: true });
                 const info = `${title} news added`;
-                axios.post("/system/info", { info });
+                axios.post("/api/system/info", { info });
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
 
         navigate("/admin/newslist", { replace: true });

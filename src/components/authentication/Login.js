@@ -15,14 +15,14 @@ const Login = () => {
 
     const userAuthenticated = () => {
         axios
-            .get("http://localhost:3001/authentication", {
+            .get("/api/authentication", {
                 headers: header()
             })
             .then((response) => {
                 console.log(response);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 

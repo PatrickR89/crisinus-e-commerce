@@ -81,14 +81,14 @@ export const ItemsProvider = ({ children }) => {
     const fetchItems = async () => {
         dispatch({ type: GET_ITEMS_START });
         try {
-            const axiosBooks = await axios.get("/public/books");
+            const axiosBooks = await axios.get("/api/public/books");
             const books = await axiosBooks.data;
-            const axiosGifts = await axios.get("/public/gifts");
+            const axiosGifts = await axios.get("/api/public/gifts");
             const gifts = await axiosGifts.data;
-            const axiosNews = await axios.get("/public/news");
+            const axiosNews = await axios.get("/api/public/news");
             const news = await axiosNews.data;
 
-            const axiosInfo = await axios.get("/public/informations");
+            const axiosInfo = await axios.get("/api/public/informations");
             const infos = await axiosInfo.data;
 
             dispatch({
@@ -96,7 +96,7 @@ export const ItemsProvider = ({ children }) => {
                 payload: [books, gifts, news, infos]
             });
         } catch (err) {
-            axios.post("/system/error", { err });
+            axios.post("/api/system/error", { err });
             dispatch({ GET_ITEMS_ERROR });
         }
     };
@@ -104,7 +104,7 @@ export const ItemsProvider = ({ children }) => {
     const fetchSingleBook = (id) => {
         dispatch({ type: GET_SINGLE_ITEM_START });
         axios
-            .post("/public/books", { id })
+            .post("/api/public/books", { id })
             .then((response) => {
                 dispatch({
                     type: GET_SINGLE_BOOK,
@@ -113,20 +113,20 @@ export const ItemsProvider = ({ children }) => {
             })
             .catch((err) => {
                 dispatch({ type: GET_SINGLE_ITEM_ERROR });
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
     const fetchSingleGift = (id) => {
         dispatch({ type: GET_SINGLE_ITEM_START });
         axios
-            .post("/public/gifts", { id })
+            .post("/api/public/gifts", { id })
             .then((response) => {
                 dispatch({ type: GET_SINGLE_GIFT, payload: response.data[0] });
             })
             .catch((err) => {
                 dispatch({ type: GET_SINGLE_ITEM_ERROR });
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
@@ -134,7 +134,7 @@ export const ItemsProvider = ({ children }) => {
         dispatch({ type: GET_SINGLE_ITEM_START });
 
         axios
-            .post("/public/news", { id })
+            .post("/api/public/news", { id })
             .then((response) => {
                 dispatch({
                     type: SET_SINGLE_NEWS,
@@ -143,7 +143,7 @@ export const ItemsProvider = ({ children }) => {
             })
             .catch((err) => {
                 dispatch({ type: GET_SINGLE_ITEM_ERROR });
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
@@ -151,13 +151,13 @@ export const ItemsProvider = ({ children }) => {
         dispatch({ type: GET_SINGLE_ITEM_START });
 
         axios
-            .get("/public/links")
+            .get("/api/public/links")
             .then((resp) => {
                 dispatch({ type: FETCH_LINKS, payload: resp.data });
             })
             .catch((err) => {
                 dispatch({ GET_ITEMS_ERROR });
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
@@ -224,7 +224,7 @@ export const ItemsProvider = ({ children }) => {
     function submitContactForm() {
         const contactForm = state.contactForm.values;
         axios
-            .post("http://localhost:3001/public/submitmessage", {
+            .post("/api/public/submitmessage", {
                 contactForm
             })
             .then((response) => {
@@ -233,7 +233,7 @@ export const ItemsProvider = ({ children }) => {
             })
             .catch((err) => {
                 dispatch({ GET_ITEMS_ERROR });
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     }
     // CONTACT FORM END

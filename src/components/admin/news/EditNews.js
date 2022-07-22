@@ -32,7 +32,7 @@ const EditNews = () => {
 
     const getNews = () => {
         axios
-            .post(`/news/${id}`, { headers: header(), id })
+            .post(`/api/news/${id}`, { headers: header(), id })
             .then((response) => {
                 if (
                     response.data === "Token required" ||
@@ -42,13 +42,13 @@ const EditNews = () => {
                 setInitialNews(response.data[0]);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
     const editNews = () => {
         axios
-            .put(`/news/${id}`, {
+            .put(`/api/news/${id}`, {
                 headers: header(),
                 id,
                 title,
@@ -62,10 +62,10 @@ const EditNews = () => {
                 )
                     return navigate("/admin/login", { replace: true });
                 const info = `${id} news edited`;
-                axios.post("/system/info", { info });
+                axios.post("/api/system/info", { info });
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
 
         navigate("/admin/newslist", { replace: true });
@@ -79,7 +79,7 @@ const EditNews = () => {
         });
 
         axios
-            .post("/images/addimages", data)
+            .post("/api/images/addimages", data)
             .then((res) => {
                 console.log(res.data);
                 const tempImages = [...images];
@@ -90,13 +90,13 @@ const EditNews = () => {
                 setImages(tempImages);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
     const handleDeleteImage = (url) => {
-        axios.post("/images/deleteimages", { url }).catch((err) => {
-            axios.post("/system/error", { err });
+        axios.post("/api/images/deleteimages", { url }).catch((err) => {
+            axios.post("/api/system/error", { err });
         });
         const tempUrls = images.filter((image) => image !== url);
         setImages(tempUrls);
@@ -104,7 +104,7 @@ const EditNews = () => {
 
     const handleDelete = () => {
         axios
-            .delete(`/news/${id}`, {
+            .delete(`/api/news/${id}`, {
                 headers: header(),
                 data: { id: id }
             })
@@ -115,10 +115,10 @@ const EditNews = () => {
                 )
                     return navigate("/admin/login", { replace: true });
                 const info = `${id} news deleted`;
-                axios.post("/system/info", { info });
+                axios.post("/api/system/info", { info });
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
         navigate("/admin/newslist", { replace: true });
     };

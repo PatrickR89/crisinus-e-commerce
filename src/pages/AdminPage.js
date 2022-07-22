@@ -16,7 +16,7 @@ const AdminPage = () => {
 
     const statusReport = async () => {
         try {
-            await axios.get("/orders/status").then((response) => {
+            await axios.get("/api/orders/status").then((response) => {
                 const data = response.data;
                 setNewOrder(data);
             });

@@ -35,13 +35,13 @@ export const ReviewsProvider = ({ children }) => {
 
     const fetchReviews = () => {
         axios
-            .get("/public/reviews")
+            .get("/api/public/reviews")
             .then((resp) => {
                 dispatch({ type: SET_BOOK_IDS, payload: resp.data });
             })
             .catch((err) => {
                 dispatch({ type: SET_ERROR });
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 

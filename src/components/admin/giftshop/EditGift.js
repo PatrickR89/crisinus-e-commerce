@@ -38,7 +38,7 @@ const EditGift = () => {
 
     const getItem = () => {
         axios
-            .post(`/giftshop/${id}`, { headers: header(), id })
+            .post(`/api/giftshop/${id}`, { headers: header(), id })
             .then((response) => {
                 if (
                     response.data === "Token required" ||
@@ -48,7 +48,7 @@ const EditGift = () => {
                 setInitialItem(response.data[0]);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
@@ -68,7 +68,7 @@ const EditGift = () => {
         });
 
         axios
-            .post("/images/addimages", data)
+            .post("/api/images/addimages", data)
             .then((res) => {
                 const tempImages = [...images];
                 res.data.forEach((image) => {
@@ -77,13 +77,13 @@ const EditGift = () => {
                 setImages(tempImages);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
     const handleDeleteImage = (url) => {
-        axios.post("/images/deleteimages", { url }).catch((err) => {
-            axios.post("/system/error", { err });
+        axios.post("/api/images/deleteimages", { url }).catch((err) => {
+            axios.post("/api/system/error", { err });
         });
         const tempUrls = images.filter((image) => image !== url);
         setImages(tempUrls);
@@ -91,7 +91,7 @@ const EditGift = () => {
 
     const editGift = () => {
         axios
-            .put(`/giftshop/${id}`, {
+            .put(`/api/giftshop/${id}`, {
                 headers: header(),
                 id,
                 name,
@@ -107,17 +107,17 @@ const EditGift = () => {
                 )
                     return navigate("/admin/login", { replace: true });
                 const info = `${id} gift edited`;
-                axios.post("/system/info", { info });
+                axios.post("/api/system/info", { info });
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
         navigate("/admin/giftshoplist", { replace: true });
     };
 
     const handleDelete = () => {
         axios
-            .delete(`/giftshop/${id}`, {
+            .delete(`/api/giftshop/${id}`, {
                 headers: header(),
                 data: { id: id }
             })
@@ -126,12 +126,12 @@ const EditGift = () => {
                     response.data === "Token required" ||
                     response.data.auth === false
                 )
-                    return navigate("/admin/login", { replace: true });
+                    return navigate("/api/admin/login", { replace: true });
                 const info = `${id} gift deleted`;
-                axios.post("/system/info", { info });
+                axios.post("/api/system/info", { info });
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
         navigate("/admin/giftshoplist", { replace: true });
     };

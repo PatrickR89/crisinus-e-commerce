@@ -8,12 +8,12 @@ const AuthorsList = () => {
 
     const getAuthors = () => {
         axios
-            .get("/authors/")
+            .get("/api/authors/")
             .then((response) => {
                 setAuthorList(response.data);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 

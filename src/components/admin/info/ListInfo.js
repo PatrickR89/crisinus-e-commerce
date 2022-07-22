@@ -14,18 +14,18 @@ const ListInfo = () => {
 
     const getInfoPages = () => {
         axios
-            .get("/infopages/")
+            .get("/api/infopages/")
             .then((response) => {
                 setInfoList(response.data);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
     const resetTable = () => {
         axios
-            .post("/infopages/reset", { headers: header() })
+            .post("/api/infopages/reset", { headers: header() })
             .then((response) => {
                 console.log(response);
                 if (
@@ -38,7 +38,7 @@ const ListInfo = () => {
                 }
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 

@@ -27,7 +27,7 @@ const SingleOrder = () => {
 
     const getOrder = async () => {
         await axios
-            .post(`/orders/${id}`, {
+            .post(`/api/orders/${id}`, {
                 headers: header(),
                 id
             })
@@ -46,7 +46,7 @@ const SingleOrder = () => {
                 setTotalAmount(parsedOrder.totalAmount);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
@@ -57,7 +57,7 @@ const SingleOrder = () => {
     const setOrderStatus = async (status) => {
         setStatus(status);
         await axios
-            .put(`/orders/${id}`, {
+            .put(`/api/orders/${id}`, {
                 headers: header(),
                 id,
                 status
@@ -70,13 +70,13 @@ const SingleOrder = () => {
                     return navigate("/admin/login", { replace: true });
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
     const deleteOrder = async () => {
         await axios
-            .delete(`/orders/${id}`, {
+            .delete(`/api/orders/${id}`, {
                 headers: header(),
                 data: { id: id }
             })
@@ -88,7 +88,7 @@ const SingleOrder = () => {
                     return navigate("/admin/login", { replace: true });
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 

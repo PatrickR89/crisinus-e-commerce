@@ -13,22 +13,22 @@ const BookList = () => {
 
     const retrieveBooks = () => {
         axios
-            .get("/books/")
+            .get("/api/books/")
             .then((response) => {
                 setBookList(response.data);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
     const retrieveAuthors = () => {
         axios
-            .get("/authors/")
+            .get("/api/authors/")
             .then((response) => {
                 setAuthorsList(response.data);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 

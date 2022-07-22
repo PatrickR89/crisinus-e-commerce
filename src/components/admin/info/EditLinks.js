@@ -32,7 +32,7 @@ const EditInfo = () => {
 
     const fetchDBLink = () => {
         axios
-            .post("/links", {
+            .post("/api/links", {
                 headers: header(),
                 id
             })
@@ -45,13 +45,13 @@ const EditInfo = () => {
                 setInitialLink(response.data[0]);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
     const editLink = () => {
         axios
-            .put(`/links/${id}`, {
+            .put(`/api/links/${id}`, {
                 headers: header(),
                 id,
                 link: linkPath
@@ -63,10 +63,10 @@ const EditInfo = () => {
                 )
                     return navigate("/admin/login", { replace: true });
                 const info = `${id} link edited`;
-                axios.post("/system/info", { info });
+                axios.post("/api/system/info", { info });
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
         navigate("/admin/linkslist", { replace: true });
     };

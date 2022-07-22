@@ -39,7 +39,7 @@ const EditInfo = () => {
 
     const getPage = () => {
         axios
-            .post(`/infopages/${id}`, {
+            .post(`/api/infopages/${id}`, {
                 headers: header(),
                 id
             })
@@ -52,7 +52,7 @@ const EditInfo = () => {
                 setInitialPage(response.data[0]);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
@@ -64,7 +64,7 @@ const EditInfo = () => {
         });
 
         axios
-            .post("/images/addimages", data)
+            .post("/api/images/addimages", data)
             .then((res) => {
                 const tempImages = [...images];
                 res.data.forEach((image) => {
@@ -73,13 +73,13 @@ const EditInfo = () => {
                 setImages(tempImages);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
     const handleDeleteImage = (url) => {
-        axios.post("/images/deleteimages", { url }).catch((err) => {
-            axios.post("/system/error", { err });
+        axios.post("/api/images/deleteimages", { url }).catch((err) => {
+            axios.post("/api/system/error", { err });
         });
         const tempUrls = images.filter((image) => image !== url);
         setImages(tempUrls);
@@ -87,7 +87,7 @@ const EditInfo = () => {
 
     const editInfo = () => {
         axios
-            .put(`/infopages/${id}`, {
+            .put(`/api/infopages/${id}`, {
                 headers: header(),
                 id,
                 images,
@@ -100,10 +100,10 @@ const EditInfo = () => {
                 )
                     return navigate("/admin/login", { replace: true });
                 const info = `${id} info edited`;
-                axios.post("/system/info", { info });
+                axios.post("/api/system/info", { info });
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
         navigate("/admin/infolist", { replace: true });
     };

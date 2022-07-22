@@ -43,7 +43,7 @@ const EditAuthor = () => {
 
     const getAuthor = () => {
         axios
-            .post(`/authors/${id}`, {
+            .post(`/api/authors/${id}`, {
                 headers: header(),
                 id
             })
@@ -56,7 +56,7 @@ const EditAuthor = () => {
                 setInitialAuthor(response.data[0]);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
@@ -68,7 +68,7 @@ const EditAuthor = () => {
         });
 
         axios
-            .post("/images/addimages", data)
+            .post("/api/images/addimages", data)
             .then((res) => {
                 console.log(res.data);
                 const tempImages = [...images];
@@ -78,13 +78,13 @@ const EditAuthor = () => {
                 setImages(tempImages);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
     const handleDeleteImage = (url) => {
-        axios.post("/images/deleteimages", { url }).catch((err) => {
-            axios.post("/system/error", { err });
+        axios.post("/api/images/deleteimages", { url }).catch((err) => {
+            axios.post("/api/system/error", { err });
         });
         const tempUrls = images.filter((image) => image !== url);
         setImages(tempUrls);
@@ -92,7 +92,7 @@ const EditAuthor = () => {
 
     const handleEdit = () => {
         axios
-            .put(`/authors/${id}`, {
+            .put(`/api/authors/${id}`, {
                 headers: header(),
                 id,
                 name,
@@ -108,16 +108,16 @@ const EditAuthor = () => {
                 )
                     return navigate("/admin/login", { replace: true });
                 const info = `${id} author edited`;
-                axios.post("/system/info", { info });
+                axios.post("/api/system/info", { info });
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
         navigate("/admin/authorslist", { replace: true });
     };
     const handleDelete = () => {
         axios
-            .delete(`/authors/${id}`, {
+            .delete(`/api/authors/${id}`, {
                 headers: header(),
                 data: { id: id }
             })
@@ -128,12 +128,12 @@ const EditAuthor = () => {
                 )
                     return navigate("/admin/login", { replace: true });
                 const info = `${id} author deleted`;
-                axios.post("/system/info", { info });
+                axios.post("/api/system/info", { info });
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
-        navigate("/admin/authorslist", { replace: true });
+        navigate("/api/admin/authorslist", { replace: true });
     };
 
     useEffect(() => {

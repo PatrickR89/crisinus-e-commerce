@@ -33,12 +33,12 @@ const AddBook = () => {
 
     const loadAuthors = () => {
         axios
-            .get("/authors/")
+            .get("/api/authors/")
             .then((response) => {
                 setAuthorsList(response.data);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
@@ -67,7 +67,7 @@ const AddBook = () => {
         });
 
         axios
-            .post("/images/addimages", data)
+            .post("/api/images/addimages", data)
             .then((res) => {
                 const tempImages = [...images];
                 res.data.forEach((image) => {
@@ -76,13 +76,13 @@ const AddBook = () => {
                 setImages(tempImages);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
     const addBook = () => {
         axios
-            .post("/books/", {
+            .post("/api/books/", {
                 headers: header(),
                 title,
                 genre,
@@ -102,10 +102,10 @@ const AddBook = () => {
                 )
                     return navigate("/admin/login", { replace: true });
                 const info = `${title} book added`;
-                axios.post("/system/info", { info });
+                axios.post("/api/system/info", { info });
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
 
         navigate("/admin/booklist", { replace: true });

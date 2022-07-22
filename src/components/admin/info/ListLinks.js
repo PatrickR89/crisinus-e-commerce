@@ -8,12 +8,12 @@ const ListLinks = () => {
 
     const getLinks = () => {
         axios
-            .get("/links")
+            .get("/api/links")
             .then((response) => {
                 setLinkList(response.data);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 

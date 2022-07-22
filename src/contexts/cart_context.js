@@ -107,7 +107,7 @@ export const CartProvider = ({ children }) => {
         const totalAmount = state.total_amount;
 
         axios
-            .post("/public/submitcart", {
+            .post("/api/public/submitcart", {
                 cart,
                 cartOrder,
                 totalAmount
@@ -118,7 +118,7 @@ export const CartProvider = ({ children }) => {
                 return alert(response.data);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     }
 

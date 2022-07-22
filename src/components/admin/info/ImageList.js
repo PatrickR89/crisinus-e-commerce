@@ -11,18 +11,18 @@ const ImageList = () => {
 
     const getImages = () => {
         axios
-            .get("/images/getimages")
+            .get("/api/images/getimages")
             .then((response) => {
                 setImages(response.data);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
     const handleDeleteImage = (url) => {
-        axios.post("/images/deleteimages", { url }).catch((err) => {
-            axios.post("/system/error", { err });
+        axios.post("/api/images/deleteimages", { url }).catch((err) => {
+            axios.post("/api/system/error", { err });
         });
     };
 

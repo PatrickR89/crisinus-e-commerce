@@ -16,7 +16,7 @@ const OrderList = () => {
 
     const retrieveOrders = () => {
         axios
-            .get("/orders/", { headers: header() })
+            .get("/api/orders/", { headers: header() })
             .then((response) => {
                 if (
                     response.data === "Token required" ||
@@ -27,7 +27,7 @@ const OrderList = () => {
                 setOrderList(data.reverse());
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 

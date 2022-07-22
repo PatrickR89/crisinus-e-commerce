@@ -8,12 +8,12 @@ const GiftshopList = () => {
 
     const getGifts = () => {
         axios
-            .get("/giftshop/")
+            .get("/api/giftshop/")
             .then((response) => {
                 setGsList(response.data);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 

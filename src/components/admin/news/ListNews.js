@@ -8,12 +8,12 @@ const ListNews = () => {
 
     const getNews = () => {
         axios
-            .get("/news/")
+            .get("/api/news/")
             .then((response) => {
                 setNewsList(response.data);
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 

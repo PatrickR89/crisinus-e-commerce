@@ -24,7 +24,7 @@ export const AuthenticationProvider = ({ children }) => {
 
     const login = () => {
         axios
-            .post("/login", {
+            .post("/api/login", {
                 username: state.username,
                 password: state.password
             })
@@ -37,13 +37,13 @@ export const AuthenticationProvider = ({ children }) => {
                 }
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     };
 
     const logout = () => {
         localStorage.removeItem("token");
-        axios.get("/logout");
+        axios.get("/api/logout");
         dispatch({ type: SET_LOGIN_FALSE });
     };
 
@@ -59,14 +59,14 @@ export const AuthenticationProvider = ({ children }) => {
 
     useEffect(() => {
         axios
-            .get("/login")
+            .get("/api/login")
             .then((response) => {
                 if (response.data.loggedIn === true) {
                     dispatch({ type: SET_LOGIN_TRUE });
                 }
             })
             .catch((err) => {
-                axios.post("/system/error", { err });
+                axios.post("/api/system/error", { err });
             });
     }, []);
 
