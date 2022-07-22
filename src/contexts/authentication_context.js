@@ -41,6 +41,12 @@ export const AuthenticationProvider = ({ children }) => {
             });
     };
 
+    const registerClient = () => {
+        axios.get("/api/client").then((response) => {
+            localStorage.setItem("client-token", response.data.clientToken);
+        });
+    };
+
     const logout = () => {
         localStorage.removeItem("token");
         axios.get("/api/logout");
@@ -57,7 +63,12 @@ export const AuthenticationProvider = ({ children }) => {
         return { "x-access-token": localStorage.getItem("token") };
     };
 
+    const clientHeader = () => {
+        return localStorage.getItem("client-token");
+    };
+
     useEffect(() => {
+        registerClient();
         axios
             .get("/api/login")
             .then((response) => {
@@ -72,7 +83,14 @@ export const AuthenticationProvider = ({ children }) => {
 
     return (
         <AuthenticationContext.Provider
-            value={{ ...state, login, updateUser, header, logout }}
+            value={{
+                ...state,
+                login,
+                updateUser,
+                header,
+                logout,
+                clientHeader
+            }}
         >
             {children}
         </AuthenticationContext.Provider>

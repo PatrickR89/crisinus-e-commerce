@@ -1,4 +1,5 @@
 import "./App.css";
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 
@@ -46,8 +47,15 @@ import {
     NewsExpandedPage
 } from "./pages/product_related";
 
+import { useAuthenticationContext } from "./contexts/authentication_context";
+
 function App() {
+    const { clientHeader } = useAuthenticationContext();
     axios.withCredentials = true;
+
+    useEffect(() => {
+        axios.defaults.headers.common["client-access-token"] = clientHeader();
+    }, []);
 
     return (
         <div className="App">
