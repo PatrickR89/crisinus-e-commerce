@@ -48,6 +48,7 @@ import {
 
 function App() {
     axios.withCredentials = true;
+
     return (
         <div className="App">
             <Navbar />

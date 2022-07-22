@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useReactToPrint } from "react-to-print";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -9,6 +10,11 @@ import { OrderModal } from "./";
 
 const SingleOrder = () => {
     const { priceFormat } = useCurrencyContext();
+
+    const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current
+    });
 
     const [order, setOrder] = useState({});
     const [cart, setCart] = useState([]);
@@ -128,6 +134,9 @@ const SingleOrder = () => {
                         <p>POSTAL CODE: {order.postalCode}</p>
                     </div>
                     <div className="button-container">
+                        <button className="btn" onClick={handlePrint}>
+                            PRINT
+                        </button>
                         {status != "CONFIRMED" && (
                             <button
                                 className="btn approve"
@@ -177,6 +186,53 @@ const SingleOrder = () => {
                         );
                     })}
                     <h4>ORDER TOTAL: {priceFormat(totalAmount)}</h4>
+                </div>
+            </div>
+            <div style={{ display: "none" }}>
+                <div className="order-main" ref={componentRef}>
+                    <div className="left-side">
+                        <h4 style={{ margin: "1rem" }}>CLIENT INFORMATION</h4>
+                        <div style={{ margin: "2rem" }}>
+                            <p>NAME: {order.clientName}</p>
+                            <p>LAST NAME: {order.clientLastName}</p>
+                            <p>EMAIL: {order.clientEmail}</p>
+                            <p>STREET: {order.streetName}</p>
+                            <p>STREET NO.: {order.streetNumber}</p>
+                            <p>CITY: {order.city}</p>
+                            <p>POSTAL CODE: {order.postalCode}</p>
+                        </div>
+                    </div>
+                    <div className="cart-info">
+                        <h4 style={{ margin: "1rem" }}>CART INFORMATION</h4>
+                        {cart.map((cartItem, index) => {
+                            return (
+                                <div key={index} style={{ margin: "2rem" }}>
+                                    <div>
+                                        <p>
+                                            ITEM:{" "}
+                                            {cartItem.title || cartItem.name}
+                                        </p>
+                                        <p>
+                                            PRICE: {priceFormat(cartItem.price)}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p>AMOUNT: {cartItem.amount}</p>
+                                        <p>
+                                            PRICE TOTAL:{" "}
+                                            {priceFormat(
+                                                cartItem.price * cartItem.amount
+                                            )}
+                                        </p>
+                                    </div>
+                                    <hr />
+                                </div>
+                            );
+                        })}
+                        <h4 style={{ margin: "1rem" }}>
+                            ORDER TOTAL: {priceFormat(totalAmount)}
+                        </h4>
+                    </div>
                 </div>
             </div>
             {modalStatus && (
