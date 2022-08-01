@@ -42,10 +42,18 @@ export const AuthenticationProvider = ({ children }) => {
             });
     };
 
+    const initialHeader = () => {
+        return { "client-access-init": "crisinus-client-net" };
+    };
+
     const registerClient = () => {
-        axios.get("/api/client").then((response) => {
-            localStorage.setItem("client-token", response.data.clientToken);
-        });
+        axios
+            .post("/api/client", {
+                headers: initialHeader()
+            })
+            .then((response) => {
+                localStorage.setItem("client-token", response.data.clientToken);
+            });
     };
 
     const logout = () => {
