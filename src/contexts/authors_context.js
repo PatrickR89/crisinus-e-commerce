@@ -39,7 +39,8 @@ export const AuthorsProvider = ({ children }) => {
                     payload: [booksImport, authorsImport]
                 });
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/public/authors [athrs_ctxt[GET]], error: ${error}`;
                 axios.post("/api/system/error", { err });
                 dispatch({ GET_ITEMS_ERROR });
             });
@@ -62,7 +63,8 @@ export const AuthorsProvider = ({ children }) => {
             dispatch({
                 type: SET_BOOKS_PER_AUTHOR,
                 payload: [state.books, fullAuthor.id]
-            }).catch((err) => {
+            }).catch((error) => {
+                const err = `api: /api/public/authors [athrs_ctxt[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
                 dispatch({ GET_ITEMS_ERROR });
             });

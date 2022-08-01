@@ -95,7 +95,9 @@ export const ItemsProvider = ({ children }) => {
                 type: GET_ITEMS_SUCCESS,
                 payload: [books, gifts, news, infos]
             });
-        } catch (err) {
+        } catch (error) {
+            const err = `api: api/public/{books/gifts/news/info} [itms_ctxt[GET]], error: ${error}`;
+
             axios.post("/api/system/error", { err });
             dispatch({ GET_ITEMS_ERROR });
         }
@@ -111,8 +113,10 @@ export const ItemsProvider = ({ children }) => {
                     payload: response.data
                 });
             })
-            .catch((err) => {
+            .catch((error) => {
                 dispatch({ type: GET_SINGLE_ITEM_ERROR });
+
+                const err = `api: /api/public/books [itms_ctxt[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -124,8 +128,10 @@ export const ItemsProvider = ({ children }) => {
             .then((response) => {
                 dispatch({ type: GET_SINGLE_GIFT, payload: response.data[0] });
             })
-            .catch((err) => {
+            .catch((error) => {
                 dispatch({ type: GET_SINGLE_ITEM_ERROR });
+
+                const err = `api: /api/public/gifts [itms_ctxt[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -141,8 +147,10 @@ export const ItemsProvider = ({ children }) => {
                     payload: response.data[0]
                 });
             })
-            .catch((err) => {
+            .catch((error) => {
                 dispatch({ type: GET_SINGLE_ITEM_ERROR });
+
+                const err = `api: /api/public/news [itms_ctxt[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -155,8 +163,10 @@ export const ItemsProvider = ({ children }) => {
             .then((resp) => {
                 dispatch({ type: FETCH_LINKS, payload: resp.data });
             })
-            .catch((err) => {
-                dispatch({ GET_ITEMS_ERROR });
+            .catch((error) => {
+                dispatch({ type: GET_ITEMS_ERROR });
+
+                const err = `api: /api/public/links [itms_ctxt[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -231,8 +241,10 @@ export const ItemsProvider = ({ children }) => {
                 dispatch({ type: RESET_CONTACT_FORM });
                 return alert(response.data);
             })
-            .catch((err) => {
-                dispatch({ GET_ITEMS_ERROR });
+            .catch((error) => {
+                dispatch({ type: GET_ITEMS_ERROR });
+
+                const err = `api: /api/public/submitmessage [itms_ctxt[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     }

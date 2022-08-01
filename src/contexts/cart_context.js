@@ -117,7 +117,8 @@ export const CartProvider = ({ children }) => {
                 dispatch({ type: CLOSE_MODAL });
                 return alert(response.data);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/public/submitcarts [cart_ctxt[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     }

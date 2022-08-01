@@ -47,7 +47,8 @@ const EditGift = () => {
                     return navigate("/admin/login", { replace: true });
                 setInitialItem(response.data[0]);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/giftshop/${id} [editgift[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -76,13 +77,15 @@ const EditGift = () => {
                 });
                 setImages(tempImages);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/images/addimage [editgift[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
 
     const handleDeleteImage = (url) => {
-        axios.post("/api/images/deleteimages", { url }).catch((err) => {
+        axios.post("/api/images/deleteimages", { url }).catch((error) => {
+            const err = `api: /api/images/deleteimage [editgift[POST]], error: ${error}`;
             axios.post("/api/system/error", { err });
         });
         const tempUrls = images.filter((image) => image !== url);
@@ -109,7 +112,8 @@ const EditGift = () => {
                 const info = `${id} gift edited`;
                 axios.post("/api/system/info", { info });
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/giftshop/${id} [editgift[PUT]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
         navigate("/admin/giftshoplist", { replace: true });
@@ -130,7 +134,8 @@ const EditGift = () => {
                 const info = `${id} gift deleted`;
                 axios.post("/api/system/info", { info });
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/giftshop/${id} [editgift[DELETE]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
         navigate("/admin/giftshoplist", { replace: true });

@@ -21,7 +21,8 @@ const Login = () => {
             .then((response) => {
                 console.log(response);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /authentication/ [login[GET]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };

@@ -34,7 +34,8 @@ const AddGift = () => {
                 });
                 setImages(tempImages);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: api/images/addimages [addgift[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -58,7 +59,8 @@ const AddGift = () => {
                 const info = `${name} gift added`;
                 axios.post("/api/system/info", { info });
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/giftshop/ [addgift[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
 

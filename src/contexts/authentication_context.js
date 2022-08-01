@@ -36,7 +36,8 @@ export const AuthenticationProvider = ({ children }) => {
                     dispatch({ type: SET_LOGIN_TRUE });
                 }
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /login/ [auth_ctxt[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -76,7 +77,8 @@ export const AuthenticationProvider = ({ children }) => {
                     dispatch({ type: SET_LOGIN_TRUE });
                 }
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /login/ [auth_ctxt[GET]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     }, []);

@@ -43,8 +43,9 @@ const EditRating = () => {
                     return navigate("/admin/login", { replace: true });
                 setInitialReview(response.data);
             })
-            .catch((err) => {
-                axios.post("/system/error", { err });
+            .catch((error) => {
+                const err = `api: /reviews/${id} [editrating[POST]], error: ${error}`;
+                axios.post("/api/system/error", { err });
             });
     };
 
@@ -62,8 +63,9 @@ const EditRating = () => {
             .then((response) => {
                 setBookList(response.data);
             })
-            .catch((err) => {
-                axios.post("/system/error", { err });
+            .catch((error) => {
+                const err = `api: /books/ [editrating[GET]], error: ${error}`;
+                axios.post("/api/system/error", { err });
             });
     };
 
@@ -87,8 +89,9 @@ const EditRating = () => {
                 const info = `${id} rating edited`;
                 axios.post("/system/info", { info });
             })
-            .catch((err) => {
-                axios.post("/system/error", { err });
+            .catch((error) => {
+                const err = `api: /reviews/${id} [editrating[PUT]], error: ${error}`;
+                axios.post("/api/system/error", { err });
             });
 
         navigate("/admin/ratingslist", { replace: true });
@@ -109,8 +112,9 @@ const EditRating = () => {
                 const info = `${id} rating deleted`;
                 axios.post("/system/info", { info });
             })
-            .catch((err) => {
-                axios.post("/system/error", { err });
+            .catch((error) => {
+                const err = `api: /reviews/${id} [editrating[DELETE]], error: ${error}`;
+                axios.post("/api/system/error", { err });
             });
         navigate("/admin/ratingslist", { replace: true });
     };

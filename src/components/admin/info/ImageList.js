@@ -15,13 +15,15 @@ const ImageList = () => {
             .then((response) => {
                 setImages(response.data);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/images/getimages [imagelist[GET]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
 
     const handleDeleteImage = (url) => {
-        axios.post("/api/images/deleteimages", { url }).catch((err) => {
+        axios.post("/api/images/deleteimages", { url }).catch((error) => {
+            const err = `api: /api/images/deleteimages [imagelist[POST]], error: ${error}`;
             axios.post("/api/system/error", { err });
         });
     };

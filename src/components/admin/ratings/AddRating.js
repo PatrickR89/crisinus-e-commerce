@@ -25,8 +25,9 @@ const AddRating = () => {
             .then((response) => {
                 setBookList(response.data);
             })
-            .catch((err) => {
-                axios.post("/system/error", { err });
+            .catch((error) => {
+                const err = `api: /books/ [addrating[GET]], error: ${error}`;
+                axios.post("/api/system/error", { err });
             });
     };
 
@@ -49,8 +50,9 @@ const AddRating = () => {
                 const info = `${rating_title} rating added`;
                 axios.post("/system/info", { info });
             })
-            .catch((err) => {
-                axios.post("/system/error", { err });
+            .catch((error) => {
+                const err = `api: /reviews/ [addrating[POST]], error: ${error}`;
+                axios.post("/api/system/error", { err });
             });
 
         navigate("/admin/ratingslist", { replace: true });

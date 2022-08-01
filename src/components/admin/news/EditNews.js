@@ -41,7 +41,8 @@ const EditNews = () => {
                     return navigate("/admin/login", { replace: true });
                 setInitialNews(response.data[0]);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/news/${id} [editnews[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -64,7 +65,8 @@ const EditNews = () => {
                 const info = `${id} news edited`;
                 axios.post("/api/system/info", { info });
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/news/${id} [editnews[PUT]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
 
@@ -89,13 +91,15 @@ const EditNews = () => {
                 });
                 setImages(tempImages);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/images/addimage [editnews[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
 
     const handleDeleteImage = (url) => {
-        axios.post("/api/images/deleteimages", { url }).catch((err) => {
+        axios.post("/api/images/deleteimages", { url }).catch((error) => {
+            const err = `api: /api/images/deleteimage [editnews[POST]], error: ${error}`;
             axios.post("/api/system/error", { err });
         });
         const tempUrls = images.filter((image) => image !== url);
@@ -117,7 +121,8 @@ const EditNews = () => {
                 const info = `${id} news deleted`;
                 axios.post("/api/system/info", { info });
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/news/${id} [editnews[DELETE]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
         navigate("/admin/newslist", { replace: true });

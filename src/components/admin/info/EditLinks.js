@@ -44,7 +44,8 @@ const EditInfo = () => {
                     return navigate("/admin/login", { replace: true });
                 setInitialLink(response.data[0]);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/links/${id} [editlinks[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -65,7 +66,8 @@ const EditInfo = () => {
                 const info = `${id} link edited`;
                 axios.post("/api/system/info", { info });
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/links/${id} [editlinks[PUT]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
         navigate("/admin/linkslist", { replace: true });

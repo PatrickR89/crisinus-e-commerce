@@ -12,7 +12,8 @@ const ListLinks = () => {
             .then((response) => {
                 setLinkList(response.data);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/links/ [linkslist[GET]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };

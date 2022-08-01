@@ -18,7 +18,8 @@ const ListInfo = () => {
             .then((response) => {
                 setInfoList(response.data);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/infopages/ [infolist[GET]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -37,7 +38,8 @@ const ListInfo = () => {
                     setInfoList(response.data);
                 }
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/infopages/reset [infolist[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };

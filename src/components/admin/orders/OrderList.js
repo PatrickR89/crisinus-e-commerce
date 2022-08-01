@@ -26,7 +26,8 @@ const OrderList = () => {
                 const data = response.data;
                 setOrderList(data.reverse());
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/orders [orderlist[GET]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };

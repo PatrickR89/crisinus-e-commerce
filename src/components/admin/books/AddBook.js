@@ -37,7 +37,8 @@ const AddBook = () => {
             .then((response) => {
                 setAuthorsList(response.data);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/authors/ [addbook[GET]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -75,7 +76,8 @@ const AddBook = () => {
                 });
                 setImages(tempImages);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/images/addimages [addbook[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -104,7 +106,8 @@ const AddBook = () => {
                 const info = `${title} book added`;
                 axios.post("/api/system/info", { info });
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/books/ [addbook[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
 

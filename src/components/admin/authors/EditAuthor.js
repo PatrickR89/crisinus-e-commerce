@@ -55,7 +55,8 @@ const EditAuthor = () => {
                     return navigate("/admin/login", { replace: true });
                 setInitialAuthor(response.data[0]);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/authors/${id}, [editauthor[POST]] error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -77,13 +78,15 @@ const EditAuthor = () => {
                 });
                 setImages(tempImages);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/images/addimages [editauthor[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
 
     const handleDeleteImage = (url) => {
-        axios.post("/api/images/deleteimages", { url }).catch((err) => {
+        axios.post("/api/images/deleteimages", { url }).catch((error) => {
+            const err = `api: /api/images/deleteimages [editauthor[POST]], error: ${error}`;
             axios.post("/api/system/error", { err });
         });
         const tempUrls = images.filter((image) => image !== url);
@@ -110,7 +113,8 @@ const EditAuthor = () => {
                 const info = `${id} author edited`;
                 axios.post("/api/system/info", { info });
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/authors/${id} [editauthor[PUT]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
         navigate("/admin/authorslist", { replace: true });
@@ -130,7 +134,8 @@ const EditAuthor = () => {
                 const info = `${id} author deleted`;
                 axios.post("/api/system/info", { info });
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/authors/${id} [editauthor[DELETE]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
         navigate("/api/admin/authorslist", { replace: true });

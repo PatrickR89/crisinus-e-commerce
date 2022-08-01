@@ -32,7 +32,8 @@ const AddNews = () => {
                 });
                 setImages(tempImages);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/images/addimages [addnews[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -54,7 +55,8 @@ const AddNews = () => {
                 const info = `${title} news added`;
                 axios.post("/api/system/info", { info });
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/news [addnews[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
 

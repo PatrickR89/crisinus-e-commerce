@@ -12,7 +12,8 @@ const AuthorsList = () => {
             .then((response) => {
                 setAuthorList(response.data);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/authors/, error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };

@@ -62,7 +62,8 @@ const EditBook = () => {
             .then((response) => {
                 setAuthorsList(response.data);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/authors/ [editbook[GET]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -99,7 +100,8 @@ const EditBook = () => {
                 setInitialBook(response.data[0]);
                 setInitialAuthors(response.data[1]);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: api/books/${id} [editbook[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -132,13 +134,15 @@ const EditBook = () => {
                 });
                 setImages(tempImages);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: api/images/addimages [editbook[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
 
     const handleDelete = (url) => {
-        axios.post("/api/images/deleteimages", { url }).catch((err) => {
+        axios.post("/api/images/deleteimages", { url }).catch((error) => {
+            const err = `api: api/images/deleteimages [editbook[POST]], error: ${error}`;
             axios.post("/api/system/error", { err });
         });
         const tempUrls = images.filter((image) => image !== url);
@@ -170,7 +174,8 @@ const EditBook = () => {
                 const info = `${id} book edited`;
                 axios.post("/api/system/info", { info });
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: api/books/${id} [editbook[PUT]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
         navigate("/admin/booklist", { replace: true });
@@ -191,7 +196,8 @@ const EditBook = () => {
                 const info = `${id} book deleted`;
                 axios.post("/api/system/info", { info });
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: api/books/${id} [editbook[DELETE]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
         navigate("/admin/booklist", { replace: true });

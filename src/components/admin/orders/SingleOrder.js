@@ -45,7 +45,8 @@ const SingleOrder = () => {
                 setStatus(data.order_status);
                 setTotalAmount(parsedOrder.totalAmount);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/orders/${id} [singleorder[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -69,7 +70,8 @@ const SingleOrder = () => {
                 )
                     return navigate("/admin/login", { replace: true });
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/orders/${id} [singleorder[PUT]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -87,7 +89,8 @@ const SingleOrder = () => {
                 )
                     return navigate("/admin/login", { replace: true });
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/orders/${id} [singleorder[DELETE]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };

@@ -61,7 +61,8 @@ export const CurrencyProvider = ({ children }) => {
             .then((resp) => {
                 dispatch({ type: SET_EXCHANGE, payload: resp.data });
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/system/currency [currency_ctxt[GET]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     }

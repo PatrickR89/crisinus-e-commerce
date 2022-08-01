@@ -12,7 +12,8 @@ const ListNews = () => {
             .then((response) => {
                 setNewsList(response.data);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/news/ [listnews[GET]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };

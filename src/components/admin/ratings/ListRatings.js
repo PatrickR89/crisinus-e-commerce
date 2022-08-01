@@ -12,8 +12,9 @@ const ListRatings = () => {
             .then((response) => {
                 setReviewsList(response.data);
             })
-            .catch((err) => {
-                axios.post("/system/error", { err });
+            .catch((error) => {
+                const err = `api: /reviews/ [listratings[GET]], error: ${error}`;
+                axios.post("/api/system/error", { err });
             });
     };
 

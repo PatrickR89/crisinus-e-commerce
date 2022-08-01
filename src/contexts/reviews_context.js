@@ -39,8 +39,10 @@ export const ReviewsProvider = ({ children }) => {
             .then((resp) => {
                 dispatch({ type: SET_BOOK_IDS, payload: resp.data });
             })
-            .catch((err) => {
+            .catch((error) => {
                 dispatch({ type: SET_ERROR });
+
+                const err = `api: /api/public/reviews [reviews_ctxt[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };

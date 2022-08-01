@@ -17,7 +17,8 @@ const BookList = () => {
             .then((response) => {
                 setBookList(response.data);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/books/ [booklist[GET]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -27,7 +28,8 @@ const BookList = () => {
             .then((response) => {
                 setAuthorsList(response.data);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/authors/ [booklist[GET]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };

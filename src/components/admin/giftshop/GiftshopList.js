@@ -12,7 +12,8 @@ const GiftshopList = () => {
             .then((response) => {
                 setGsList(response.data);
             })
-            .catch((err) => {
+            .catch((error) => {
+                const err = `api: /api/giftshop/} [giftslist[GET]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
