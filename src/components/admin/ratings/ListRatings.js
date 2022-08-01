@@ -8,7 +8,7 @@ const ListRatings = () => {
 
     const getReviews = () => {
         axios
-            .get("/reviews/")
+            .get("/api/reviews/")
             .then((response) => {
                 setReviewsList(response.data);
             })

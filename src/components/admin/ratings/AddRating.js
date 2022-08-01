@@ -21,7 +21,7 @@ const AddRating = () => {
 
     const loadBooks = () => {
         axios
-            .get("/books/")
+            .get("/api/books/")
             .then((response) => {
                 setBookList(response.data);
             })
@@ -33,7 +33,7 @@ const AddRating = () => {
 
     const addReview = () => {
         axios
-            .post("/reviews/", {
+            .post("/api/reviews/", {
                 headers: header(),
                 book,
                 rating_title,

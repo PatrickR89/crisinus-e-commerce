@@ -31,7 +31,7 @@ const EditRating = () => {
 
     const loadInitialReview = () => {
         axios
-            .post(`/reviews/${id}`, {
+            .post(`/api/reviews/${id}`, {
                 headers: header(),
                 id
             })
@@ -59,7 +59,7 @@ const EditRating = () => {
 
     const loadBooks = () => {
         axios
-            .get("/books/")
+            .get("/api/books/")
             .then((response) => {
                 setBookList(response.data);
             })
@@ -71,7 +71,7 @@ const EditRating = () => {
 
     const editReview = () => {
         axios
-            .put(`/reviews/${id}`, {
+            .put(`/api/reviews/${id}`, {
                 headers: header(),
                 id,
                 book,
@@ -99,7 +99,7 @@ const EditRating = () => {
 
     const handleDelete = () => {
         axios
-            .delete(`/reviews/${id}`, {
+            .delete(`/api/reviews/${id}`, {
                 headers: header(),
                 data: { id: id }
             })
