@@ -5,7 +5,8 @@ import axios from "axios";
 import {
     SET_LOGIN_TRUE,
     SET_LOGIN_FALSE,
-    UPDATE_USER
+    UPDATE_USER,
+    REMOVE_COOKIE_MODAL
 } from "../actions/authentication_actions";
 
 import reducer from "../reducers/authentication_reducer";
@@ -13,7 +14,8 @@ import reducer from "../reducers/authentication_reducer";
 const initialState = {
     username: "",
     password: "",
-    loggedIn: false
+    loggedIn: false,
+    cookiesModal: true
 };
 
 const AuthenticationContext = React.createContext();
@@ -44,6 +46,32 @@ export const AuthenticationProvider = ({ children }) => {
 
     const initialHeader = () => {
         return { "client-access-init": "crisinus-client-net" };
+    };
+
+    const handleCookiesModal = () => {
+        axios.get("/api/cookiesmodal").catch((error) => {
+            const err = `api: /cookiesmodal/ [auth_ctxt[GET]], error: ${error}`;
+            console.log(err);
+            axios.post("/api/system/error", { err });
+        });
+        dispatch({ type: REMOVE_COOKIE_MODAL, payload: false });
+    };
+
+    const confirmCookiesModal = () => {
+        axios
+            .get("/api/cookiesconfirm")
+            .then((res) => {
+                const response = JSON.parse(res.data.cookiesModal);
+                dispatch({
+                    type: REMOVE_COOKIE_MODAL,
+                    payload: response
+                });
+            })
+            .catch((error) => {
+                const err = `api: /cookiesconfirm/ [auth_ctxt[GET]], error: ${error}`;
+                console.log(err);
+                axios.post("/api/system/error", { err });
+            });
     };
 
     const registerClient = () => {
@@ -78,6 +106,7 @@ export const AuthenticationProvider = ({ children }) => {
 
     useEffect(() => {
         registerClient();
+        confirmCookiesModal();
         axios
             .get("/api/login")
             .then((response) => {
@@ -99,7 +128,8 @@ export const AuthenticationProvider = ({ children }) => {
                 updateUser,
                 header,
                 logout,
-                clientHeader
+                clientHeader,
+                handleCookiesModal
             }}
         >
             {children}

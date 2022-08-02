@@ -18,6 +18,7 @@ import { AuthorsList, EditAuthor } from "./components/admin/authors";
 import { AddNews, EditNews, ListNews } from "./components/admin/news";
 import { AddRating, EditRating, ListRatings } from "./components/admin/ratings";
 import { OrderList, SingleOrder } from "./components/admin/orders/";
+import { CookiesModal } from "./components/public/info";
 
 import Login from "./components/authentication/Login";
 
@@ -50,7 +51,8 @@ import {
 import { useAuthenticationContext } from "./contexts/authentication_context";
 
 function App() {
-    const { clientHeader } = useAuthenticationContext();
+    const { clientHeader, handleCookiesModal, cookiesModal } =
+        useAuthenticationContext();
     axios.withCredentials = true;
 
     useEffect(() => {
@@ -106,6 +108,7 @@ function App() {
                 </Route>
                 <Route path="/*" element={<ErrorPage />} />
             </Routes>
+            {cookiesModal && <CookiesModal close={handleCookiesModal} />}
             <Footer />
         </div>
     );
