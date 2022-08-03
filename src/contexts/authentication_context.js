@@ -16,14 +16,13 @@ const initialState = {
     password: "",
     loggedIn: false,
     cookiesModal: true,
-    tokenChanged: false
+    clientEngaged: false
 };
-axios.withCredentials = true;
+
 const AuthenticationContext = React.createContext();
 
 export const AuthenticationProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
-    axios.defaults.withCredentials = true;
 
     const login = () => {
         axios
@@ -105,7 +104,6 @@ export const AuthenticationProvider = ({ children }) => {
 
     const clientReg = () => {
         registerClient();
-        confirmCookiesModal();
         axios
             .get("/api/login")
             .then((response) => {
@@ -136,6 +134,20 @@ export const AuthenticationProvider = ({ children }) => {
     useEffect(() => {
         clientReg();
     }, []);
+
+    useEffect(() => {
+        confirmCookiesModal();
+    }, [state.clientEngaged]);
+
+    useEffect(() => {
+        if (
+            axios.defaults.headers.common["client-access-token"] === undefined
+        ) {
+            state.clientEngaged = false;
+        } else {
+            state.clientEngaged = true;
+        }
+    }, [axios.defaults.headers.common["client-access-token"]]);
 
     return (
         <AuthenticationContext.Provider

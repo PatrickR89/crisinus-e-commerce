@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 
@@ -52,35 +52,25 @@ import { useAuthenticationContext } from "./contexts/authentication_context";
 
 axios.withCredentials = true;
 function App() {
-    const [clientHeaderInit, setClientHeaderInit] = useState(false);
     const {
         clientHeader,
         handleCookiesModal,
         cookiesModal,
         clientReg,
-        setAxiosInterceptor
+        setAxiosInterceptor,
+        clientEngaged
     } = useAuthenticationContext();
 
     useEffect(() => {
         clientReg();
         setAxiosInterceptor();
         axios.defaults.headers.common["client-access-token"] = clientHeader();
-    });
+    }, []);
 
-    useEffect(() => {
-        if (
-            axios.defaults.headers.common["client-access-token"] === undefined
-        ) {
-            setClientHeaderInit(false);
-        } else {
-            setClientHeaderInit(true);
-        }
-    }, [axios.defaults.headers.common["client-access-token"]]);
-
-    if (!clientHeaderInit) {
+    if (!clientEngaged) {
         return (
             <div className="App">
-                <h2>No server</h2>
+                <h2>Please wait...</h2>
                 <Footer />
             </div>
         );
