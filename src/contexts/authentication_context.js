@@ -15,9 +15,10 @@ const initialState = {
     username: "",
     password: "",
     loggedIn: false,
-    cookiesModal: true
+    cookiesModal: true,
+    tokenChanged: false
 };
-
+axios.withCredentials = true;
 const AuthenticationContext = React.createContext();
 
 export const AuthenticationProvider = ({ children }) => {
@@ -51,7 +52,6 @@ export const AuthenticationProvider = ({ children }) => {
     const handleCookiesModal = () => {
         axios.get("/api/cookiesmodal").catch((error) => {
             const err = `api: /cookiesmodal/ [auth_ctxt[GET]], error: ${error}`;
-            console.log(err);
             axios.post("/api/system/error", { err });
         });
         dispatch({ type: REMOVE_COOKIE_MODAL, payload: false });
@@ -69,7 +69,6 @@ export const AuthenticationProvider = ({ children }) => {
             })
             .catch((error) => {
                 const err = `api: /cookiesconfirm/ [auth_ctxt[GET]], error: ${error}`;
-                console.log(err);
                 axios.post("/api/system/error", { err });
             });
     };
@@ -104,7 +103,7 @@ export const AuthenticationProvider = ({ children }) => {
         return localStorage.getItem("client-token");
     };
 
-    useEffect(() => {
+    const clientReg = () => {
         registerClient();
         confirmCookiesModal();
         axios
@@ -118,6 +117,24 @@ export const AuthenticationProvider = ({ children }) => {
                 const err = `api: /login/ [auth_ctxt[GET]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
+    };
+
+    const setAxiosInterceptor = () => {
+        const instance = axios.create({
+            baseURL: "/api"
+        });
+
+        instance.interceptors.request.use((request) => {
+            const clientToken = localStorage.getItem("client-token");
+            if (clientToken) {
+                request.headers.common["client-access-token"] = clientToken;
+            }
+            return request;
+        });
+    };
+
+    useEffect(() => {
+        clientReg();
     }, []);
 
     return (
@@ -129,7 +146,9 @@ export const AuthenticationProvider = ({ children }) => {
                 header,
                 logout,
                 clientHeader,
-                handleCookiesModal
+                handleCookiesModal,
+                clientReg,
+                setAxiosInterceptor
             }}
         >
             {children}

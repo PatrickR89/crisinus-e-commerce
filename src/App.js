@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 
@@ -50,15 +50,41 @@ import {
 
 import { useAuthenticationContext } from "./contexts/authentication_context";
 
+axios.withCredentials = true;
 function App() {
-    const { clientHeader, handleCookiesModal, cookiesModal } =
-        useAuthenticationContext();
-    axios.withCredentials = true;
+    const [clientHeaderInit, setClientHeaderInit] = useState(false);
+    const {
+        clientHeader,
+        handleCookiesModal,
+        cookiesModal,
+        clientReg,
+        setAxiosInterceptor
+    } = useAuthenticationContext();
 
     useEffect(() => {
+        clientReg();
+        setAxiosInterceptor();
         axios.defaults.headers.common["client-access-token"] = clientHeader();
-    }, []);
+    });
 
+    useEffect(() => {
+        if (
+            axios.defaults.headers.common["client-access-token"] === undefined
+        ) {
+            setClientHeaderInit(false);
+        } else {
+            setClientHeaderInit(true);
+        }
+    }, [axios.defaults.headers.common["client-access-token"]]);
+
+    if (!clientHeaderInit) {
+        return (
+            <div className="App">
+                <h2>No server</h2>
+                <Footer />
+            </div>
+        );
+    }
     return (
         <div className="App">
             <Navbar />

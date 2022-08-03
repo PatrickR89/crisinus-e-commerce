@@ -17,9 +17,12 @@ const ContactPage = () => {
     }, []);
 
     const filterLinks = (id) => {
-        console.log(anchorLinks);
-        const link = anchorLinks.filter((anchorLink) => anchorLink.id === id);
-        return link[0].link;
+        if (anchorLinks.length) {
+            const link = anchorLinks.filter(
+                (anchorLink) => anchorLink.id === id
+            );
+            return link[0].link;
+        }
     };
 
     const handleAlert = () => {

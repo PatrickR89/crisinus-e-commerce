@@ -161,7 +161,10 @@ export const ItemsProvider = ({ children }) => {
         axios
             .get("/api/public/links")
             .then((resp) => {
-                dispatch({ type: FETCH_LINKS, payload: resp.data });
+                console.log(resp.data);
+                if (resp.data !== "API is for client use only!") {
+                    dispatch({ type: FETCH_LINKS, payload: resp.data });
+                }
             })
             .catch((error) => {
                 dispatch({ type: GET_ITEMS_ERROR });
@@ -243,6 +246,7 @@ export const ItemsProvider = ({ children }) => {
             })
             .catch((error) => {
                 dispatch({ type: GET_ITEMS_ERROR });
+                console.log(error);
 
                 const err = `api: /api/public/submitmessage [itms_ctxt[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
