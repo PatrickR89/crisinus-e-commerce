@@ -65,10 +65,10 @@ const AdminPage = () => {
                         {category === "books" && (
                             <div className="nav-container">
                                 <Link className="nav-btn" to="/admin/addbook">
-                                    Add new book
+                                    Add new
                                 </Link>
                                 <Link className="nav-btn" to="/admin/booklist">
-                                    List of books
+                                    List
                                 </Link>
                             </div>
                         )}
@@ -79,7 +79,7 @@ const AdminPage = () => {
                                     className="nav-btn"
                                     to="/admin/authorslist"
                                 >
-                                    List of authors
+                                    List
                                 </Link>
                             </div>
                         )}
@@ -87,13 +87,13 @@ const AdminPage = () => {
                         {category === "gifts" && (
                             <div className="nav-container">
                                 <Link className="nav-btn" to="/admin/addgift">
-                                    Add new item to Giftshop
+                                    Add new
                                 </Link>
                                 <Link
                                     className="nav-btn"
                                     to="/admin/giftshoplist"
                                 >
-                                    Giftshop List
+                                    List
                                 </Link>
                             </div>
                         )}
@@ -101,13 +101,13 @@ const AdminPage = () => {
                         {category === "ratings" && (
                             <div className="nav-container">
                                 <Link className="nav-btn" to="/admin/addrating">
-                                    Add a new rating
+                                    Add new
                                 </Link>
                                 <Link
                                     className="nav-btn"
                                     to="/admin/ratingslist"
                                 >
-                                    Ratings List
+                                    List
                                 </Link>
                             </div>
                         )}
@@ -115,10 +115,10 @@ const AdminPage = () => {
                         {category === "news" && (
                             <div className="nav-container">
                                 <Link className="nav-btn" to="/admin/addnews">
-                                    Add news
+                                    Add new
                                 </Link>
                                 <Link className="nav-btn" to="/admin/newslist">
-                                    News List
+                                    List
                                 </Link>
                             </div>
                         )}
@@ -126,16 +126,19 @@ const AdminPage = () => {
                         {category === "info" && (
                             <div className="nav-container">
                                 <Link className="nav-btn" to="/admin/infolist">
-                                    List info pages
+                                    Info pages
                                 </Link>
                                 <Link className="nav-btn" to="/admin/linkslist">
-                                    List links
+                                    Links
                                 </Link>
                                 <Link
                                     className="nav-btn"
                                     to="/admin/orderslist"
                                 >
-                                    List orders
+                                    Orders
+                                </Link>
+                                <Link className="nav-btn" to="/admin/messages">
+                                    Messages
                                 </Link>
                                 <Link className="nav-btn" to="/admin/imagelist">
                                     Images
