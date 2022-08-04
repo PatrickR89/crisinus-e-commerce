@@ -242,7 +242,7 @@ export const ItemsProvider = ({ children }) => {
             })
             .then((response) => {
                 dispatch({ type: RESET_CONTACT_FORM });
-                return alert(response.data);
+                return alert("Message sent");
             })
             .catch((error) => {
                 dispatch({ type: GET_ITEMS_ERROR });
