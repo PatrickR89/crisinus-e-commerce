@@ -227,6 +227,57 @@ const Wrapper = styled.div`
         }
         margin-bottom: 1rem;
     }
+
+    @media (max-width: 900px) {
+        .content {
+            width: 70%;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .content {
+            width: 100%;
+        }
+    }
+
+    @media (max-height: 950px) {
+        font-size: 0.8rem;
+        .body {
+            padding: 5px;
+            font-size: 0.8rem;
+            label {
+                margin-top: 0.5rem;
+                margin-bottom: 0.3rem;
+            }
+            input {
+                font-size: 0.8rem;
+            }
+        }
+        .header,
+        .footer {
+            padding: 0.2rem;
+            h2 {
+                margin: 0.1rem;
+            }
+        }
+
+        .footer {
+            margin-bottom: 0.8rem;
+        }
+    }
+
+    @media (max-height: 630px) {
+        .header {
+            display: none;
+        }
+
+        .body {
+            padding: 2px;
+            label {
+                margin: 0.2rem;
+            }
+        }
+    }
 `;
 
 export default CartModal;
