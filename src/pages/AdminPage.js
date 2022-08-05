@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Outlet, Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 import Login from "../components/authentication/Login";
 import { useAuthenticationContext } from "../contexts/authentication_context";
@@ -11,6 +12,7 @@ import { useLanguageContext } from "../contexts/language_context";
 const AdminPage = () => {
     const { loggedIn, logout } = useAuthenticationContext();
     const { translation } = useLanguageContext();
+    const navigate = useNavigate();
 
     const [newOrder, setNewOrder] = useState(false);
     const [newModalOpen, setNewModalOpen] = useState(false);
@@ -34,6 +36,7 @@ const AdminPage = () => {
 
     useEffect(() => {
         statusReport();
+        return navigate("/admin/", { replace: true });
     }, []);
 
     useEffect(() => {
@@ -42,6 +45,32 @@ const AdminPage = () => {
         }
         return;
     }, [newOrder]);
+
+    useEffect(() => {
+        switch (category) {
+            case "books":
+                navigate("/admin/booklist", { replace: true });
+                break;
+            case "authors":
+                navigate("/admin/authorslist", { replace: true });
+                break;
+            case "gifts":
+                navigate("/admin/giftshoplist", { replace: true });
+                break;
+            case "ratings":
+                navigate("/admin/ratingslist", { replace: true });
+                break;
+            case "news":
+                navigate("/admin/newslist", { replace: true });
+                break;
+            case "info":
+                navigate("/admin/orderslist", { replace: true });
+                break;
+            default:
+                navigate("/admin", { replace: true });
+                break;
+        }
+    }, [category]);
 
     if (!loggedIn) {
         return <Login />;
@@ -55,6 +84,7 @@ const AdminPage = () => {
                             name="editorial"
                             id="editorial"
                             className="nav-btn"
+                            value={category}
                             onChange={(e) => setCategory(e.target.value)}
                         >
                             <option value="books">{translation.books}</option>
