@@ -7,6 +7,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import { FaCameraRetro } from "react-icons/fa";
 
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 const EditBook = () => {
     axios.defaults.withCredentials = true;
@@ -15,6 +16,7 @@ const EditBook = () => {
     const navigate = useNavigate();
 
     const { header } = useAuthenticationContext();
+    const { translation } = useLanguageContext();
 
     const [initialBook, setInitialBook] = useState({
         title: "",
@@ -242,7 +244,7 @@ const EditBook = () => {
                 </div>
 
                 <div className="info">
-                    <label htmlFor="title">Title:</label>
+                    <label htmlFor="title">{translation.title}:</label>
                     <input
                         type="text"
                         name="title"
@@ -250,7 +252,7 @@ const EditBook = () => {
                         onChange={(e) => setTitle(e.target.value)}
                         value={title}
                     />
-                    <label htmlFor="authors">Authors:</label>
+                    <label htmlFor="authors">{translation.authors}:</label>
                     <div className="authors" name="authors" id="authors">
                         {authors.map((x, i) => {
                             return (
@@ -263,7 +265,7 @@ const EditBook = () => {
                                         onChange={(e) =>
                                             handleAuthorInput(e, i)
                                         }
-                                        placeholder="name"
+                                        placeholder={translation.name}
                                         list="authorsNames"
                                     />
                                     <datalist id="authorsNames">
@@ -283,7 +285,7 @@ const EditBook = () => {
                                         onChange={(e) =>
                                             handleAuthorInput(e, i)
                                         }
-                                        placeholder="last name"
+                                        placeholder={translation.lastName}
                                         list="autLast"
                                     />
                                     <datalist id="autLast">
@@ -303,7 +305,7 @@ const EditBook = () => {
                                                 className="btn"
                                                 onClick={() => handleRemove(i)}
                                             >
-                                                Remove
+                                                {translation.remove}
                                             </button>
                                         )}
                                         {authors.length - 1 === i && (
@@ -311,7 +313,7 @@ const EditBook = () => {
                                                 className="btn"
                                                 onClick={handleAdd}
                                             >
-                                                Add
+                                                {translation.add}
                                             </button>
                                         )}
                                     </div>
@@ -320,11 +322,11 @@ const EditBook = () => {
                         })}
                         {authors.length === 0 && (
                             <button className="btn" onClick={handleAdd}>
-                                Add
+                                {translation.add}
                             </button>
                         )}
                     </div>
-                    <label htmlFor="genre">Genre:</label>
+                    <label htmlFor="genre">{translation.genre}:</label>
                     <input
                         type="text"
                         name="genre"
@@ -332,7 +334,7 @@ const EditBook = () => {
                         value={genre}
                         onChange={(e) => setGenre(e.target.value)}
                     />
-                    <label htmlFor="publisher">Publisher:</label>
+                    <label htmlFor="publisher">{translation.publisher}:</label>
                     <input
                         type="text"
                         name="publisher"
@@ -340,7 +342,7 @@ const EditBook = () => {
                         value={publisher}
                         onChange={(e) => setPublisher(e.target.value)}
                     />
-                    <label htmlFor="language">Language:</label>
+                    <label htmlFor="language">{translation.language}:</label>
                     <input
                         type="text"
                         name="language"
@@ -349,7 +351,7 @@ const EditBook = () => {
                         onChange={(e) => setLanguage(e.target.value)}
                     />
                     <label htmlFor="images" className="photo-input">
-                        Images:
+                        {translation.images}:
                         <input
                             type="file"
                             name="images"
@@ -359,10 +361,11 @@ const EditBook = () => {
                             onChange={handleImages}
                         />
                         <article className="btn">
-                            <FaCameraRetro className="icon-large" /> Add image
+                            <FaCameraRetro className="icon-large" />{" "}
+                            {translation.addImage}
                         </article>
                     </label>
-                    <label htmlFor="price">Price:</label>
+                    <label htmlFor="price">{translation.price}:</label>
                     <input
                         type="number"
                         name="price"
@@ -370,7 +373,7 @@ const EditBook = () => {
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
                     />
-                    <label htmlFor="year">Year:</label>
+                    <label htmlFor="year">{translation.year}:</label>
                     <input
                         type="number"
                         name="year"
@@ -378,7 +381,7 @@ const EditBook = () => {
                         value={year}
                         onChange={(e) => setYear(e.target.value)}
                     />
-                    <label htmlFor="maxOrder">Maximum amount to order:</label>
+                    <label htmlFor="maxOrder">{translation.maxAmount}:</label>
                     <input
                         type="number"
                         name="maxOrder"
@@ -386,7 +389,7 @@ const EditBook = () => {
                         value={maxOrder}
                         onChange={(e) => setMaxOrder(e.target.value)}
                     />
-                    <label htmlFor="desc">Description:</label>
+                    <label htmlFor="desc">{translation.description}:</label>
                     <textarea
                         name="desc"
                         id="desc"
@@ -397,13 +400,13 @@ const EditBook = () => {
                     ></textarea>
                     <div className="edit-container">
                         <button onClick={() => editBook()} className="btn mt-1">
-                            Edit book
+                            {translation.edit}
                         </button>
                         <button
                             className="btn mt-1 btn-delete"
                             onClick={deleteBook}
                         >
-                            DELETE BOOK
+                            {translation.delete}
                         </button>
                     </div>
                 </div>

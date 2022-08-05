@@ -4,12 +4,14 @@ import styled from "styled-components";
 import axios from "axios";
 
 import { useCurrencyContext } from "../../../contexts/currency_context";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 const BookList = () => {
     const [bookList, setBookList] = useState([]);
     const [authorsList, setAuthorsList] = useState([]);
 
     const { priceFormat } = useCurrencyContext();
+    const { translation } = useLanguageContext();
 
     const retrieveBooks = () => {
         axios
@@ -44,11 +46,11 @@ const BookList = () => {
             <Wrapper>
                 <div className="per-book head">
                     <section>ID</section>
-                    <section>TITLE</section>
-                    <section>AUTHORS</section>
-                    <section>YEAR</section>
-                    <section>LANGUAGE</section>
-                    <section>PRICE</section>
+                    <section>{translation.title.toUpperCase()}</section>
+                    <section>{translation.authors.toUpperCase()}</section>
+                    <section>{translation.year.toUpperCase()}</section>
+                    <section>{translation.language.toUpperCase()}</section>
+                    <section>{translation.price.toUpperCase()}</section>
                 </div>
                 {bookList.map((book, index) => {
                     return (

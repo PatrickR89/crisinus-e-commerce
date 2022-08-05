@@ -7,12 +7,14 @@ import styled from "styled-components";
 import axios from "axios";
 
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 const EditInfo = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
     const { header } = useAuthenticationContext();
+    const { translation } = useLanguageContext();
 
     const [initialPage, setInitialPage] = useState({
         title: "",
@@ -133,7 +135,7 @@ const EditInfo = () => {
             </div>
             <div className="info">
                 <label htmlFor="images" className="photo-input">
-                    Images:
+                    {translation.images}:
                     <input
                         type="file"
                         name="images"
@@ -143,11 +145,12 @@ const EditInfo = () => {
                         onChange={handleAddImages}
                     />
                     <article className="btn">
-                        <FaCameraRetro className="icon-large" /> Add image
+                        <FaCameraRetro className="icon-large" />{" "}
+                        {translation.addImage}
                     </article>
                 </label>
 
-                <label htmlFor="content">Content:</label>
+                <label htmlFor="content">{translation.content}:</label>
                 <textarea
                     name="content"
                     id="content"
@@ -158,7 +161,7 @@ const EditInfo = () => {
                 ></textarea>
                 <div className="edit-container">
                     <button onClick={editInfo} className="btn mt-1">
-                        Edit page
+                        {translation.edit}
                     </button>
                 </div>
             </div>

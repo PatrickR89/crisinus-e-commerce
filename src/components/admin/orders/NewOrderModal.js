@@ -20,14 +20,14 @@ const NewOrderModal = ({ closeModal }) => {
                     <h2>!</h2>
                 </div>
                 <div className="body">
-                    <p>New order was recieved</p>
+                    <p>{translation.newOrder}</p>
                 </div>
                 <div className="footer">
                     <button className="btn" onClick={closeModal}>
                         {translation.back}
                     </button>
                     <button className="btn" onClick={handleSubmit}>
-                        go to orders
+                        {translation.orders}
                     </button>
                 </div>
             </div>

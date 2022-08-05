@@ -6,9 +6,11 @@ import styled from "styled-components";
 import axios from "axios";
 
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 const AddGift = () => {
     const { header } = useAuthenticationContext();
+    const { translation } = useLanguageContext();
 
     const [name, setName] = useState("");
     const [price, setPrice] = useState(0);
@@ -71,7 +73,7 @@ const AddGift = () => {
         <Wrapper>
             <div className="info">
                 <label htmlFor="images" className="photo-input">
-                    Images:
+                    {translation.images}:
                     <input
                         type="file"
                         name="images"
@@ -81,10 +83,11 @@ const AddGift = () => {
                         onChange={handleAddImages}
                     />
                     <article className="btn">
-                        <FaCameraRetro className="icon-large" /> Add image
+                        <FaCameraRetro className="icon-large" />{" "}
+                        {translation.addImage}
                     </article>
                 </label>
-                <label htmlFor="name">Name:</label>
+                <label htmlFor="name">{translation.name}:</label>
                 <input
                     type="text"
                     name="name"
@@ -92,7 +95,7 @@ const AddGift = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <label htmlFor="price">Price</label>
+                <label htmlFor="price">{translation.price}:</label>
                 <input
                     type="number"
                     name="price"
@@ -100,7 +103,7 @@ const AddGift = () => {
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
                 />
-                <label htmlFor="max_order">Maximum available amount:</label>
+                <label htmlFor="max_order">{translation.maxAmount}:</label>
                 <input
                     type="number"
                     name="max_order"
@@ -108,7 +111,7 @@ const AddGift = () => {
                     value={max_order}
                     onChange={(e) => setMax_order(e.target.value)}
                 />
-                <label htmlFor="description">Description:</label>
+                <label htmlFor="description">{translation.description}:</label>
                 <textarea
                     name="description"
                     id="description"
@@ -119,7 +122,7 @@ const AddGift = () => {
                 ></textarea>
                 <div className="edit-container">
                     <button onClick={addGift} className="btn mt-1">
-                        Add item to giftshop
+                        {translation.add}
                     </button>
                 </div>
             </div>

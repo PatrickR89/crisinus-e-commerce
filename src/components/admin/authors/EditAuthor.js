@@ -6,12 +6,14 @@ import { FaTrashAlt } from "react-icons/fa";
 import { FaCameraRetro } from "react-icons/fa";
 
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 const EditAuthor = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
     const { header } = useAuthenticationContext();
+    const { translation } = useLanguageContext();
 
     const [initialAuthor, setInitialAuthor] = useState({
         name: "",
@@ -168,7 +170,7 @@ const EditAuthor = () => {
             </div>
             <div className="info">
                 <label htmlFor="images" className="photo-input">
-                    Images:
+                    {translation.images.toUpperCase()}:
                     <input
                         type="file"
                         name="images"
@@ -181,7 +183,7 @@ const EditAuthor = () => {
                         <FaCameraRetro className="icon-large" /> Add image
                     </article>
                 </label>
-                <label htmlFor="name">Name:</label>
+                <label htmlFor="name">{translation.name.toUpperCase()}:</label>
                 <input
                     type="text"
                     name="name"
@@ -189,7 +191,9 @@ const EditAuthor = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <label htmlFor="last_name">Last name:</label>
+                <label htmlFor="last_name">
+                    {translation.lastName.toUpperCase()}:
+                </label>
                 <input
                     type="text"
                     name="last_name"
@@ -197,7 +201,7 @@ const EditAuthor = () => {
                     value={last_name}
                     onChange={(e) => setLast_name(e.target.value)}
                 />
-                <label htmlFor="url">Url:</label>
+                <label htmlFor="url">URL:</label>
                 <input
                     type="text"
                     name="url"
@@ -205,7 +209,7 @@ const EditAuthor = () => {
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
                 />
-                <label htmlFor="bio">Bio:</label>
+                <label htmlFor="bio">BIO:</label>
                 <textarea
                     name="bio"
                     id="bio"
@@ -216,13 +220,13 @@ const EditAuthor = () => {
                 ></textarea>
                 <div className="edit-container">
                     <button onClick={handleEdit} className="btn mt-1">
-                        Edit author
+                        {translation.edit}
                     </button>
                     <button
                         className="btn mt-1 btn-delete"
                         onClick={handleDelete}
                     >
-                        DELETE author
+                        {translation.delete}
                     </button>
                 </div>
             </div>

@@ -4,11 +4,13 @@ import axios from "axios";
 import styled from "styled-components";
 
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 const OrderList = () => {
     const navigate = useNavigate();
     const [orderList, setOrderList] = useState([]);
     const { header } = useAuthenticationContext();
+    const { translation } = useLanguageContext();
 
     useEffect(() => {
         retrieveOrders();
@@ -45,10 +47,10 @@ const OrderList = () => {
     return (
         <main>
             <Wrapper>
-                ORDERS
+                <h2>{translation.orders}</h2>
                 <div className="per-order head">
                     <section>ID</section>
-                    <section>DATE</section>
+                    <section>{translation.date.toUpperCase()}</section>
                     <section>STATUS</section>
                 </div>
                 {orderList.length > 0 &&

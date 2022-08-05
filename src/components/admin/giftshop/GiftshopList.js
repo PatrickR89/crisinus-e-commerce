@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
+import { useLanguageContext } from "../../../contexts/language_context";
+
 const GiftshopList = () => {
+    const { translation } = useLanguageContext();
     const [gsList, setGsList] = useState([]);
 
     const getGifts = () => {
@@ -24,13 +27,14 @@ const GiftshopList = () => {
 
     return (
         <Wrapper>
-            Giftshop List
+            <h2>Giftshop</h2>
+
             <div className="per-gift head">
                 <section>ID</section>
-                <section>NAME</section>
-                <section>PRICE</section>
-                <section>MAX ORDER</section>
-                <section>DESCRIPTION</section>
+                <section>{translation.name.toUpperCase()}</section>
+                <section>{translation.price.toUpperCase()}</section>
+                <section>{translation.maxOrder.toUpperCase()}</section>
+                <section>{translation.description.toUpperCase()}</section>
             </div>
             {gsList.length > 0 &&
                 gsList.map((gift, index) => {

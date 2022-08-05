@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
 import { SingleMessageModal } from "./";
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 const MessageList = () => {
     const navigate = useNavigate();
@@ -19,6 +20,7 @@ const MessageList = () => {
     });
     const [isModal, setIsModal] = useState(false);
     const { header } = useAuthenticationContext();
+    const { translation } = useLanguageContext();
 
     useEffect(() => {
         retrieveMsgs();
@@ -134,9 +136,9 @@ const MessageList = () => {
                 MESSAGES
                 <div className="per-order head">
                     <section>ID</section>
-                    <section>NAME</section>
+                    <section>{translation.name.toUpperCase()}</section>
                     <section>EMAIL</section>
-                    <section>DATE</section>
+                    <section>{translation.date.toUpperCase()}</section>
                     <section>STATUS</section>
                 </div>
                 {messages.length > 0 &&

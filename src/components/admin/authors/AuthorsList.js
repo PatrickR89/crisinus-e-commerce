@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 const AuthorsList = () => {
+    const { translation } = useLanguageContext();
     const [authorList, setAuthorList] = useState([]);
 
     const getAuthors = () => {
@@ -24,10 +26,10 @@ const AuthorsList = () => {
 
     return (
         <Wrapper>
-            AuthorsList
+            {translation.authorsList.toUpperCase()}
             <div className="per-author head">
                 <section>ID</section>
-                <section>NAME</section>
+                <section>{translation.name.toUpperCase()}</section>
                 <section>WEB LINK</section>
                 <section>BIO</section>
             </div>

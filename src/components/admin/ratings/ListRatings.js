@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
+import { useLanguageContext } from "../../../contexts/language_context";
+
 const ListRatings = () => {
+    const { translation } = useLanguageContext();
+
     const [reviewsList, setReviewsList] = useState([]);
 
     const getReviews = () => {
@@ -24,14 +28,14 @@ const ListRatings = () => {
 
     return (
         <Wrapper>
-            Giftshop List
+            <h2>{translation.reviews}</h2>
             <div className="per-gift head">
                 <section>ID</section>
-                <section>BOOK TITLE</section>
-                <section>TITLE</section>
-                <section>RATING</section>
-                <section>REVIEWER</section>
-                <section>REVIEW</section>
+                <section>{translation.bookTitle.toUpperCase()}</section>
+                <section>{translation.title.toUpperCase()}</section>
+                <section>{translation.rating.toUpperCase()}</section>
+                <section>{translation.reviewer.toUpperCase()}</section>
+                <section>{translation.review.toUpperCase()}</section>
             </div>
             {reviewsList.length > 0 &&
                 reviewsList.map((review, index) => {

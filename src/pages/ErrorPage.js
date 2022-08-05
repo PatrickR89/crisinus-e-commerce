@@ -1,10 +1,12 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { useLanguageContext } from "../contexts/language_context";
 
 const ErrorPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const { translation } = useLanguageContext();
 
     function navigateToHome() {
         return navigate(-1);
@@ -16,14 +18,11 @@ const ErrorPage = () => {
 
     return (
         <Wrapper>
-            <h2 className="mb-2">Error: 404</h2>
-            <h4 className="mb-2">Page {location.pathname} not found</h4>
-            <p className="mb-2">
-                Browser will automatically redirect to previous page, in case it
-                does not, please click "Back"
-            </p>
+            <h2 className="mb-2">{translation.error}: 404</h2>
+            <h4 className="mb-2">{`${translation.page} ${location.pathname} ${translation.notFound}`}</h4>
+            <p className="mb-2">{translation.pageErrMsg}</p>
             <button className="btn" onClick={navigateToHome}>
-                Back
+                {translation.back}
             </button>
         </Wrapper>
     );

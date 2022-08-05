@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 const ListNews = () => {
     const [newsList, setNewsList] = useState([]);
+    const { translation } = useLanguageContext();
 
     const getNews = () => {
         axios
@@ -39,9 +41,9 @@ const ListNews = () => {
             News List
             <div className="per-gift head">
                 <section>ID</section>
-                <section>NEWS TITLE</section>
-                <section>TEXT</section>
-                <section>DATE</section>
+                <section>{translation.title.toUpperCase()}</section>
+                <section>{translation.content.toUpperCase()}</section>
+                <section>{translation.date.toUpperCase()}</section>
             </div>
             {newsList.length > 0 &&
                 newsList.map((news, index) => {

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { FaTrashAlt } from "react-icons/fa";
 
 import { useLanguageContext } from "../../../contexts/language_context";
 
@@ -17,17 +18,19 @@ const CartModal = ({ closeModal, deleteOrder }) => {
         <Wrapper>
             <div className="content glass">
                 <div className="header">
-                    <h2>!</h2>
+                    <h2>
+                        <FaTrashAlt />
+                    </h2>
                 </div>
                 <div className="body">
-                    <p>Confirm order delete</p>
+                    <p>{translation.confirm.toUpperCase()}</p>
                 </div>
                 <div className="footer">
                     <button className="btn" onClick={closeModal}>
                         {translation.back}
                     </button>
                     <button className="btn-delete btn" onClick={handleSubmit}>
-                        DELETE
+                        {translation.delete}
                     </button>
                 </div>
             </div>

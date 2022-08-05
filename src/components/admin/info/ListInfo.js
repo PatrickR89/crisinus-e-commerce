@@ -4,11 +4,13 @@ import axios from "axios";
 import styled from "styled-components";
 
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 const ListInfo = () => {
     const navigate = useNavigate();
 
     const { header } = useAuthenticationContext();
+    const { translation } = useLanguageContext();
 
     const [infoList, setInfoList] = useState([]);
 
@@ -52,9 +54,9 @@ const ListInfo = () => {
         <Wrapper>
             <div className="per-page head">
                 <section>ID</section>
-                <section>TITLE</section>
-                <section>SHOWING TITLE</section>
-                <section>CONTENT</section>
+                <section>{translation.title.toUpperCase()}</section>
+                <section>{translation.titleShow.toUpperCase()}</section>
+                <section>{translation.content.toUpperCase()}</section>
             </div>
             {infoList.length > 0 &&
                 infoList.map((infoPage, index) => {
@@ -84,7 +86,7 @@ const ListInfo = () => {
                 })}
             <div className="edit-container">
                 <button onClick={resetTable} className="btn mt-1 btn-delete">
-                    Reset table
+                    {translation.reset}
                 </button>
             </div>
         </Wrapper>

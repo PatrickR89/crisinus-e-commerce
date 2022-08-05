@@ -6,9 +6,12 @@ import styled from "styled-components";
 import Login from "../components/authentication/Login";
 import { useAuthenticationContext } from "../contexts/authentication_context";
 import { NewOrderModal } from "../components/admin/orders";
+import { useLanguageContext } from "../contexts/language_context";
 
 const AdminPage = () => {
     const { loggedIn, logout } = useAuthenticationContext();
+    const { translation } = useLanguageContext();
+
     const [newOrder, setNewOrder] = useState(false);
     const [newModalOpen, setNewModalOpen] = useState(false);
 
@@ -54,21 +57,25 @@ const AdminPage = () => {
                             className="nav-btn"
                             onChange={(e) => setCategory(e.target.value)}
                         >
-                            <option value="books">books</option>
-                            <option value="authors">authors</option>
-                            <option value="gifts">gifts</option>
-                            <option value="ratings">ratings</option>
-                            <option value="news">news</option>
+                            <option value="books">{translation.books}</option>
+                            <option value="authors">
+                                {translation.authors}
+                            </option>
+                            <option value="gifts">giftshop</option>
+                            <option value="ratings">
+                                {translation.reviews}
+                            </option>
+                            <option value="news">{translation.news}</option>
                             <option value="info">info</option>
                         </select>
 
                         {category === "books" && (
                             <div className="nav-container">
                                 <Link className="nav-btn" to="/admin/addbook">
-                                    Add new
+                                    {translation.add}
                                 </Link>
                                 <Link className="nav-btn" to="/admin/booklist">
-                                    List
+                                    {translation.list}
                                 </Link>
                             </div>
                         )}
@@ -79,7 +86,7 @@ const AdminPage = () => {
                                     className="nav-btn"
                                     to="/admin/authorslist"
                                 >
-                                    List
+                                    {translation.list}
                                 </Link>
                             </div>
                         )}
@@ -87,13 +94,13 @@ const AdminPage = () => {
                         {category === "gifts" && (
                             <div className="nav-container">
                                 <Link className="nav-btn" to="/admin/addgift">
-                                    Add new
+                                    {translation.add}
                                 </Link>
                                 <Link
                                     className="nav-btn"
                                     to="/admin/giftshoplist"
                                 >
-                                    List
+                                    {translation.list}
                                 </Link>
                             </div>
                         )}
@@ -101,13 +108,13 @@ const AdminPage = () => {
                         {category === "ratings" && (
                             <div className="nav-container">
                                 <Link className="nav-btn" to="/admin/addrating">
-                                    Add new
+                                    {translation.add}
                                 </Link>
                                 <Link
                                     className="nav-btn"
                                     to="/admin/ratingslist"
                                 >
-                                    List
+                                    {translation.list}
                                 </Link>
                             </div>
                         )}
@@ -115,10 +122,10 @@ const AdminPage = () => {
                         {category === "news" && (
                             <div className="nav-container">
                                 <Link className="nav-btn" to="/admin/addnews">
-                                    Add new
+                                    {translation.add}
                                 </Link>
                                 <Link className="nav-btn" to="/admin/newslist">
-                                    List
+                                    {translation.list}
                                 </Link>
                             </div>
                         )}
@@ -126,22 +133,22 @@ const AdminPage = () => {
                         {category === "info" && (
                             <div className="nav-container">
                                 <Link className="nav-btn" to="/admin/infolist">
-                                    Info pages
+                                    {translation.infoPages}
                                 </Link>
                                 <Link className="nav-btn" to="/admin/linkslist">
-                                    Links
+                                    {translation.links}
                                 </Link>
                                 <Link
                                     className="nav-btn"
                                     to="/admin/orderslist"
                                 >
-                                    Orders
+                                    {translation.orders}
                                 </Link>
                                 <Link className="nav-btn" to="/admin/messages">
-                                    Messages
+                                    {translation.messages}
                                 </Link>
                                 <Link className="nav-btn" to="/admin/imagelist">
-                                    Images
+                                    {translation.images}
                                 </Link>
                             </div>
                         )}

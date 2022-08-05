@@ -4,12 +4,14 @@ import styled from "styled-components";
 import axios from "axios";
 
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 const EditInfo = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
     const { header } = useAuthenticationContext();
+    const { translation } = useLanguageContext();
 
     const [initialLink, setInitialLink] = useState({
         id: "",
@@ -76,7 +78,7 @@ const EditInfo = () => {
         <Wrapper>
             <h2>{initialLink.id}</h2>
             <div className="info">
-                <label htmlFor="content">link to:</label>
+                <label htmlFor="content">{translation.link}:</label>
                 <textarea
                     name="content"
                     id="content"
@@ -89,7 +91,7 @@ const EditInfo = () => {
                 </textarea>
                 <div className="edit-container">
                     <button onClick={editLink} className="btn mt-1">
-                        Edit link
+                        {translation.edit}
                     </button>
                 </div>
             </div>

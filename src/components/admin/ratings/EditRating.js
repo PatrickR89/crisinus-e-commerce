@@ -5,12 +5,14 @@ import styled from "styled-components";
 import axios from "axios";
 
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 const EditRating = () => {
     const navigate = useNavigate();
     const { id } = useParams();
 
     const { header } = useAuthenticationContext();
+    const { translation } = useLanguageContext();
 
     const [initialReview, setInitialReview] = useState({
         book_id: "",
@@ -130,8 +132,11 @@ const EditRating = () => {
     return (
         <main>
             <Wrapper>
+                <h2>
+                    {translation.edit} {translation.reviews}
+                </h2>
                 <div className="info">
-                    <label htmlFor="book">Select book:</label>
+                    <label htmlFor="book">{translation.selectBook}:</label>
                     <select
                         name="book"
                         id="book"
@@ -149,7 +154,7 @@ const EditRating = () => {
                             );
                         })}
                     </select>
-                    <label htmlFor="rating_title">Title:</label>
+                    <label htmlFor="rating_title">{translation.title}:</label>
                     <input
                         type="text"
                         name="rating_title"
@@ -157,7 +162,7 @@ const EditRating = () => {
                         onChange={(e) => setRating_title(e.target.value)}
                         value={rating_title}
                     />
-                    <label htmlFor="rating">Rating:</label>
+                    <label htmlFor="rating">{translation.rating}:</label>
                     <input
                         type="number"
                         name="rating"
@@ -167,7 +172,7 @@ const EditRating = () => {
                         max="5"
                         onChange={(e) => setRating(e.target.value)}
                     />
-                    <label htmlFor="reviewer">Reviewer:</label>
+                    <label htmlFor="reviewer">{translation.reviewer}:</label>
                     <input
                         type="text"
                         name="reviewer"
@@ -176,7 +181,7 @@ const EditRating = () => {
                         onChange={(e) => setReviewer(e.target.value)}
                     />
 
-                    <label htmlFor="review">Review:</label>
+                    <label htmlFor="review">{translation.review}:</label>
                     <textarea
                         name="review"
                         id="review"
@@ -187,13 +192,13 @@ const EditRating = () => {
                     ></textarea>
                     <div className="edit-container">
                         <button onClick={editReview} className="btn mt-1">
-                            Edit review
+                            {translation.edit}
                         </button>
                         <button
                             onClick={handleDelete}
                             className="btn mt-1 btn-delete"
                         >
-                            DELETE review
+                            {translation.delete}
                         </button>
                     </div>
                 </div>

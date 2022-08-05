@@ -17,7 +17,9 @@ const SingleMessageModal = ({
         <Wrapper>
             <div className="content glass">
                 <div className="header">
-                    <h2>Name: {message.name}</h2>
+                    <h2>
+                        {translation.name}: {message.name}
+                    </h2>
                     <h2>
                         Email: <span>{message.email}</span>
                     </h2>
@@ -39,7 +41,7 @@ const SingleMessageModal = ({
                                     handleClose();
                                 }}
                             >
-                                CONFIRM
+                                {translation.confirm}
                             </button>
                         )}
 
@@ -50,7 +52,7 @@ const SingleMessageModal = ({
                                 handleClose();
                             }}
                         >
-                            DELETE
+                            {translation.delete}
                         </button>
                     </div>
                 </div>

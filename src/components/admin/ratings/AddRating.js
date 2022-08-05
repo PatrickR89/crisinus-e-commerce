@@ -5,11 +5,13 @@ import styled from "styled-components";
 import axios from "axios";
 
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 const AddRating = () => {
     const navigate = useNavigate();
 
     const { header } = useAuthenticationContext();
+    const { translation } = useLanguageContext();
 
     const [book, setBook] = useState({});
     const [rating_title, setRating_title] = useState("");
@@ -66,7 +68,7 @@ const AddRating = () => {
         <main>
             <Wrapper>
                 <div className="info">
-                    <label htmlFor="book">Select book:</label>
+                    <label htmlFor="book">{translation.selectBook}:</label>
                     <select
                         name="book"
                         id="book"
@@ -78,7 +80,7 @@ const AddRating = () => {
                             );
                         })}
                     </select>
-                    <label htmlFor="rating_title">Title:</label>
+                    <label htmlFor="rating_title">{translation.title}:</label>
                     <input
                         type="text"
                         name="rating_title"
@@ -86,7 +88,7 @@ const AddRating = () => {
                         onChange={(e) => setRating_title(e.target.value)}
                         value={rating_title}
                     />
-                    <label htmlFor="rating">Rating:</label>
+                    <label htmlFor="rating">{translation.rating}:</label>
                     <input
                         type="number"
                         name="rating"
@@ -96,7 +98,7 @@ const AddRating = () => {
                         max="5"
                         onChange={(e) => setRating(e.target.value)}
                     />
-                    <label htmlFor="reviewer">Reviewer:</label>
+                    <label htmlFor="reviewer">{translation.reviewer}:</label>
                     <input
                         type="text"
                         name="reviewer"
@@ -105,7 +107,7 @@ const AddRating = () => {
                         onChange={(e) => setReviewer(e.target.value)}
                     />
 
-                    <label htmlFor="review">Review:</label>
+                    <label htmlFor="review">{translation.review}:</label>
                     <textarea
                         name="review"
                         id="review"
@@ -116,7 +118,7 @@ const AddRating = () => {
                         {review}
                     </textarea>
                     <button onClick={addReview} className="btn mt-1">
-                        Add review
+                        {translation.add}
                     </button>
                 </div>
             </Wrapper>

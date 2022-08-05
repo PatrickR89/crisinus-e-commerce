@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { FaCameraRetro } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
 
 import styled from "styled-components";
 import axios from "axios";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 const ImageList = () => {
     const [images, setImages] = useState([]);
+    const { translation } = useLanguageContext();
 
     const getImages = () => {
         axios
@@ -33,7 +33,7 @@ const ImageList = () => {
     }, []);
     return (
         <Wrapper>
-            <h2>Images:</h2>
+            <h2>{translation.images}:</h2>
             <div className="thumb-container">
                 {images &&
                     images.map((image, index) => {

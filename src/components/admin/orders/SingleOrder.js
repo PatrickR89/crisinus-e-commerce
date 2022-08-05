@@ -6,10 +6,14 @@ import styled from "styled-components";
 
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useCurrencyContext } from "../../../contexts/currency_context";
+import { useLanguageContext } from "../../../contexts/language_context";
+
 import { OrderModal } from "./";
 
 const SingleOrder = () => {
     const { priceFormat } = useCurrencyContext();
+    const { translation } = useLanguageContext();
+    const { header } = useAuthenticationContext();
 
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
@@ -22,7 +26,7 @@ const SingleOrder = () => {
     const [modalStatus, setModalStatus] = useState(false);
     const [totalAmount, setTotalAmount] = useState(0);
     const { id } = useParams();
-    const { header } = useAuthenticationContext();
+
     const navigate = useNavigate();
 
     const getOrder = async () => {
@@ -122,19 +126,37 @@ const SingleOrder = () => {
     return (
         <Wrapper>
             <h3 className="order-title">
-                ORDER: <span className={setStatusColor(status)}>{status}</span>
+                {translation.orderNoun}:{" "}
+                <span className={setStatusColor(status)}>{status}</span>
             </h3>
             <div className="order-main">
                 <div className="left-side">
                     <div className="client-info">
-                        <h4>CLIENT INFORMATION</h4>
-                        <p>NAME: {order.clientName}</p>
-                        <p>LAST NAME: {order.clientLastName}</p>
+                        <h4>{translation.clientInfo.toUpperCase()}</h4>
+                        <p>
+                            {translation.clientName.toUpperCase()}:{" "}
+                            {order.clientName}
+                        </p>
+                        <p>
+                            {translation.clientLastName.toUpperCase()}:{" "}
+                            {order.clientLastName}
+                        </p>
                         <p>EMAIL: {order.clientEmail}</p>
-                        <p>STREET: {order.streetName}</p>
-                        <p>STREET NO.: {order.streetNumber}</p>
-                        <p>CITY: {order.city}</p>
-                        <p>POSTAL CODE: {order.postalCode}</p>
+                        <p>
+                            {translation.clientStreetName.toUpperCase()}:{" "}
+                            {order.streetName}
+                        </p>
+                        <p>
+                            {translation.clientStreetNumber.toUpperCase()}:{" "}
+                            {order.streetNumber}
+                        </p>
+                        <p>
+                            {translation.clientCity.toUpperCase()}: {order.city}
+                        </p>
+                        <p>
+                            {translation.clientPostalCode.toUpperCase()}:{" "}
+                            {order.postalCode}
+                        </p>
                     </div>
                     <div className="button-container">
                         <button className="btn" onClick={handlePrint}>
@@ -145,7 +167,7 @@ const SingleOrder = () => {
                                 className="btn approve"
                                 onClick={() => setOrderStatus("CONFIRMED")}
                             >
-                                CONFIRM
+                                {translation.confirm}
                             </button>
                         )}
                         {status === "CONFIRMED" && (
@@ -153,13 +175,13 @@ const SingleOrder = () => {
                                 className="btn btn-delete"
                                 onClick={() => setModalStatus(true)}
                             >
-                                DELETE ORDER
+                                {translation.delete}
                             </button>
                         )}
                     </div>
                 </div>
                 <div className="cart-info">
-                    <h4>CART INFORMATION</h4>
+                    <h4>{translation.cartInfo.toUpperCase}</h4>
                     {cart.map((cartItem, index) => {
                         return (
                             <div
@@ -172,14 +194,21 @@ const SingleOrder = () => {
                             >
                                 <div>
                                     <p>
-                                        ITEM: {cartItem.title || cartItem.name}
+                                        {translation.item.toUpperCase()}:{" "}
+                                        {cartItem.title || cartItem.name}
                                     </p>
-                                    <p>PRICE: {priceFormat(cartItem.price)}</p>
+                                    <p>
+                                        {translation.price.toUpperCase()}:{" "}
+                                        {priceFormat(cartItem.price)}
+                                    </p>
                                 </div>
                                 <div>
-                                    <p>AMOUNT: {cartItem.amount}</p>
                                     <p>
-                                        PRICE TOTAL:{" "}
+                                        {translation.amount.toUpperCase()}:{" "}
+                                        {cartItem.amount}
+                                    </p>
+                                    <p>
+                                        {translation.priceTotal.toUpperCase()}:{" "}
                                         {priceFormat(
                                             cartItem.price * cartItem.amount
                                         )}
@@ -188,41 +217,73 @@ const SingleOrder = () => {
                             </div>
                         );
                     })}
-                    <h4>ORDER TOTAL: {priceFormat(totalAmount)}</h4>
+                    <h4>
+                        {translation.orderTotal.toUpperCase()}:{" "}
+                        {priceFormat(totalAmount)}
+                    </h4>
                 </div>
             </div>
             <div style={{ display: "none" }}>
                 <div className="order-main" ref={componentRef}>
                     <div className="left-side">
-                        <h4 style={{ margin: "1rem" }}>CLIENT INFORMATION</h4>
+                        <h4 style={{ margin: "1rem" }}>
+                            {translation.clientInfo.toUpperCase()}
+                        </h4>
                         <div style={{ margin: "2rem" }}>
-                            <p>NAME: {order.clientName}</p>
-                            <p>LAST NAME: {order.clientLastName}</p>
+                            <p>
+                                {translation.name.toUpperCase()}:{" "}
+                                {order.clientName}
+                            </p>
+                            <p>
+                                {translation.clientLastName.toUpperCase()}:{" "}
+                                {order.clientLastName}
+                            </p>
                             <p>EMAIL: {order.clientEmail}</p>
-                            <p>STREET: {order.streetName}</p>
-                            <p>STREET NO.: {order.streetNumber}</p>
-                            <p>CITY: {order.city}</p>
-                            <p>POSTAL CODE: {order.postalCode}</p>
+                            <p>
+                                {translation.clientStreetName.toUpperCase()}:{" "}
+                                {order.streetName}
+                            </p>
+                            <p>
+                                {translation.clientStreetNumber.toUpperCase()}:{" "}
+                                {order.streetNumber}
+                            </p>
+                            <p>
+                                {" "}
+                                {translation.clientCity.toUpperCase()}:{" "}
+                                {order.city}
+                            </p>
+                            <p>
+                                {translation.clientPostalCode.toUpperCase()}:{" "}
+                                {order.postalCode}
+                            </p>
                         </div>
                     </div>
                     <div className="cart-info">
-                        <h4 style={{ margin: "1rem" }}>CART INFORMATION</h4>
+                        <h4 style={{ margin: "1rem" }}>
+                            {translation.cartInfo.toUpperCase}
+                        </h4>
                         {cart.map((cartItem, index) => {
                             return (
                                 <div key={index} style={{ margin: "2rem" }}>
                                     <div>
                                         <p>
-                                            ITEM:{" "}
+                                            {translation.item.toUpperCase()}:{" "}
                                             {cartItem.title || cartItem.name}
                                         </p>
                                         <p>
-                                            PRICE: {priceFormat(cartItem.price)}
+                                            {translation.price.toUpperCase()}:{" "}
+                                            {priceFormat(cartItem.price)}
                                         </p>
                                     </div>
                                     <div>
-                                        <p>AMOUNT: {cartItem.amount}</p>
                                         <p>
-                                            PRICE TOTAL:{" "}
+                                            {" "}
+                                            {translation.amount.toUpperCase()}:{" "}
+                                            {cartItem.amount}
+                                        </p>
+                                        <p>
+                                            {translation.priceTotal.toUpperCase()}
+                                            :{" "}
                                             {priceFormat(
                                                 cartItem.price * cartItem.amount
                                             )}
@@ -233,7 +294,8 @@ const SingleOrder = () => {
                             );
                         })}
                         <h4 style={{ margin: "1rem" }}>
-                            ORDER TOTAL: {priceFormat(totalAmount)}
+                            {translation.orderTotal.toUpperCase()}:{" "}
+                            {priceFormat(totalAmount)}
                         </h4>
                     </div>
                 </div>

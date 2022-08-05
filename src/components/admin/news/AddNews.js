@@ -6,11 +6,13 @@ import styled from "styled-components";
 import axios from "axios";
 
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 const AddNews = () => {
     const navigate = useNavigate();
 
     const { header } = useAuthenticationContext();
+    const { translation } = useLanguageContext();
 
     const [title, setTitle] = useState("");
     const [images, setImages] = useState([]);
@@ -65,9 +67,12 @@ const AddNews = () => {
 
     return (
         <Wrapper>
+            <h2>
+                {translation.add} {translation.news}
+            </h2>
             <div className="info">
                 <label htmlFor="images" className="photo-input">
-                    Images:
+                    {translation.images}:
                     <input
                         type="file"
                         name="images"
@@ -77,10 +82,11 @@ const AddNews = () => {
                         onChange={handleAddImages}
                     />
                     <article className="btn">
-                        <FaCameraRetro className="icon-large" /> Add image
+                        <FaCameraRetro className="icon-large" />{" "}
+                        {translation.addImage}
                     </article>
                 </label>
-                <label htmlFor="title">News title:</label>
+                <label htmlFor="title">{translation.title}:</label>
                 <input
                     type="text"
                     name="title"
@@ -88,7 +94,7 @@ const AddNews = () => {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
-                <label htmlFor="text">News text:</label>
+                <label htmlFor="text">{translation.content}:</label>
                 <textarea
                     name="text"
                     id="text"
@@ -99,7 +105,7 @@ const AddNews = () => {
                 ></textarea>
                 <div className="edit-container">
                     <button onClick={addNews} className="btn mt-1">
-                        Add news
+                        {translation.add}
                     </button>
                 </div>
             </div>

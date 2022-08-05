@@ -6,11 +6,13 @@ import styled from "styled-components";
 import axios from "axios";
 
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 const AddBook = () => {
     const navigate = useNavigate();
 
     const { header, loggedIn } = useAuthenticationContext();
+    const { translation } = useLanguageContext();
 
     const [title, setTitle] = useState("");
     const [authors, setAuthors] = useState([{ name: "", last_name: "" }]);
@@ -118,7 +120,7 @@ const AddBook = () => {
         <main>
             <Wrapper>
                 <div className="info">
-                    <label htmlFor="title">Title:</label>
+                    <label htmlFor="title">{translation.title}:</label>
                     <input
                         type="text"
                         name="title"
@@ -126,7 +128,7 @@ const AddBook = () => {
                         onChange={(e) => setTitle(e.target.value)}
                         value={title}
                     />
-                    <label htmlFor="authors">Authors:</label>
+                    <label htmlFor="authors">{translation.authors}:</label>
                     <div className="authors" name="authors" id="authors">
                         {authors.map((x, i) => {
                             return (
@@ -139,7 +141,7 @@ const AddBook = () => {
                                         onChange={(e) =>
                                             handleAuthorInput(e, i)
                                         }
-                                        placeholder="name"
+                                        placeholder={translation.name}
                                         list="authorsNames"
                                     />
                                     <datalist id="authorsNames">
@@ -159,7 +161,7 @@ const AddBook = () => {
                                         onChange={(e) =>
                                             handleAuthorInput(e, i)
                                         }
-                                        placeholder="last name"
+                                        placeholder={translation.lastName}
                                         list="autLast"
                                     />
                                     <datalist id="autLast">
@@ -179,7 +181,7 @@ const AddBook = () => {
                                                 className="btn"
                                                 onClick={() => handleRemove(i)}
                                             >
-                                                Remove
+                                                {translation.remove}
                                             </button>
                                         )}
                                         {authors.length - 1 === i && (
@@ -187,7 +189,7 @@ const AddBook = () => {
                                                 className="btn"
                                                 onClick={handleAdd}
                                             >
-                                                Add
+                                                {translation.add}
                                             </button>
                                         )}
                                     </div>
@@ -195,7 +197,7 @@ const AddBook = () => {
                             );
                         })}
                     </div>
-                    <label htmlFor="genre">Genre:</label>
+                    <label htmlFor="genre">{translation.genre}:</label>
                     <input
                         type="text"
                         name="genre"
@@ -203,7 +205,7 @@ const AddBook = () => {
                         value={genre}
                         onChange={(e) => setGenre(e.target.value)}
                     />
-                    <label htmlFor="publisher">Publisher:</label>
+                    <label htmlFor="publisher">{translation.publisher}:</label>
                     <input
                         type="text"
                         name="publisher"
@@ -211,7 +213,7 @@ const AddBook = () => {
                         value={publisher}
                         onChange={(e) => setPublisher(e.target.value)}
                     />
-                    <label htmlFor="language">Language:</label>
+                    <label htmlFor="language">{translation.language}:</label>
                     <input
                         type="text"
                         name="language"
@@ -220,7 +222,7 @@ const AddBook = () => {
                         onChange={(e) => setLanguage(e.target.value)}
                     />
                     <label htmlFor="images" className="photo-input">
-                        Images:
+                        {translation.images}:
                         <input
                             type="file"
                             name="images"
@@ -230,10 +232,11 @@ const AddBook = () => {
                             onChange={handleImages}
                         />
                         <article className="btn">
-                            <FaCameraRetro className="icon-large" /> Add image
+                            <FaCameraRetro className="icon-large" />{" "}
+                            {translation.addImage}
                         </article>
                     </label>
-                    <label htmlFor="price">Price:</label>
+                    <label htmlFor="price">{translation.price}:</label>
                     <input
                         type="number"
                         name="price"
@@ -241,7 +244,7 @@ const AddBook = () => {
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
                     />
-                    <label htmlFor="year">Year:</label>
+                    <label htmlFor="year">{translation.year}:</label>
                     <input
                         type="number"
                         name="year"
@@ -249,7 +252,7 @@ const AddBook = () => {
                         value={year}
                         onChange={(e) => setYear(e.target.value)}
                     />
-                    <label htmlFor="maxOrder">Maximum amount to order:</label>
+                    <label htmlFor="maxOrder">{translation.maxAmount}:</label>
                     <input
                         type="number"
                         name="maxOrder"
@@ -257,7 +260,7 @@ const AddBook = () => {
                         value={maxOrder}
                         onChange={(e) => setMaxOrder(e.target.value)}
                     />
-                    <label htmlFor="title">Description:</label>
+                    <label htmlFor="title">{translation.description}:</label>
                     <textarea
                         name="desc"
                         id="desc"
@@ -268,7 +271,7 @@ const AddBook = () => {
                         {desc}
                     </textarea>
                     <button onClick={addBook} className="btn mt-1">
-                        Add book
+                        {translation.add}
                     </button>
                 </div>
             </Wrapper>
