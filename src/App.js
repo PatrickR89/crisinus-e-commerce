@@ -68,14 +68,14 @@ function App() {
         axios.defaults.headers.common["client-access-token"] = clientHeader();
     }, []);
 
-    // if (!clientEngaged) {
-    //     return (
-    //         <div className="App">
-    //             <h2>Please wait...</h2>
-    //             <Footer />
-    //         </div>
-    //     );
-    // }
+    if (!clientEngaged) {
+        return (
+            <div className="App">
+                <h2>Please wait...</h2>
+                <Footer />
+            </div>
+        );
+    }
     return (
         <div className="App">
             <Navbar />
