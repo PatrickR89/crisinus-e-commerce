@@ -18,10 +18,12 @@ import {
     UPDATE_CONTACT_FORM,
     SET_CONT_FORM_ERR_TRUE,
     SET_CONT_FORM_ERR_FALSE,
-    RESET_CONTACT_FORM
+    RESET_CONTACT_FORM,
+    FETCH_INFOPAGES
 } from "../actions/items_actions";
 
 const items_reducer = (state, action) => {
+    console.log(action.type);
     if (action.type === GET_ITEMS_START) {
         return { ...state, items_loading: true };
     }
@@ -32,7 +34,6 @@ const items_reducer = (state, action) => {
             books: action.payload[0],
             gifts: action.payload[1],
             news: action.payload[2],
-            informations: action.payload[3],
             items_loading: false,
             items_error: false
         };
@@ -86,6 +87,15 @@ const items_reducer = (state, action) => {
         return {
             ...state,
             single_item_error: true,
+            single_item_loading: false
+        };
+    }
+
+    if (action.type === FETCH_INFOPAGES) {
+        return {
+            ...state,
+            current_info: action.payload,
+            single_item_error: false,
             single_item_loading: false
         };
     }

@@ -26,7 +26,8 @@ import {
     SET_CONT_FORM_ERR_TRUE,
     SET_CONT_FORM_ERR_FALSE,
     RESET_CONTACT_FORM,
-    FETCH_LINKS
+    FETCH_LINKS,
+    FETCH_INFOPAGES
 } from "../actions/items_actions";
 
 import mockBooks from "../mockData/mockBooks";
@@ -68,7 +69,8 @@ const initialState = {
             contactEmailError: true
         },
         contactFormError: true
-    }
+    },
+    current_info: {}
 };
 
 const ItemsContext = React.createContext();
@@ -88,12 +90,12 @@ export const ItemsProvider = ({ children }) => {
             const axiosNews = await axios.get("/api/public/news");
             const news = await axiosNews.data;
 
-            const axiosInfo = await axios.get("/api/public/informations");
-            const infos = await axiosInfo.data;
+            // const axiosInfo = await axios.get("/api/public/informations");
+            // const infos = await axiosInfo.data;
 
             dispatch({
                 type: GET_ITEMS_SUCCESS,
-                payload: [books, gifts, news, infos]
+                payload: [books, gifts, news]
             });
         } catch (error) {
             const err = `api: api/public/{books/gifts/news/info} [itms_ctxt[GET]], error: ${error}`;
@@ -101,6 +103,23 @@ export const ItemsProvider = ({ children }) => {
             axios.post("/api/system/error", { err });
             dispatch({ GET_ITEMS_ERROR });
         }
+    };
+
+    const fetchInfo = (pageName) => {
+        dispatch({ type: GET_SINGLE_ITEM_START });
+        axios
+            .post("/api/public/informations", { pageName })
+            .then((resp) => {
+                const data = resp.data[0];
+                console.log(data);
+                dispatch({ type: FETCH_INFOPAGES, payload: data });
+            })
+            .catch((error) => {
+                dispatch({ type: GET_SINGLE_ITEM_ERROR });
+
+                const err = `api: /api/public/books [itms_ctxt[POST]], error: ${error}`;
+                axios.post("/api/system/error", { err });
+            });
     };
 
     const fetchSingleBook = (id) => {
@@ -286,6 +305,7 @@ export const ItemsProvider = ({ children }) => {
                 fetchSingleBook,
                 fetchSingleGift,
                 fetchSingleNews,
+                fetchInfo,
                 updateContactForm,
                 submitContactForm,
                 fetchLinks
