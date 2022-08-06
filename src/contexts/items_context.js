@@ -56,7 +56,6 @@ const initialState = {
     screen_width: 0,
     home_page_items: 10,
     items_list_length: 8,
-    informations: [],
     anchorLinks: [],
     contactForm: {
         values: {
@@ -89,9 +88,6 @@ export const ItemsProvider = ({ children }) => {
             const gifts = await axiosGifts.data;
             const axiosNews = await axios.get("/api/public/news");
             const news = await axiosNews.data;
-
-            // const axiosInfo = await axios.get("/api/public/informations");
-            // const infos = await axiosInfo.data;
 
             dispatch({
                 type: GET_ITEMS_SUCCESS,
