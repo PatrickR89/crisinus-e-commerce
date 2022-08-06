@@ -111,13 +111,12 @@ export const ItemsProvider = ({ children }) => {
             .post("/api/public/informations", { pageName })
             .then((resp) => {
                 const data = resp.data[0];
-                console.log(data);
                 dispatch({ type: FETCH_INFOPAGES, payload: data });
             })
             .catch((error) => {
                 dispatch({ type: GET_SINGLE_ITEM_ERROR });
 
-                const err = `api: /api/public/books [itms_ctxt[POST]], error: ${error}`;
+                const err = `api: /api/public/informations [itms_ctxt[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -180,7 +179,6 @@ export const ItemsProvider = ({ children }) => {
         axios
             .get("/api/public/links")
             .then((resp) => {
-                console.log(resp.data);
                 if (resp.data !== "API is for client use only!") {
                     dispatch({ type: FETCH_LINKS, payload: resp.data });
                 }
@@ -265,7 +263,6 @@ export const ItemsProvider = ({ children }) => {
             })
             .catch((error) => {
                 dispatch({ type: GET_ITEMS_ERROR });
-                console.log(error);
 
                 const err = `api: /api/public/submitmessage [itms_ctxt[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
