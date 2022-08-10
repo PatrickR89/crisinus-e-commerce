@@ -23,7 +23,6 @@ import {
 } from "../actions/items_actions";
 
 const items_reducer = (state, action) => {
-    console.log(action.type);
     if (action.type === GET_ITEMS_START) {
         return { ...state, items_loading: true };
     }

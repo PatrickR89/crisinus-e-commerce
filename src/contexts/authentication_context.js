@@ -6,7 +6,8 @@ import {
     SET_LOGIN_TRUE,
     SET_LOGIN_FALSE,
     UPDATE_USER,
-    REMOVE_COOKIE_MODAL
+    REMOVE_COOKIE_MODAL,
+    SET_CLIENT_ENGAGED
 } from "../actions/authentication_actions";
 
 import reducer from "../reducers/authentication_reducer";
@@ -143,9 +144,9 @@ export const AuthenticationProvider = ({ children }) => {
         if (
             axios.defaults.headers.common["client-access-token"] === undefined
         ) {
-            state.clientEngaged = false;
+            dispatch({ type: SET_CLIENT_ENGAGED, payload: false });
         } else {
-            state.clientEngaged = true;
+            dispatch({ type: SET_CLIENT_ENGAGED, payload: true });
         }
     }, [axios.defaults.headers.common["client-access-token"]]);
 
