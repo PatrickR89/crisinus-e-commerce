@@ -7,7 +7,6 @@ import {
 } from "../actions/authentication_actions";
 
 const authentication_reducer = (state, action) => {
-    console.log(action);
     if (action.type === SET_LOGIN_TRUE) {
         return { ...state, loggedIn: true };
     }
