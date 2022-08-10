@@ -11,7 +11,6 @@ const NewsExpandedPage = () => {
 
     const { translation } = useLanguageContext();
     const { single_news, fetchSingleNews } = useItemsContext();
-    console.log(single_news);
     useEffect(() => {
         fetchSingleNews(id);
         // eslint-disable-next-line
@@ -37,7 +36,7 @@ const NewsExpandedPage = () => {
                             className="small-size left"
                         />
                     )}
-                    <p>{single_news.text}</p>
+                    <p className="news-text">{`${single_news.text}`}</p>
                 </article>
             </Wrapper>
         </main>
@@ -55,7 +54,7 @@ const Wrapper = styled.div`
         max-height: 300px;
     }
     .left {
-        float: left;
+        float: right;
         margin-right: 1rem;
         margin-bottom: 1rem;
     }
@@ -70,6 +69,9 @@ const Wrapper = styled.div`
         p {
             overflow: visible;
         }
+    }
+    .news-text {
+        white-space: pre-wrap;
     }
 `;
 
