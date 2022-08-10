@@ -27,7 +27,7 @@ const GiftshopList = () => {
 
     return (
         <Wrapper>
-            <h2>Giftshop</h2>
+            <h2>{translation.giftshopList.toUpperCase()}</h2>
 
             <div className="per-gift head">
                 <section>ID</section>

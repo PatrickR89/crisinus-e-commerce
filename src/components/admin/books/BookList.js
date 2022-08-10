@@ -44,6 +44,7 @@ const BookList = () => {
     return (
         <main>
             <Wrapper>
+                <h2>{translation.booksList.toUpperCase()}</h2>
                 <div className="per-book head">
                     <section>ID</section>
                     <section>{translation.title.toUpperCase()}</section>

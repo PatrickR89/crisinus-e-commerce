@@ -133,7 +133,7 @@ const MessageList = () => {
     return (
         <main>
             <Wrapper>
-                MESSAGES
+                <h2>{translation.messages.toUpperCase()}</h2>
                 <div className="per-order head">
                     <section>ID</section>
                     <section>{translation.name.toUpperCase()}</section>

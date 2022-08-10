@@ -38,7 +38,7 @@ const ListNews = () => {
 
     return (
         <Wrapper>
-            News List
+            <h2>{translation.newsList.toUpperCase()}</h2>
             <div className="per-gift head">
                 <section>ID</section>
                 <section>{translation.title.toUpperCase()}</section>

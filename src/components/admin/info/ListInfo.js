@@ -52,6 +52,7 @@ const ListInfo = () => {
 
     return (
         <Wrapper>
+            <h2>{translation.infoPages.toUpperCase()}</h2>
             <div className="per-page head">
                 <section>ID</section>
                 <section>{translation.title.toUpperCase()}</section>

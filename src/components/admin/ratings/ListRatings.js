@@ -28,7 +28,7 @@ const ListRatings = () => {
 
     return (
         <Wrapper>
-            <h2>{translation.reviews}</h2>
+            <h2>{translation.reviewsList.toUpperCase()}</h2>
             <div className="per-gift head">
                 <section>ID</section>
                 <section>{translation.bookTitle.toUpperCase()}</section>

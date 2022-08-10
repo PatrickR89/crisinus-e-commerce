@@ -47,7 +47,7 @@ const OrderList = () => {
     return (
         <main>
             <Wrapper>
-                <h2>{translation.orders}</h2>
+                <h2>{translation.orders.toUpperCase()}</h2>
                 <div className="per-order head">
                     <section>ID</section>
                     <section>{translation.date.toUpperCase()}</section>

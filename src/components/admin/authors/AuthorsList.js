@@ -26,7 +26,7 @@ const AuthorsList = () => {
 
     return (
         <Wrapper>
-            {translation.authorsList.toUpperCase()}
+            <h2>{translation.authorsList.toUpperCase()}</h2>
             <div className="per-author head">
                 <section>ID</section>
                 <section>{translation.name.toUpperCase()}</section>

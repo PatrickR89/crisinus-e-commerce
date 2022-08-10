@@ -33,7 +33,7 @@ const ImageList = () => {
     }, []);
     return (
         <Wrapper>
-            <h2>{translation.images}:</h2>
+            <h2>{translation.images.toUpperCase()}:</h2>
             <div className="thumb-container">
                 {images &&
                     images.map((image, index) => {

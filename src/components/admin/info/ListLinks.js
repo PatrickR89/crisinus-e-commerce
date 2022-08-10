@@ -3,8 +3,12 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
+import { useLanguageContext } from "../../../contexts/language_context";
+
 const ListLinks = () => {
     const [linkList, setLinkList] = useState([]);
+
+    const { translation } = useLanguageContext();
 
     const getLinks = () => {
         axios
@@ -24,6 +28,7 @@ const ListLinks = () => {
 
     return (
         <Wrapper>
+            <h2>{translation.links.toUpperCase()}</h2>
             <div className="per-page head">
                 <section>ID</section>
                 <section>LINK</section>
