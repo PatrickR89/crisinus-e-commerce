@@ -270,6 +270,10 @@ main {
     background: var(--clr-button-4);
 }
 
+.line-break {
+    white-space: pre-wrap;
+}
+
 /* .main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

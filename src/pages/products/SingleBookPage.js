@@ -126,7 +126,7 @@ const SingleBookPage = () => {
                 <div className="secondary">
                     <div className="about">
                         <p className="tag">{translation.about} :</p>
-                        <article>{description}</article>
+                        <article className="line-break">{description}</article>
                     </div>
                 </div>
             </Wrapper>

@@ -44,6 +44,7 @@ const NewsExpandedPage = () => {
 };
 
 const Wrapper = styled.div`
+    margin-bottom: 2rem;
     .title {
         display: flex;
         flex-direction: row;
@@ -72,6 +73,7 @@ const Wrapper = styled.div`
     }
     .news-text {
         white-space: pre-wrap;
+        margin: 0.5rem;
     }
 `;
 

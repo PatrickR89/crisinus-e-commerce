@@ -6,7 +6,7 @@ const Info = ({ show_title: title, content }) => {
         <main>
             <Wrapper>
                 <h1>{title}</h1>
-                <p>{content}</p>
+                <p className="line-break">{content}</p>
             </Wrapper>
         </main>
     );

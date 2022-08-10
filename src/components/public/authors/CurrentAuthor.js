@@ -29,7 +29,7 @@ const CurrentAuthor = () => {
                             </div>
                         </div>
                         <div className="bio">
-                            <p>{activeAuthor.bio}</p>
+                            <p className="line-break">{activeAuthor.bio}</p>
                             <a href={activeAuthor.url}>
                                 {translation.more} ...
                             </a>
