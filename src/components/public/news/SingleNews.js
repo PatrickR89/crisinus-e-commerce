@@ -1,16 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import formatDate from "../../../utils/dateFormatting";
 
-const SingleNews = ({ title, text, date }) => {
+const SingleNews = ({ title, text, date, id }) => {
     return (
         <Wrapper>
             <div className="title">
-                <h2>{title}</h2>
-                <div className="underline" />
+                <Link to={`/news/${id}`}>
+                    <h2>{title}</h2>
+                    <div className="underline" />
+                </Link>
             </div>
             <div className="paragraph">
-                <p>{text.substring(0, 500)}</p>
+                <p>{text.substring(0, 500)}...</p>
             </div>
             <div className="date">
                 <p style={{ color: "grey" }}>{formatDate(date)}</p>

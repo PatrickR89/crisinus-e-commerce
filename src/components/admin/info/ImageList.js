@@ -62,8 +62,10 @@ const ImageList = () => {
 };
 
 const Wrapper = styled.div`
+    margin-bottom: 2rem;
     .thumb-container {
-        display: flex;
+        display: inline-grid;
+        grid-template-columns: repeat(5, 1fr);
         align-items: flex-start;
         height: 250px;
     }
@@ -75,6 +77,9 @@ const Wrapper = styled.div`
         height: 100%;
         max-width: 200px;
         margin: 2rem;
+        button {
+            margin-bottom: 1rem;
+        }
     }
     .thumb {
         max-width: 150px;

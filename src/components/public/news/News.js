@@ -17,7 +17,7 @@ const News = ({ newsPage, home }) => {
                 } else {
                     setTempIndex(news.length - 1);
                 }
-            }, 5000);
+            }, 10000);
             fetchSingleNews(news[tempIndex].id);
             return () => {
                 clearTimeout(indexTimeout);
