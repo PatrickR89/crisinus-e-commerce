@@ -74,6 +74,9 @@ const AddRating = () => {
                         id="book"
                         onChange={(e) => setBook(e.target.value)}
                     >
+                        <option value="" selected disabled>
+                            {" "}
+                        </option>
                         {bookList.map((book) => {
                             return (
                                 <option value={book.id}>{book.title}</option>
@@ -148,6 +151,9 @@ const Wrapper = styled.div`
             height: 2rem;
             font-size: 1.5rem;
             width: 100%;
+        }
+        option:disabled {
+            display: none;
         }
         textarea {
             width: 100%;
