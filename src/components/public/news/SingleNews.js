@@ -2,18 +2,25 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import formatDate from "../../../utils/dateFormatting";
+import { useItemsContext } from "../../../contexts/items_context";
 
 const SingleNews = ({ title, text, date, id }) => {
+    const { news_display } = useItemsContext();
+
+    const Title = styled.h2`
+        font-size: ${news_display.news_title}rem;
+    `;
+
     return (
         <Wrapper>
             <div className="title">
                 <Link to={`/news/${id}`}>
-                    <h2>{title}</h2>
+                    <Title>{title}</Title>
                     <div className="underline" />
                 </Link>
             </div>
             <div className="paragraph">
-                <p>{text.substring(0, 500)}...</p>
+                <p>{text.substring(0, news_display.news_length)}...</p>
             </div>
             <div className="date">
                 <p style={{ color: "grey" }}>{formatDate(date)}</p>
