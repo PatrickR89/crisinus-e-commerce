@@ -17,6 +17,7 @@ import {
     UPDATE_SIZE,
     UPDATE_LENGTH,
     UPDATE_LENGTH_SEPARATE,
+    UPDATE_NEWS_LENGTH,
     SET_SINGLE_NEWS,
     SET_CONT_NAME_ERR_TRUE,
     SET_CONT_NAME_ERR_FALSE,
@@ -56,6 +57,12 @@ const initialState = {
     screen_width: 0,
     home_page_items: 10,
     items_list_length: 8,
+    news_display: {
+        news_length: 0,
+        news_heigth: 10,
+        news_title: 2,
+        news_width: 0
+    },
     anchorLinks: [],
     contactForm: {
         values: {
@@ -275,9 +282,21 @@ export const ItemsProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
+        if (state.screen_width > 1400) {
+            dispatch({ type: UPDATE_NEWS_LENGTH, payload: [500, 10, 1.5, 70] });
+        }
+        if (state.screen_width < 1400) {
+            dispatch({ type: UPDATE_NEWS_LENGTH, payload: [400, 10, 1.5, 70] });
+        }
+        if (state.screen_width < 1250) {
+            dispatch({ type: UPDATE_NEWS_LENGTH, payload: [300, 10, 1.5, 70] });
+        }
         if (state.screen_width > 1000) {
             dispatch({ type: UPDATE_LENGTH, payload: 10 });
             dispatch({ type: UPDATE_LENGTH_SEPARATE, payload: 8 });
+        }
+        if (state.screen_width < 1050) {
+            dispatch({ type: UPDATE_NEWS_LENGTH, payload: [200, 12, 1.3, 90] });
         }
         if (state.screen_width < 1000) {
             dispatch({ type: UPDATE_LENGTH, payload: 6 });
@@ -286,6 +305,12 @@ export const ItemsProvider = ({ children }) => {
         if (state.screen_width < 650) {
             dispatch({ type: UPDATE_LENGTH, payload: 4 });
             dispatch({ type: UPDATE_LENGTH_SEPARATE, payload: 4 });
+        }
+        if (state.screen_width < 550) {
+            dispatch({ type: UPDATE_NEWS_LENGTH, payload: [200, 12, 1.3, 90] });
+        }
+        if (state.screen_width < 520) {
+            dispatch({ type: UPDATE_NEWS_LENGTH, payload: [150, 13, 1, 90] });
         }
     }, [state.screen_width]);
 

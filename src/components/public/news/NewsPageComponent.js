@@ -5,14 +5,31 @@ import { useItemsContext } from "../../../contexts/items_context";
 import formatDate from "../../../utils/dateFormatting";
 
 const NewsPageComponent = () => {
-    const { news } = useItemsContext();
+    const { news, news_display } = useItemsContext();
+
+    const NewsContainer = styled.div`
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: ${news_display.news_heigth}rem;
+        width: {news_display.news_width}vw;
+        max-width: 100%;
+        margin: auto;
+        h2 {
+            font-size: ${news_display.news_title}rem;
+        }
+        .news-text {
+            height: 100%;
+        }
+    `;
 
     return (
         <main>
             <Wrapper>
                 {news.map((n, index) => {
                     return (
-                        <div className="news-container" key={index}>
+                        <NewsContainer key={index}>
                             <div className="image-container">
                                 {n.images[0] && (
                                     <img
@@ -28,7 +45,11 @@ const NewsPageComponent = () => {
                                         <h2>{n.title}</h2>
                                     </Link>
                                     <p className="news-paragraph">
-                                        {n.text.substring(0, 500)}
+                                        {n.text.substring(
+                                            0,
+                                            news_display.news_length
+                                        )}
+                                        ...
                                     </p>
                                 </div>
                                 <div>
@@ -38,7 +59,7 @@ const NewsPageComponent = () => {
                                     <hr />
                                 </div>
                             </article>
-                        </div>
+                        </NewsContainer>
                     );
                 })}
             </Wrapper>
@@ -52,16 +73,6 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    .news-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        height: 10rem;
-        width: 70vw;
-        max-width: 100%;
-        margin-top: 1rem;
-    }
     .image-container {
         width: 20%;
         height: 100%;
@@ -77,7 +88,6 @@ const Wrapper = styled.div`
         margin: auto;
         width: 74%;
 
-        height: 10rem;
         h2 {
             text-align: start;
             margin-bottom: 0.5rem;
@@ -92,6 +102,15 @@ const Wrapper = styled.div`
         text-align: start;
         margin-bottom: auto;
         min-width: 100%;
+    }
+
+    @media (max-width: 750px) {
+        .image-container {
+            display: none;
+        }
+        .news-text {
+            width: 100%;
+        }
     }
 `;
 

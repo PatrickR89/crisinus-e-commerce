@@ -10,6 +10,7 @@ import {
     UPDATE_SIZE,
     UPDATE_LENGTH,
     UPDATE_LENGTH_SEPARATE,
+    UPDATE_NEWS_LENGTH,
     SET_SINGLE_NEWS,
     SET_CONT_NAME_ERR_TRUE,
     SET_CONT_NAME_ERR_FALSE,
@@ -108,6 +109,18 @@ const items_reducer = (state, action) => {
         return { ...state, items_list_length: action.payload };
     }
 
+    if (action.type === UPDATE_NEWS_LENGTH) {
+        return {
+            ...state,
+            news_display: {
+                ...state.news_display,
+                news_length: action.payload[0],
+                news_heigth: action.payload[1],
+                news_title: action.payload[2],
+                news_width: action.payload[3]
+            }
+        };
+    }
     if (action.type === UPDATE_CONTACT_FORM) {
         const { name, value } = action.payload;
         return {
