@@ -7,29 +7,19 @@ import formatDate from "../../../utils/dateFormatting";
 const NewsPageComponent = () => {
     const { news, news_display } = useItemsContext();
 
-    const NewsContainer = styled.div`
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        height: ${news_display.news_heigth}rem;
-        width: {news_display.news_width}vw;
-        max-width: 100%;
-        margin: auto;
-        h2 {
-            font-size: ${news_display.news_title}rem;
-        }
-        .news-text {
-            height: 100%;
-        }
-    `;
-
     return (
         <main>
             <Wrapper>
                 {news.map((n, index) => {
                     return (
-                        <NewsContainer key={index}>
+                        <div
+                            className="news-container"
+                            style={{
+                                heigth: `${news_display.news_heigth}rem`,
+                                width: `${news_display.news_width}vw`
+                            }}
+                            key={index}
+                        >
                             <div className="image-container">
                                 {n.images[0] && (
                                     <img
@@ -42,7 +32,13 @@ const NewsPageComponent = () => {
                                 <div>
                                     {index === 0 && <hr />}
                                     <Link to={`/news/${n.id}`}>
-                                        <h2>{n.title}</h2>
+                                        <h2
+                                            style={{
+                                                fontSize: `${news_display.news_title}rem`
+                                            }}
+                                        >
+                                            {n.title}
+                                        </h2>
                                     </Link>
                                     <p className="news-paragraph">
                                         {n.text.substring(
@@ -59,7 +55,7 @@ const NewsPageComponent = () => {
                                     <hr />
                                 </div>
                             </article>
-                        </NewsContainer>
+                        </div>
                     );
                 })}
             </Wrapper>
@@ -73,6 +69,15 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
+
+    .news-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        max-width: 100%;
+        margin: auto;
+    }
     .image-container {
         width: 20%;
         height: 100%;
@@ -87,6 +92,7 @@ const Wrapper = styled.div`
         justify-content: space-between;
         margin: auto;
         width: 74%;
+        height: 100%;
 
         h2 {
             text-align: start;

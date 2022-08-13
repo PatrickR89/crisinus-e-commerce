@@ -7,15 +7,13 @@ import { useItemsContext } from "../../../contexts/items_context";
 const SingleNews = ({ title, text, date, id }) => {
     const { news_display } = useItemsContext();
 
-    const Title = styled.h2`
-        font-size: ${news_display.news_title}rem;
-    `;
-
     return (
         <Wrapper>
             <div className="title">
                 <Link to={`/news/${id}`}>
-                    <Title>{title}</Title>
+                    <h2 style={{ fontSize: `${news_display.news_title}rem` }}>
+                        {title}
+                    </h2>
                     <div className="underline" />
                 </Link>
             </div>
