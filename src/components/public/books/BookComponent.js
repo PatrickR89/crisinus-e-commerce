@@ -44,5 +44,11 @@ const Wrapper = styled.div`
         margin-top: 0.5rem;
         width: 150px;
     }
+
+    @media (max-width: 1000px) {
+        .image {
+            width: 120px;
+        }
+    }
 `;
 export default BookComponent;

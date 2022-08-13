@@ -138,7 +138,7 @@ const Wrapper = styled.div`
             width: 250px;
             height: 300px;
             img {
-                max-width: 250px;
+                max-width: 200px;
             }
         }
     }

@@ -51,7 +51,7 @@ const Wrapper = styled.div`
     }
     h4 {
         display: flex;
-        font-size: 1.7rem;
+        font-size: 1.15rem;
         margin-bottom: 0.2rem;
         color: var(--clr-title-4);
     }
@@ -61,10 +61,39 @@ const Wrapper = styled.div`
     }
     .image {
         margin-top: 0.5rem;
-        width: 15rem;
+        width: 13rem;
     }
     .author {
         margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 1000px) {
+        .image {
+            width: 10rem;
+        }
+
+        h4 {
+            font-size: 1.15rem;
+        }
+
+        p {
+            font-size: 0.95rem;
+        }
+    }
+
+    @media (max-width: 650px) {
+        h4 {
+            font-size: 1.05rem;
+        }
+
+        p {
+            font-size: 0.9rem;
+        }
+    }
+    @media (max-width: 450px) {
+        h4 {
+            font-size: 1rem;
+        }
     }
 `;
 export default BookInBooks;

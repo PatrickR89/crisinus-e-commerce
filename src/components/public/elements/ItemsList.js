@@ -119,7 +119,7 @@ const Wrapper = styled.div`
             padding: 0.375rem 0.5rem;
         }
     }
-    @media (max-width: 360px) {
+    @media (max-width: 380px) {
         .home-books {
             grid-template-columns: repeat(1, 1fr);
         }
