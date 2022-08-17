@@ -50,8 +50,8 @@ export const AuthenticationProvider = ({ children }) => {
     };
 
     const handleCookiesModal = () => {
-        axios.get("/api/cookiesmodal").catch((error) => {
-            const err = `api: /cookiesmodal/ [auth_ctxt[GET]], error: ${error}`;
+        axios.get("/api/system/cookiesmodal").catch((error) => {
+            const err = `api: /system/cookiesmodal/ [auth_ctxt[GET]], error: ${error}`;
             axios.post("/api/system/error", { err });
         });
         dispatch({ type: REMOVE_COOKIE_MODAL, payload: false });
@@ -59,7 +59,7 @@ export const AuthenticationProvider = ({ children }) => {
 
     const confirmCookiesModal = () => {
         axios
-            .get("/api/cookiesconfirm")
+            .get("/api/system/cookiesconfirm")
             .then((res) => {
                 const response = JSON.parse(res.data.cookiesModal);
                 dispatch({
@@ -75,7 +75,7 @@ export const AuthenticationProvider = ({ children }) => {
 
     const registerClient = () => {
         axios
-            .post("/api/client", {
+            .post("/api/system/client", {
                 headers: initialHeader()
             })
             .then((response) => {

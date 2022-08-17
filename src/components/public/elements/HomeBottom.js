@@ -13,9 +13,15 @@ const HomeBottom = () => {
         let isEmail = email.includes("@") && email.includes(".");
         if (isEmail === true) {
             console.log(email);
-            axios.post("/newsletter", { email: email }).then((response) => {
-                alert(response.data);
-            });
+            axios
+                .post("api/system/newsletter", { email: email })
+                .then((response) => {
+                    alert(response.data);
+                })
+                .catch((error) => {
+                    const err = `api: /api/system/newsletter [itms_ctxt[POST]], error: ${error}`;
+                    axios.post("/api/system/error", { err });
+                });
         } else {
             alert("Invalid email");
         }
