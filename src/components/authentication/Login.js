@@ -15,21 +15,21 @@ const Login = () => {
 
     const userAuthenticated = () => {
         axios
-            .get("/api/authentication", {
+            .get("/api/admin/register", {
                 headers: header()
             })
             .then((response) => {
                 console.log(response);
             })
             .catch((error) => {
-                const err = `api: /authentication/ [login[GET]], error: ${error}`;
+                const err = `api: /api/admin/register [login[GET]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
 
     // const register = () => {
     //   axios
-    //     .post("http://localhost:3001/register", {
+    //     .post("/api/admin/register", {
     //       username: usernameReg,
     //       password: passwordReg
     //     })

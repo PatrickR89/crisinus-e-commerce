@@ -27,7 +27,7 @@ export const AuthenticationProvider = ({ children }) => {
 
     const login = () => {
         axios
-            .post("/api/login", {
+            .post("/api/admin/login", {
                 username: state.username,
                 password: state.password
             })
@@ -40,7 +40,7 @@ export const AuthenticationProvider = ({ children }) => {
                 }
             })
             .catch((error) => {
-                const err = `api: /login/ [auth_ctxt[POST]], error: ${error}`;
+                const err = `api: admin/login/ [auth_ctxt[POST]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
@@ -85,7 +85,10 @@ export const AuthenticationProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem("token");
-        axios.get("/api/logout");
+        axios.get("/api/admin/logout").catch((error) => {
+            const err = `api: /api/admin/logout [auth_ctxt[GET]], error: ${error}`;
+            axios.post("/api/system/error", { err });
+        });
         dispatch({ type: SET_LOGIN_FALSE });
     };
 
@@ -106,14 +109,14 @@ export const AuthenticationProvider = ({ children }) => {
     const clientReg = () => {
         registerClient();
         axios
-            .get("/api/login")
+            .get("/api/admin/login")
             .then((response) => {
                 if (response.data.loggedIn === true) {
                     dispatch({ type: SET_LOGIN_TRUE });
                 }
             })
             .catch((error) => {
-                const err = `api: /login/ [auth_ctxt[GET]], error: ${error}`;
+                const err = `api: admin/login/ [auth_ctxt[GET]], error: ${error}`;
                 axios.post("/api/system/error", { err });
             });
     };
