@@ -7,7 +7,8 @@ import {
     SET_LOGIN_FALSE,
     UPDATE_USER,
     REMOVE_COOKIE_MODAL,
-    SET_CLIENT_ENGAGED
+    SET_CLIENT_ENGAGED,
+    RESET_USER
 } from "../actions/authentication_actions";
 
 import reducer from "../reducers/authentication_reducer";
@@ -37,6 +38,7 @@ export const AuthenticationProvider = ({ children }) => {
                 } else {
                     localStorage.setItem("token", response.data.token);
                     dispatch({ type: SET_LOGIN_TRUE });
+                    dispatch({ type: RESET_USER });
                 }
             })
             .catch((error) => {

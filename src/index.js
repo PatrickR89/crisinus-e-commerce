@@ -16,33 +16,33 @@ import { ReviewsProvider } from "./contexts/reviews_context";
 import { AuthenticationProvider } from "./contexts/authentication_context";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <CartProvider>
-      <AuthorsProvider>
-        <ItemsProvider>
-          <ReviewsProvider>
-            <FilterProvider>
-              <CurrencyProvider>
-                <LanguageProvider>
-                  <SidebarProvider>
-                    <AuthenticationProvider>
-                      <Router>
-                        <App />
-                      </Router>
-                    </AuthenticationProvider>
-                  </SidebarProvider>
-                </LanguageProvider>
-              </CurrencyProvider>
-            </FilterProvider>
-          </ReviewsProvider>
-        </ItemsProvider>
-      </AuthorsProvider>
-    </CartProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+    <React.StrictMode>
+        <CartProvider>
+            <AuthorsProvider>
+                <ItemsProvider>
+                    <ReviewsProvider>
+                        <FilterProvider>
+                            <CurrencyProvider>
+                                <LanguageProvider>
+                                    <SidebarProvider>
+                                        <AuthenticationProvider>
+                                            <Router>
+                                                <App />
+                                            </Router>
+                                        </AuthenticationProvider>
+                                    </SidebarProvider>
+                                </LanguageProvider>
+                            </CurrencyProvider>
+                        </FilterProvider>
+                    </ReviewsProvider>
+                </ItemsProvider>
+            </AuthorsProvider>
+        </CartProvider>
+    </React.StrictMode>,
+    document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+reportWebVitals(console.log);
