@@ -61,9 +61,9 @@ const MessageList = () => {
             });
     };
 
-    const handleMessage = (id) => {
+    const handleMessage = (id, status) => {
         handleFetchMessage(id);
-        if (message.status === "NEW") {
+        if (status == "NEW") {
             handleConfirm("CHECKED", id);
         }
         setIsModal(true);
@@ -143,7 +143,6 @@ const MessageList = () => {
                 </div>
                 {messages.length > 0 &&
                     messages.map((message, index) => {
-                        console.log(message);
                         return (
                             <button key={index}>
                                 <div
@@ -153,7 +152,10 @@ const MessageList = () => {
                                             : "itm-background-two per-order on-hover-list"
                                     }
                                     onClick={() => {
-                                        handleMessage(message.id);
+                                        handleMessage(
+                                            message.id,
+                                            message.status
+                                        );
                                     }}
                                 >
                                     <p>{message.id}</p>

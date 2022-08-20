@@ -39,9 +39,8 @@ const GiftshopList = () => {
             {gsList.length > 0 &&
                 gsList.map((gift, index) => {
                     return (
-                        <Link to={`/admin/editgift/${gift.id}`}>
+                        <Link to={`/admin/editgift/${gift.id}`} key={index}>
                             <div
-                                key={index}
                                 className={
                                     index % 2 === 0
                                         ? "itm-background-one per-gift on-hover-list"

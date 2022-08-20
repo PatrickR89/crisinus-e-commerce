@@ -36,9 +36,8 @@ const AuthorsList = () => {
             {authorList.length > 0 &&
                 authorList.map((author, index) => {
                     return (
-                        <Link to={`/admin/editauthor/${author.id}`}>
+                        <Link to={`/admin/editauthor/${author.id}`} key={index}>
                             <div
-                                key={index}
                                 className={
                                     index % 2 === 0
                                         ? "itm-background-one per-author on-hover-list"

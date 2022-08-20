@@ -62,9 +62,8 @@ const ListInfo = () => {
             {infoList.length > 0 &&
                 infoList.map((infoPage, index) => {
                     return (
-                        <Link to={`/admin/editinfo/${infoPage.id}`}>
+                        <Link to={`/admin/editinfo/${infoPage.id}`} key={index}>
                             <div
-                                key={index}
                                 className={
                                     index % 2 === 0
                                         ? "itm-background-one per-page on-hover-list"

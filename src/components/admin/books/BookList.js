@@ -55,9 +55,8 @@ const BookList = () => {
                 </div>
                 {bookList.map((book, index) => {
                     return (
-                        <Link to={`/admin/editbook/${book.id}`}>
+                        <Link to={`/admin/editbook/${book.id}`} key={index}>
                             <div
-                                key={index}
                                 className={
                                     index % 2 === 0
                                         ? "itm-background-one per-book on-hover-list"

@@ -40,9 +40,8 @@ const ListRatings = () => {
             {reviewsList.length > 0 &&
                 reviewsList.map((review, index) => {
                     return (
-                        <Link to={`/admin/editrating/${review.id}`}>
+                        <Link to={`/admin/editrating/${review.id}`} key={index}>
                             <div
-                                key={index}
                                 className={
                                     index % 2 === 0
                                         ? "itm-background-one per-gift on-hover-list"

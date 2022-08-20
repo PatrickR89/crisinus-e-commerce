@@ -48,9 +48,8 @@ const ListNews = () => {
             {newsList.length > 0 &&
                 newsList.map((news, index) => {
                     return (
-                        <Link to={`/admin/editnews/${news.id}`}>
+                        <Link to={`/admin/editnews/${news.id}`} key={index}>
                             <div
-                                key={index}
                                 className={
                                     index % 2 === 0
                                         ? "itm-background-one per-gift on-hover-list"

@@ -36,9 +36,11 @@ const ListLinks = () => {
             {linkList.length > 0 &&
                 linkList.map((singleLink, index) => {
                     return (
-                        <Link to={`/admin/editlink/${singleLink.id}`}>
+                        <Link
+                            to={`/admin/editlink/${singleLink.id}`}
+                            key={index}
+                        >
                             <div
-                                key={index}
                                 className={
                                     index % 2 === 0
                                         ? "itm-background-one per-page on-hover-list"
