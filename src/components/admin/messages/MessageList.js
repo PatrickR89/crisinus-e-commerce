@@ -7,6 +7,8 @@ import { SingleMessageModal } from "./";
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 
+import ListLink from "../elements/ListLink";
+
 const MessageList = () => {
   const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
@@ -132,28 +134,23 @@ const MessageList = () => {
         {messages.length > 0 &&
           messages.map((message, index) => {
             return (
-              <button key={index}>
+              <ListLink
+                key={index}
+                index={index}
+                cols={5}
+                modal={true}
+                handleClick={() => {
+                  handleMessage(message.id, message.status);
+                }}
+              >
+                <p>{message.id}</p>
+                <h4>{message.name}</h4>
+                <h4>{message.email}</h4>
+                <p>{message.date}</p>
                 <div
-                  className={
-                    index % 2 === 0
-                      ? "itm-background-one per-order on-hover-list"
-                      : "itm-background-two per-order on-hover-list"
-                  }
-                  onClick={() => {
-                    handleMessage(message.id, message.status);
-                  }}
-                >
-                  <p>{message.id}</p>
-
-                  <h4>{message.name}</h4>
-                  <h4>{message.email}</h4>
-                  <p>{message.date}</p>
-
-                  <div
-                    className={`status-color ${setStatusColor(message.status)}`}
-                  ></div>
-                </div>
-              </button>
+                  className={`status-color ${setStatusColor(message.status)}`}
+                ></div>
+              </ListLink>
             );
           })}
         {isModal && (

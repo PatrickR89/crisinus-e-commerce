@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
-const ListLink = ({ index, cols, url, children }) => {
-  console.log(cols);
+const ListLink = ({ index, cols, url, children, modal, handleClick }) => {
   const background = (index) => {
     if (index % 2 === 0) {
       return "hsl(215, 20%, 95%)";
@@ -18,6 +18,16 @@ const ListLink = ({ index, cols, url, children }) => {
     width: "100%"
   };
 
+  if (modal) {
+    return (
+      <UselessButton onClick={handleClick}>
+        <div className="on-hover-list" style={style}>
+          {children}
+        </div>
+      </UselessButton>
+    );
+  }
+
   return (
     <Link to={url}>
       <div className="on-hover-list" style={style}>
@@ -26,5 +36,10 @@ const ListLink = ({ index, cols, url, children }) => {
     </Link>
   );
 };
+
+const UselessButton = styled.button`
+  font-family: inherit;
+  border: none;
+`;
 
 export default ListLink;

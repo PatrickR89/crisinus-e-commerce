@@ -1,89 +1,85 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import { useLanguageContext } from "../../../contexts/language_context";
 
+import ListLink from "../elements/ListLink";
+
 const ListNews = () => {
-    const [newsList, setNewsList] = useState([]);
-    const { translation } = useLanguageContext();
+  const [newsList, setNewsList] = useState([]);
+  const { translation } = useLanguageContext();
 
-    const getNews = () => {
-        axios
-            .get("/api/news/")
-            .then((response) => {
-                setNewsList(response.data);
-            })
-            .catch((error) => {
-                const err = `api: /api/news/ [listnews[GET]], error: ${error}`;
-                axios.post("/api/system/error", { err });
-            });
+  const getNews = () => {
+    axios
+      .get("/api/news/")
+      .then((response) => {
+        setNewsList(response.data);
+      })
+      .catch((error) => {
+        const err = `api: /api/news/ [listnews[GET]], error: ${error}`;
+        axios.post("/api/system/error", { err });
+      });
+  };
+
+  const formatDate = (date) => {
+    const tempDate = new Date(date);
+    const doubleDigit = (num) => {
+      return num.toString().padStart(2, "0");
     };
+    return [
+      doubleDigit(tempDate.getDate()),
+      doubleDigit(tempDate.getMonth() + 1),
+      tempDate.getFullYear()
+    ].join("/");
+  };
 
-    const formatDate = (date) => {
-        const tempDate = new Date(date);
-        const doubleDigit = (num) => {
-            return num.toString().padStart(2, "0");
-        };
-        return [
-            doubleDigit(tempDate.getDate()),
-            doubleDigit(tempDate.getMonth() + 1),
-            tempDate.getFullYear()
-        ].join("/");
-    };
+  useEffect(() => {
+    getNews();
+  }, []);
 
-    useEffect(() => {
-        getNews();
-    }, []);
+  return (
+    <Wrapper>
+      <h2>{translation.newsList.toUpperCase()}</h2>
+      <div className="per-gift head">
+        <section>ID</section>
+        <section>{translation.title.toUpperCase()}</section>
+        <section>{translation.content.toUpperCase()}</section>
+        <section>{translation.date.toUpperCase()}</section>
+      </div>
+      {newsList.length > 0 &&
+        newsList.map((news, index) => {
+          return (
+            <ListLink
+              key={index}
+              index={index}
+              cols={4}
+              url={`/admin/editnews/${news.id}`}
+            >
+              <p>{news.id}</p>
 
-    return (
-        <Wrapper>
-            <h2>{translation.newsList.toUpperCase()}</h2>
-            <div className="per-gift head">
-                <section>ID</section>
-                <section>{translation.title.toUpperCase()}</section>
-                <section>{translation.content.toUpperCase()}</section>
-                <section>{translation.date.toUpperCase()}</section>
-            </div>
-            {newsList.length > 0 &&
-                newsList.map((news, index) => {
-                    return (
-                        <Link to={`/admin/editnews/${news.id}`} key={index}>
-                            <div
-                                className={
-                                    index % 2 === 0
-                                        ? "itm-background-one per-gift on-hover-list"
-                                        : "itm-background-two per-gift on-hover-list"
-                                }
-                            >
-                                <p>{news.id}</p>
+              <h4>{news.title}</h4>
 
-                                <h4>{news.title}</h4>
-
-                                {news.text && (
-                                    <p>{news.text.substring(0, 15)}...</p>
-                                )}
-                                <p>{news.date && formatDate(news.date)}</p>
-                            </div>
-                        </Link>
-                    );
-                })}
-        </Wrapper>
-    );
+              {news.text && <p>{news.text.substring(0, 15)}...</p>}
+              <p>{news.date && formatDate(news.date)}</p>
+            </ListLink>
+          );
+        })}
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  .head {
     margin-bottom: 2rem;
-    .head {
-        margin-bottom: 2rem;
-    }
-    .per-gift {
-        display: inline-grid;
-        grid-template-columns: repeat(4, 1fr);
-        align-items: center;
-    }
+  }
+  .per-gift {
+    display: inline-grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+  }
 `;
 
 export default ListNews;
