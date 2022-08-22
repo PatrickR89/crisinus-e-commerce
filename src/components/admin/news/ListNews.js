@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import styled from "styled-components";
 import { useLanguageContext } from "../../../contexts/language_context";
 
-import ListLink from "../elements/ListLink";
-import ListHead from "../elements/ListHead";
+import { ListHead, ListLink, ListWrapper } from "../elements";
 
 const ListNews = () => {
   const [newsList, setNewsList] = useState([]);
@@ -41,7 +39,7 @@ const ListNews = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <ListWrapper>
       <h2>{translation.newsList.toUpperCase()}</h2>
       <ListHead colTitles={titles} />
       {newsList.length > 0 &&
@@ -62,14 +60,8 @@ const ListNews = () => {
             </ListLink>
           );
         })}
-    </Wrapper>
+    </ListWrapper>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2rem;
-`;
 
 export default ListNews;

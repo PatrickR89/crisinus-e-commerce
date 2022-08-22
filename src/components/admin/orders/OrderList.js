@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import styled from "styled-components";
 
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useLanguageContext } from "../../../contexts/language_context";
-
-import ListLink from "../elements/ListLink";
-import ListHead from "../elements/ListHead";
+import { ListHead, ListLink, ListWrapper } from "../elements";
 
 const OrderList = () => {
   const navigate = useNavigate();
@@ -45,40 +42,30 @@ const OrderList = () => {
   };
 
   return (
-    <main>
-      <Wrapper>
-        <h2>{translation.orders.toUpperCase()}</h2>
-        <ListHead colTitles={titles} />
-        {orderList.length > 0 &&
-          orderList.map((order, index) => {
-            return (
-              <ListLink
-                key={index}
-                index={index}
-                cols={3}
-                url={`/admin/orderlist/${order.id}`}
-              >
-                <p>{order.id}</p>
+    <ListWrapper>
+      <h2>{translation.orders.toUpperCase()}</h2>
+      <ListHead colTitles={titles} />
+      {orderList.length > 0 &&
+        orderList.map((order, index) => {
+          return (
+            <ListLink
+              key={index}
+              index={index}
+              cols={3}
+              url={`/admin/orderlist/${order.id}`}
+            >
+              <p>{order.id}</p>
 
-                <h4>{order.order_date}</h4>
+              <h4>{order.order_date}</h4>
 
-                <div
-                  className={`status-color ${setStatusColor(
-                    order.order_status
-                  )}`}
-                ></div>
-              </ListLink>
-            );
-          })}
-      </Wrapper>
-    </main>
+              <div
+                className={`status-color ${setStatusColor(order.order_status)}`}
+              ></div>
+            </ListLink>
+          );
+        })}
+    </ListWrapper>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2rem;
-`;
 
 export default OrderList;

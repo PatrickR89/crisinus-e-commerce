@@ -6,8 +6,7 @@ import styled from "styled-components";
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 
-import ListLink from "../elements/ListLink";
-import ListHead from "../elements/ListHead";
+import { ListHead, ListLink, ListWrapper } from "../elements";
 
 const ListInfo = () => {
   const navigate = useNavigate();
@@ -55,7 +54,7 @@ const ListInfo = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <ListWrapper>
       <h2>{translation.infoPages.toUpperCase()}</h2>
       <ListHead colTitles={titles} />
       {infoList.length > 0 &&
@@ -78,25 +77,20 @@ const ListInfo = () => {
             </ListLink>
           );
         })}
-      <div className="edit-container">
+      <ResetButton>
         <button onClick={resetTable} className="btn mt-1 btn-delete">
           {translation.reset}
         </button>
-      </div>
-    </Wrapper>
+      </ResetButton>
+    </ListWrapper>
   );
 };
 
-const Wrapper = styled.div`
+const ResetButton = styled.div`
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  margin-bottom: 2rem;
-  .edit-container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  }
+  align-items: center;
+  justify-content: flex-end;
 `;
 
 export default ListInfo;

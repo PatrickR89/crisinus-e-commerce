@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import styled from "styled-components";
 import { useLanguageContext } from "../../../contexts/language_context";
 
-import ListLinks from "../elements/ListLink";
-import ListHead from "../elements/ListHead";
+import { ListHead, ListLink, ListWrapper } from "../elements";
 
 const AuthorsList = () => {
   const { translation } = useLanguageContext();
@@ -29,13 +27,13 @@ const AuthorsList = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <ListWrapper>
       <h2>{translation.authorsList.toUpperCase()}</h2>
       <ListHead colTitles={titles} />
       {authorList.length > 0 &&
         authorList.map((author, index) => {
           return (
-            <ListLinks
+            <ListLink
               key={index}
               index={index}
               cols={4}
@@ -49,17 +47,11 @@ const AuthorsList = () => {
 
               <p>{author.url}</p>
               {author.bio && <p>{author.bio.substring(0, 25)}...</p>}
-            </ListLinks>
+            </ListLink>
           );
         })}
-    </Wrapper>
+    </ListWrapper>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2rem;
-`;
 
 export default AuthorsList;

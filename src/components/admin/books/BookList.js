@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import axios from "axios";
 
 import { useCurrencyContext } from "../../../contexts/currency_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 
-import ListLink from "../elements/ListLink";
-import ListHead from "../elements/ListHead";
+import { ListHead, ListLink, ListWrapper } from "../elements";
 
 const BookList = () => {
   const [bookList, setBookList] = useState([]);
@@ -47,48 +45,40 @@ const BookList = () => {
   }, []);
 
   return (
-    <main>
-      <Wrapper>
-        <h2>{translation.booksList.toUpperCase()}</h2>
-        <ListHead colTitles={titles} />
-        {bookList.map((book, index) => {
-          return (
-            <ListLink
-              key={index}
-              index={index}
-              cols={6}
-              url={`/admin/editbook/${book.id}`}
-            >
-              <p>{book.id}</p>
-              <h4>{book.title}</h4>
+    <ListWrapper>
+      <h2>{translation.booksList.toUpperCase()}</h2>
+      <ListHead colTitles={titles} />
+      {bookList.map((book, index) => {
+        return (
+          <ListLink
+            key={index}
+            index={index}
+            cols={6}
+            url={`/admin/editbook/${book.id}`}
+          >
+            <p>{book.id}</p>
+            <h4>{book.title}</h4>
 
-              <div>
-                {book.authors.map((id, index) => {
-                  const author = authorsList.find((author) => author.id === id);
-                  if (author) {
-                    return (
-                      <p key={index}>
-                        {author.name} {author.last_name}
-                      </p>
-                    );
-                  }
-                })}
-              </div>
-              <p>{book.year}</p>
-              <p>{book.language}</p>
-              <p>{priceFormat(book.price)}</p>
-            </ListLink>
-          );
-        })}
-      </Wrapper>
-    </main>
+            <div>
+              {book.authors.map((id, index) => {
+                const author = authorsList.find((author) => author.id === id);
+                if (author) {
+                  return (
+                    <p key={index}>
+                      {author.name} {author.last_name}
+                    </p>
+                  );
+                }
+              })}
+            </div>
+            <p>{book.year}</p>
+            <p>{book.language}</p>
+            <p>{priceFormat(book.price)}</p>
+          </ListLink>
+        );
+      })}
+    </ListWrapper>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2rem;
-`;
 
 export default BookList;

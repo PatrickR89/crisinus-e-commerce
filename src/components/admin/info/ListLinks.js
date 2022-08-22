@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import styled from "styled-components";
 
 import { useLanguageContext } from "../../../contexts/language_context";
 
-import ListLink from "../elements/ListLink";
-import ListHead from "../elements/ListHead";
+import { ListHead, ListLink, ListWrapper } from "../elements";
 
 const ListLinks = () => {
   const [linkList, setLinkList] = useState([]);
@@ -29,7 +27,7 @@ const ListLinks = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <ListWrapper>
       <h2>{translation.links.toUpperCase()}</h2>
       <ListHead colTitles={titles} />
       {linkList.length > 0 &&
@@ -46,14 +44,8 @@ const ListLinks = () => {
             </ListLink>
           );
         })}
-    </Wrapper>
+    </ListWrapper>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2rem;
-`;
 
 export default ListLinks;

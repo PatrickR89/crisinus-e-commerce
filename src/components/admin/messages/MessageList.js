@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import styled from "styled-components";
 
 import { SingleMessageModal } from "./";
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 
-import ListLink from "../elements/ListLink";
-import ListHead from "../elements/ListHead";
+import { ListHead, ListLink, ListWrapper } from "../elements";
 
 const MessageList = () => {
   const navigate = useNavigate();
@@ -124,49 +122,41 @@ const MessageList = () => {
   const titles = ["ID", translation.name, "EMAIL", translation.date, "STATUS"];
 
   return (
-    <main>
-      <Wrapper>
-        <h2>{translation.messages.toUpperCase()}</h2>
-        <ListHead colTitles={titles} />
-        {messages.length > 0 &&
-          messages.map((message, index) => {
-            return (
-              <ListLink
-                key={index}
-                index={index}
-                cols={5}
-                modal={true}
-                handleClick={() => {
-                  handleMessage(message.id, message.status);
-                }}
-              >
-                <p>{message.id}</p>
-                <h4>{message.name}</h4>
-                <h4>{message.email}</h4>
-                <p>{message.date}</p>
-                <div
-                  className={`status-color ${setStatusColor(message.status)}`}
-                ></div>
-              </ListLink>
-            );
-          })}
-        {isModal && (
-          <SingleMessageModal
-            message={message}
-            handleClose={closeModal}
-            handleConfirm={handleConfirm}
-            handleDelete={handleDelete}
-          />
-        )}
-      </Wrapper>
-    </main>
+    <ListWrapper>
+      <h2>{translation.messages.toUpperCase()}</h2>
+      <ListHead colTitles={titles} />
+      {messages.length > 0 &&
+        messages.map((message, index) => {
+          return (
+            <ListLink
+              key={index}
+              index={index}
+              cols={5}
+              modal={true}
+              handleClick={() => {
+                handleMessage(message.id, message.status);
+              }}
+            >
+              <p>{message.id}</p>
+              <h4>{message.name}</h4>
+              <h4>{message.email}</h4>
+              <p>{message.date}</p>
+              <div
+                className={`status-color ${setStatusColor(message.status)}`}
+              ></div>
+            </ListLink>
+          );
+        })}
+      {isModal && (
+        <SingleMessageModal
+          message={message}
+          handleClose={closeModal}
+          handleConfirm={handleConfirm}
+          handleDelete={handleDelete}
+        />
+      )}
+    </ListWrapper>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2rem;
-`;
 
 export default MessageList;
