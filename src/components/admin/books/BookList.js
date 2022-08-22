@@ -6,6 +6,7 @@ import { useCurrencyContext } from "../../../contexts/currency_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 
 import ListLink from "../elements/ListLink";
+import ListHead from "../elements/ListHead";
 
 const BookList = () => {
   const [bookList, setBookList] = useState([]);
@@ -13,6 +14,7 @@ const BookList = () => {
 
   const { priceFormat } = useCurrencyContext();
   const { translation } = useLanguageContext();
+  const { title, authors, year, language, price } = translation;
 
   const retrieveBooks = () => {
     axios
@@ -37,6 +39,8 @@ const BookList = () => {
       });
   };
 
+  const titles = ["ID", title, authors, year, language, price];
+
   useEffect(() => {
     retrieveBooks();
     retrieveAuthors();
@@ -46,14 +50,7 @@ const BookList = () => {
     <main>
       <Wrapper>
         <h2>{translation.booksList.toUpperCase()}</h2>
-        <div className="per-book head">
-          <section>ID</section>
-          <section>{translation.title.toUpperCase()}</section>
-          <section>{translation.authors.toUpperCase()}</section>
-          <section>{translation.year.toUpperCase()}</section>
-          <section>{translation.language.toUpperCase()}</section>
-          <section>{translation.price.toUpperCase()}</section>
-        </div>
+        <ListHead colTitles={titles} />
         {bookList.map((book, index) => {
           return (
             <ListLink
@@ -92,14 +89,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
-  .per-book {
-    display: inline-grid;
-    grid-template-columns: repeat(6, 1fr);
-    align-items: center;
-  }
-  .head {
-    margin-bottom: 2rem;
-  }
 `;
 
 export default BookList;

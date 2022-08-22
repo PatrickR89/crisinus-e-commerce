@@ -7,13 +7,15 @@ import { useAuthenticationContext } from "../../../contexts/authentication_conte
 import { useLanguageContext } from "../../../contexts/language_context";
 
 import ListLink from "../elements/ListLink";
+import ListHead from "../elements/ListHead";
 
 const ListInfo = () => {
   const navigate = useNavigate();
 
   const { header } = useAuthenticationContext();
   const { translation } = useLanguageContext();
-
+  const { title, titleShow, content } = translation;
+  const titles = ["ID", title, titleShow, content];
   const [infoList, setInfoList] = useState([]);
 
   const getInfoPages = () => {
@@ -55,12 +57,7 @@ const ListInfo = () => {
   return (
     <Wrapper>
       <h2>{translation.infoPages.toUpperCase()}</h2>
-      <div className="per-page head">
-        <section>ID</section>
-        <section>{translation.title.toUpperCase()}</section>
-        <section>{translation.titleShow.toUpperCase()}</section>
-        <section>{translation.content.toUpperCase()}</section>
-      </div>
+      <ListHead colTitles={titles} />
       {infoList.length > 0 &&
         infoList.map((infoPage, index) => {
           return (
@@ -94,15 +91,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
-  .head {
-    margin-bottom: 2rem;
-  }
-  .per-page {
-    display: inline-grid;
-    grid-template-columns: repeat(4, 1fr);
-    align-items: center;
-    width: 100%;
-  }
   .edit-container {
     width: 100%;
     display: flex;

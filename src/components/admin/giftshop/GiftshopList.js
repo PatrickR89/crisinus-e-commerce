@@ -5,9 +5,12 @@ import styled from "styled-components";
 import { useLanguageContext } from "../../../contexts/language_context";
 
 import ListLink from "../elements/ListLink";
+import ListHead from "../elements/ListHead";
 
 const GiftshopList = () => {
   const { translation } = useLanguageContext();
+  const { name, price, maxOrder, description } = translation;
+  const titles = ["ID", name, price, maxOrder, description];
   const [gsList, setGsList] = useState([]);
 
   const getGifts = () => {
@@ -29,14 +32,7 @@ const GiftshopList = () => {
   return (
     <Wrapper>
       <h2>{translation.giftshopList.toUpperCase()}</h2>
-
-      <div className="per-gift head">
-        <section>ID</section>
-        <section>{translation.name.toUpperCase()}</section>
-        <section>{translation.price.toUpperCase()}</section>
-        <section>{translation.maxOrder.toUpperCase()}</section>
-        <section>{translation.description.toUpperCase()}</section>
-      </div>
+      <ListHead colTitles={titles} />
       {gsList.length > 0 &&
         gsList.map((gift, index) => {
           return (
@@ -66,13 +62,5 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
-  .head {
-    margin-bottom: 2rem;
-  }
-  .per-gift {
-    display: inline-grid;
-    grid-template-columns: repeat(5, 1fr);
-    align-items: center;
-  }
 `;
 export default GiftshopList;

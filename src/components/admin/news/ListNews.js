@@ -4,10 +4,13 @@ import styled from "styled-components";
 import { useLanguageContext } from "../../../contexts/language_context";
 
 import ListLink from "../elements/ListLink";
+import ListHead from "../elements/ListHead";
 
 const ListNews = () => {
   const [newsList, setNewsList] = useState([]);
   const { translation } = useLanguageContext();
+  const { title, content, date } = translation;
+  const titles = ["ID", title, content, date];
 
   const getNews = () => {
     axios
@@ -40,12 +43,7 @@ const ListNews = () => {
   return (
     <Wrapper>
       <h2>{translation.newsList.toUpperCase()}</h2>
-      <div className="per-gift head">
-        <section>ID</section>
-        <section>{translation.title.toUpperCase()}</section>
-        <section>{translation.content.toUpperCase()}</section>
-        <section>{translation.date.toUpperCase()}</section>
-      </div>
+      <ListHead colTitles={titles} />
       {newsList.length > 0 &&
         newsList.map((news, index) => {
           return (
@@ -72,14 +70,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
-  .head {
-    margin-bottom: 2rem;
-  }
-  .per-gift {
-    display: inline-grid;
-    grid-template-columns: repeat(4, 1fr);
-    align-items: center;
-  }
 `;
 
 export default ListNews;

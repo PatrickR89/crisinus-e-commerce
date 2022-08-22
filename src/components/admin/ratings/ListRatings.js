@@ -5,10 +5,11 @@ import styled from "styled-components";
 import { useLanguageContext } from "../../../contexts/language_context";
 
 import ListLink from "../elements/ListLink";
+import ListHead from "../elements/ListHead";
 
 const ListRatings = () => {
   const { translation } = useLanguageContext();
-
+  const { bookTitle, title, rating, reviewer, review } = translation;
   const [reviewsList, setReviewsList] = useState([]);
 
   const getReviews = () => {
@@ -27,17 +28,12 @@ const ListRatings = () => {
     getReviews();
   }, []);
 
+  const titles = ["ID", bookTitle, title, rating, reviewer, review];
+
   return (
     <Wrapper>
       <h2>{translation.reviewsList.toUpperCase()}</h2>
-      <div className="per-gift head">
-        <section>ID</section>
-        <section>{translation.bookTitle.toUpperCase()}</section>
-        <section>{translation.title.toUpperCase()}</section>
-        <section>{translation.rating.toUpperCase()}</section>
-        <section>{translation.reviewer.toUpperCase()}</section>
-        <section>{translation.review.toUpperCase()}</section>
-      </div>
+      <ListHead colTitles={titles} />
       {reviewsList.length > 0 &&
         reviewsList.map((review, index) => {
           return (
@@ -66,14 +62,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
-  .head {
-    margin-bottom: 2rem;
-  }
-  .per-gift {
-    display: inline-grid;
-    grid-template-columns: repeat(6, 1fr);
-    align-items: center;
-  }
 `;
 
 export default ListRatings;

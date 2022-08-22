@@ -8,6 +8,7 @@ import { useAuthenticationContext } from "../../../contexts/authentication_conte
 import { useLanguageContext } from "../../../contexts/language_context";
 
 import ListLink from "../elements/ListLink";
+import ListHead from "../elements/ListHead";
 
 const MessageList = () => {
   const navigate = useNavigate();
@@ -120,17 +121,13 @@ const MessageList = () => {
     }
   };
 
+  const titles = ["ID", translation.name, "EMAIL", translation.date, "STATUS"];
+
   return (
     <main>
       <Wrapper>
         <h2>{translation.messages.toUpperCase()}</h2>
-        <div className="per-order head">
-          <section>ID</section>
-          <section>{translation.name.toUpperCase()}</section>
-          <section>EMAIL</section>
-          <section>{translation.date.toUpperCase()}</section>
-          <section>STATUS</section>
-        </div>
+        <ListHead colTitles={titles} />
         {messages.length > 0 &&
           messages.map((message, index) => {
             return (
@@ -170,20 +167,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
-  .head {
-    margin-bottom: 2rem;
-  }
-  button {
-    font-family: inherit;
-    border: none;
-  }
-  .per-order {
-    display: inline-grid;
-    grid-template-columns: repeat(5, 1fr);
-    align-items: center;
-    text-align: center;
-    width: 100%;
-  }
 `;
 
 export default MessageList;

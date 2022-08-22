@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useLanguageContext } from "../../../contexts/language_context";
 
 import ListLinks from "../elements/ListLink";
+import ListHead from "../elements/ListHead";
 
 const AuthorsList = () => {
   const { translation } = useLanguageContext();
@@ -21,6 +22,8 @@ const AuthorsList = () => {
       });
   };
 
+  const titles = ["ID", translation.name, "WEB LINK", "BIO"];
+
   useEffect(() => {
     getAuthors();
   }, []);
@@ -28,12 +31,7 @@ const AuthorsList = () => {
   return (
     <Wrapper>
       <h2>{translation.authorsList.toUpperCase()}</h2>
-      <div className="per-author head">
-        <section>ID</section>
-        <section>{translation.name.toUpperCase()}</section>
-        <section>WEB LINK</section>
-        <section>BIO</section>
-      </div>
+      <ListHead colTitles={titles} />
       {authorList.length > 0 &&
         authorList.map((author, index) => {
           return (
@@ -62,14 +60,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
-  .head {
-    margin-bottom: 2rem;
-  }
-  .per-author {
-    display: inline-grid;
-    grid-template-columns: repeat(4, 1fr);
-    align-items: center;
-  }
 `;
 
 export default AuthorsList;

@@ -7,13 +7,14 @@ import { useAuthenticationContext } from "../../../contexts/authentication_conte
 import { useLanguageContext } from "../../../contexts/language_context";
 
 import ListLink from "../elements/ListLink";
+import ListHead from "../elements/ListHead";
 
 const OrderList = () => {
   const navigate = useNavigate();
   const [orderList, setOrderList] = useState([]);
   const { header } = useAuthenticationContext();
   const { translation } = useLanguageContext();
-
+  const titles = ["id", translation.date, "status"];
   useEffect(() => {
     retrieveOrders();
   }, []);
@@ -47,11 +48,7 @@ const OrderList = () => {
     <main>
       <Wrapper>
         <h2>{translation.orders.toUpperCase()}</h2>
-        <div className="per-order head">
-          <section>ID</section>
-          <section>{translation.date.toUpperCase()}</section>
-          <section>STATUS</section>
-        </div>
+        <ListHead colTitles={titles} />
         {orderList.length > 0 &&
           orderList.map((order, index) => {
             return (
@@ -82,16 +79,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
-  .head {
-    margin-bottom: 2rem;
-  }
-  .per-order {
-    display: inline-grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center;
-    text-align: center;
-    width: 100%;
-  }
 `;
 
 export default OrderList;

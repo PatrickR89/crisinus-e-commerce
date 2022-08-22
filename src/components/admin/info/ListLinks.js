@@ -5,12 +5,13 @@ import styled from "styled-components";
 import { useLanguageContext } from "../../../contexts/language_context";
 
 import ListLink from "../elements/ListLink";
+import ListHead from "../elements/ListHead";
 
 const ListLinks = () => {
   const [linkList, setLinkList] = useState([]);
 
   const { translation } = useLanguageContext();
-
+  const titles = ["ID", "link"];
   const getLinks = () => {
     axios
       .get("/api/links")
@@ -30,10 +31,7 @@ const ListLinks = () => {
   return (
     <Wrapper>
       <h2>{translation.links.toUpperCase()}</h2>
-      <div className="per-page head">
-        <section>ID</section>
-        <section>LINK</section>
-      </div>
+      <ListHead colTitles={titles} />
       {linkList.length > 0 &&
         linkList.map((singleLink, index) => {
           return (
@@ -56,16 +54,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
-  .head {
-    margin-bottom: 2rem;
-  }
-  .per-page {
-    display: inline-grid;
-    grid-template-columns: repeat(2, 1fr);
-    align-items: center;
-    width: 100%;
-    padding: 0.5rem;
-  }
 `;
 
 export default ListLinks;
