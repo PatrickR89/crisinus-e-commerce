@@ -20,6 +20,9 @@ import { AddRating, EditRating, ListRatings } from "./components/admin/ratings";
 import { OrderList, SingleOrder } from "./components/admin/orders/";
 import { MessageList } from "./components/admin/messages/";
 import { CookiesModal } from "./components/public/info";
+import { ContextWrapper } from "./components/admin/elements/";
+
+import { AuthorsAdminProvider } from "./contexts/admin/authors_context";
 
 import Login from "./components/authentication/Login";
 
@@ -100,12 +103,18 @@ function App() {
           <Route path=":id" element={<CurrentAuthor />} />{" "}
         </Route>
         <Route path="/admin" element={<AdminPage />}>
+          <Route
+            path="authors"
+            element={<ContextWrapper Context={AuthorsAdminProvider} />}
+          >
+            <Route path="list" element={<AuthorsList />} />
+            <Route path=":id" element={<EditAuthor />} />
+          </Route>
           <Route path="login" element={<Login />} />
           <Route path="addbook" element={<AddBook />} />
           <Route path="booklist" element={<BookList />} />
           <Route path="editbook/:id" element={<EditBook />} />
-          <Route path="authorslist" element={<AuthorsList />} />
-          <Route path="editauthor/:id" element={<EditAuthor />} />
+          {/* <Route path="editauthor/:id" element={<EditAuthor />} /> */}
           <Route path="addgift" element={<AddGift />} />
           <Route path="editgift/:id" element={<EditGift />} />
           <Route path="giftshoplist" element={<GiftshopList />} />

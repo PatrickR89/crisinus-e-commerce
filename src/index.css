@@ -1,312 +1,303 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Roboto:wght@100;300;400;700&family=Rubik:wght@300;400;700&display=swap");
 
 :root {
-    /* dark shades of primary color*/
-    --clr-primary-1: hsl(215, 20%, 20%);
-    --clr-primary-2: hsl(215, 20%, 35%);
-    --clr-primary-3: hsl(215, 20%, 45%);
-    --clr-primary-4: hsl(215, 20%, 50%);
-    /* primary/main color */
-    --clr-primary-5: hsl(215, 20%, 60%);
-    /* lighter shades of primary color */
-    --clr-primary-6: hsl(215, 20%, 75%);
-    --clr-primary-7: hsl(215, 20%, 85%);
-    --clr-primary-8: hsl(215, 20%, 95%);
-    /*  headings */
-    --clr-title-1: hsl(25, 37%, 25%);
-    --clr-title-2: hsl(25, 37%, 35%);
-    --clr-title-3: hsl(25, 37%, 50%);
-    --clr-title-4: hsl(25, 37%, 55%);
-    /*  paragraphs */
-    --clr-par-5: hsl(30, 93%, 10%);
-    --clr-par-6: hsl(30, 93%, 20%);
-    --clr-par-7: hsl(30, 93%, 35%);
-    --clr-par-8: hsl(30, 93%, 45%);
-    --clr-par-9: hsl(30, 93%, 60%);
-    --clr-par-10: hsl(30, 93%, 80%);
-    /* buttons and links  */
-    --clr-button-1: hsl(45, 88%, 35%);
-    --clr-button-1-tp: hsl(45, 88%, 35%, 0.5);
-    --clr-button-2: hsl(45, 88%, 45%);
-    --clr-button-3: hsl(45, 88%, 60%);
-    --clr-button-3-tp: hsl(45, 88%, 60%, 0.25);
-    --clr-button-4: hsl(45, 88%, 75%);
-    --clr-button-4-tp: hsla(45, 88%, 75%, 0.5);
-    --clr-button-5: hsl(45, 88%, 85%);
-    --clr-button-6: hsl(45, 88%, 95%);
+  /* dark shades of primary color*/
+  --clr-primary-1: hsl(215, 20%, 20%);
+  --clr-primary-2: hsl(215, 20%, 35%);
+  --clr-primary-3: hsl(215, 20%, 45%);
+  --clr-primary-4: hsl(215, 20%, 50%);
+  /* primary/main color */
+  --clr-primary-5: hsl(215, 20%, 60%);
+  /* lighter shades of primary color */
+  --clr-primary-6: hsl(215, 20%, 75%);
+  --clr-primary-7: hsl(215, 20%, 85%);
+  --clr-primary-8: hsl(215, 20%, 95%);
+  /*  headings */
+  --clr-title-1: hsl(25, 37%, 25%);
+  --clr-title-2: hsl(25, 37%, 35%);
+  --clr-title-3: hsl(25, 37%, 50%);
+  --clr-title-4: hsl(25, 37%, 55%);
+  /*  paragraphs */
+  --clr-par-5: hsl(30, 93%, 10%);
+  --clr-par-6: hsl(30, 93%, 20%);
+  --clr-par-7: hsl(30, 93%, 35%);
+  --clr-par-8: hsl(30, 93%, 45%);
+  --clr-par-9: hsl(30, 93%, 60%);
+  --clr-par-10: hsl(30, 93%, 80%);
+  /* buttons and links  */
+  --clr-button-1: hsl(45, 88%, 35%);
+  --clr-button-1-tp: hsl(45, 88%, 35%, 0.5);
+  --clr-button-2: hsl(45, 88%, 45%);
+  --clr-button-3: hsl(45, 88%, 60%);
+  --clr-button-3-tp: hsl(45, 88%, 60%, 0.25);
+  --clr-button-4: hsl(45, 88%, 75%);
+  --clr-button-4-tp: hsla(45, 88%, 75%, 0.5);
+  --clr-button-5: hsl(45, 88%, 85%);
+  --clr-button-6: hsl(45, 88%, 95%);
 
-    --clr-clear-hover: hsl(0, 92%, 30%);
+  --clr-clear-hover: hsl(0, 92%, 30%);
 
-    --clr-white: hsl(0, 0%, 100%);
-    --clr-white-transparent: hsla(0, 0%, 100%, 0);
-    --clr-white-semi-transparent: hsla(0, 0%, 100%, 0.3);
-    --clr-red-dark: hsl(360, 67%, 44%);
-    --clr-red-glass: hsla(0, 95%, 44%, 0.308);
-    --clr-red-warning: hsl(0, 100%, 50%);
-    --clr-red-light: hsl(360, 71%, 66%);
-    --clr-green-dark: hsl(125, 67%, 44%);
-    --clr-green-light: hsl(125, 71%, 66%);
-    --clr-yellow: hsl(41, 100%, 47%);
-    --clr-black: hsl(0, 0%, 13%);
-    --transition: all 0.3s linear;
-    --spacing: 0.1rem;
-    --radius: 0.15rem;
-    --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    --max-width: 1170px;
-    --fixed-width: 620px;
+  --clr-white: hsl(0, 0%, 100%);
+  --clr-white-transparent: hsla(0, 0%, 100%, 0);
+  --clr-white-semi-transparent: hsla(0, 0%, 100%, 0.3);
+  --clr-red-dark: hsl(360, 67%, 44%);
+  --clr-red-glass: hsla(0, 95%, 44%, 0.308);
+  --clr-red-warning: hsl(0, 100%, 50%);
+  --clr-red-light: hsl(360, 71%, 66%);
+  --clr-green-dark: hsl(125, 67%, 44%);
+  --clr-green-light: hsl(125, 71%, 66%);
+  --clr-yellow: hsl(41, 100%, 47%);
+  --clr-black: hsl(0, 0%, 13%);
+  --transition: all 0.3s linear;
+  --spacing: 0.1rem;
+  --radius: 0.15rem;
+  --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  --max-width: 1170px;
+  --fixed-width: 620px;
 
-    --nav-background: url("./defaults/chrisinus_header.jpg");
+  --nav-background: url("./defaults/chrisinus_header.jpg");
 }
 
 *,
 ::after,
 ::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
+  margin: 0;
 
-    font-family: "Lato", sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 ul {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 h2 {
-    color: var(--clr-title-2);
-    letter-spacing: var(--spacing);
-    text-transform: capitalize;
+  color: var(--clr-title-2);
+  letter-spacing: var(--spacing);
+  text-transform: capitalize;
 }
 
 .btn {
-    text-transform: uppercase;
-    background: var(--clr-button-3);
-    color: var(--clr-primary-1);
-    padding: 0.375rem 0.75rem;
-    letter-spacing: var(--spacing);
-    display: inline-block;
-    font-weight: 400;
-    transition: var(--transition);
-    font-size: 0.875rem;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    border-radius: var(--radius);
-    border-color: transparent;
+  text-transform: uppercase;
+  background: var(--clr-button-3);
+  color: var(--clr-primary-1);
+  padding: 0.375rem 0.75rem;
+  letter-spacing: var(--spacing);
+  display: inline-block;
+  font-weight: 400;
+  transition: var(--transition);
+  font-size: 0.875rem;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius);
+  border-color: transparent;
 }
 .btn:hover {
-    color: var(--clr-primary-2);
-    background: var(--clr-button-4);
+  color: var(--clr-primary-2);
+  background: var(--clr-button-4);
 }
 
 .btn-delete {
-    background: var(--clr-clear-hover);
-    color: hsl(0, 0%, 100%);
+  background: var(--clr-clear-hover);
+  color: hsl(0, 0%, 100%);
 }
 .btn-delete:hover {
-    background: var(--clr-red-dark);
-    color: hsl(0, 0%, 70%);
+  background: var(--clr-red-dark);
+  color: hsl(0, 0%, 70%);
 }
 
 button:disabled,
 button[disabled] {
-    background-color: var(--clr-button-3-tp);
-    color: var(--clr-button-1-tp);
+  background-color: var(--clr-button-3-tp);
+  color: var(--clr-button-1-tp);
 }
 a {
-    text-decoration: none;
-    color: var(--clr-primary-1);
+  text-decoration: none;
+  color: var(--clr-primary-1);
 }
 
 .underline {
-    width: 4rem;
-    height: 0.25rem;
-    background: #49a6e9;
-    background: var(--clr-title-1);
-    margin-left: auto;
-    margin-right: auto;
+  width: 4rem;
+  height: 0.25rem;
+  background: #49a6e9;
+  background: var(--clr-title-1);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .title {
-    display: inline-block;
-    letter-spacing: --spacing;
-    text-transform: uppercase;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
+  display: inline-block;
+  letter-spacing: --spacing;
+  text-transform: uppercase;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 .select {
-    transition: 0.1s ease-in-out;
+  transition: 0.1s ease-in-out;
 }
 .select:hover {
-    background: var(--clr-primary-6);
-    cursor: pointer;
+  background: var(--clr-primary-6);
+  cursor: pointer;
 }
 
 main {
-    margin: 0rem auto;
-    max-width: var(--max-width);
+  margin: 0rem auto;
+  max-width: var(--max-width);
 }
 
 .loading {
-    background: var(--clr-button-3);
-    width: 100%;
-    max-width: var(--max-width);
-    height: 5vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: var(--clr-button-3);
+  width: 100%;
+  max-width: var(--max-width);
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    color: var(--clr-primary-1);
-    font-size: 1rem;
-    text-transform: capitalize;
-    margin: auto;
+  color: var(--clr-primary-1);
+  font-size: 1rem;
+  text-transform: capitalize;
+  margin: auto;
 }
 
 .menu-left {
-    padding: 7rem 2rem;
-    height: 100%;
-    width: 25%;
-    min-width: 25%;
-    background: var(--clr-button-5);
+  padding: 7rem 2rem;
+  height: 100%;
+  width: 25%;
+  min-width: 25%;
+  background: var(--clr-button-5);
 }
 
 .menu-left .btn {
-    width: 100%;
+  width: 100%;
 }
 
 .menu-left .current {
-    background: var(--clr-button-4);
-    text-transform: uppercase;
+  background: var(--clr-button-4);
+  text-transform: uppercase;
 }
 
 .disable-display {
-    display: none;
+  display: none;
 }
 
 .sidebar {
-    background-color: var(--clr-button-3);
+  background-color: var(--clr-button-3);
 }
 .solo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
 }
 .center {
-    width: 25%;
+  width: 25%;
 }
 
 .mt-1 {
-    margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 .itm-background-one {
-    background: var(--clr-primary-8);
+  background: var(--clr-primary-8);
 }
 .itm-background-two {
-    background: var(--clr-button-6);
+  background: var(--clr-button-6);
 }
 .on-hover-list:hover {
-    background-color: var(--clr-button-4);
-    font-size: 1.01em;
-    font-weight: bold;
+  background-color: var(--clr-button-4);
+  font-size: 1.01em;
+  font-weight: bold;
 }
 
 .status-color {
-    width: 15px;
-    height: 15px;
-    margin: auto;
-    border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  margin: auto;
+  border-radius: 50%;
 }
 
 .red-background {
-    background-color: var(--clr-red-dark);
+  background-color: var(--clr-red-dark);
 }
 .yellow-background {
-    background-color: var(--clr-yellow);
+  background-color: var(--clr-yellow);
 }
 .green-background {
-    background-color: var(--clr-green-dark);
+  background-color: var(--clr-green-dark);
 }
 
 .nav-container {
-    display: flex;
-    height: 10vh;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  height: 10vh;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
 }
 .side-container {
-    width: 100%;
+  width: 100%;
 }
 .nav-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-transform: uppercase;
-    background: var(--clr-button-3);
-    color: var(--clr-primary-1);
-    padding: auto;
-    letter-spacing: var(--spacing);
-    font-weight: bold;
-    transition: var(--transition);
-    font-size: 1rem;
-    cursor: pointer;
-    border-color: transparent;
-    width: 20%;
-    height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  background: var(--clr-button-3);
+  color: var(--clr-primary-1);
+  padding: auto;
+  letter-spacing: var(--spacing);
+  font-weight: bold;
+  transition: var(--transition);
+  font-size: 1rem;
+  cursor: pointer;
+  border-color: transparent;
+  width: 20%;
+  height: 100%;
 }
 .side-btn {
-    width: 100%;
-    height: 3rem;
+  width: 100%;
+  height: 3rem;
 }
 .nav-btn:hover {
-    color: var(--clr-primary-2);
-    background: var(--clr-button-4);
+  color: var(--clr-primary-2);
+  background: var(--clr-button-4);
 }
 
 .line-break {
-    white-space: pre-wrap;
+  white-space: pre-wrap;
 }
-
-/* .main {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  margin-bottom: 2rem;
-} */
 
 @media (min-width: 900px) {
-    .toggle-side {
-        display: none !important;
-    }
+  .toggle-side {
+    display: none !important;
+  }
 }
 @media (max-width: 900px) {
-    .toggle-disp {
-        display: none !important;
-    }
+  .toggle-disp {
+    display: none !important;
+  }
 }
 @media (max-width: 1000px) {
-    .solo {
-        flex-direction: column;
-    }
-    .center {
-        width: 60%;
-    }
-    .toggle-disp-1000 {
-        display: none !important;
-    }
+  .solo {
+    flex-direction: column;
+  }
+  .center {
+    width: 60%;
+  }
+  .toggle-disp-1000 {
+    display: none !important;
+  }
 }
 
 @media (max-width: 600px) {
-    .center {
-        width: 100%;
-    }
+  .center {
+    width: 100%;
+  }
 }
