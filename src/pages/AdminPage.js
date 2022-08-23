@@ -97,7 +97,7 @@ const AdminPage = () => {
 
             {category === "books" && (
               <div className="nav-container">
-                <Link className="nav-btn" to="/admin/addbook">
+                <Link className="nav-btn" to="/admin/books/add">
                   {translation.add}
                 </Link>
                 <Link className="nav-btn" to="/admin/booklist">

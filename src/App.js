@@ -23,6 +23,7 @@ import { CookiesModal } from "./components/public/info";
 import { ContextWrapper } from "./components/admin/elements/";
 
 import { AuthorsAdminProvider } from "./contexts/admin/authors_context";
+import { BooksProvider } from "./contexts/admin/books_context";
 
 import Login from "./components/authentication/Login";
 
@@ -110,8 +111,13 @@ function App() {
             <Route path="list" element={<AuthorsList />} />
             <Route path=":id" element={<EditAuthor />} />
           </Route>
+          <Route
+            path="books"
+            element={<ContextWrapper Context={BooksProvider} />}
+          >
+            <Route path="add" element={<AddBook />} />
+          </Route>
           <Route path="login" element={<Login />} />
-          <Route path="addbook" element={<AddBook />} />
           <Route path="booklist" element={<BookList />} />
           <Route path="editbook/:id" element={<EditBook />} />
           <Route path="addgift" element={<AddGift />} />
