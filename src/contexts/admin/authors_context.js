@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useContext, useReducer } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 

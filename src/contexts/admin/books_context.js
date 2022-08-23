@@ -3,22 +3,22 @@ import axios from "axios";
 
 const initialState = {};
 
-import {} from "../../actions/admin/authors_actions";
+import {} from "../../actions/admin/books_actions";
 
-import reducer from "../../reducers/admin/authors_reducer";
+import reducer from "../../reducers/admin/books_reducer";
 
-const AuthorsContext = React.createContext();
+const BooksContext = React.createContext();
 
-export const AuthorsProvider = ({ children }) => {
+export const BooksProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <AuthorsContext.Provider value={{ ...state }}>
+    <BooksContext.Provider value={{ ...state }}>
       {children}
-    </AuthorsContext.Provider>
+    </BooksContext.Provider>
   );
 };
 
-export const useAuthorsContext = () => {
-  return useContext(AuthorsContext);
+export const useBooksContext = () => {
+  return useContext(BooksContext);
 };

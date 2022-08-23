@@ -1,7 +1,7 @@
-import {} from "../../actions/admin/authors_actions";
+import {} from "../../actions/admin/books_actions";
 
-const authors_reducer = (state, dispatch) => {
+const books_reducer = (state, dispatch) => {
   throw new Error(`No matching ${action.type} action`);
 };
 
-export default authors_reducer;
+export default books_reducer;

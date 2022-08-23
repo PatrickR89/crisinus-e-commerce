@@ -114,7 +114,6 @@ function App() {
           <Route path="addbook" element={<AddBook />} />
           <Route path="booklist" element={<BookList />} />
           <Route path="editbook/:id" element={<EditBook />} />
-          {/* <Route path="editauthor/:id" element={<EditAuthor />} /> */}
           <Route path="addgift" element={<AddGift />} />
           <Route path="editgift/:id" element={<EditGift />} />
           <Route path="giftshoplist" element={<GiftshopList />} />
