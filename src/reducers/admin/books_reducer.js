@@ -2,6 +2,8 @@ import {
   LOAD_INITIATED,
   ERROR_OCCURRED,
   LOAD_AUTHORS,
+  LOAD_BOOKS,
+  LOAD_BOOK,
   HANDLE_AUTHORS,
   ADD_AUTHOR_SPOT,
   SET_IMAGES,
@@ -30,6 +32,15 @@ const books_reducer = (state, action) => {
     return { ...state, book: { ...state.book, authors: action.payload } };
   }
 
+  if (action.type === LOAD_BOOKS) {
+    return {
+      ...state,
+      booksList: action.payload,
+      loading: false,
+      error: false
+    };
+  }
+
   if (action.type === ADD_AUTHOR_SPOT) {
     return {
       ...state,
@@ -47,6 +58,19 @@ const books_reducer = (state, action) => {
   if (action.type === UPDATE_BOOK) {
     const { name, value } = action.payload;
     return { ...state, book: { ...state.book, [name]: value } };
+  }
+
+  if (action.type === LOAD_BOOK) {
+    const book = action.payload[0];
+    const authors = action.payload[1];
+
+    book.authors = authors.map((initAuthor) => {
+      return {
+        name: initAuthor.name,
+        last_name: initAuthor.last_name
+      };
+    });
+    return { ...state, book: book, load: false, error: false };
   }
   throw new Error(`No matching ${action.type} action`);
 };

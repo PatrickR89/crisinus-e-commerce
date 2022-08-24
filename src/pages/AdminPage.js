@@ -49,7 +49,7 @@ const AdminPage = () => {
   useEffect(() => {
     switch (category) {
       case "books":
-        navigate("/admin/booklist", { replace: true });
+        navigate("/admin/books/list", { replace: true });
         break;
       case "authors":
         navigate("/admin/authors/list", { replace: true });
@@ -100,7 +100,7 @@ const AdminPage = () => {
                 <Link className="nav-btn" to="/admin/books/add">
                   {translation.add}
                 </Link>
-                <Link className="nav-btn" to="/admin/booklist">
+                <Link className="nav-btn" to="/admin/books/list">
                   {translation.list}
                 </Link>
               </div>

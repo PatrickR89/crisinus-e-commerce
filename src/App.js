@@ -116,10 +116,10 @@ function App() {
             element={<ContextWrapper Context={BooksProvider} />}
           >
             <Route path="add" element={<AddBook />} />
+            <Route path="list" element={<BookList />} />
+            <Route path=":id" element={<EditBook />} />
           </Route>
           <Route path="login" element={<Login />} />
-          <Route path="booklist" element={<BookList />} />
-          <Route path="editbook/:id" element={<EditBook />} />
           <Route path="addgift" element={<AddGift />} />
           <Route path="editgift/:id" element={<EditGift />} />
           <Route path="giftshoplist" element={<GiftshopList />} />

@@ -22,24 +22,26 @@ const AddBook = () => {
     handleAdd,
     handleImages,
     addBook,
-    updateBook
+    updateBook,
+    resetForm
   } = useBooksContext();
   const {
     title,
     authors,
     genre,
-    maxOrder,
+    max_order,
     price,
     publisher,
     language,
     year,
-    desc
+    description
   } = book;
 
   useEffect(() => {
     if (!loggedIn) {
       navigate("/admin/login", { replace: true });
     }
+    resetForm();
     loadAuthors();
   }, []);
 
@@ -57,15 +59,15 @@ const AddBook = () => {
           />
           <label htmlFor="authors">{translation.authors}:</label>
           <div className="authors" name="authors" id="authors">
-            {authors.map((x, i) => {
+            {authors.map((author, index) => {
               return (
-                <div className="single-author">
+                <div className="single-author" key={index}>
                   <input
                     type="text"
                     name="name"
                     id="name"
-                    value={x.name}
-                    onChange={(e) => handleAuthorInput(e, i)}
+                    value={author.name}
+                    onChange={(e) => handleAuthorInput(e, index)}
                     placeholder={translation.name}
                     list="authorsNames"
                   />
@@ -78,8 +80,8 @@ const AddBook = () => {
                     type="text"
                     name="last_name"
                     id="last_name"
-                    value={x.last_name}
-                    onChange={(e) => handleAuthorInput(e, i)}
+                    value={author.last_name}
+                    onChange={(e) => handleAuthorInput(e, index)}
                     placeholder={translation.lastName}
                     list="autLast"
                   />
@@ -94,11 +96,14 @@ const AddBook = () => {
                   </datalist>
                   <div className="list-com">
                     {authors.length !== 1 && (
-                      <button className="btn" onClick={() => handleRemove(i)}>
+                      <button
+                        className="btn"
+                        onClick={() => handleRemove(index)}
+                      >
                         {translation.remove}
                       </button>
                     )}
-                    {authors.length - 1 === i && (
+                    {authors.length - 1 === index && (
                       <button className="btn" onClick={handleAdd}>
                         {translation.add}
                       </button>
@@ -162,23 +167,23 @@ const AddBook = () => {
             value={year}
             onChange={updateBook}
           />
-          <label htmlFor="maxOrder">{translation.maxAmount}:</label>
+          <label htmlFor="max_order">{translation.maxAmount}:</label>
           <input
             type="number"
-            name="maxOrder"
-            id="maxOrder"
-            value={maxOrder}
+            name="max_order"
+            id="max_order"
+            value={max_order}
             onChange={updateBook}
           />
-          <label htmlFor="title">{translation.description}:</label>
+          <label htmlFor="description">{translation.description}:</label>
           <textarea
-            name="desc"
-            id="desc"
+            name="description"
+            id="description"
             cols="30"
             rows="10"
             onChange={updateBook}
           >
-            {desc}
+            {description}
           </textarea>
           <button onClick={() => addBook(header)} className="btn mt-1">
             {translation.add}

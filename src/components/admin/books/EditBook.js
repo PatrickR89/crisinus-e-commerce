@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import { FaTrashAlt } from "react-icons/fa";
@@ -8,503 +8,327 @@ import { FaCameraRetro } from "react-icons/fa";
 
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useLanguageContext } from "../../../contexts/language_context";
+import { useBooksContext } from "../../../contexts/admin/books_context";
 
 const EditBook = () => {
-    axios.defaults.withCredentials = true;
+  axios.defaults.withCredentials = true;
+  const {
+    book,
+    loadAuthors,
+    handleAuthorInput,
+    handleRemove,
+    handleAdd,
+    handleImages,
+    handleDelete,
+    authorsList,
+    findById,
+    editById,
+    deleteById,
+    updateBook,
+    loading,
+    error
+  } = useBooksContext();
+  const {
+    title,
+    authors,
+    genre,
+    max_order,
+    price,
+    publisher,
+    language,
+    year,
+    description,
+    images
+  } = book;
 
-    const { id } = useParams();
-    const navigate = useNavigate();
+  const { id } = useParams();
+  const { header } = useAuthenticationContext();
+  const { translation } = useLanguageContext();
 
-    const { header } = useAuthenticationContext();
-    const { translation } = useLanguageContext();
+  useEffect(() => {
+    findById(id, header);
+    loadAuthors();
+  }, []);
 
-    const [initialBook, setInitialBook] = useState({
-        title: "",
-        authors: [],
-        genre: "",
-        max_order: 0,
-        price: 0,
-        publisher: "",
-        language: "",
-        year: 0,
-        description: "",
-        images: []
-    });
-    const [initialAuthors, setInitialAuthors] = useState([]);
-    const [authors, setAuthors] = useState([{ name: "", last_name: "" }]);
-
-    const [title, setTitle] = useState("");
-    const [images, setImages] = useState([]);
-    const [genre, setGenre] = useState("");
-    const [maxOrder, setMaxOrder] = useState(0);
-    const [price, setPrice] = useState(0);
-    const [publisher, setPublisher] = useState("");
-    const [language, setLanguage] = useState("");
-    const [year, setYear] = useState(2000);
-    const [desc, setDesc] = useState("");
-    const [bookId, setBookId] = useState("");
-    const [authorsList, setAuthorsList] = useState([]);
-
-    const initializeBook = () => {
-        setTitle(initialBook.title);
-        setGenre(initialBook.genre);
-        setMaxOrder(initialBook.max_order);
-        setPrice(initialBook.price);
-        setPublisher(initialBook.publisher);
-        setLanguage(initialBook.language);
-        setYear(initialBook.year);
-        setDesc(initialBook.description);
-        setImages(initialBook.images);
-        setBookId(initialBook.id);
-    };
-
-    const loadAuthors = () => {
-        axios
-            .get("/api/authors/")
-            .then((response) => {
-                setAuthorsList(response.data);
-            })
-            .catch((error) => {
-                const err = `api: /api/authors/ [editbook[GET]], error: ${error}`;
-                axios.post("/api/system/error", { err });
-            });
-    };
-
-    const handleAuthorInput = (e, index) => {
-        const { name, value } = e.target;
-        const tempAuthors = [...authors];
-        tempAuthors[index][name] = value;
-        setAuthors(tempAuthors);
-    };
-
-    const handleRemove = (index) => {
-        const tempAuthors = [...authors];
-        tempAuthors.splice(index, 1);
-        setAuthors(tempAuthors);
-    };
-
-    const handleAdd = () => {
-        setAuthors([...authors, { name: "", last_name: "" }]);
-    };
-
-    const getData = (id) => {
-        axios
-            .post(`/api/books/${id}`, {
-                headers: header(),
-                id
-            })
-            .then((response) => {
-                if (
-                    response.data === "Token required" ||
-                    response.data.auth === false
-                )
-                    return navigate("/admin/login", { replace: true });
-                setInitialBook(response.data[0]);
-                setInitialAuthors(response.data[1]);
-            })
-            .catch((error) => {
-                const err = `api: api/books/${id} [editbook[POST]], error: ${error}`;
-                axios.post("/api/system/error", { err });
-            });
-    };
-
-    const initializeAuthors = () => {
-        const tempAL = [];
-        initialAuthors.map((initAuthor) => {
-            const tempAut = {
-                name: initAuthor.name,
-                last_name: initAuthor.last_name
-            };
-            tempAL.push(tempAut);
-        });
-        setAuthors(tempAL);
-    };
-
-    const handleImages = (e) => {
-        const data = new FormData();
-        const files = [...e.target.files];
-        files.forEach((file) => {
-            data.append("images", file);
-        });
-
-        axios
-            .post("/api/images/addimages", data)
-            .then((res) => {
-                const tempImages = [...images];
-                res.data.forEach((image) => {
-                    tempImages.push(image.path);
-                });
-                setImages(tempImages);
-            })
-            .catch((error) => {
-                const err = `api: api/images/addimages [editbook[POST]], error: ${error}`;
-                axios.post("/api/system/error", { err });
-            });
-    };
-
-    const handleDelete = (url) => {
-        axios.post("/api/images/deleteimages", { url }).catch((error) => {
-            const err = `api: api/images/deleteimages [editbook[POST]], error: ${error}`;
-            axios.post("/api/system/error", { err });
-        });
-        const tempUrls = images.filter((image) => image !== url);
-        setImages(tempUrls);
-    };
-
-    const editBook = () => {
-        axios
-            .put(`/api/books/${id}`, {
-                headers: header(),
-                title,
-                genre,
-                maxOrder,
-                price,
-                publisher,
-                language,
-                year,
-                desc,
-                bookId,
-                authors,
-                images
-            })
-            .then((response) => {
-                if (
-                    response.data === "Token required" ||
-                    response.data.auth === false
-                )
-                    return navigate("/admin/login", { replace: true });
-                const info = `${id} book edited`;
-                axios.post("/api/system/info", { info });
-            })
-            .catch((error) => {
-                const err = `api: api/books/${id} [editbook[PUT]], error: ${error}`;
-                axios.post("/api/system/error", { err });
-            });
-        navigate("/admin/booklist", { replace: true });
-    };
-
-    const deleteBook = () => {
-        axios
-            .delete(`/api/books/${id}`, {
-                headers: header(),
-                data: { id: id }
-            })
-            .then((response) => {
-                if (
-                    response.data === "Token required" ||
-                    response.data.auth === false
-                )
-                    return navigate("/admin/login", { replace: true });
-                const info = `${id} book deleted`;
-                axios.post("/api/system/info", { info });
-            })
-            .catch((error) => {
-                const err = `api: api/books/${id} [editbook[DELETE]], error: ${error}`;
-                axios.post("/api/system/error", { err });
-            });
-        navigate("/admin/booklist", { replace: true });
-    };
-
-    useEffect(() => {
-        getData(id);
-        loadAuthors();
-    }, []);
-    useEffect(() => {
-        initializeAuthors();
-    }, [initialAuthors]);
-    useEffect(() => {
-        initializeBook();
-    }, [initialBook]);
-
+  if (loading) {
     return (
-        <main>
-            <Wrapper>
-                <div className="edit-header">
-                    <h4>{initialBook.title}</h4>
-                    <div className="thumb-container">
-                        {images.map((url, index) => {
-                            return (
-                                <div key={index} className="single-thumb">
-                                    <p>{url}</p>
-                                    <img
-                                        className="thumb"
-                                        src={`/${url}`}
-                                        alt=""
-                                    />
-                                    <button
-                                        className="btn btn-delete"
-                                        onClick={() => handleDelete(url)}
-                                    >
-                                        <FaTrashAlt />
-                                    </button>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-
-                <div className="info">
-                    <label htmlFor="title">{translation.title}:</label>
-                    <input
-                        type="text"
-                        name="title"
-                        id="title"
-                        onChange={(e) => setTitle(e.target.value)}
-                        value={title}
-                    />
-                    <label htmlFor="authors">{translation.authors}:</label>
-                    <div className="authors" name="authors" id="authors">
-                        {authors.map((x, i) => {
-                            return (
-                                <div className="single-author">
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        id="name"
-                                        value={x.name}
-                                        onChange={(e) =>
-                                            handleAuthorInput(e, i)
-                                        }
-                                        placeholder={translation.name}
-                                        list="authorsNames"
-                                    />
-                                    <datalist id="authorsNames">
-                                        {authorsList.map((author) => {
-                                            return (
-                                                <option value={author.name}>
-                                                    {author.name}
-                                                </option>
-                                            );
-                                        })}
-                                    </datalist>
-                                    <input
-                                        type="text"
-                                        name="last_name"
-                                        id="last_name"
-                                        value={x.last_name}
-                                        onChange={(e) =>
-                                            handleAuthorInput(e, i)
-                                        }
-                                        placeholder={translation.lastName}
-                                        list="autLast"
-                                    />
-                                    <datalist id="autLast">
-                                        {authorsList.map((author) => {
-                                            return (
-                                                <option
-                                                    value={author.last_name}
-                                                >
-                                                    {author.last_name}
-                                                </option>
-                                            );
-                                        })}
-                                    </datalist>
-                                    <div className="list-com">
-                                        {authors.length !== 1 && (
-                                            <button
-                                                className="btn"
-                                                onClick={() => handleRemove(i)}
-                                            >
-                                                {translation.remove}
-                                            </button>
-                                        )}
-                                        {authors.length - 1 === i && (
-                                            <button
-                                                className="btn"
-                                                onClick={handleAdd}
-                                            >
-                                                {translation.add}
-                                            </button>
-                                        )}
-                                    </div>
-                                </div>
-                            );
-                        })}
-                        {authors.length === 0 && (
-                            <button className="btn" onClick={handleAdd}>
-                                {translation.add}
-                            </button>
-                        )}
-                    </div>
-                    <label htmlFor="genre">{translation.genre}:</label>
-                    <input
-                        type="text"
-                        name="genre"
-                        id="genre"
-                        value={genre}
-                        onChange={(e) => setGenre(e.target.value)}
-                    />
-                    <label htmlFor="publisher">{translation.publisher}:</label>
-                    <input
-                        type="text"
-                        name="publisher"
-                        id="publisher"
-                        value={publisher}
-                        onChange={(e) => setPublisher(e.target.value)}
-                    />
-                    <label htmlFor="language">{translation.language}:</label>
-                    <input
-                        type="text"
-                        name="language"
-                        id="language"
-                        value={language}
-                        onChange={(e) => setLanguage(e.target.value)}
-                    />
-                    <label htmlFor="images" className="photo-input">
-                        {translation.images}:
-                        <input
-                            type="file"
-                            name="images"
-                            multiple
-                            id="images"
-                            className="hidden-input"
-                            onChange={handleImages}
-                        />
-                        <article className="btn">
-                            <FaCameraRetro className="icon-large" />{" "}
-                            {translation.addImage}
-                        </article>
-                    </label>
-                    <label htmlFor="price">{translation.price}:</label>
-                    <input
-                        type="number"
-                        name="price"
-                        id="price"
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                    />
-                    <label htmlFor="year">{translation.year}:</label>
-                    <input
-                        type="number"
-                        name="year"
-                        id="year"
-                        value={year}
-                        onChange={(e) => setYear(e.target.value)}
-                    />
-                    <label htmlFor="maxOrder">{translation.maxAmount}:</label>
-                    <input
-                        type="number"
-                        name="maxOrder"
-                        id="maxOrder"
-                        value={maxOrder}
-                        onChange={(e) => setMaxOrder(e.target.value)}
-                    />
-                    <label htmlFor="desc">{translation.description}:</label>
-                    <textarea
-                        name="desc"
-                        id="desc"
-                        cols="30"
-                        rows="10"
-                        value={desc}
-                        onChange={(e) => setDesc(e.target.value)}
-                    ></textarea>
-                    <div className="edit-container">
-                        <button onClick={() => editBook()} className="btn mt-1">
-                            {translation.edit}
-                        </button>
-                        <button
-                            className="btn mt-1 btn-delete"
-                            onClick={deleteBook}
-                        >
-                            {translation.delete}
-                        </button>
-                    </div>
-                </div>
-            </Wrapper>
-        </main>
+      <main>
+        <h2>Please wait, loading...</h2>
+      </main>
     );
+  }
+
+  return (
+    <main>
+      <Wrapper>
+        <div className="edit-header">
+          <h4>{title}</h4>
+          <div className="thumb-container">
+            {images.map((url, index) => {
+              return (
+                <div key={index} className="single-thumb">
+                  <p>{url}</p>
+                  <img className="thumb" src={`/${url}`} alt="" />
+                  <button
+                    className="btn btn-delete"
+                    onClick={() => handleDelete(url)}
+                  >
+                    <FaTrashAlt />
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="info">
+          <label htmlFor="title">{translation.title}:</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            onChange={updateBook}
+            value={title}
+          />
+          <label htmlFor="authors">{translation.authors}:</label>
+          <div className="authors" name="authors" id="authors">
+            {authors.map((author, index) => {
+              return (
+                <div className="single-author" key={index}>
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    value={author.name}
+                    onChange={(e) => handleAuthorInput(e, index)}
+                    placeholder={translation.name}
+                    list="authorsNames"
+                  />
+                  <datalist id="authorsNames">
+                    {authorsList.map((author) => {
+                      return <option value={author.name}>{author.name}</option>;
+                    })}
+                  </datalist>
+                  <input
+                    type="text"
+                    name="last_name"
+                    id="last_name"
+                    value={author.last_name}
+                    onChange={(e) => handleAuthorInput(e, index)}
+                    placeholder={translation.lastName}
+                    list="autLast"
+                  />
+                  <datalist id="autLast">
+                    {authorsList.map((author) => {
+                      return (
+                        <option value={author.last_name}>
+                          {author.last_name}
+                        </option>
+                      );
+                    })}
+                  </datalist>
+                  <div className="list-com">
+                    {authors.length !== 1 && (
+                      <button
+                        className="btn"
+                        onClick={() => handleRemove(index)}
+                      >
+                        {translation.remove}
+                      </button>
+                    )}
+                    {authors.length - 1 === index && (
+                      <button className="btn" onClick={handleAdd}>
+                        {translation.add}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+            {authors.length === 0 && (
+              <button className="btn" onClick={handleAdd}>
+                {translation.add}
+              </button>
+            )}
+          </div>
+          <label htmlFor="genre">{translation.genre}:</label>
+          <input
+            type="text"
+            name="genre"
+            id="genre"
+            value={genre}
+            onChange={updateBook}
+          />
+          <label htmlFor="publisher">{translation.publisher}:</label>
+          <input
+            type="text"
+            name="publisher"
+            id="publisher"
+            value={publisher}
+            onChange={updateBook}
+          />
+          <label htmlFor="language">{translation.language}:</label>
+          <input
+            type="text"
+            name="language"
+            id="language"
+            value={language}
+            onChange={updateBook}
+          />
+          <label htmlFor="images" className="photo-input">
+            {translation.images}:
+            <input
+              type="file"
+              name="images"
+              multiple
+              id="images"
+              className="hidden-input"
+              onChange={handleImages}
+            />
+            <article className="btn">
+              <FaCameraRetro className="icon-large" /> {translation.addImage}
+            </article>
+          </label>
+          <label htmlFor="price">{translation.price}:</label>
+          <input
+            type="number"
+            name="price"
+            id="price"
+            value={price}
+            onChange={updateBook}
+          />
+          <label htmlFor="year">{translation.year}:</label>
+          <input
+            type="number"
+            name="year"
+            id="year"
+            value={year}
+            onChange={updateBook}
+          />
+          <label htmlFor="max_order">{translation.maxAmount}:</label>
+          <input
+            type="number"
+            name="max_order"
+            id="max_order"
+            value={max_order}
+            onChange={updateBook}
+          />
+          <label htmlFor="description">{translation.description}:</label>
+          <textarea
+            name="description"
+            id="description"
+            cols="30"
+            rows="10"
+            value={description}
+            onChange={updateBook}
+          ></textarea>
+          <div className="edit-container">
+            <button onClick={() => editById(id, header)} className="btn mt-1">
+              {translation.edit}
+            </button>
+            <button
+              className="btn mt-1 btn-delete"
+              onClick={() => deleteById(id, header)}
+            >
+              {translation.delete}
+            </button>
+          </div>
+        </div>
+      </Wrapper>
+    </main>
+  );
 };
 
 const Wrapper = styled.div`
-    .info {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        justify-content: center;
-        margin-bottom: 2rem;
-        label {
-            font-size: 1.5rem;
-            text-transform: capitalize;
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-        }
-        input {
-            height: 2rem;
-            font-size: 1.5rem;
-            width: 100%;
-        }
-        textarea {
-            width: 100%;
-            font-size: 1.2rem;
-        }
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    margin-bottom: 2rem;
+    label {
+      font-size: 1.5rem;
+      text-transform: capitalize;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
     }
-    .edit-header {
-        height: 250px;
-        margin-bottom: 2rem;
+    input {
+      height: 2rem;
+      font-size: 1.5rem;
+      width: 100%;
     }
-    .thumb-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        height: 100%;
+    textarea {
+      width: 100%;
+      font-size: 1.2rem;
     }
-    .single-thumb {
-        display: flex;
-        flex-direction: column;
-        align-items: space-around;
-        justify-content: space-between;
-        height: 100%;
-        max-width: 200px;
+  }
+  .edit-header {
+    height: 250px;
+    margin-bottom: 2rem;
+  }
+  .thumb-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%;
+  }
+  .single-thumb {
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    justify-content: space-between;
+    height: 100%;
+    max-width: 200px;
+  }
+  .thumb {
+    max-width: 150px;
+    margin: auto;
+  }
+  .authors {
+    width: 100%;
+  }
+  .hidden-input {
+    display: none;
+  }
+  .icon-large {
+    font-size: 1.2rem;
+  }
+  .photo-input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    article {
+      margin-top: 0.5rem;
     }
-    .thumb {
-        max-width: 150px;
-        margin: auto;
+  }
+  .single-author {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    input {
+      margin: 1rem;
+      width: 40%;
     }
-    .authors {
-        width: 100%;
+  }
+  .list-com {
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    .btn {
+      margin: 0.2rem 0.5rem;
     }
-    .hidden-input {
-        display: none;
-    }
-    .icon-large {
-        font-size: 1.2rem;
-    }
-    .photo-input {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        article {
-            margin-top: 0.5rem;
-        }
-    }
-    .single-author {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        width: 100%;
-        input {
-            margin: 1rem;
-            width: 40%;
-        }
-    }
-    .list-com {
-        width: 20%;
-        display: flex;
-        flex-direction: row;
-        .btn {
-            margin: 0.2rem 0.5rem;
-        }
-    }
-    img {
-        max-width: 200px;
-    }
-    .edit-container {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+  }
+  img {
+    max-width: 200px;
+  }
+  .edit-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 `;
 
 export default EditBook;

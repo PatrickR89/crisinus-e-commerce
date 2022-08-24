@@ -6,6 +6,8 @@ import {
   LOAD_INITIATED,
   ERROR_OCCURRED,
   LOAD_AUTHORS,
+  LOAD_BOOKS,
+  LOAD_BOOK,
   HANDLE_AUTHORS,
   ADD_AUTHOR_SPOT,
   SET_IMAGES,
@@ -15,18 +17,21 @@ import {
 import reducer from "../../reducers/admin/books_reducer";
 
 const initialState = {
+  loading: false,
+  error: false,
   book: {
     title: "",
     authors: [{ name: "", last_name: "" }],
     images: [],
     genre: "",
-    maxOrder: 0,
+    max_order: 0,
     price: 0,
     publisher: "",
     language: "",
     year: 2000,
-    desc: ""
+    description: ""
   },
+  booksList: [],
   authorsList: []
 };
 
@@ -35,6 +40,25 @@ const BooksContext = React.createContext();
 export const BooksProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
+
+  const resetForm = () => {
+    const emptyBook = {
+      title: "",
+      authors: [{ name: "", last_name: "" }],
+      images: [],
+      genre: "",
+      max_order: 0,
+      price: 0,
+      publisher: "",
+      language: "",
+      year: 2000,
+      description: ""
+    };
+    dispatch({
+      type: LOAD_BOOK,
+      payload: [emptyBook, [{ name: "", last_name: "" }]]
+    });
+  };
 
   const updateBook = (e) => {
     let name = e.target.name;
@@ -56,6 +80,20 @@ export const BooksProvider = ({ children }) => {
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
         const err = `api: /api/authors/ [addbook[GET]], error: ${error}`;
+        axios.post("/api/system/error", { err });
+      });
+  };
+
+  const loadBooks = () => {
+    dispatch({ type: LOAD_INITIATED });
+    axios
+      .get("/api/books/")
+      .then((response) => {
+        dispatch({ type: LOAD_BOOKS, payload: response.data });
+      })
+      .catch((error) => {
+        dispatch({ type: ERROR_OCCURRED });
+        const err = `api: /api/books/ [booklist[GET]], error: ${error}`;
         axios.post("/api/system/error", { err });
       });
   };
@@ -99,18 +137,27 @@ export const BooksProvider = ({ children }) => {
       });
   };
 
+  const handleDelete = (url) => {
+    axios.post("/api/images/deleteimages", { url }).catch((error) => {
+      const err = `api: api/images/deleteimages [editbook[POST]], error: ${error}`;
+      axios.post("/api/system/error", { err });
+    });
+    const tempImages = state.book.images.filter((image) => image !== url);
+    dispatch({ type: SET_IMAGES, payload: tempImages });
+  };
+
   const addBook = (header) => {
     const {
       title,
       authors,
       images,
       genre,
-      maxOrder,
+      max_order: maxOrder,
       price,
       publisher,
       language,
       year,
-      desc
+      description: desc
     } = state.book;
     axios
       .post("/api/books/", {
@@ -137,7 +184,89 @@ export const BooksProvider = ({ children }) => {
         axios.post("/api/system/error", { err });
       });
 
-    navigate("/admin/booklist", { replace: true });
+    navigate("/admin/books/list", { replace: true });
+  };
+
+  const findById = (id, header) => {
+    dispatch({ type: LOAD_INITIATED });
+    axios
+      .post(`/api/books/${id}`, {
+        headers: header(),
+        id
+      })
+      .then((response) => {
+        if (response.data === "Token required" || response.data.auth === false)
+          return navigate("/admin/login", { replace: true });
+        const book = response.data[0];
+        const authors = response.data[1];
+        dispatch({ type: LOAD_BOOK, payload: [book, authors] });
+      })
+      .catch((error) => {
+        dispatch({ type: ERROR_OCCURRED });
+        const err = `api: api/books/${id} [editbook[POST]], error: ${error}`;
+        axios.post("/api/system/error", { err });
+      });
+  };
+
+  const editById = (id, header) => {
+    const bookId = id;
+    const {
+      title,
+      authors,
+      images,
+      genre,
+      max_order: maxOrder,
+      price,
+      publisher,
+      language,
+      year,
+      description: desc
+    } = state.book;
+    axios
+      .put(`/api/books/${id}`, {
+        headers: header(),
+        bookId,
+        title,
+        authors,
+        images,
+        genre,
+        maxOrder,
+        price,
+        publisher,
+        language,
+        year,
+        desc
+      })
+      .then((response) => {
+        if (response.data === "Token required" || response.data.auth === false)
+          return navigate("/admin/login", { replace: true });
+        const info = `${id} book edited`;
+        axios.post("/api/system/info", { info });
+      })
+      .catch((error) => {
+        const err = `api: api/books/${id} [editbook[PUT]], error: ${error}`;
+        axios.post("/api/system/error", { err });
+      });
+    navigate("/admin/books/list", { replace: true });
+  };
+
+  const deleteById = (id, header) => {
+    axios
+      .delete(`/api/books/${id}`, {
+        headers: header(),
+        data: { id: id }
+      })
+      .then((response) => {
+        if (response.data === "Token required" || response.data.auth === false)
+          return navigate("/admin/login", { replace: true });
+        const info = `${id} book deleted`;
+        axios.post("/api/system/info", { info });
+      })
+      .catch((error) => {
+        const err = `api: api/books/${id} [editbook[DELETE]], error: ${error}`;
+        axios.post("/api/system/error", { err });
+      });
+    navigate("/admin/books/list", { replace: true });
   };
 
   return (
@@ -149,8 +278,14 @@ export const BooksProvider = ({ children }) => {
         handleRemove,
         handleAdd,
         handleImages,
+        handleDelete,
         addBook,
-        updateBook
+        updateBook,
+        loadBooks,
+        findById,
+        editById,
+        deleteById,
+        resetForm
       }}
     >
       {children}
