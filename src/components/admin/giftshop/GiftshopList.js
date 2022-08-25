@@ -2,30 +2,27 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { useLanguageContext } from "../../../contexts/language_context";
+import { useGiftshopContext } from "../../../contexts/admin/giftshop_context";
 
 import { ListHead, ListLink, ListWrapper } from "../elements";
 
 const GiftshopList = () => {
   const { translation } = useLanguageContext();
+  const { gifts: gsList, getGifts, loading, error } = useGiftshopContext();
   const { name, price, maxOrder, description } = translation;
   const titles = ["ID", name, price, maxOrder, description];
-  const [gsList, setGsList] = useState([]);
-
-  const getGifts = () => {
-    axios
-      .get("/api/giftshop/")
-      .then((response) => {
-        setGsList(response.data);
-      })
-      .catch((error) => {
-        const err = `api: /api/giftshop/} [giftslist[GET]], error: ${error}`;
-        axios.post("/api/system/error", { err });
-      });
-  };
 
   useEffect(() => {
     getGifts();
   }, []);
+
+  if (loading) {
+    return (
+      <ListWrapper>
+        <h2>Please wait, loading...</h2>
+      </ListWrapper>
+    );
+  }
 
   return (
     <ListWrapper>
@@ -38,7 +35,7 @@ const GiftshopList = () => {
               key={index}
               index={index}
               cols={5}
-              url={`/admin/editgift/${gift.id}`}
+              url={`/admin/giftshop/${gift.id}`}
             >
               <p>{gift.id}</p>
 
