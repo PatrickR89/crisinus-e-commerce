@@ -25,6 +25,7 @@ import { ContextWrapper } from "./components/admin/elements/";
 import { AuthorsAdminProvider } from "./contexts/admin/authors_context";
 import { BooksProvider } from "./contexts/admin/books_context";
 import { GiftshopProvider } from "./contexts/admin/giftshop_context";
+import { NewsProvider } from "./contexts/admin/news_context";
 
 import Login from "./components/authentication/Login";
 
@@ -128,13 +129,18 @@ function App() {
             <Route path="list" element={<GiftshopList />} />
             <Route path=":id" element={<EditGift />} />
           </Route>
+          <Route
+            path="news"
+            element={<ContextWrapper Context={NewsProvider} />}
+          >
+            <Route path="add" element={<AddNews />} />
+            <Route path="list" element={<ListNews />} />
+            <Route path=":id" element={<EditNews />} />
+          </Route>
           <Route path="login" element={<Login />} />
           <Route path="addrating" element={<AddRating />} />
           <Route path="editrating/:id" element={<EditRating />} />
           <Route path="ratingslist" element={<ListRatings />} />
-          <Route path="addnews" element={<AddNews />} />
-          <Route path="editnews/:id" element={<EditNews />} />
-          <Route path="newslist" element={<ListNews />} />
           <Route path="editinfo/:id" element={<EditInfo />} />
           <Route path="infolist" element={<ListInfo />} />
           <Route path="imagelist" element={<ImageList />} />

@@ -3,40 +3,26 @@ import axios from "axios";
 import { useLanguageContext } from "../../../contexts/language_context";
 
 import { ListHead, ListLink, ListWrapper } from "../elements";
+import { useNewsContext } from "../../../contexts/admin/news_context";
 
 const ListNews = () => {
-  const [newsList, setNewsList] = useState([]);
+  const { getNewsList, formatDate, newsList, loading, error } =
+    useNewsContext();
   const { translation } = useLanguageContext();
   const { title, content, date } = translation;
   const titles = ["ID", title, content, date];
 
-  const getNews = () => {
-    axios
-      .get("/api/news/")
-      .then((response) => {
-        setNewsList(response.data);
-      })
-      .catch((error) => {
-        const err = `api: /api/news/ [listnews[GET]], error: ${error}`;
-        axios.post("/api/system/error", { err });
-      });
-  };
-
-  const formatDate = (date) => {
-    const tempDate = new Date(date);
-    const doubleDigit = (num) => {
-      return num.toString().padStart(2, "0");
-    };
-    return [
-      doubleDigit(tempDate.getDate()),
-      doubleDigit(tempDate.getMonth() + 1),
-      tempDate.getFullYear()
-    ].join("/");
-  };
-
   useEffect(() => {
-    getNews();
+    getNewsList();
   }, []);
+
+  if (loading) {
+    return (
+      <main>
+        <h2>Please wait, loading...</h2>
+      </main>
+    );
+  }
 
   return (
     <ListWrapper>
@@ -49,7 +35,7 @@ const ListNews = () => {
               key={index}
               index={index}
               cols={4}
-              url={`/admin/editnews/${news.id}`}
+              url={`/admin/news/${news.id}`}
             >
               <p>{news.id}</p>
 
