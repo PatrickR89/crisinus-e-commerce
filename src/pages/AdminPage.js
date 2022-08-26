@@ -58,7 +58,7 @@ const AdminPage = () => {
         navigate("/admin/giftshop/list", { replace: true });
         break;
       case "ratings":
-        navigate("/admin/ratingslist", { replace: true });
+        navigate("/admin/reviews/list", { replace: true });
         break;
       case "news":
         navigate("/admin/news/list", { replace: true });
@@ -127,10 +127,10 @@ const AdminPage = () => {
 
             {category === "ratings" && (
               <div className="nav-container">
-                <Link className="nav-btn" to="/admin/addrating">
+                <Link className="nav-btn" to="/admin/reviews/add">
                   {translation.add}
                 </Link>
-                <Link className="nav-btn" to="/admin/ratingslist">
+                <Link className="nav-btn" to="/admin/reviews/list">
                   {translation.list}
                 </Link>
               </div>
