@@ -149,10 +149,10 @@ const AdminPage = () => {
 
             {category === "info" && (
               <div className="nav-container">
-                <Link className="nav-btn" to="/admin/infolist">
+                <Link className="nav-btn" to="/admin/information/info">
                   {translation.infoPages}
                 </Link>
-                <Link className="nav-btn" to="/admin/linkslist">
+                <Link className="nav-btn" to="/admin/information/links">
                   {translation.links}
                 </Link>
                 <Link className="nav-btn" to="/admin/orderslist">

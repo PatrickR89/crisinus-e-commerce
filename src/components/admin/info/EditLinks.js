@@ -1,197 +1,148 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useLanguageContext } from "../../../contexts/language_context";
+import { useInfoContext } from "../../../contexts/admin/info_context";
 
 const EditInfo = () => {
-    const { id } = useParams();
-    const navigate = useNavigate();
+  const { id } = useParams();
 
-    const { header } = useAuthenticationContext();
-    const { translation } = useLanguageContext();
+  const { header } = useAuthenticationContext();
+  const { translation } = useLanguageContext();
+  const { item, updateValue, loading, error, findLinkById, editLinkById } =
+    useInfoContext();
+  const { link } = item;
 
-    const [initialLink, setInitialLink] = useState({
-        id: "",
-        link: ""
-    });
+  useEffect(() => {
+    findLinkById(header, id);
+  }, []);
 
-    const [linkPath, setLinkPath] = useState("");
-
-    const initializeItem = () => {
-        setLinkPath(initialLink.link);
-    };
-
-    useEffect(() => {
-        fetchDBLink();
-    }, []);
-
-    useEffect(() => {
-        initializeItem();
-    }, [initialLink]);
-
-    const fetchDBLink = () => {
-        axios
-            .post("/api/links", {
-                headers: header(),
-                id
-            })
-            .then((response) => {
-                if (
-                    response.data === "Token required" ||
-                    response.data.auth === false
-                )
-                    return navigate("/admin/login", { replace: true });
-                setInitialLink(response.data[0]);
-            })
-            .catch((error) => {
-                const err = `api: /api/links/${id} [editlinks[POST]], error: ${error}`;
-                axios.post("/api/system/error", { err });
-            });
-    };
-
-    const editLink = () => {
-        axios
-            .put(`/api/links/${id}`, {
-                headers: header(),
-                id,
-                link: linkPath
-            })
-            .then((response) => {
-                if (
-                    response.data === "Token required" ||
-                    response.data.auth === false
-                )
-                    return navigate("/admin/login", { replace: true });
-                const info = `${id} link edited`;
-                axios.post("/api/system/info", { info });
-            })
-            .catch((error) => {
-                const err = `api: /api/links/${id} [editlinks[PUT]], error: ${error}`;
-                axios.post("/api/system/error", { err });
-            });
-        navigate("/admin/linkslist", { replace: true });
-    };
+  if (loading) {
     return (
-        <Wrapper>
-            <h2>{initialLink.id}</h2>
-            <div className="info">
-                <label htmlFor="content">{translation.link}:</label>
-                <textarea
-                    name="content"
-                    id="content"
-                    cols="30"
-                    rows="10"
-                    value={linkPath}
-                    onChange={(e) => setLinkPath(e.target.value)}
-                >
-                    {initialLink.link}
-                </textarea>
-                <div className="edit-container">
-                    <button onClick={editLink} className="btn mt-1">
-                        {translation.edit}
-                    </button>
-                </div>
-            </div>
-        </Wrapper>
+      <Wrapper>
+        <h2>Loading...</h2>
+      </Wrapper>
     );
+  }
+
+  return (
+    <Wrapper>
+      <h2>{item.id}</h2>
+      <div className="info">
+        <label htmlFor="link">{translation.link}:</label>
+        <textarea
+          name="link"
+          id="link"
+          cols="30"
+          rows="10"
+          value={link}
+          onChange={updateValue}
+        ></textarea>
+        <div className="edit-container">
+          <button onClick={() => editLinkById(header, id)} className="btn mt-1">
+            {translation.edit}
+          </button>
+        </div>
+      </div>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.div`
-    h2 {
-        color: var(--clr-red-dark);
+  h2 {
+    color: var(--clr-red-dark);
+  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    margin-bottom: 2rem;
+    label {
+      font-size: 1.5rem;
+      text-transform: capitalize;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
     }
-    .info {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        justify-content: center;
-        margin-bottom: 2rem;
-        label {
-            font-size: 1.5rem;
-            text-transform: capitalize;
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-        }
-        input {
-            height: 2rem;
-            font-size: 1.5rem;
-            width: 100%;
-        }
-        textarea {
-            width: 100%;
-            font-size: 1.2rem;
-        }
+    input {
+      height: 2rem;
+      font-size: 1.5rem;
+      width: 100%;
     }
-    .edit-header {
-        height: 250px;
-        margin-bottom: 2rem;
+    textarea {
+      width: 100%;
+      font-size: 1.2rem;
     }
-    .thumb-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        height: 250px;
+  }
+  .edit-header {
+    height: 250px;
+    margin-bottom: 2rem;
+  }
+  .thumb-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 250px;
+  }
+  .single-thumb {
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    justify-content: space-between;
+    height: 100%;
+    max-width: 200px;
+  }
+  .thumb {
+    max-width: 150px;
+    margin: auto;
+  }
+  .authors {
+    width: 100%;
+  }
+  .hidden-input {
+    display: none;
+  }
+  .icon-large {
+    font-size: 1.2rem;
+  }
+  .photo-input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    article {
+      margin-top: 0.5rem;
     }
-    .single-thumb {
-        display: flex;
-        flex-direction: column;
-        align-items: space-around;
-        justify-content: space-between;
-        height: 100%;
-        max-width: 200px;
+  }
+  .single-author {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    input {
+      margin: 1rem;
+      width: 40%;
     }
-    .thumb {
-        max-width: 150px;
-        margin: auto;
+  }
+  .list-com {
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    .btn {
+      margin: 0.2rem 0.5rem;
     }
-    .authors {
-        width: 100%;
-    }
-    .hidden-input {
-        display: none;
-    }
-    .icon-large {
-        font-size: 1.2rem;
-    }
-    .photo-input {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        article {
-            margin-top: 0.5rem;
-        }
-    }
-    .single-author {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        width: 100%;
-        input {
-            margin: 1rem;
-            width: 40%;
-        }
-    }
-    .list-com {
-        width: 20%;
-        display: flex;
-        flex-direction: row;
-        .btn {
-            margin: 0.2rem 0.5rem;
-        }
-    }
-    img {
-        max-width: 200px;
-    }
-    .edit-container {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+  }
+  img {
+    max-width: 200px;
+  }
+  .edit-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 `;
 
 export default EditInfo;
