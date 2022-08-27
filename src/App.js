@@ -28,6 +28,7 @@ import { GiftshopProvider } from "./contexts/admin/giftshop_context";
 import { NewsProvider } from "./contexts/admin/news_context";
 import { ReviewsProvider } from "./contexts/admin/reviews_context";
 import { InfoProvider } from "./contexts/admin/info_context";
+import { ClientsProvider } from "./contexts/admin/clients_context";
 
 import Login from "./components/authentication/Login";
 
@@ -156,11 +157,16 @@ function App() {
             <Route path="info/:id" element={<EditInfo />} />
             <Route path="link/:id" element={<EditLinks />} />
           </Route>
+          <Route
+            path="clients"
+            element={<ContextWrapper Context={ClientsProvider} />}
+          >
+            <Route path="messages" element={<MessageList />} />
+          </Route>
           <Route path="login" element={<Login />} />
           <Route path="imagelist" element={<ImageList />} />
           <Route path="orderslist" element={<OrderList />} />
           <Route path="orderlist/:id" element={<SingleOrder />} />
-          <Route path="messages" element={<MessageList />} />
         </Route>
         <Route path="/*" element={<ErrorPage />} />
       </Routes>

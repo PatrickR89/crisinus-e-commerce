@@ -1,0 +1,8 @@
+export const FETCH_MESSAGES = "FETCH_MESSAGES";
+export const FETCH_MESSAGE = "FETCH_MESSAGE";
+export const FETCH_ORDER = "FETCH_ORDER";
+export const FETCH_ORDERS = "FETCH_ORDERS";
+export const LOAD_INITIATED = "LOAD_INITIATED";
+export const ERROR_OCCURRED = "ERROR_OCCURRED";
+export const OPEN_MODAL = "OPEN_MODAL";
+export const CLOSE_MODAL = "CLOSE_MODAL";

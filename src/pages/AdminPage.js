@@ -158,7 +158,7 @@ const AdminPage = () => {
                 <Link className="nav-btn" to="/admin/orderslist">
                   {translation.orders}
                 </Link>
-                <Link className="nav-btn" to="/admin/messages">
+                <Link className="nav-btn" to="/admin/clients/messages">
                   {translation.messages}
                 </Link>
                 <Link className="nav-btn" to="/admin/imagelist">
