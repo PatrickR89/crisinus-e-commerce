@@ -15,6 +15,8 @@ import {
 } from "../../actions/admin/clients_actions";
 
 import reducer from "../../reducers/admin/clients_reducer";
+import { useCheckAuth } from "../../hooks/useCheckAuth";
+import { useErrorReport } from "../../hooks/useErrorReport";
 
 const initialState = {
   loading: false,
@@ -44,6 +46,11 @@ const ClientsContext = React.createContext();
 export const ClientsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
+  const checkAuth = useCheckAuth();
+  const errorReport = useErrorReport();
+
+  const msgUrl = "/api/messages/";
+  const ordUrl = "/api/orders/";
 
   const header = () => {
     return { "x-access-token": localStorage.getItem("token") };
@@ -51,32 +58,39 @@ export const ClientsProvider = ({ children }) => {
 
   const findAllMsgs = () => {
     dispatch({ type: LOAD_INITIATED });
-    axios
-      .get("/api/messages/", { headers: header() })
+    const url = msgUrl;
+    const method = "get";
+    axios({
+      url: url,
+      method: method,
+      headers: header()
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const data = response.data;
         dispatch({ type: FETCH_MESSAGES, payload: data.reverse() });
       })
-      .catch((error) => {
+      .catch(function (error) {
         dispatch({ type: ERROR_OCCURRED });
-        const err = `api: /api/orders [orderlist[GET]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
   const findMsgById = (id) => {
-    axios
-      .get(`/api/messages/${id}`, { headers: header() })
+    const url = `${msgUrl}${id}`;
+    const method = "get";
+    axios({
+      url: url,
+      method: method,
+      headers: header()
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         dispatch({ type: FETCH_MESSAGE, payload: response.data });
       })
       .catch((error) => {
-        const err = `api: /api/orders [orderlist[GET]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
@@ -88,105 +102,112 @@ export const ClientsProvider = ({ children }) => {
     dispatch({ type: OPEN_MODAL });
   };
 
-  const handleConfirm = async (status, id) => {
-    await axios
-      .put(`/api/messages/${id}`, {
-        headers: header(),
-        status
-      })
+  const handleConfirm = (status, id) => {
+    const url = `${msgUrl}${id}`;
+    const method = "put";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { status }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
       })
       .catch((error) => {
-        const err = `api: /api/orders/${id} [singleorder[PUT]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
-  const deleteMsgById = async (id) => {
-    await axios
-      .delete(`/api/messages/${id}`, {
-        headers: header(),
-        data: { id: id }
-      })
+  const deleteMsgById = (id) => {
+    const url = `${msgUrl}${id}`;
+    const method = "delete";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id: id }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
       })
       .catch((error) => {
-        const err = `api: /api/orders/${id} [singleorder[DELETE]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
   const findAllOrders = () => {
     dispatch({ type: LOAD_INITIATED });
-    axios
-      .get("/api/orders/", { headers: header() })
+    const url = ordUrl;
+    const method = "get";
+    axios({
+      url: url,
+      method: method,
+      headers: header()
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const data = response.data;
         dispatch({ type: FETCH_ORDERS, payload: data.reverse() });
       })
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
-        const err = `api: /api/orders [orderlist[GET]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
-  const findOrderById = async (id) => {
+  const findOrderById = (id) => {
     dispatch({ type: LOAD_INITIATED });
-    await axios
-      .post(`/api/orders/${id}`, {
-        headers: header(),
-        id
-      })
+    const url = `${ordUrl}${id}`;
+    const method = "post";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         dispatch({ type: FETCH_ORDER, payload: response.data[0] });
       })
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
-        const err = `api: /api/orders/${id} [singleorder[POST]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
-  const setOrderStatus = async (id, status) => {
+  const setOrderStatus = (id, status) => {
     dispatch({ type: SET_ORDER_STATUS, payload: status });
-    await axios
-      .put(`/api/orders/${id}`, {
-        headers: header(),
-        id,
-        status
-      })
+    const url = `${ordUrl}${id}`;
+    const method = "put";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id, status }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
       })
       .catch((error) => {
-        const err = `api: /api/orders/${id} [singleorder[PUT]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
-  const deleteOrderById = async (id) => {
-    await axios
-      .delete(`/api/orders/${id}`, {
-        headers: header(),
-        data: { id: id }
-      })
+  const deleteOrderById = (id) => {
+    const url = `${ordUrl}${id}`;
+    const method = "delete";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id: id }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
       })
       .catch((error) => {
-        const err = `api: /api/orders/${id} [singleorder[DELETE]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
