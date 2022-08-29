@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useContext, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
@@ -9,7 +9,9 @@ import {
   LOAD_INITIATED,
   ERROR_OCCURRED,
   OPEN_MODAL,
-  CLOSE_MODAL
+  CLOSE_MODAL,
+  SET_ORDER_STATUS,
+  TOGGLE_ORDER_MODAL
 } from "../../actions/admin/clients_actions";
 
 import reducer from "../../reducers/admin/clients_reducer";
@@ -25,6 +27,14 @@ const initialState = {
     date: "",
     status: "",
     message: ""
+  },
+  orderPage: {
+    orderList: [],
+    order: {},
+    cart: [],
+    totalAmount: 0,
+    status: "",
+    isModal: false
   },
   isModal: false
 };
@@ -110,6 +120,85 @@ export const ClientsProvider = ({ children }) => {
       });
   };
 
+  const findAllOrders = () => {
+    dispatch({ type: LOAD_INITIATED });
+    axios
+      .get("/api/orders/", { headers: header() })
+      .then((response) => {
+        if (response.data === "Token required" || response.data.auth === false)
+          return navigate("/admin/login", { replace: true });
+        const data = response.data;
+        dispatch({ type: FETCH_ORDERS, payload: data.reverse() });
+      })
+      .catch((error) => {
+        dispatch({ type: ERROR_OCCURRED });
+        const err = `api: /api/orders [orderlist[GET]], error: ${error}`;
+        axios.post("/api/system/error", { err });
+      });
+  };
+
+  const findOrderById = async (id) => {
+    dispatch({ type: LOAD_INITIATED });
+    await axios
+      .post(`/api/orders/${id}`, {
+        headers: header(),
+        id
+      })
+      .then((response) => {
+        if (response.data === "Token required" || response.data.auth === false)
+          return navigate("/admin/login", { replace: true });
+        dispatch({ type: FETCH_ORDER, payload: response.data[0] });
+      })
+      .catch((error) => {
+        dispatch({ type: ERROR_OCCURRED });
+        const err = `api: /api/orders/${id} [singleorder[POST]], error: ${error}`;
+        axios.post("/api/system/error", { err });
+      });
+  };
+
+  const setOrderStatus = async (id, status) => {
+    dispatch({ type: SET_ORDER_STATUS, payload: status });
+    await axios
+      .put(`/api/orders/${id}`, {
+        headers: header(),
+        id,
+        status
+      })
+      .then((response) => {
+        if (response.data === "Token required" || response.data.auth === false)
+          return navigate("/admin/login", { replace: true });
+      })
+      .catch((error) => {
+        const err = `api: /api/orders/${id} [singleorder[PUT]], error: ${error}`;
+        axios.post("/api/system/error", { err });
+      });
+  };
+
+  const deleteOrderById = async (id) => {
+    await axios
+      .delete(`/api/orders/${id}`, {
+        headers: header(),
+        data: { id: id }
+      })
+      .then((response) => {
+        if (response.data === "Token required" || response.data.auth === false)
+          return navigate("/admin/login", { replace: true });
+      })
+      .catch((error) => {
+        const err = `api: /api/orders/${id} [singleorder[DELETE]], error: ${error}`;
+        axios.post("/api/system/error", { err });
+      });
+  };
+
+  const toggleModal = () => {
+    const toggle = state.orderPage.isModal;
+    console.log(toggle);
+    dispatch({
+      type: TOGGLE_ORDER_MODAL,
+      payload: toggle
+    });
+  };
+
   const closeModal = () => {
     const msg = {
       id: 0,
@@ -144,7 +233,12 @@ export const ClientsProvider = ({ children }) => {
         handleMessage,
         closeModal,
         deleteMsgById,
-        setStatusColor
+        setStatusColor,
+        findAllOrders,
+        findOrderById,
+        setOrderStatus,
+        deleteOrderById,
+        toggleModal
       }}
     >
       {children}

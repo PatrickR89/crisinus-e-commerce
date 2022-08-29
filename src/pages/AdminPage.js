@@ -64,7 +64,7 @@ const AdminPage = () => {
         navigate("/admin/news/list", { replace: true });
         break;
       case "info":
-        navigate("/admin/orderslist", { replace: true });
+        navigate("/admin/clients/orders", { replace: true });
         break;
       default:
         navigate("/admin", { replace: true });
@@ -155,7 +155,7 @@ const AdminPage = () => {
                 <Link className="nav-btn" to="/admin/information/links">
                   {translation.links}
                 </Link>
-                <Link className="nav-btn" to="/admin/orderslist">
+                <Link className="nav-btn" to="/admin/clients/orders">
                   {translation.orders}
                 </Link>
                 <Link className="nav-btn" to="/admin/clients/messages">

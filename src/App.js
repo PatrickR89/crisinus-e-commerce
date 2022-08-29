@@ -162,11 +162,11 @@ function App() {
             element={<ContextWrapper Context={ClientsProvider} />}
           >
             <Route path="messages" element={<MessageList />} />
+            <Route path="orders" element={<OrderList />} />
+            <Route path="orders/:id" element={<SingleOrder />} />
           </Route>
           <Route path="login" element={<Login />} />
           <Route path="imagelist" element={<ImageList />} />
-          <Route path="orderslist" element={<OrderList />} />
-          <Route path="orderlist/:id" element={<SingleOrder />} />
         </Route>
         <Route path="/*" element={<ErrorPage />} />
       </Routes>

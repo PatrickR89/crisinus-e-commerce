@@ -1,45 +1,27 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useEffect } from "react";
 
-import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useLanguageContext } from "../../../contexts/language_context";
+import { useClientsContext } from "../../../contexts/admin/clients_context";
 import { ListHead, ListLink, ListWrapper } from "../elements";
 
 const OrderList = () => {
-  const navigate = useNavigate();
-  const [orderList, setOrderList] = useState([]);
-  const { header } = useAuthenticationContext();
   const { translation } = useLanguageContext();
+  const { orderPage, findAllOrders, setStatusColor, loading, error } =
+    useClientsContext();
+  const { orderList } = orderPage;
   const titles = ["id", translation.date, "status"];
+
   useEffect(() => {
-    retrieveOrders();
+    findAllOrders();
   }, []);
 
-  const retrieveOrders = () => {
-    axios
-      .get("/api/orders/", { headers: header() })
-      .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
-        const data = response.data;
-        setOrderList(data.reverse());
-      })
-      .catch((error) => {
-        const err = `api: /api/orders [orderlist[GET]], error: ${error}`;
-        axios.post("/api/system/error", { err });
-      });
-  };
-
-  const setStatusColor = (orderStatus) => {
-    if (orderStatus === "NEW ORDER") {
-      return "red-background";
-    } else if (orderStatus === "CHECKED") {
-      return "yellow-background";
-    } else if (orderStatus === "CONFIRMED") {
-      return "green-background";
-    }
-  };
+  if (loading) {
+    return (
+      <ListWrapper>
+        <h2> Please wait, loading...</h2>
+      </ListWrapper>
+    );
+  }
 
   return (
     <ListWrapper>
@@ -52,7 +34,7 @@ const OrderList = () => {
               key={index}
               index={index}
               cols={3}
-              url={`/admin/orderlist/${order.id}`}
+              url={`/admin/clients/orders/${order.id}`}
             >
               <p>{order.id}</p>
 
