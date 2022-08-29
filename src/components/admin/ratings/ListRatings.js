@@ -4,10 +4,12 @@ import { useLanguageContext } from "../../../contexts/language_context";
 import { useReviewsContext } from "../../../contexts/admin/reviews_context";
 
 import { ListHead, ListLink, ListWrapper } from "../elements";
+import WhenLoading from "../../public/WhenLoading";
 
 const ListRatings = () => {
   const { translation } = useLanguageContext();
-  const { bookTitle, title, rating, reviewer, review } = translation;
+  const { bookTitle, title, rating, reviewer, review, loading, error } =
+    translation;
   const { reviews, getReviews } = useReviewsContext();
 
   useEffect(() => {
@@ -15,6 +17,10 @@ const ListRatings = () => {
   }, []);
 
   const titles = ["ID", bookTitle, title, rating, reviewer, review];
+
+  if (loading) {
+    return <WhenLoading />;
+  }
 
   return (
     <ListWrapper>

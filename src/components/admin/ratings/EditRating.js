@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useReviewsContext } from "../../../contexts/admin/reviews_context";
+import WhenLoading from "../../public/WhenLoading";
 
 const EditRating = () => {
   const { id } = useParams();
@@ -18,7 +19,9 @@ const EditRating = () => {
     updateValue,
     findById,
     editById,
-    deleteById
+    deleteById,
+    loading,
+    error
   } = useReviewsContext();
   const { rating_title, rating, reviewer, review, book_id, book_title, book } =
     object;
@@ -27,6 +30,10 @@ const EditRating = () => {
     findById(header, id);
     loadBooks();
   }, []);
+
+  if (loading) {
+    return <WhenLoading />;
+  }
 
   return (
     <main>

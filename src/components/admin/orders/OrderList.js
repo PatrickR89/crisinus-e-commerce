@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useClientsContext } from "../../../contexts/admin/clients_context";
 import { ListHead, ListLink, ListWrapper } from "../elements";
+import WhenLoading from "../../public/WhenLoading";
 
 const OrderList = () => {
   const { translation } = useLanguageContext();
@@ -16,11 +17,7 @@ const OrderList = () => {
   }, []);
 
   if (loading) {
-    return (
-      <ListWrapper>
-        <h2> Please wait, loading...</h2>
-      </ListWrapper>
-    );
+    return <WhenLoading />;
   }
 
   return (

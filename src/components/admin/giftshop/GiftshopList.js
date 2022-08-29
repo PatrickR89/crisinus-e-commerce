@@ -5,6 +5,7 @@ import { useLanguageContext } from "../../../contexts/language_context";
 import { useGiftshopContext } from "../../../contexts/admin/giftshop_context";
 
 import { ListHead, ListLink, ListWrapper } from "../elements";
+import WhenLoading from "../../public/WhenLoading";
 
 const GiftshopList = () => {
   const { translation } = useLanguageContext();
@@ -17,11 +18,7 @@ const GiftshopList = () => {
   }, []);
 
   if (loading) {
-    return (
-      <ListWrapper>
-        <h2>Please wait, loading...</h2>
-      </ListWrapper>
-    );
+    return <WhenLoading />;
   }
 
   return (

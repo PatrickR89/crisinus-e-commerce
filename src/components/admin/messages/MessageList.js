@@ -5,6 +5,7 @@ import { useLanguageContext } from "../../../contexts/language_context";
 import { useClientsContext } from "../../../contexts/admin/clients_context";
 
 import { ListHead, ListLink, ListWrapper } from "../elements";
+import WhenLoading from "../../public/WhenLoading";
 
 const MessageList = () => {
   const {
@@ -27,11 +28,7 @@ const MessageList = () => {
   }, []);
 
   if (loading) {
-    return (
-      <ListWrapper>
-        <h2> loading, please wait...</h2>
-      </ListWrapper>
-    );
+    return <WhenLoading />;
   }
 
   const titles = ["ID", translation.name, "EMAIL", translation.date, "STATUS"];

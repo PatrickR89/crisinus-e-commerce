@@ -3,15 +3,20 @@ import { useLanguageContext } from "../../../contexts/language_context";
 import { useAuthorsContext } from "../../../contexts/admin/authors_context";
 
 import { ListHead, ListLink, ListWrapper } from "../elements";
+import WhenLoading from "../../public/WhenLoading";
 
 const AuthorsList = () => {
   const { translation } = useLanguageContext();
-  const { authorList, getAuthors } = useAuthorsContext();
+  const { authorList, getAuthors, loading, error } = useAuthorsContext();
   const titles = ["ID", translation.name, "WEB LINK", "BIO"];
 
   useEffect(() => {
     getAuthors();
   }, []);
+
+  if (loading) {
+    return <WhenLoading />;
+  }
 
   return (
     <ListWrapper>

@@ -5,6 +5,7 @@ import { useLanguageContext } from "../../../contexts/language_context";
 import { useBooksContext } from "../../../contexts/admin/books_context";
 
 import { ListHead, ListLink, ListWrapper } from "../elements";
+import WhenLoading from "../../public/WhenLoading";
 
 const BookList = () => {
   const { loadBooks, loadAuthors, booksList, authorsList, loading, error } =
@@ -22,11 +23,7 @@ const BookList = () => {
   }, []);
 
   if (loading) {
-    return (
-      <ListWrapper>
-        <h2>Please wait, loading...</h2>
-      </ListWrapper>
-    );
+    return <WhenLoading />;
   }
 
   return (

@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useCurrencyContext } from "../../../contexts/currency_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useClientsContext } from "../../../contexts/admin/clients_context";
+import WhenLoading from "../../public/WhenLoading";
 
 import { OrderModal } from "./";
 
@@ -49,7 +50,7 @@ const SingleOrder = () => {
   }
 
   if (loading) {
-    return <h2> Please wait, loading...</h2>;
+    return <WhenLoading />;
   }
 
   return (

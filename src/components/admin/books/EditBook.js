@@ -10,6 +10,8 @@ import { useAuthenticationContext } from "../../../contexts/authentication_conte
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useBooksContext } from "../../../contexts/admin/books_context";
 
+import WhenLoading from "../../public/WhenLoading";
+
 const EditBook = () => {
   axios.defaults.withCredentials = true;
   const {
@@ -51,11 +53,7 @@ const EditBook = () => {
   }, []);
 
   if (loading) {
-    return (
-      <main>
-        <h2>Please wait, loading...</h2>
-      </main>
-    );
+    return <WhenLoading />;
   }
 
   return (

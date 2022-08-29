@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useGiftshopContext } from "../../../contexts/admin/giftshop_context";
+import WhenLoading from "../../public/WhenLoading";
 
 const EditGift = () => {
   const { header } = useAuthenticationContext();
@@ -32,11 +33,7 @@ const EditGift = () => {
   }, []);
 
   if (loading) {
-    return (
-      <Wrapper>
-        <h2>Please wait, loading...</h2>
-      </Wrapper>
-    );
+    return <WhenLoading />;
   }
 
   return (

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+
 import { useLanguageContext } from "../../../contexts/language_context";
 
 import { ListHead, ListLink, ListWrapper } from "../elements";
 import { useNewsContext } from "../../../contexts/admin/news_context";
+import WhenLoading from "../../public/WhenLoading";
 
 const ListNews = () => {
   const { getNewsList, formatDate, newsList, loading, error } =
@@ -17,11 +18,7 @@ const ListNews = () => {
   }, []);
 
   if (loading) {
-    return (
-      <main>
-        <h2>Please wait, loading...</h2>
-      </main>
-    );
+    return <WhenLoading />;
   }
 
   return (

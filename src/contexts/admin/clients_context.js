@@ -130,6 +130,7 @@ export const ClientsProvider = ({ children }) => {
     })
       .then((response) => {
         checkAuth(response);
+        return navigate("/admin/clients/messages", { replace: true });
       })
       .catch((error) => {
         errorReport(error, url, window.location.pathname, method);
@@ -205,6 +206,7 @@ export const ClientsProvider = ({ children }) => {
     })
       .then((response) => {
         checkAuth(response);
+        return navigate("/admin/clients/orders", { replace: true });
       })
       .catch((error) => {
         errorReport(error, url, window.location.pathname, method);

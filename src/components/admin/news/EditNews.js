@@ -7,6 +7,7 @@ import { FaCameraRetro } from "react-icons/fa";
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useNewsContext } from "../../../contexts/admin/news_context";
+import WhenLoading from "../../public/WhenLoading";
 
 const EditNews = () => {
   const { id } = useParams();
@@ -32,11 +33,7 @@ const EditNews = () => {
   }, []);
 
   if (loading) {
-    return (
-      <main>
-        <h2>Please wait, loading...</h2>
-      </main>
-    );
+    return <WhenLoading />;
   }
 
   return (

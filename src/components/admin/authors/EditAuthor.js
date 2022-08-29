@@ -7,6 +7,7 @@ import { FaCameraRetro } from "react-icons/fa";
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useAuthorsContext } from "../../../contexts/admin/authors_context";
+import WhenLoading from "../../public/WhenLoading";
 
 const EditAuthor = () => {
   const { header } = useAuthenticationContext();
@@ -18,13 +19,19 @@ const EditAuthor = () => {
     handleAddImages,
     handleDeleteImage,
     handleEdit,
-    handleDelete
+    handleDelete,
+    loading,
+    error
   } = useAuthorsContext();
   const { name, last_name, img: images, url, bio } = changedAuthor;
 
   useEffect(() => {
     getAuthor(header);
   }, []);
+
+  if (loading) {
+    return <WhenLoading />;
+  }
 
   return (
     <Wrapper>
