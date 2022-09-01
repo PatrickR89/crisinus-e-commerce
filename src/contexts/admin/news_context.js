@@ -12,6 +12,8 @@ import {
 } from "../../actions/admin/news_actions";
 
 import reducer from "../../reducers/admin/news_reducer";
+import { useCheckAuth } from "../../hooks/useCheckAuth";
+import { useErrorReport } from "../../hooks/useErrorReport";
 
 const initialState = {
   loading: false,
@@ -29,6 +31,10 @@ const NewsContext = React.createContext();
 export const NewsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
+
+  const checkAuth = useCheckAuth();
+  const errorReport = useErrorReport();
+  const baseUrl = "/api/news/";
 
   const resetForm = () => {
     const news = {
@@ -54,22 +60,22 @@ export const NewsProvider = ({ children }) => {
 
   const addNews = (header) => {
     const { title, images, text } = state.news;
-    axios
-      .post("/api/news/", {
-        headers: header(),
-        title,
-        images,
-        text
-      })
+
+    const url = baseUrl;
+    const method = "post";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { title, images, text }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const info = `${title} news added`;
         axios.post("/api/system/info", { info });
       })
       .catch((error) => {
-        const err = `api: /api/news [addnews[POST]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
 
     navigate("/admin/news/list", { replace: true });
@@ -81,7 +87,8 @@ export const NewsProvider = ({ children }) => {
     files.forEach((file) => {
       data.append("images", file);
     });
-
+    const url = "/api/images/addimages";
+    const method = "post";
     axios
       .post("/api/images/addimages", data)
       .then((res) => {
@@ -92,8 +99,7 @@ export const NewsProvider = ({ children }) => {
         dispatch({ type: SET_IMAGES, payload: tempImages });
       })
       .catch((error) => {
-        const err = `api: api/images/addimages [addgift[POST]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
@@ -108,25 +114,33 @@ export const NewsProvider = ({ children }) => {
 
   const getNewsList = () => {
     dispatch({ type: LOAD_INITIATED });
-    axios
-      .get("/api/news/")
+    const url = baseUrl;
+    const method = "get";
+    axios({
+      url: url,
+      method: method
+    })
       .then((response) => {
         dispatch({ type: LOAD_ARRAY, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
-        const err = `api: /api/news/ [listnews[GET]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
   const findById = (header, id) => {
     dispatch({ type: LOAD_INITIATED });
-    axios
-      .post(`/api/news/${id}`, { headers: header(), id })
+    const url = `${baseUrl}${id}`;
+    const method = "post";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         dispatch({
           type: LOAD_VALUE,
           payload: response.data[0]
@@ -134,50 +148,48 @@ export const NewsProvider = ({ children }) => {
       })
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
-        const err = `api: /api/news/${id} [editnews[POST]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
   const editById = (header, id) => {
     const { title, images, text } = state.news;
-    axios
-      .put(`/api/news/${id}`, {
-        headers: header(),
-        id,
-        title,
-        images,
-        text
-      })
+    const url = `${baseUrl}${id}`;
+    const method = "put";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id, title, images, text }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const info = `${id} news edited`;
         axios.post("/api/system/info", { info });
       })
       .catch((error) => {
-        const err = `api: /api/news/${id} [editnews[PUT]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
 
     navigate("/admin/news/list", { replace: true });
   };
 
   const deleteById = (header, id) => {
-    axios
-      .delete(`/api/news/${id}`, {
-        headers: header(),
-        data: { id: id }
-      })
+    const url = `${baseUrl}${id}`;
+    const method = "delete";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id: id }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const info = `${id} news deleted`;
         axios.post("/api/system/info", { info });
       })
       .catch((error) => {
-        const err = `api: /api/news/${id} [editnews[DELETE]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
     navigate("/admin/news/list", { replace: true });
   };

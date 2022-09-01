@@ -12,6 +12,9 @@ import {
 
 import reducer from "../../reducers/admin/info_reducer";
 
+import { useCheckAuth } from "../../hooks/useCheckAuth";
+import { useErrorReport } from "../../hooks/useErrorReport";
+
 const initialState = {
   loading: false,
   error: false,
@@ -24,6 +27,10 @@ const InfoContext = React.createContext();
 export const InfoProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
+  const checkAuth = useCheckAuth();
+  const errorReport = useErrorReport();
+  const linksUrl = "/api/links/";
+  const infoUrl = "/api/infopages/";
 
   const updateValue = (e) => {
     let name = e.target.name;
@@ -37,130 +44,133 @@ export const InfoProvider = ({ children }) => {
 
   const getInfoPages = () => {
     dispatch({ type: LOAD_INITIATED });
-    axios
-      .get("/api/infopages/")
+    const url = `${infoUrl}`;
+    const method = "get";
+    axios({
+      url: url,
+      method: method
+    })
       .then((response) => {
         dispatch({ type: LOAD_ARRAY, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
-        const err = `api: /api/infopages/ [infolist[GET]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
   const getLinks = () => {
     dispatch({ type: LOAD_INITIATED });
-    axios
-      .get("/api/links")
+    const url = `${linksUrl}`;
+    const method = "get";
+    axios({
+      url: url,
+      method: method
+    })
       .then((response) => {
         dispatch({ type: LOAD_ARRAY, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
-        const err = `api: /api/links/ [linkslist[GET]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
   const resetTable = (header) => {
-    axios
-      .post("/api/infopages/reset", { headers: header() })
+    const url = `${infoUrl}reset`;
+    const method = "post";
+    axios({
+      url: url,
+      method: method,
+      headers: header()
+    })
       .then((response) => {
-        if (
-          response.data === "Token required" ||
-          response.data.auth === false
-        ) {
-          return navigate("/admin/login", { replace: true });
-        } else {
-          dispatch({ type: LOAD_ARRAY, payload: response.data });
-        }
+        checkAuth(response);
+        dispatch({ type: LOAD_ARRAY, payload: response.data });
       })
       .catch((error) => {
-        const err = `api: /api/infopages/reset [infolist[POST]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
   const findInfoById = (header, id) => {
     dispatch({ type: LOAD_INITIATED });
-    axios
-      .post(`/api/infopages/${id}`, {
-        headers: header(),
-        id
-      })
+    const url = `${infoUrl}${id}`;
+    const method = "post";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         dispatch({ type: LOAD_INFO, payload: response.data[0] });
       })
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
-        const err = `api: /api/infopages/${id} [editinfo[POST]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
   const editInfoById = (header, id) => {
     const { images, content } = state.item;
-    axios
-      .put(`/api/infopages/${id}`, {
-        headers: header(),
-        id,
-        images,
-        content
-      })
+    const url = `${infoUrl}${id}`;
+    const method = "put";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id, images, content }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const info = `${id} info edited`;
         axios.post("/api/system/info", { info });
       })
       .catch((error) => {
-        const err = `api: /api/infopages/${id} [editinfo[PUT]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
     navigate("/admin/information/info", { replace: true });
   };
 
   const findLinkById = (header, id) => {
     dispatch({ type: LOAD_INITIATED });
-
-    axios
-      .post("/api/links", {
-        headers: header(),
-        id
-      })
+    const url = `${linksUrl}`;
+    const method = "post";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         dispatch({ type: LOAD_INFO, payload: response.data[0] });
       })
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
-
-        const err = `api: /api/links/${id} [editlinks[POST]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
   const editLinkById = (header, id) => {
     const { link } = state.item;
-    axios
-      .put(`/api/links/${id}`, {
-        headers: header(),
-        id,
-        link
-      })
+    const url = `${linksUrl}${id}`;
+    const method = "put";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id, link }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const info = `${id} link edited`;
         axios.post("/api/system/info", { info });
       })
       .catch((error) => {
-        const err = `api: /api/links/${id} [editlinks[PUT]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
     navigate("/admin/information/links", { replace: true });
   };
