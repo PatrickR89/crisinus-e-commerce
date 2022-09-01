@@ -12,6 +12,8 @@ import {
 } from "../../actions/admin/authors_actions";
 
 import reducer from "../../reducers/admin/authors_reducer";
+import { useCheckAuth } from "../../hooks/useCheckAuth";
+import { useErrorReport } from "../../hooks/useErrorReport";
 
 const initialState = {
   authorList: [],
@@ -32,18 +34,24 @@ export const AuthorsAdminProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { id } = useParams();
   const navigate = useNavigate();
+  const checkAuth = useCheckAuth();
+  const errorReport = useErrorReport();
+  const baseUrl = "/api/authors/";
 
   const getAuthors = () => {
     dispatch({ type: LOAD_INITIATED });
-    axios
-      .get("/api/authors/")
+    const url = `${baseUrl}`;
+    const method = "get";
+    axios({
+      url: url,
+      method: method
+    })
       .then((response) => {
         dispatch({ type: LOAD_AUTHORS, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
-        const err = `api: /api/authors/, error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
@@ -59,20 +67,21 @@ export const AuthorsAdminProvider = ({ children }) => {
 
   const getAuthor = (header) => {
     dispatch({ type: LOAD_INITIATED });
-    axios
-      .post(`/api/authors/${id}`, {
-        headers: header(),
-        id
-      })
+    const url = `${baseUrl}${id}`;
+    const method = "post";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         dispatch({ type: SET_INITIAL_AUTHOR, payload: response.data[0] });
       })
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
-        const err = `api: /api/authors/${id}, [editauthor[POST]] error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
@@ -109,46 +118,49 @@ export const AuthorsAdminProvider = ({ children }) => {
   };
 
   const handleEdit = (header) => {
-    const { name, last_name, img: images, url, bio } = state.changedAuthor;
-    console.log(id);
-    axios
-      .put(`/api/authors/${id}`, {
-        headers: header(),
-        id,
-        name,
-        last_name,
-        images,
-        url,
-        bio
-      })
+    const {
+      name,
+      last_name,
+      img: images,
+      url: authorUrl,
+      bio
+    } = state.changedAuthor;
+
+    const url = `${baseUrl}${id}`;
+    const method = "put";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id, name, last_name, images, url: authorUrl, bio }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const info = `${id} author edited`;
         axios.post("/api/system/info", { info });
       })
       .catch((error) => {
-        const err = `api: /api/authors/${id} [editauthor[PUT]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
     navigate("/admin/authors/list", { replace: true });
   };
 
   const handleDelete = (header) => {
-    axios
-      .delete(`/api/authors/${id}`, {
-        headers: header(),
-        data: { id: id }
-      })
+    const url = `${baseUrl}${id}`;
+    const method = "delete";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id: id }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const info = `${id} author deleted`;
         axios.post("/api/system/info", { info });
       })
       .catch((error) => {
-        const err = `api: /api/authors/${id} [editauthor[DELETE]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
     navigate("/api/admin/authorslist", { replace: true });
   };

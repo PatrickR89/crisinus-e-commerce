@@ -16,6 +16,9 @@ import {
 
 import reducer from "../../reducers/admin/books_reducer";
 
+import { useCheckAuth } from "../../hooks/useCheckAuth";
+import { useErrorReport } from "../../hooks/useErrorReport";
+
 const initialState = {
   loading: false,
   error: false,
@@ -40,6 +43,11 @@ const BooksContext = React.createContext();
 export const BooksProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
+
+  const checkAuth = useCheckAuth();
+  const errorReport = useErrorReport();
+  const baseUrl = "/api/books/";
+  const secUrl = "/api/authors/";
 
   const resetForm = () => {
     const emptyBook = {
@@ -72,29 +80,35 @@ export const BooksProvider = ({ children }) => {
 
   const loadAuthors = () => {
     dispatch({ type: LOAD_INITIATED });
-    axios
-      .get("/api/authors/")
+    const url = `${secUrl}`;
+    const method = "get";
+    axios({
+      url: url,
+      method: method
+    })
       .then((response) => {
         dispatch({ type: LOAD_AUTHORS, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
-        const err = `api: /api/authors/ [addbook[GET]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
   const loadBooks = () => {
     dispatch({ type: LOAD_INITIATED });
-    axios
-      .get("/api/books/")
+    const url = `${baseUrl}`;
+    const method = "get";
+    axios({
+      url: url,
+      method: method
+    })
       .then((response) => {
         dispatch({ type: LOAD_BOOKS, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
-        const err = `api: /api/books/ [booklist[GET]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
@@ -159,9 +173,14 @@ export const BooksProvider = ({ children }) => {
       year,
       description: desc
     } = state.book;
-    axios
-      .post("/api/books/", {
-        headers: header(),
+
+    const url = `${baseUrl}`;
+    const method = "post";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: {
         title,
         genre,
         maxOrder,
@@ -172,16 +191,15 @@ export const BooksProvider = ({ children }) => {
         desc,
         images,
         authors
-      })
+      }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const info = `${title} book added`;
         axios.post("/api/system/info", { info });
       })
       .catch((error) => {
-        const err = `api: /api/books/ [addbook[POST]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
 
     navigate("/admin/books/list", { replace: true });
@@ -189,22 +207,23 @@ export const BooksProvider = ({ children }) => {
 
   const findById = (id, header) => {
     dispatch({ type: LOAD_INITIATED });
-    axios
-      .post(`/api/books/${id}`, {
-        headers: header(),
-        id
-      })
+    const url = `${baseUrl}${id}`;
+    const method = "post";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const book = response.data[0];
         const authors = response.data[1];
         dispatch({ type: LOAD_BOOK, payload: [book, authors] });
       })
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
-        const err = `api: api/books/${id} [editbook[POST]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
@@ -222,9 +241,13 @@ export const BooksProvider = ({ children }) => {
       year,
       description: desc
     } = state.book;
-    axios
-      .put(`/api/books/${id}`, {
-        headers: header(),
+    const url = `${baseUrl}${id}`;
+    const method = "put";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: {
         bookId,
         title,
         authors,
@@ -236,35 +259,35 @@ export const BooksProvider = ({ children }) => {
         language,
         year,
         desc
-      })
+      }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const info = `${id} book edited`;
         axios.post("/api/system/info", { info });
       })
       .catch((error) => {
-        const err = `api: api/books/${id} [editbook[PUT]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
     navigate("/admin/books/list", { replace: true });
   };
 
   const deleteById = (id, header) => {
-    axios
-      .delete(`/api/books/${id}`, {
-        headers: header(),
-        data: { id: id }
-      })
+    const url = `${baseUrl}${id}`;
+    const method = "delete";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id: id }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const info = `${id} book deleted`;
         axios.post("/api/system/info", { info });
       })
       .catch((error) => {
-        const err = `api: api/books/${id} [editbook[DELETE]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
     navigate("/admin/books/list", { replace: true });
   };
