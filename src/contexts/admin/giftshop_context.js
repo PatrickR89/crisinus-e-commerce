@@ -12,6 +12,8 @@ import {
 } from "../../actions/admin/giftshop_actions";
 
 import reducer from "../../reducers/admin/giftshop_reducer";
+import { useCheckAuth } from "../../hooks/useCheckAuth";
+import { useErrorReport } from "../../hooks/useErrorReport";
 
 const initialState = {
   gifts: [],
@@ -31,6 +33,10 @@ const GiftshopContext = React.createContext();
 export const GiftshopProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
+
+  const checkAuth = useCheckAuth();
+  const errorReport = useErrorReport();
+  const baseUrl = "/api/giftshop/";
 
   const updateValue = (e) => {
     let name = e.target.name;
@@ -89,51 +95,55 @@ export const GiftshopProvider = ({ children }) => {
 
   const addGift = (header) => {
     const { name, price, max_order, images, description } = state.gift;
-    axios
-      .post("/api/giftshop/", {
-        headers: header(),
-        name,
-        price,
-        max_order,
-        images,
-        description
-      })
+    const url = `${baseUrl}`;
+    const method = "post";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { name, price, max_order, images, description }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const info = `${name} gift added`;
         axios.post("/api/system/info", { info });
       })
       .catch((error) => {
-        const err = `api: /api/giftshop/ [addgift[POST]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
 
-    navigate("/admin/giftshoplist", { replace: true });
+    navigate("/admin/giftshop/list", { replace: true });
   };
 
   const getGifts = () => {
     dispatch({ type: LOAD_INITIATED });
-    axios
-      .get("/api/giftshop/")
+    const url = `${baseUrl}`;
+    const method = "get";
+    axios({
+      url: url,
+      method: method
+    })
       .then((response) => {
         dispatch({ type: LOAD_ARRAY, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
-        const err = `api: /api/giftshop/} [giftslist[GET]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
   const findById = (header, id) => {
     dispatch({ type: LOAD_INITIATED });
-
-    axios
-      .post(`/api/giftshop/${id}`, { headers: header(), id })
+    const url = `${baseUrl}${id}`;
+    const method = "post";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
 
         dispatch({
           type: LOAD_GIFT,
@@ -143,51 +153,47 @@ export const GiftshopProvider = ({ children }) => {
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
 
-        const err = `api: /api/giftshop/${id} [editgift[POST]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
   const editById = (header, id) => {
     const { name, price, max_order, images, description } = state.gift;
-    axios
-      .put(`/api/giftshop/${id}`, {
-        headers: header(),
-        id,
-        name,
-        price,
-        max_order,
-        images,
-        description
-      })
+    const url = `${baseUrl}${id}`;
+    const method = "put";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id, name, price, max_order, images, description }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const info = `${id} gift edited`;
         axios.post("/api/system/info", { info });
       })
       .catch((error) => {
-        const err = `api: /api/giftshop/${id} [editgift[PUT]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
     navigate("/admin/giftshop/list", { replace: true });
   };
 
   const deleteById = (header, id) => {
-    axios
-      .delete(`/api/giftshop/${id}`, {
-        headers: header(),
-        data: { id: id }
-      })
+    const url = `${baseUrl}${id}`;
+    const method = "delete";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id: id }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/api/admin/login", { replace: true });
+        checkAuth(response);
         const info = `${id} gift deleted`;
         axios.post("/api/system/info", { info });
       })
       .catch((error) => {
-        const err = `api: /api/giftshop/${id} [editgift[DELETE]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
     navigate("/admin/giftshop/list", { replace: true });
   };

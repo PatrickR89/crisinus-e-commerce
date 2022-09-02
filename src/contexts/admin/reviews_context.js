@@ -12,6 +12,8 @@ import {
 } from "../../actions/admin/reviews_actions";
 
 import reducer from "../../reducers/admin/reviews_reducer";
+import { useCheckAuth } from "../../hooks/useCheckAuth";
+import { useErrorReport } from "../../hooks/useErrorReport";
 
 const initialState = {
   loading: false,
@@ -34,6 +36,9 @@ const ReviewsContext = React.createContext();
 export const ReviewsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
+  const checkAuth = useCheckAuth();
+  const errorReport = useErrorReport();
+  const baseUrl = "/api/reviews/";
 
   const resetForm = () => {
     const review = {
@@ -63,115 +68,116 @@ export const ReviewsProvider = ({ children }) => {
 
   const getReviews = () => {
     dispatch({ type: LOAD_INITIATED });
-    axios
-      .get("/api/reviews/")
+    const url = `${baseUrl}`;
+    const method = "get";
+    axios({
+      url: url,
+      method: method
+    })
       .then((response) => {
         dispatch({ type: LOAD_ARRAY, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
-        const err = `api: /reviews/ [listratings[GET]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
   const loadBooks = () => {
     dispatch({ type: LOAD_INITIATED });
-    axios
-      .get("/api/books/")
+    const url = `/api/books/`;
+    const method = "get";
+    axios({
+      url: url,
+      method: method
+    })
       .then((response) => {
         dispatch({ type: LOAD_SECONDARY_ARRAY, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: ERROR_OCCURRED });
-        const err = `api: /books/ [addrating[GET]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
   const addReview = (header) => {
     const { book, rating_title, rating, reviewer, review } = state.review;
-    axios
-      .post("/api/reviews/", {
-        headers: header(),
-        book,
-        rating_title,
-        rating,
-        reviewer,
-        review
-      })
+    const url = `${baseUrl}`;
+    const method = "post";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { book, rating_title, rating, reviewer, review }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const info = `${rating_title} rating added`;
         axios.post("/system/info", { info });
       })
       .catch((error) => {
-        const err = `api: /reviews/ [addrating[POST]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
 
     navigate("/admin/reviews/list", { replace: true });
   };
 
   const findById = (header, id) => {
-    axios
-      .post(`/api/reviews/${id}`, {
-        headers: header(),
-        id
-      })
+    const url = `${baseUrl}${id}`;
+    const method = "post";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         dispatch({ type: LOAD_VALUE, payload: response.data });
       })
       .catch((error) => {
-        const err = `api: /reviews/${id} [editrating[POST]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
   };
 
   const editById = (header, id) => {
     const { book, rating_title, rating, review, reviewer } = state.review;
-    axios
-      .put(`/api/reviews/${id}`, {
-        headers: header(),
-        id,
-        book,
-        rating_title,
-        rating,
-        reviewer,
-        review
-      })
+    const url = `${baseUrl}${id}`;
+    const method = "put";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id, book, rating_title, rating, reviewer, review }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const info = `${id} rating edited`;
         axios.post("/system/info", { info });
       })
       .catch((error) => {
-        const err = `api: /reviews/${id} [editrating[PUT]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
 
     navigate("/admin/reviews/list", { replace: true });
   };
 
   const deleteById = (header, id) => {
-    axios
-      .delete(`/api/reviews/${id}`, {
-        headers: header(),
-        data: { id: id }
-      })
+    const url = `${baseUrl}${id}`;
+    const method = "delete";
+    axios({
+      url: url,
+      method: method,
+      headers: header(),
+      data: { id: id }
+    })
       .then((response) => {
-        if (response.data === "Token required" || response.data.auth === false)
-          return navigate("/admin/login", { replace: true });
+        checkAuth(response);
         const info = `${id} rating deleted`;
         axios.post("/system/info", { info });
       })
       .catch((error) => {
-        const err = `api: /reviews/${id} [editrating[DELETE]], error: ${error}`;
-        axios.post("/api/system/error", { err });
+        errorReport(error, url, window.location.pathname, method);
       });
     navigate("/admin/reviews/list", { replace: true });
   };
