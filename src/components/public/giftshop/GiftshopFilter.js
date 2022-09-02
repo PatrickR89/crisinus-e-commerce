@@ -6,55 +6,55 @@ import { useLanguageContext } from "../../../contexts/language_context";
 import { useFilterContext } from "../../../contexts/filter_context";
 
 const GiftshopFilter = () => {
-    const {
-        gifts_filters: { text, min_price, max_price, price },
-        updateGiftsFilter,
-        clearGiftsFilter
-    } = useFilterContext();
-    const { priceFormat } = useCurrencyContext();
-    const { translation } = useLanguageContext();
+  const {
+    gifts_filters: { text, min_price, max_price, price },
+    updateGiftsFilter,
+    clearGiftsFilter
+  } = useFilterContext();
+  const { priceFormat } = useCurrencyContext();
+  const { translation } = useLanguageContext();
 
-    return (
-        <Wrapper>
-            <form onSubmit={(e) => e.preventDefault()} className="gift-form">
-                <div className="filter-input">
-                    <label htmlFor="text">{translation.name}: </label>
-                    <input
-                        type="text"
-                        name="text"
-                        id="text"
-                        placeholder={translation.search}
-                        className="search-input"
-                        value={text}
-                        onChange={updateGiftsFilter}
-                    />
-                </div>
-                <div className="price-form">
-                    <label htmlFor="price">{translation.price}: </label>
-                    <input
-                        type="range"
-                        name="price"
-                        id="price"
-                        className="price-range"
-                        min={min_price}
-                        max={max_price}
-                        value={price}
-                        onChange={updateGiftsFilter}
-                    />
-                    <p className="price">{priceFormat(price)}</p>
-                </div>
-            </form>
-            <div className="btn-container">
-                <button
-                    type="button"
-                    className="clear-filter"
-                    onClick={clearGiftsFilter}
-                >
-                    <FaRegTimesCircle />
-                </button>
-            </div>
-        </Wrapper>
-    );
+  return (
+    <Wrapper>
+      <form onSubmit={(e) => e.preventDefault()} className="gift-form">
+        <div className="filter-input">
+          <label htmlFor="text">{translation.name}: </label>
+          <input
+            type="text"
+            name="text"
+            id="text"
+            placeholder={translation.search}
+            className="search-input"
+            value={text}
+            onChange={updateGiftsFilter}
+          />
+        </div>
+        <div className="price-form">
+          <label htmlFor="price">{translation.price}: </label>
+          <input
+            type="range"
+            name="price"
+            id="price"
+            className="price-range"
+            min={min_price}
+            max={max_price}
+            value={price}
+            onChange={updateGiftsFilter}
+          />
+          <p className="price">{priceFormat(price)}</p>
+        </div>
+      </form>
+      <div className="btn-container">
+        <button
+          type="button"
+          className="clear-filter"
+          onClick={clearGiftsFilter}
+        >
+          <FaRegTimesCircle />
+        </button>
+      </div>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.div`
