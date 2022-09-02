@@ -16,6 +16,7 @@ const authors_reducer = (state, action) => {
   if (action.type === ERROR_OCCURRED) {
     return { ...state, error: true, loading: false };
   }
+
   if (action.type === ERROR_CLEARED) {
     return { ...state, error: false, loading: false };
   }

@@ -6,10 +6,18 @@ import { useBooksContext } from "../../../contexts/admin/books_context";
 
 import { ListHead, ListLink, ListWrapper } from "../elements";
 import WhenLoading from "../../public/WhenLoading";
+import WhenError from "../../public/WhenError";
 
 const BookList = () => {
-  const { loadBooks, loadAuthors, booksList, authorsList, loading, error } =
-    useBooksContext();
+  const {
+    loadBooks,
+    loadAuthors,
+    booksList,
+    authorsList,
+    loading,
+    error,
+    clearError
+  } = useBooksContext();
 
   const { priceFormat } = useCurrencyContext();
   const { translation } = useLanguageContext();
@@ -24,6 +32,10 @@ const BookList = () => {
 
   if (loading) {
     return <WhenLoading />;
+  }
+
+  if (error) {
+    return <WhenError handleError={clearError} />;
   }
 
   return (

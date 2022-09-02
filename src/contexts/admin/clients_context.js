@@ -11,7 +11,8 @@ import {
   OPEN_MODAL,
   CLOSE_MODAL,
   SET_ORDER_STATUS,
-  TOGGLE_ORDER_MODAL
+  TOGGLE_ORDER_MODAL,
+  ERROR_CLEARED
 } from "../../actions/admin/clients_actions";
 
 import reducer from "../../reducers/admin/clients_reducer";
@@ -236,6 +237,10 @@ export const ClientsProvider = ({ children }) => {
     dispatch({ type: FETCH_MESSAGE, payload: msg });
   };
 
+  const clearError = () => {
+    dispatch({ type: ERROR_CLEARED });
+  };
+
   const setStatusColor = (msgStatus) => {
     if (msgStatus === "NEW") {
       return "red-background";
@@ -261,7 +266,8 @@ export const ClientsProvider = ({ children }) => {
         findOrderById,
         setOrderStatus,
         deleteOrderById,
-        toggleModal
+        toggleModal,
+        clearError
       }}
     >
       {children}

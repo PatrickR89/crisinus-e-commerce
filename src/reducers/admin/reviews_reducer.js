@@ -4,7 +4,8 @@ import {
   LOAD_ARRAY,
   LOAD_INITIATED,
   ERROR_OCCURRED,
-  LOAD_SECONDARY_ARRAY
+  LOAD_SECONDARY_ARRAY,
+  ERROR_CLEARED
 } from "../../actions/admin/reviews_actions";
 
 const reviews_reducer = (state, action) => {
@@ -15,6 +16,11 @@ const reviews_reducer = (state, action) => {
   if (action.type === ERROR_OCCURRED) {
     return { ...state, error: true, loading: false };
   }
+
+  if (action.type === ERROR_CLEARED) {
+    return { ...state, error: false, loading: false };
+  }
+
   if (action.type === UPDATE_VALUE) {
     const { name, value } = action.payload;
     return { ...state, review: { ...state.review, [name]: value } };

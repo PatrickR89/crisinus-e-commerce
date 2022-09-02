@@ -11,7 +11,8 @@ import {
   HANDLE_AUTHORS,
   ADD_AUTHOR_SPOT,
   SET_IMAGES,
-  UPDATE_BOOK
+  UPDATE_BOOK,
+  ERROR_CLEARED
 } from "../../actions/admin/books_actions";
 
 import reducer from "../../reducers/admin/books_reducer";
@@ -292,6 +293,10 @@ export const BooksProvider = ({ children }) => {
     navigate("/admin/books/list", { replace: true });
   };
 
+  const clearError = () => {
+    dispatch({ type: ERROR_CLEARED });
+  };
+
   return (
     <BooksContext.Provider
       value={{
@@ -308,7 +313,8 @@ export const BooksProvider = ({ children }) => {
         findById,
         editById,
         deleteById,
-        resetForm
+        resetForm,
+        clearError
       }}
     >
       {children}

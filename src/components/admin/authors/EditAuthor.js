@@ -8,6 +8,7 @@ import { useAuthenticationContext } from "../../../contexts/authentication_conte
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useAuthorsContext } from "../../../contexts/admin/authors_context";
 import WhenLoading from "../../public/WhenLoading";
+import WhenError from "../../public/WhenError";
 
 const EditAuthor = () => {
   const { header } = useAuthenticationContext();
@@ -21,7 +22,8 @@ const EditAuthor = () => {
     handleEdit,
     handleDelete,
     loading,
-    error
+    error,
+    clearError
   } = useAuthorsContext();
   const { name, last_name, img: images, url, bio } = changedAuthor;
 
@@ -31,6 +33,10 @@ const EditAuthor = () => {
 
   if (loading) {
     return <WhenLoading />;
+  }
+
+  if (error) {
+    return <WhenError handleError={clearError} />;
   }
 
   return (

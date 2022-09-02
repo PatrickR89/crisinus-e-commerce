@@ -5,14 +5,23 @@ import styled from "styled-components";
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useInfoContext } from "../../../contexts/admin/info_context";
+import WhenLoading from "../../public/WhenLoading";
+import WhenError from "../../public/WhenError";
 
 const EditInfo = () => {
   const { id } = useParams();
 
   const { header } = useAuthenticationContext();
   const { translation } = useLanguageContext();
-  const { item, updateValue, loading, error, findLinkById, editLinkById } =
-    useInfoContext();
+  const {
+    item,
+    updateValue,
+    loading,
+    error,
+    findLinkById,
+    editLinkById,
+    clearError
+  } = useInfoContext();
   const { link } = item;
 
   useEffect(() => {
@@ -20,11 +29,11 @@ const EditInfo = () => {
   }, []);
 
   if (loading) {
-    return (
-      <Wrapper>
-        <h2>Loading...</h2>
-      </Wrapper>
-    );
+    return <WhenLoading />;
+  }
+
+  if (error) {
+    return <WhenError handleError={clearError} />;
   }
 
   return (

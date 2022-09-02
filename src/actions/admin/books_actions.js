@@ -7,3 +7,4 @@ export const HANDLE_AUTHORS = "HANDLE_AUTHORS";
 export const ADD_AUTHOR_SPOT = "ADD_AUTHOR_SPOT";
 export const SET_IMAGES = "SET_IMAGES";
 export const UPDATE_BOOK = "UPDATE_BOOK";
+export const ERROR_CLEARED = "ERROR_CLEARED";

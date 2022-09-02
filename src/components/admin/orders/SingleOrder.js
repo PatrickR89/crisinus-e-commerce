@@ -7,6 +7,7 @@ import { useCurrencyContext } from "../../../contexts/currency_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useClientsContext } from "../../../contexts/admin/clients_context";
 import WhenLoading from "../../public/WhenLoading";
+import WhenError from "../../public/WhenError";
 
 import { OrderModal } from "./";
 
@@ -21,7 +22,8 @@ const SingleOrder = () => {
     deleteOrderById,
     toggleModal,
     loading,
-    error
+    error,
+    clearError
   } = useClientsContext();
   const { order, cart, status, totalAmount, isModal } = orderPage;
   const componentRef = useRef();
@@ -51,6 +53,10 @@ const SingleOrder = () => {
 
   if (loading) {
     return <WhenLoading />;
+  }
+
+  if (error) {
+    return <WhenError handleError={clearError} />;
   }
 
   return (

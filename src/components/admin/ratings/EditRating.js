@@ -6,6 +6,7 @@ import { useAuthenticationContext } from "../../../contexts/authentication_conte
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useReviewsContext } from "../../../contexts/admin/reviews_context";
 import WhenLoading from "../../public/WhenLoading";
+import WhenError from "../../public/WhenError";
 
 const EditRating = () => {
   const { id } = useParams();
@@ -21,7 +22,8 @@ const EditRating = () => {
     editById,
     deleteById,
     loading,
-    error
+    error,
+    clearError
   } = useReviewsContext();
   const { rating_title, rating, reviewer, review, book_id, book_title, book } =
     object;
@@ -33,6 +35,10 @@ const EditRating = () => {
 
   if (loading) {
     return <WhenLoading />;
+  }
+
+  if (error) {
+    return <WhenError handleError={clearError} />;
   }
 
   return (

@@ -4,3 +4,4 @@ export const LOAD_VALUE = "LOAD_VALUE";
 export const LOAD_ARRAY = "LOAD_ARRAY";
 export const LOAD_INITIATED = "LOAD_INITIATED";
 export const ERROR_OCCURRED = "ERROR_OCCURRED";
+export const ERROR_CLEARED = "ERROR_CLEARED";

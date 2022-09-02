@@ -5,9 +5,10 @@ import { useLanguageContext } from "../../../contexts/language_context";
 import { ListHead, ListLink, ListWrapper } from "../elements";
 import { useNewsContext } from "../../../contexts/admin/news_context";
 import WhenLoading from "../../public/WhenLoading";
+import WhenError from "../../public/WhenError";
 
 const ListNews = () => {
-  const { getNewsList, formatDate, newsList, loading, error } =
+  const { getNewsList, formatDate, newsList, loading, error, clearError } =
     useNewsContext();
   const { translation } = useLanguageContext();
   const { title, content, date } = translation;
@@ -19,6 +20,10 @@ const ListNews = () => {
 
   if (loading) {
     return <WhenLoading />;
+  }
+
+  if (error) {
+    return <WhenError handleError={clearError} />;
   }
 
   return (

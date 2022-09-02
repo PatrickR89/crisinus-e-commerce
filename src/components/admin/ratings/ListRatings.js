@@ -5,11 +5,20 @@ import { useReviewsContext } from "../../../contexts/admin/reviews_context";
 
 import { ListHead, ListLink, ListWrapper } from "../elements";
 import WhenLoading from "../../public/WhenLoading";
+import WhenError from "../../public/WhenError";
 
 const ListRatings = () => {
   const { translation } = useLanguageContext();
-  const { bookTitle, title, rating, reviewer, review, loading, error } =
-    translation;
+  const {
+    bookTitle,
+    title,
+    rating,
+    reviewer,
+    review,
+    loading,
+    error,
+    clearError
+  } = translation;
   const { reviews, getReviews } = useReviewsContext();
 
   useEffect(() => {
@@ -20,6 +29,10 @@ const ListRatings = () => {
 
   if (loading) {
     return <WhenLoading />;
+  }
+
+  if (error) {
+    return <WhenError handleError={clearError} />;
   }
 
   return (

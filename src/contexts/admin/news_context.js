@@ -8,7 +8,8 @@ import {
   LOAD_VALUE,
   LOAD_ARRAY,
   LOAD_INITIATED,
-  ERROR_OCCURRED
+  ERROR_OCCURRED,
+  ERROR_CLEARED
 } from "../../actions/admin/news_actions";
 
 import reducer from "../../reducers/admin/news_reducer";
@@ -206,6 +207,10 @@ export const NewsProvider = ({ children }) => {
     ].join("/");
   };
 
+  const clearError = () => {
+    dispatch({ type: ERROR_CLEARED });
+  };
+
   return (
     <NewsContext.Provider
       value={{
@@ -219,7 +224,8 @@ export const NewsProvider = ({ children }) => {
         formatDate,
         findById,
         editById,
-        deleteById
+        deleteById,
+        clearError
       }}
     >
       {children}

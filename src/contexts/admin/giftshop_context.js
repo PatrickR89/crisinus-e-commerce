@@ -8,7 +8,8 @@ import {
   LOAD_GIFT,
   LOAD_ARRAY,
   LOAD_INITIATED,
-  ERROR_OCCURRED
+  ERROR_OCCURRED,
+  ERROR_CLEARED
 } from "../../actions/admin/giftshop_actions";
 
 import reducer from "../../reducers/admin/giftshop_reducer";
@@ -198,6 +199,10 @@ export const GiftshopProvider = ({ children }) => {
     navigate("/admin/giftshop/list", { replace: true });
   };
 
+  const clearError = () => {
+    dispatch({ type: ERROR_CLEARED });
+  };
+
   return (
     <GiftshopContext.Provider
       value={{
@@ -210,7 +215,8 @@ export const GiftshopProvider = ({ children }) => {
         getGifts,
         findById,
         editById,
-        deleteById
+        deleteById,
+        clearError
       }}
     >
       {children}

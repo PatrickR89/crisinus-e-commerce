@@ -9,6 +9,7 @@ import { useAuthenticationContext } from "../../../contexts/authentication_conte
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useGiftshopContext } from "../../../contexts/admin/giftshop_context";
 import WhenLoading from "../../public/WhenLoading";
+import WhenError from "../../public/WhenError";
 
 const EditGift = () => {
   const { header } = useAuthenticationContext();
@@ -22,7 +23,8 @@ const EditGift = () => {
     handleDeleteImage,
     editById,
     deleteById,
-    updateValue
+    updateValue,
+    clearError
   } = useGiftshopContext();
   const { name, price, max_order, images, description } = gift;
 
@@ -34,6 +36,10 @@ const EditGift = () => {
 
   if (loading) {
     return <WhenLoading />;
+  }
+
+  if (error) {
+    return <WhenError handleError={clearError} />;
   }
 
   return (

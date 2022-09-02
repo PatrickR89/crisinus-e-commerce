@@ -8,6 +8,7 @@ import { useAuthenticationContext } from "../../../contexts/authentication_conte
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useNewsContext } from "../../../contexts/admin/news_context";
 import WhenLoading from "../../public/WhenLoading";
+import WhenError from "../../public/WhenError";
 
 const EditNews = () => {
   const { id } = useParams();
@@ -21,7 +22,8 @@ const EditNews = () => {
     handleDeleteImage,
     findById,
     editById,
-    deleteById
+    deleteById,
+    clearError
   } = useNewsContext();
   const { title, images, text } = news;
 
@@ -34,6 +36,10 @@ const EditNews = () => {
 
   if (loading) {
     return <WhenLoading />;
+  }
+
+  if (error) {
+    return <WhenError handleError={clearError} />;
   }
 
   return (

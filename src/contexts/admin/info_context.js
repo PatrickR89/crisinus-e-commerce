@@ -7,7 +7,8 @@ import {
   ERROR_OCCURRED,
   LOAD_INFO,
   SET_IMAGES,
-  UPDATE_VALUE
+  UPDATE_VALUE,
+  ERROR_CLEARED
 } from "../../actions/admin/info_actions";
 
 import reducer from "../../reducers/admin/info_reducer";
@@ -206,6 +207,10 @@ export const InfoProvider = ({ children }) => {
     dispatch({ type: SET_IMAGES, payload: tempImages });
   };
 
+  const clearError = () => {
+    dispatch({ type: ERROR_CLEARED });
+  };
+
   return (
     <InfoContext.Provider
       value={{
@@ -219,7 +224,8 @@ export const InfoProvider = ({ children }) => {
         editInfoById,
         updateValue,
         findLinkById,
-        editLinkById
+        editLinkById,
+        clearError
       }}
     >
       {children}

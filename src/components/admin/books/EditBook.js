@@ -11,6 +11,7 @@ import { useLanguageContext } from "../../../contexts/language_context";
 import { useBooksContext } from "../../../contexts/admin/books_context";
 
 import WhenLoading from "../../public/WhenLoading";
+import WhenError from "../../public/WhenError";
 
 const EditBook = () => {
   axios.defaults.withCredentials = true;
@@ -28,7 +29,8 @@ const EditBook = () => {
     deleteById,
     updateBook,
     loading,
-    error
+    error,
+    clearError
   } = useBooksContext();
   const {
     title,
@@ -54,6 +56,10 @@ const EditBook = () => {
 
   if (loading) {
     return <WhenLoading />;
+  }
+
+  if (error) {
+    return <WhenError handleError={clearError} />;
   }
 
   return (

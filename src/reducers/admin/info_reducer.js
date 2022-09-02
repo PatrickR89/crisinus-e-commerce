@@ -4,7 +4,8 @@ import {
   ERROR_OCCURRED,
   LOAD_INFO,
   SET_IMAGES,
-  UPDATE_VALUE
+  UPDATE_VALUE,
+  ERROR_CLEARED
 } from "../../actions/admin/info_actions";
 
 const info_reducer = (state, action) => {
@@ -15,6 +16,11 @@ const info_reducer = (state, action) => {
   if (action.type === ERROR_OCCURRED) {
     return { ...state, error: true, loading: false };
   }
+
+  if (action.type === ERROR_CLEARED) {
+    return { ...state, error: false, loading: false };
+  }
+
   if (action.type === LOAD_ARRAY) {
     return {
       ...state,

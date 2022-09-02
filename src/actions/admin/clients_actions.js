@@ -8,3 +8,4 @@ export const OPEN_MODAL = "OPEN_MODAL";
 export const CLOSE_MODAL = "CLOSE_MODAL";
 export const SET_ORDER_STATUS = "SET_ORDER_STATUS";
 export const TOGGLE_ORDER_MODAL = "TOGGLE_ORDER_MODAL";
+export const ERROR_CLEARED = "ERROR_CLEARED";

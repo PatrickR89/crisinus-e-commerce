@@ -7,7 +7,8 @@ import {
   HANDLE_AUTHORS,
   ADD_AUTHOR_SPOT,
   SET_IMAGES,
-  UPDATE_BOOK
+  UPDATE_BOOK,
+  ERROR_CLEARED
 } from "../../actions/admin/books_actions";
 
 const books_reducer = (state, action) => {
@@ -17,6 +18,10 @@ const books_reducer = (state, action) => {
 
   if (action.type === ERROR_OCCURRED) {
     return { ...state, error: true, loading: false };
+  }
+
+  if (action.type === ERROR_CLEARED) {
+    return { ...state, error: false, loading: false };
   }
 
   if (action.type === LOAD_AUTHORS) {

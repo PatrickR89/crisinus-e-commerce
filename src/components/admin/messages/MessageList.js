@@ -6,6 +6,7 @@ import { useClientsContext } from "../../../contexts/admin/clients_context";
 
 import { ListHead, ListLink, ListWrapper } from "../elements";
 import WhenLoading from "../../public/WhenLoading";
+import WhenError from "../../public/WhenError";
 
 const MessageList = () => {
   const {
@@ -19,7 +20,8 @@ const MessageList = () => {
     deleteMsgById,
     setStatusColor,
     loading,
-    error
+    error,
+    clearError
   } = useClientsContext();
   const { translation } = useLanguageContext();
 
@@ -29,6 +31,10 @@ const MessageList = () => {
 
   if (loading) {
     return <WhenLoading />;
+  }
+
+  if (error) {
+    return <WhenError handleError={clearError} />;
   }
 
   const titles = ["ID", translation.name, "EMAIL", translation.date, "STATUS"];

@@ -8,7 +8,8 @@ import {
   OPEN_MODAL,
   CLOSE_MODAL,
   SET_ORDER_STATUS,
-  TOGGLE_ORDER_MODAL
+  TOGGLE_ORDER_MODAL,
+  ERROR_CLEARED
 } from "../../actions/admin/clients_actions";
 
 const clients_reducer = (state, action) => {
@@ -18,6 +19,10 @@ const clients_reducer = (state, action) => {
 
   if (action.type === ERROR_OCCURRED) {
     return { ...state, error: true, loading: false };
+  }
+
+  if (action.type === ERROR_CLEARED) {
+    return { ...state, error: false, loading: false };
   }
 
   if (action.type === FETCH_MESSAGES) {

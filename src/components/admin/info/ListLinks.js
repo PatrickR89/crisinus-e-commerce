@@ -4,9 +4,11 @@ import { useLanguageContext } from "../../../contexts/language_context";
 import { useInfoContext } from "../../../contexts/admin/info_context";
 
 import { ListHead, ListLink, ListWrapper } from "../elements";
+import WhenLoading from "../../public/WhenLoading";
+import WhenError from "../../public/WhenError";
 
 const ListLinks = () => {
-  const { items, getLinks } = useInfoContext();
+  const { items, getLinks, loading, error, clearError } = useInfoContext();
 
   const { translation } = useLanguageContext();
   const titles = ["ID", "link"];
@@ -14,6 +16,14 @@ const ListLinks = () => {
   useEffect(() => {
     getLinks();
   }, []);
+
+  if (loading) {
+    return <WhenLoading />;
+  }
+
+  if (error) {
+    return <WhenError handleError={clearError} />;
+  }
 
   return (
     <ListWrapper>

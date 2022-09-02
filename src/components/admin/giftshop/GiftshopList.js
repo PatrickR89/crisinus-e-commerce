@@ -6,10 +6,17 @@ import { useGiftshopContext } from "../../../contexts/admin/giftshop_context";
 
 import { ListHead, ListLink, ListWrapper } from "../elements";
 import WhenLoading from "../../public/WhenLoading";
+import WhenError from "../../public/WhenError";
 
 const GiftshopList = () => {
   const { translation } = useLanguageContext();
-  const { gifts: gsList, getGifts, loading, error } = useGiftshopContext();
+  const {
+    gifts: gsList,
+    getGifts,
+    loading,
+    error,
+    clearError
+  } = useGiftshopContext();
   const { name, price, maxOrder, description } = translation;
   const titles = ["ID", name, price, maxOrder, description];
 
@@ -19,6 +26,10 @@ const GiftshopList = () => {
 
   if (loading) {
     return <WhenLoading />;
+  }
+
+  if (error) {
+    return <WhenError handleError={clearError} />;
   }
 
   return (

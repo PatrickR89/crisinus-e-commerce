@@ -7,9 +7,12 @@ import { useLanguageContext } from "../../../contexts/language_context";
 import { useInfoContext } from "../../../contexts/admin/info_context";
 
 import { ListHead, ListLink, ListWrapper } from "../elements";
+import WhenLoading from "../../public/WhenLoading";
+import WhenError from "../../public/WhenError";
 
 const ListInfo = () => {
-  const { items, getInfoPages, resetTable } = useInfoContext();
+  const { items, getInfoPages, resetTable, loading, error, clearError } =
+    useInfoContext();
   const { header } = useAuthenticationContext();
   const { translation } = useLanguageContext();
   const { title, titleShow, content } = translation;
@@ -18,6 +21,14 @@ const ListInfo = () => {
   useEffect(() => {
     getInfoPages();
   }, []);
+
+  if (loading) {
+    return <WhenLoading />;
+  }
+
+  if (error) {
+    return <WhenError handleError={clearError} />;
+  }
 
   return (
     <ListWrapper>

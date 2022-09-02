@@ -8,7 +8,8 @@ import {
   LOAD_ARRAY,
   LOAD_INITIATED,
   ERROR_OCCURRED,
-  LOAD_SECONDARY_ARRAY
+  LOAD_SECONDARY_ARRAY,
+  ERROR_CLEARED
 } from "../../actions/admin/reviews_actions";
 
 import reducer from "../../reducers/admin/reviews_reducer";
@@ -182,6 +183,10 @@ export const ReviewsProvider = ({ children }) => {
     navigate("/admin/reviews/list", { replace: true });
   };
 
+  const clearError = () => {
+    dispatch({ type: ERROR_CLEARED });
+  };
+
   return (
     <ReviewsContext.Provider
       value={{
@@ -193,7 +198,8 @@ export const ReviewsProvider = ({ children }) => {
         getReviews,
         findById,
         editById,
-        deleteById
+        deleteById,
+        clearError
       }}
     >
       {children}

@@ -4,11 +4,18 @@ import { useLanguageContext } from "../../../contexts/language_context";
 import { useClientsContext } from "../../../contexts/admin/clients_context";
 import { ListHead, ListLink, ListWrapper } from "../elements";
 import WhenLoading from "../../public/WhenLoading";
+import WhenError from "../../public/WhenError";
 
 const OrderList = () => {
   const { translation } = useLanguageContext();
-  const { orderPage, findAllOrders, setStatusColor, loading, error } =
-    useClientsContext();
+  const {
+    orderPage,
+    findAllOrders,
+    setStatusColor,
+    loading,
+    error,
+    clearError
+  } = useClientsContext();
   const { orderList } = orderPage;
   const titles = ["id", translation.date, "status"];
 
@@ -18,6 +25,10 @@ const OrderList = () => {
 
   if (loading) {
     return <WhenLoading />;
+  }
+
+  if (error) {
+    return <WhenError handleError={clearError} />;
   }
 
   return (
