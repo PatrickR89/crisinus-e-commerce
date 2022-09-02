@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import logo from "../../defaults/logo-crisinus-nb.png";
+import { useLanguageContext } from "../../contexts/language_context";
 
 const WhenLoading = () => {
+  const { translation } = useLanguageContext();
   return (
     <Wrapper>
       <div className="body">
         <div className="margin">
-          <h2 className="written"> Please wait, loading...</h2>
+          <h2 className="written"> {translation.pleaseWaitLoad}</h2>
         </div>
         <div className="main">
           <div className="shine">

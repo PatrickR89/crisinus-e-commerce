@@ -4,10 +4,12 @@ import { useAuthorsContext } from "../../../contexts/admin/authors_context";
 
 import { ListHead, ListLink, ListWrapper } from "../elements";
 import WhenLoading from "../../public/WhenLoading";
+import WhenError from "../../public/WhenError";
 
 const AuthorsList = () => {
   const { translation } = useLanguageContext();
-  const { authorList, getAuthors, loading, error } = useAuthorsContext();
+  const { authorList, getAuthors, loading, error, clearError } =
+    useAuthorsContext();
   const titles = ["ID", translation.name, "WEB LINK", "BIO"];
 
   useEffect(() => {
@@ -16,6 +18,10 @@ const AuthorsList = () => {
 
   if (loading) {
     return <WhenLoading />;
+  }
+
+  if (error) {
+    return <WhenError handleError={clearError} />;
   }
 
   return (

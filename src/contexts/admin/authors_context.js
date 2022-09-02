@@ -8,7 +8,8 @@ import {
   ERROR_OCCURRED,
   SET_INITIAL_AUTHOR,
   UPDATE_AUTHOR,
-  SET_IMAGES
+  SET_IMAGES,
+  ERROR_CLEARED
 } from "../../actions/admin/authors_actions";
 
 import reducer from "../../reducers/admin/authors_reducer";
@@ -165,6 +166,10 @@ export const AuthorsAdminProvider = ({ children }) => {
     navigate("/api/admin/authorslist", { replace: true });
   };
 
+  const clearError = () => {
+    dispatch({ type: ERROR_CLEARED });
+  };
+
   return (
     <AuthorsAdminContext.Provider
       value={{
@@ -175,7 +180,8 @@ export const AuthorsAdminProvider = ({ children }) => {
         handleAddImages,
         handleDeleteImage,
         handleEdit,
-        handleDelete
+        handleDelete,
+        clearError
       }}
     >
       {children}

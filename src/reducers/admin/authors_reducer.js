@@ -4,7 +4,8 @@ import {
   ERROR_OCCURRED,
   SET_INITIAL_AUTHOR,
   UPDATE_AUTHOR,
-  SET_IMAGES
+  SET_IMAGES,
+  ERROR_CLEARED
 } from "../../actions/admin/authors_actions";
 
 const authors_reducer = (state, action) => {
@@ -14,6 +15,9 @@ const authors_reducer = (state, action) => {
 
   if (action.type === ERROR_OCCURRED) {
     return { ...state, error: true, loading: false };
+  }
+  if (action.type === ERROR_CLEARED) {
+    return { ...state, error: false, loading: false };
   }
 
   if (action.type === LOAD_AUTHORS) {
