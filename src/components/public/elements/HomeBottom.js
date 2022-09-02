@@ -12,7 +12,6 @@ const HomeBottom = () => {
   const submitEmail = () => {
     let isEmail = email.includes("@") && email.includes(".");
     if (isEmail === true) {
-      console.log(email);
       axios
         .post("api/system/newsletter", { email: email })
         .then((response) => {
