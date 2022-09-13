@@ -26,7 +26,9 @@ import {
   SET_CL_POST_CODE_ERR_FALSE,
   SET_CART_ERROR_TRUE,
   SET_CART_ERROR_FALSE,
-  RESET_CART
+  RESET_CART,
+  ADD_POSTAL_FEE,
+  SET_POST_STATUS
 } from "../actions/cart_actions";
 import { useErrorReport } from "../hooks/useErrorReport";
 
@@ -45,6 +47,7 @@ const initialState = {
   total_items: 0,
   total_amount: 0,
   isModalOpen: false,
+  postalFee: "true",
   cartOrder: {
     clientName: "",
     clientLastName: "",

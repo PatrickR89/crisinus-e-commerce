@@ -23,7 +23,9 @@ import {
   SET_CL_POST_CODE_ERR_FALSE,
   SET_CART_ERROR_TRUE,
   SET_CART_ERROR_FALSE,
-  RESET_CART
+  RESET_CART,
+  ADD_POSTAL_FEE,
+  SET_POST_STATUS
 } from "../actions/cart_actions";
 
 const cart_reducer = (state, action) => {
@@ -104,7 +106,20 @@ const cart_reducer = (state, action) => {
         total_amount: 0
       }
     );
-    return { ...state, total_amount, total_items };
+    let postState = true;
+    let newAmount = total_amount;
+    if (total_amount < 20000) {
+      newAmount += 1500;
+      postState = true;
+    } else {
+      postState = false;
+    }
+    return {
+      ...state,
+      total_amount: newAmount,
+      total_items,
+      postalFee: postState
+    };
   }
 
   if (action.type === OPEN_MODAL) {
@@ -120,8 +135,14 @@ const cart_reducer = (state, action) => {
     return { ...state, cartOrder: { ...state.cartOrder, [name]: value } };
   }
 
-  //CLIENT VALIDATION
+  if (action.type === ADD_POSTAL_FEE) {
+    return { ...state, total_amount: action.payload };
+  }
+  if (action.type === SET_POST_STATUS) {
+    return { ...state, postalFee: action.payload };
+  }
   if (action.type === SET_CL_NAME_ERR_TRUE) {
+    //CLIENT VALIDATION
     return {
       ...state,
       cartError: { ...state.cartError, clientNameError: true }

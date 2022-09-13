@@ -43,6 +43,7 @@ const english = {
   error: "error",
   errorMsg:
     "Unfortunately an error occurred, it is being automatically reported",
+  free: "Free",
   genInfo: "general information",
   genre: "Genre",
   giftshop: "giftshop",
@@ -82,6 +83,7 @@ const english = {
   prev: "prev",
   price: "Price",
   priceTotal: "Price total",
+  postalFee: "Postal fee",
   publisher: "Publisher",
   purchaseAdress: "enter adress for your purchase",
   rating: "rating",
@@ -152,6 +154,7 @@ const croatian = {
   error: "greška",
   errorMsg:
     "Na žalost došlo je do greške, izvješće će biti automatski poslano.",
+  free: "Besplatno",
   genInfo: "opće informacije",
   genre: "Žanr",
   giftshop: "giftshop",
@@ -191,6 +194,7 @@ const croatian = {
   prev: "prošla",
   price: "Cijena",
   priceTotal: "Ukupna cijena",
+  postalFee: "Poštarina",
   publisher: "Izdavač",
   purchaseAdress: "unesite adresu za vašu narudžbu",
   rating: "ocijena",

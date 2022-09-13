@@ -5,16 +5,22 @@ import { useCurrencyContext } from "../../../contexts/currency_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 
 const CartTotal = () => {
-  const { total_amount, openModal } = useCartContext();
+  const { total_amount, openModal, postalFee } = useCartContext();
   const { priceFormat } = useCurrencyContext();
   const { translation } = useLanguageContext();
 
   return (
     <Wrapper>
       <div className="boxin">
-        <h2>
-          {translation.total}: {priceFormat(total_amount)}
-        </h2>
+        <div className="amount">
+          <h2>
+            {translation.total}: {priceFormat(total_amount)}
+          </h2>
+          <h4>
+            ( {translation.postalFee}:{" "}
+            {postalFee ? `${priceFormat(1500)}` : `${translation.free}`} )
+          </h4>
+        </div>
         <hr />
         <button className="btn" onClick={openModal}>
           {translation.order}
@@ -30,8 +36,13 @@ const Wrapper = styled.div`
     padding: 2rem;
     background: var(--clr-button-6);
   }
-  h2 {
+  .amount {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 1rem;
+  }
+  h2 {
+    margin-bottom: 0.5rem;
   }
   hr {
     margin-bottom: 1rem;

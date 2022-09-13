@@ -21,7 +21,7 @@ const CartItem = ({ title, name, id, max, price, amount }) => {
     <Wrapper>
       <div className="fields">
         <div className="item-name itm">
-          <h2>{name ? `${name}` : `${title}`}</h2>
+          <h4>{name ? `${name}` : `${title}`}</h4>
         </div>
         <div className="item-col itm">
           <p className="toggle-side">{translation.price}:</p>
