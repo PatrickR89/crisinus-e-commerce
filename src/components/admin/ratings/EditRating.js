@@ -53,8 +53,12 @@ const EditRating = () => {
             <option value={book_id} selected="selected">
               {book_title}
             </option>
-            {books?.map((book) => {
-              return <option value={book.id}>{book.title}</option>;
+            {books?.map((book, index) => {
+              return (
+                <option key={index} value={book.id}>
+                  {book.title}
+                </option>
+              );
             })}
           </select>
           <label htmlFor="rating_title">{translation.title}:</label>

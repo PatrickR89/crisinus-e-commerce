@@ -110,7 +110,7 @@ const SingleOrder = () => {
           </div>
         </div>
         <div className="cart-info">
-          <h4>{translation.cartInfo.toUpperCase}</h4>
+          <h4>{translation.cartInfo.toUpperCase()}</h4>
           {cart?.map((cartItem, index) => {
             return (
               <div
@@ -181,7 +181,7 @@ const SingleOrder = () => {
           </div>
           <div className="cart-info">
             <h4 style={{ margin: "1rem" }}>
-              {translation.cartInfo.toUpperCase}
+              {translation.cartInfo.toUpperCase()}
             </h4>
             {cart?.map((cartItem, index) => {
               return (

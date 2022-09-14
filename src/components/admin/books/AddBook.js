@@ -72,8 +72,12 @@ const AddBook = () => {
                     list="authorsNames"
                   />
                   <datalist id="authorsNames">
-                    {authorsList.map((author) => {
-                      return <option value={author.name}>{author.name}</option>;
+                    {authorsList.map((author, index) => {
+                      return (
+                        <option key={index} value={author.name}>
+                          {author.name}
+                        </option>
+                      );
                     })}
                   </datalist>
                   <input
@@ -86,9 +90,9 @@ const AddBook = () => {
                     list="autLast"
                   />
                   <datalist id="autLast">
-                    {authorsList.map((author) => {
+                    {authorsList.map((author, index) => {
                       return (
-                        <option value={author.last_name}>
+                        <option key={index} value={author.last_name}>
                           {author.last_name}
                         </option>
                       );
@@ -182,9 +186,8 @@ const AddBook = () => {
             cols="30"
             rows="10"
             onChange={updateBook}
-          >
-            {description}
-          </textarea>
+            value={description}
+          ></textarea>
           <button onClick={() => addBook(header)} className="btn mt-1">
             {translation.add}
           </button>

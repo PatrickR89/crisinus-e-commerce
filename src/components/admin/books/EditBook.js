@@ -109,8 +109,12 @@ const EditBook = () => {
                     list="authorsNames"
                   />
                   <datalist id="authorsNames">
-                    {authorsList.map((author) => {
-                      return <option value={author.name}>{author.name}</option>;
+                    {authorsList.map((author, index) => {
+                      return (
+                        <option key={index} value={author.name}>
+                          {author.name}
+                        </option>
+                      );
                     })}
                   </datalist>
                   <input
@@ -123,9 +127,9 @@ const EditBook = () => {
                     list="autLast"
                   />
                   <datalist id="autLast">
-                    {authorsList.map((author) => {
+                    {authorsList.map((author, index) => {
                       return (
-                        <option value={author.last_name}>
+                        <option key={index} value={author.last_name}>
                           {author.last_name}
                         </option>
                       );
