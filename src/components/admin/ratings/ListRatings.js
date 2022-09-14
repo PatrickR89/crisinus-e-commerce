@@ -9,17 +9,9 @@ import WhenError from "../../public/WhenError";
 
 const ListRatings = () => {
   const { translation } = useLanguageContext();
-  const {
-    bookTitle,
-    title,
-    rating,
-    reviewer,
-    review,
-    loading,
-    error,
-    clearError
-  } = translation;
-  const { reviews, getReviews } = useReviewsContext();
+  const { bookTitle, title, rating, reviewer, review, clearError } =
+    translation;
+  const { reviews, getReviews, loading, error } = useReviewsContext();
 
   useEffect(() => {
     getReviews();

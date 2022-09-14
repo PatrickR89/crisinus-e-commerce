@@ -131,7 +131,7 @@ export const AuthenticationProvider = ({ children }) => {
   };
 
   const clientReg = () => {
-    registerClient();
+    // registerClient();
     const url = `${adminUrl}login`;
     const method = "get";
     axios({
@@ -189,7 +189,8 @@ export const AuthenticationProvider = ({ children }) => {
         clientHeader,
         handleCookiesModal,
         clientReg,
-        setAxiosInterceptor
+        setAxiosInterceptor,
+        registerClient
       }}
     >
       {children}

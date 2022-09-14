@@ -21,10 +21,12 @@ function App() {
     cookiesModal,
     clientReg,
     setAxiosInterceptor,
-    clientEngaged
+    clientEngaged,
+    registerClient
   } = useAuthenticationContext();
 
   useEffect(() => {
+    registerClient();
     clientReg();
     setAxiosInterceptor();
     axios.defaults.headers.common["client-access-token"] = clientHeader();

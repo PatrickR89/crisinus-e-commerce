@@ -79,8 +79,8 @@ export const ReviewsProvider = ({ children }) => {
         dispatch({ type: LOAD_ARRAY, payload: response.data });
       })
       .catch((error) => {
-        dispatch({ type: ERROR_OCCURRED });
         errorReport(error, url, window.location.pathname, method);
+        dispatch({ type: ERROR_OCCURRED });
       });
   };
 
@@ -96,8 +96,8 @@ export const ReviewsProvider = ({ children }) => {
         dispatch({ type: LOAD_SECONDARY_ARRAY, payload: response.data });
       })
       .catch((error) => {
-        dispatch({ type: ERROR_OCCURRED });
         errorReport(error, url, window.location.pathname, method);
+        dispatch({ type: ERROR_OCCURRED });
       });
   };
 
