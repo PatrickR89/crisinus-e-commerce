@@ -19,7 +19,6 @@ function App() {
     clientHeader,
     handleCookiesModal,
     cookiesModal,
-    clientReg,
     setAxiosInterceptor,
     clientEngaged,
     registerClient
@@ -27,7 +26,6 @@ function App() {
 
   useEffect(() => {
     registerClient();
-    clientReg();
     setAxiosInterceptor();
     axios.defaults.headers.common["client-access-token"] = clientHeader();
   }, []);

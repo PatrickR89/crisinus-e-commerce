@@ -10,7 +10,7 @@ import { NewOrderModal } from "../components/admin/orders";
 import { useLanguageContext } from "../contexts/language_context";
 
 const AdminPage = () => {
-  const { loggedIn, logout } = useAuthenticationContext();
+  const { loggedIn, logout, adminLoginCheck } = useAuthenticationContext();
   const { translation } = useLanguageContext();
   const navigate = useNavigate();
 
@@ -36,6 +36,7 @@ const AdminPage = () => {
 
   useEffect(() => {
     statusReport();
+    adminLoginCheck();
     return navigate("/admin/", { replace: true });
   }, []);
 

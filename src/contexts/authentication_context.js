@@ -130,13 +130,13 @@ export const AuthenticationProvider = ({ children }) => {
     return localStorage.getItem("client-token");
   };
 
-  const clientReg = () => {
-    // registerClient();
+  const adminLoginCheck = () => {
     const url = `${adminUrl}login`;
     const method = "get";
     axios({
       url: url,
-      method: method
+      method: method,
+      headers: header()
     })
       .then((response) => {
         if (response.data.loggedIn === true) {
@@ -163,10 +163,6 @@ export const AuthenticationProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    clientReg();
-  }, []);
-
-  useEffect(() => {
     confirmCookiesModal();
   }, [state.clientEngaged]);
 
@@ -188,7 +184,7 @@ export const AuthenticationProvider = ({ children }) => {
         logout,
         clientHeader,
         handleCookiesModal,
-        clientReg,
+        adminLoginCheck,
         setAxiosInterceptor,
         registerClient
       }}
