@@ -40,9 +40,11 @@ const AuthorsPage = () => {
     if (activeAuthor.id) {
       authorNavigate(activeAuthor.id);
     }
-
     if (params.author_url) {
       authorNavigate(params.author_url);
+    }
+    if (params.id) {
+      authorNavigate(params.id);
     }
     // eslint-disable-next-line
   }, []);

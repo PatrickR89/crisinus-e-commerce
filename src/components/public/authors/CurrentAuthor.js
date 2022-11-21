@@ -18,7 +18,9 @@ const CurrentAuthor = () => {
           <article className="name-about">
             <div className="name-pic">
               <div className="image">
-                {activeAuthor.img && <img src={activeAuthor.img} alt="" />}
+                {activeAuthor.img.length > 0 && (
+                  <img src={`/${activeAuthor.img[0]}`} alt="" />
+                )}
               </div>
               <div className="name">
                 <h2 className="title">

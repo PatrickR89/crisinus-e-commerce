@@ -58,7 +58,7 @@ const authors_reducer = (state, action) => {
   if (action.type === SET_IMAGES) {
     return {
       ...state,
-      changedAuthor: { ...state.changedAuthor, images: action.payload }
+      changedAuthor: { ...state.changedAuthor, img: action.payload }
     };
   }
 

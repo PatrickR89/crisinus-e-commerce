@@ -92,12 +92,16 @@ export const AuthorsAdminProvider = ({ children }) => {
     files.forEach((file) => {
       data.append("images", file);
     });
-
+    for (const item of data.entries()) {
+      console.log(item);
+    }
     axios
       .post("/api/images/addimages", data)
       .then((res) => {
-        const tempImages = [...state.changedAuthor.images];
+        console.log(res.data);
+        const tempImages = [...state.changedAuthor.img];
         res.data.forEach((image) => {
+          console.log(image.path);
           tempImages.push(image.path);
         });
         dispatch({ type: SET_IMAGES, payload: tempImages });
@@ -119,13 +123,7 @@ export const AuthorsAdminProvider = ({ children }) => {
   };
 
   const handleEdit = (header) => {
-    const {
-      name,
-      last_name,
-      img: images,
-      url: authorUrl,
-      bio
-    } = state.changedAuthor;
+    const { name, last_name, img, url: authorUrl, bio } = state.changedAuthor;
 
     const url = `${baseUrl}${id}`;
     const method = "put";
@@ -133,7 +131,7 @@ export const AuthorsAdminProvider = ({ children }) => {
       url: url,
       method: method,
       headers: header(),
-      data: { id, name, last_name, images, url: authorUrl, bio }
+      data: { id, name, last_name, img, url: authorUrl, bio }
     })
       .then((response) => {
         checkAuth(response);
