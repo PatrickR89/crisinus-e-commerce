@@ -147,7 +147,7 @@ const croatian = {
   date: "datum",
   delete: "izbriši",
   description: "Opis",
-  disclaimer: "odricanje odgovornosti",
+  disclaimer: "izjava o privatnosti",
   edit: "uredi",
   enterEmail: "unesite vaš email",
   emptyCart: "prazna košara",

@@ -55,21 +55,21 @@ const HomeBottom = () => {
           </div>
         </form>
       </div>
-      <div className="btn-container home-bottom-order">
-        <Link to="/order" className="bottom-btn">
-          {translation.orderHowTo}
-        </Link>
-        <div className="btn-stack">
-          <Link to="/info" className="bottom-btn">
-            {translation.genInfo}
+      <div className="btn-container home-bottom-order bottom-order">
+        <div className="bottom-btn">
+          <p>{translation.genInfo}</p>
+        </div>
+        <div className="btn-stack btn-container">
+          <Link to="/order" className="bottom-btn">
+            {translation.orderHowTo}
           </Link>
           <Link to="/payment" className="bottom-btn">
             {translation.paymentAndShipping}
           </Link>
+          <Link to="/disclaimer" className="bottom-btn">
+            {translation.disclaimer}
+          </Link>
         </div>
-        <Link to="/disclaimer" className="bottom-btn">
-          {translation.disclaimer}
-        </Link>
       </div>
     </Wrapper>
   );
@@ -108,13 +108,23 @@ const Wrapper = styled.div`
       }
     }
   }
+  .bottom-order {
+    flex-direction: column;
+  }
   .btn-container {
     display: flex;
     height: 10vh;
     width: 100%;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1rem;
+
+    p {
+      letter-spacing: 1rem;
+    }
+    div:hover {
+      background: var(--clr-button-3);
+      color: var(--clr-primary-1);
+    }
   }
   .bottom-btn {
     display: flex;
@@ -133,6 +143,7 @@ const Wrapper = styled.div`
     border-radius: none;
     width: 100%;
     height: 100%;
+    overflow: none;
   }
   .bottom-btn:hover {
     color: var(--clr-primary-2);
@@ -142,11 +153,12 @@ const Wrapper = styled.div`
     width: 100%;
     height: 100%;
     .bottom-btn {
-      height: 50%;
+      height: 100%;
     }
   }
   @media (max-width: 900px) {
-    .home-bottom-order {
+    .home-bottom-order,
+    .btn-stack {
       display: flex;
       flex-direction: column !important;
       height: auto;
@@ -154,6 +166,14 @@ const Wrapper = styled.div`
     }
     .home-bottom-order a {
       padding: 1rem 0;
+    }
+    .btn-container {
+      p {
+        letter-spacing: 0.5rem;
+      }
+      .bottom-btn {
+        padding: auto;
+      }
     }
     .newsletter {
       input {
