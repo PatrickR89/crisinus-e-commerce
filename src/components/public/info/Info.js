@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  margin: auto;
+  margin: auto auto 2rem auto;
   h1 {
     text-transform: capitalize;
     color: var(--clr-primary-1);
