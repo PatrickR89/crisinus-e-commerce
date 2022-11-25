@@ -17,9 +17,15 @@ const CartTotal = () => {
             {translation.total}: {priceFormat(total_amount)}
           </h2>
           <h4>
-            ( {translation.postalFee}:{" "}
-            {postalFee ? `${priceFormat(1500)}` : `${translation.free}`} )
+            {translation.postalFee}:{" "}
+            {postalFee ? `${priceFormat(1500)}` : `${translation.free}`}
           </h4>
+          <p>
+            {" "}
+            {postalFee
+              ? `(${translation.postalFeeLimit}: ${priceFormat(20000)})`
+              : ``}
+          </p>
         </div>
         <hr />
         <button className="btn" onClick={openModal}>
