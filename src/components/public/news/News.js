@@ -8,9 +8,14 @@ const News = ({ newsPage, home }) => {
   const { fetchSingleNews, news, single_news } = useItemsContext();
 
   const [tempIndex, setTempIndex] = useState(0);
+  var newsArray = [];
 
   useEffect(() => {
     if (home && news.length) {
+      news.forEach((singleNews) => {
+        newsArray.push(singleNews.id);
+      });
+      console.log(newsArray);
       const indexTimeout = setTimeout(() => {
         if (tempIndex > 0) {
           setTempIndex(tempIndex - 1);
@@ -25,24 +30,18 @@ const News = ({ newsPage, home }) => {
     }
   }, [tempIndex, news]);
 
-  if (home) {
-    return (
-      <main>
-        <Wrapper>
-          <div className="single-home">
-            <SingleNews {...single_news} />
-          </div>
-        </Wrapper>
-      </main>
-    );
-  }
-
   return (
     <main>
       <Wrapper>
-        <div className={newsPage ? "n-page single" : "single-home"}>
-          <SingleNews {...single_news} />
-        </div>
+        <ul className="n-page single single-home">
+          {news.map((singleNews) => {
+            return (
+              <li key={singleNews.id} className="li-item right">
+                <SingleNews {...singleNews} />
+              </li>
+            );
+          })}
+        </ul>
       </Wrapper>
     </main>
   );
@@ -52,28 +51,30 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 23vh;
+  height: 27vh;
 
-  .single {
-    width: 74%;
-    height: 100%;
-    overflow: auto;
-    position: relative;
+  .right {
+    left: 63vw;
   }
+  .active {
+    left: 0;
+  }
+  .left {
+    left: -63vw;
+  }
+
   .single-home {
-    width: 100%;
     height: 100%;
-    overflow: hidden;
+    width: 100%;
+    ${"" /* overflow: hidden; */}
     position: relative;
     margin: 1.4rem;
   }
-  .list {
-    width: 24%;
-    height: 100%;
-    overflow: auto;
-  }
+
   .li-item {
+    width: 100%;
     transition: 0.1s ease-in;
+    position: absolute;
     text-transform: capitalize;
   }
   .n-page {

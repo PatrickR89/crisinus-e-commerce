@@ -41,7 +41,6 @@ const Wrapper = styled.div`
     height: 100%;
   }
   .col {
-    width: 100%;
     padding-bottom: 1rem;
     .news {
       margin-top: 1rem;

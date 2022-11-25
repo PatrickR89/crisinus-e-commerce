@@ -23,7 +23,7 @@ const CartTotal = () => {
           <p>
             {" "}
             {postalFee
-              ? `(${translation.postalFeeLimit}: ${priceFormat(20000)})`
+              ? `(${translation.postalFeeLimit} ${priceFormat(20000)})`
               : ``}
           </p>
         </div>
