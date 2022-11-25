@@ -20,7 +20,7 @@ const DisclaimerPage = () => {
   return (
     <main>
       <PageHero title={translation.disclaimer} />
-      <Info {...current_info} />
+      <Info {...current_info} title={translation.disclaimer} />
     </main>
   );
 };

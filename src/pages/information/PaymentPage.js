@@ -20,7 +20,7 @@ const PaymentPage = () => {
   return (
     <main>
       <PageHero title={translation.paymentAndShipping} />
-      <Info {...current_info} />
+      <Info {...current_info} title={translation.paymentAndShipping} />
     </main>
   );
 };

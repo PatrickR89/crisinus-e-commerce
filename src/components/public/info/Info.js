@@ -1,12 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 
-const Info = ({ show_title: title, content }) => {
+const Info = ({ title, content, images }) => {
   return (
     <main>
       <Wrapper>
         <h1>{title}</h1>
-        <p className="line-break">{content}</p>
+        <div className="news-text">
+          {images[0] && (
+            <img
+              src={`/${images[0]}`}
+              alt={title}
+              className="small-size right"
+            />
+          )}
+          <p className="line-break">{content}</p>
+        </div>
       </Wrapper>
     </main>
   );
@@ -19,7 +28,6 @@ const Wrapper = styled.div`
   align-items: start;
   margin: auto auto 2rem auto;
   h1 {
-    text-transform: capitalize;
     color: var(--clr-primary-1);
     margin-left: 2rem;
     margin-bottom: 2rem;
@@ -28,6 +36,27 @@ const Wrapper = styled.div`
     color: var(--clr-par-5);
     text-align: start;
     margin: auto;
+  }
+
+  .small-size {
+    max-width: 45%;
+    max-height: 20%;
+  }
+  .right {
+    float: right;
+    margin-left: 1rem;
+    margin-top: 1rem;
+  }
+  .news-text {
+    text-align: start;
+    margin-bottom: 2rem;
+    p {
+      overflow: visible;
+    }
+  }
+  .news-text {
+    white-space: pre-wrap;
+    margin: 0.5rem;
   }
   @media (max-width: 1190px) {
     h1 {

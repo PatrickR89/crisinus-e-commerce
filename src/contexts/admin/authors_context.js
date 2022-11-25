@@ -92,16 +92,14 @@ export const AuthorsAdminProvider = ({ children }) => {
     files.forEach((file) => {
       data.append("images", file);
     });
-    for (const item of data.entries()) {
-      console.log(item);
-    }
+    // for (const item of data.entries()) {
+    //   console.log(item);
+    // }
     axios
       .post("/api/images/addimages", data)
       .then((res) => {
-        console.log(res.data);
         const tempImages = [...state.changedAuthor.img];
         res.data.forEach((image) => {
-          console.log(image.path);
           tempImages.push(image.path);
         });
         dispatch({ type: SET_IMAGES, payload: tempImages });

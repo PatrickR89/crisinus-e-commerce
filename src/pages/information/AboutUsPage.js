@@ -20,7 +20,7 @@ const AboutUsPage = () => {
   return (
     <main>
       <PageHero title={translation.aboutUs} />
-      <Info {...current_info} />
+      <Info {...current_info} title={translation.aboutUs} />
     </main>
   );
 };

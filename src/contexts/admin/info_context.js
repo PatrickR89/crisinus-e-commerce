@@ -186,7 +186,7 @@ export const InfoProvider = ({ children }) => {
     axios
       .post("/api/images/addimages", data)
       .then((res) => {
-        const tempImages = [...state.gift.images];
+        const tempImages = [...state.item.images];
         res.data.forEach((image) => {
           tempImages.push(image.path);
         });
@@ -203,7 +203,7 @@ export const InfoProvider = ({ children }) => {
       const err = `api: /api/images/deleteimage [editgift[POST]], error: ${error}`;
       axios.post("/api/system/error", { err });
     });
-    const tempImages = state.gift.images.filter((image) => image !== url);
+    const tempImages = state.item.images.filter((image) => image !== url);
     dispatch({ type: SET_IMAGES, payload: tempImages });
   };
 

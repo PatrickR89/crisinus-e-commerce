@@ -20,7 +20,7 @@ const OrderPage = () => {
   return (
     <main>
       <PageHero title={translation.orderHowTo} />
-      <Info {...current_info} />
+      <Info {...current_info} title={translation.orderHowTo} />
     </main>
   );
 };
