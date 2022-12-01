@@ -317,11 +317,12 @@ export const ItemsProvider = ({ children }) => {
       dispatch({ type: UPDATE_LENGTH_SEPARATE, payload: 8 });
     }
     if (state.screen_width < 1050) {
-      dispatch({ type: UPDATE_NEWS_LENGTH, payload: [200, 12, 1.3, 90] });
+      dispatch({ type: UPDATE_NEWS_LENGTH, payload: [200, 12, 1.1, 90] });
     }
     if (state.screen_width < 1000) {
       dispatch({ type: UPDATE_LENGTH, payload: 6 });
       dispatch({ type: UPDATE_LENGTH_SEPARATE, payload: 6 });
+      dispatch({ type: UPDATE_NEWS_LENGTH, payload: [250, 12, 1.2, 90] });
     }
     if (state.screen_width < 650) {
       dispatch({ type: UPDATE_LENGTH, payload: 4 });

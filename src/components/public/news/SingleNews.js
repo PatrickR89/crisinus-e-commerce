@@ -37,6 +37,7 @@ const Wrapper = styled.div`
   ${"" /* overflow: hidden; */}
   display: flex;
   flex-direction: row;
+  margin: auto;
 
   p {
     color: var(--clr-par-6);

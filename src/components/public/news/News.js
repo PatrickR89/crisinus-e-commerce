@@ -100,13 +100,13 @@ const Wrapper = styled.div`
   height: 27vh;
 
   .right {
-    left: 63vw;
+    left: 65vw;
   }
   .active {
     left: 0;
   }
   .left {
-    left: -63vw;
+    left: -65vw;
   }
 
   .hide {
@@ -123,26 +123,49 @@ const Wrapper = styled.div`
 
   .li-item {
     width: 100%;
-    transition: 1s ease-in;
+    transition: 1s linear;
     position: absolute;
     text-transform: capitalize;
   }
   .n-page {
     font-size: 1rem;
   }
-  @media (max-width: 1000px) {
+  @media (max-width: 1800px) {
+    .right {
+      left: 100vw;
+    }
+    .left {
+      left: -100vw;
+    }
+  }
+  @media (max-width: 1400px) and (orientation: portrait) {
+    height: 20vh !important;
+  }
+  @media (max-width: 1250px) {
+    height: 46vh;
     .single {
       width: 100%;
       margin: auto;
     }
   }
+
   @media (max-width: 650px) {
+    height: 35vh;
     .single {
       width: 85%;
     }
-    .list {
-      width: 15%;
+    .right {
+      left: 80vw;
     }
+    .left {
+      left: -80vw;
+    }
+  }
+  @media (max-width: 550px) and (orientation: portrait) {
+    height: 30vh !important;
+  }
+  @media (max-height: 450px) {
+    height: 45vh;
   }
 `;
 
