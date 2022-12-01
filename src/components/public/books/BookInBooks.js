@@ -17,7 +17,7 @@ const BookInBooks = ({ title, authors, price, language, year, images }) => {
 
         <h4 className="title">{title}</h4>
         <div className="author">
-          {authors.lenght > 0 &&
+          {authors.length > 0 &&
             authors.map((author, index) => {
               return <p key={index}>{author.last_name}</p>;
             })}

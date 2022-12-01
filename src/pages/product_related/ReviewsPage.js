@@ -85,7 +85,7 @@ const ReviewsPage = () => {
       <NoCB className="solo">
         <div className="menu-left center">
           <ul>
-            {bookList.lenght > 0 &&
+            {bookList.length > 0 &&
               bookList.map((book, index) => {
                 return (
                   <li key={index}>
@@ -141,7 +141,7 @@ const ReviewsPage = () => {
           ) : (
             ""
           )}
-          {reviewsPerBook.lenght > 0 &&
+          {reviewsPerBook.length > 0 &&
             reviewsPerBook.map((review) => {
               return (
                 <div key={review.id}>

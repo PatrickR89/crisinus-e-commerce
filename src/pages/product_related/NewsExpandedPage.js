@@ -29,7 +29,7 @@ const NewsExpandedPage = () => {
           <p>{formatDate(single_news.date)}</p>
         </div>
         <article className="news-text">
-          {single_news.images.lenght > 0 && single_news.images[0] && (
+          {single_news.images.length > 0 && single_news.images[0] && (
             <img
               src={`/${single_news.images[0]}`}
               alt={single_news.title}
