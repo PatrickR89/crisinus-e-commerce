@@ -53,6 +53,7 @@ const Wrapper = styled.div`
   .nav-container {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     margin-right: 15em;
     a {
       font-size: 2rem;

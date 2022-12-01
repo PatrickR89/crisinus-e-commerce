@@ -87,6 +87,18 @@ const Wrapper = styled.div`
     color: var(--clr-primary-2);
     background: var(--clr-button-4);
   }
+
+  @media (min-height: 100px) and (max-height: 350px) {
+    .side-btn {
+      height: 1.7rem;
+    }
+  }
+
+  @media (min-height: 351px) and (max-height: 400px) {
+    .side-btn {
+      height: 2rem;
+    }
+  }
 `;
 
 export default NavButtons;

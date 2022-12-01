@@ -1,5 +1,6 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
+import styledComponents from "styled-components";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
@@ -8,7 +9,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useSidebarContext } from "../../../contexts/sidebar_context";
 import { NavCart, NavButtons } from "../elements";
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -26,10 +27,9 @@ export default function PersistentDrawerRight() {
     <Box sx={{ display: "flex" }} ref={ref_nav}>
       <Drawer
         sx={{
-          width: drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: drawerWidth,
+            width: 200,
             backgroundColor: "hsl(45, 88%, 60%)"
           }
         }}
@@ -43,16 +43,32 @@ export default function PersistentDrawerRight() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <div
-          style={{
-            backgroundColor: "white"
-          }}
-        >
+        <CartContainer>
           <NavCart />
-        </div>
+        </CartContainer>
         <Divider />
         <NavButtons />
       </Drawer>
     </Box>
   );
 }
+
+const CartContainer = styledComponents.div`
+display: flex;
+align-items: center;
+background: white;
+overflow: hidden;
+
+@media (orientation: landscape) and (min-height: 351px) and (max-height: 400px) {
+  height: 30vh !important;
+}
+
+@media (orientation: landscape) and (min-height: 401px) and (max-height: 760px) {   
+  height: 20vh !important;
+}
+
+
+@media (min-height: 100px) and (max-height: 350px) {
+  height: 100px !important;
+}
+`;
