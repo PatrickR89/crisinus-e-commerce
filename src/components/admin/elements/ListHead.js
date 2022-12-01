@@ -1,12 +1,13 @@
 import React from "react";
 
-const ListHead = ({ colTitles }) => {
+const ListHead = ({ colTitles, btn }) => {
+  const width = btn ? "95%" : "100%";
   const style = {
     display: "inline-grid",
     gridTemplateColumns: `repeat(${colTitles.length}, 1fr)`,
     alignItems: "center",
     textAlign: "center",
-    width: "100%",
+    width: width,
     marginBottom: "1rem"
   };
   return (

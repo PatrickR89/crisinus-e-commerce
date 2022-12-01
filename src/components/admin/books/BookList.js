@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useCurrencyContext } from "../../../contexts/currency_context";
 import { useLanguageContext } from "../../../contexts/language_context";
@@ -7,6 +7,7 @@ import { useBooksContext } from "../../../contexts/admin/books_context";
 import { ListHead, ListLink, ListWrapper } from "../elements";
 import WhenLoading from "../../public/WhenLoading";
 import WhenError from "../../public/WhenError";
+import DimensionModal from "../elements/DimensionModal";
 
 const BookList = () => {
   const {
@@ -18,6 +19,17 @@ const BookList = () => {
     error,
     clearError
   } = useBooksContext();
+
+  const [isModal, setIsModal] = useState(false);
+  const [bookForModal, setBookForModal] = useState({ id: "", name: "" });
+
+  function closeModal() {
+    setIsModal(false);
+  }
+  function openModal(id, title) {
+    setBookForModal({ id: id, name: title });
+    setIsModal(true);
+  }
 
   const { priceFormat } = useCurrencyContext();
   const { translation } = useLanguageContext();
@@ -39,39 +51,54 @@ const BookList = () => {
   }
 
   return (
-    <ListWrapper>
-      <h2>{translation.booksList.toUpperCase()}</h2>
-      <ListHead colTitles={titles} />
-      {booksList.map((book, index) => {
-        return (
-          <ListLink
-            key={index}
-            index={index}
-            cols={6}
-            url={`/admin/books/${book.id}`}
-          >
-            <p>{book.id}</p>
-            <h4>{book.title}</h4>
+    <>
+      <ListWrapper>
+        <h2>{translation.booksList.toUpperCase()}</h2>
+        <ListHead colTitles={titles} btn />
+        {booksList.map((book, index) => {
+          return (
+            <div className="item-row" key={book.id}>
+              <ListLink
+                key={index}
+                index={index}
+                cols={6}
+                url={`/admin/books/${book.id}`}
+              >
+                <p>{book.id}</p>
+                <h4>{book.title}</h4>
 
-            <div>
-              {book.authors.map((id, index) => {
-                const author = authorsList.find((author) => author.id === id);
-                if (author) {
-                  return (
-                    <p key={index}>
-                      {author.name} {author.last_name}
-                    </p>
-                  );
-                }
-              })}
+                <div>
+                  {book.authors.map((id, index) => {
+                    const author = authorsList.find(
+                      (author) => author.id === id
+                    );
+                    if (author) {
+                      return (
+                        <p key={index}>
+                          {author.name} {author.last_name}
+                        </p>
+                      );
+                    }
+                  })}
+                </div>
+                <p>{book.year}</p>
+                <p>{book.language}</p>
+                <p>{priceFormat(book.price)}</p>
+              </ListLink>
+              <button
+                className="btn"
+                onClick={() => openModal(book.id, book.title)}
+              >
+                Dim
+              </button>
             </div>
-            <p>{book.year}</p>
-            <p>{book.language}</p>
-            <p>{priceFormat(book.price)}</p>
-          </ListLink>
-        );
-      })}
-    </ListWrapper>
+          );
+        })}
+      </ListWrapper>
+      {isModal && (
+        <DimensionModal closeModal={closeModal} item={bookForModal} />
+      )}
+    </>
   );
 };
 

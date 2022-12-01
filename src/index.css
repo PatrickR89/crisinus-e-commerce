@@ -278,6 +278,11 @@ main {
   white-space: pre-wrap;
 }
 
+.item-row {
+  display: flex;
+  flex-direction: row;
+}
+
 @media (min-width: 900px) {
   .toggle-side {
     display: none !important;
