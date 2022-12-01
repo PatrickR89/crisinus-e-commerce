@@ -125,7 +125,6 @@ const Wrapper = styled.div`
     width: 100%;
     transition: 1s linear;
     position: absolute;
-    text-transform: capitalize;
   }
   .n-page {
     font-size: 1rem;
