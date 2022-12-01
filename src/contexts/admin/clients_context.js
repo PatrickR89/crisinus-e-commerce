@@ -216,7 +216,6 @@ export const ClientsProvider = ({ children }) => {
 
   const toggleModal = () => {
     const toggle = state.orderPage.isModal;
-    console.log(toggle);
     dispatch({
       type: TOGGLE_ORDER_MODAL,
       payload: toggle

@@ -18,9 +18,7 @@ const Login = () => {
       .get("/api/admin/register", {
         headers: header()
       })
-      .then((response) => {
-        console.log(response);
-      })
+      .then((response) => {})
       .catch((error) => {
         const err = `api: /api/admin/register [login[GET]], error: ${error}`;
         axios.post("/api/system/error", { err });

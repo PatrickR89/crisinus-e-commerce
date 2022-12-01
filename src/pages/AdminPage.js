@@ -26,7 +26,7 @@ const AdminPage = () => {
         setNewOrder(data);
       });
     } catch (error) {
-      console.log(error);
+      axios.post("/api/system/error", { error });
     }
   };
 

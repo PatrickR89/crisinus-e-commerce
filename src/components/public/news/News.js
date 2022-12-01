@@ -12,10 +12,6 @@ const News = ({ newsPage, home }) => {
   const [newsArray, setNewsArray] = useState([]);
 
   useEffect(() => {
-    // news.forEach((singleNews) => {
-    //   setNewsArray([...newsArray, singleNews.id]);
-    // });
-    // console.log(newsArray);
     let documentLIs = document.querySelectorAll(".li-item");
     setListItems(documentLIs);
   }, []);
@@ -31,7 +27,6 @@ const News = ({ newsPage, home }) => {
           setTempIndex(news.length - 1);
         }
       }, 8000);
-      // fetchSingleNews(news[tempIndex].id);
       setCurrentNews(tempIndex);
       return () => {
         clearTimeout(indexTimeout);
@@ -69,7 +64,6 @@ const News = ({ newsPage, home }) => {
       previousNews.classList.add("hide");
       nextNews.classList.remove("hide");
     }, 900);
-    console.log(currentNews);
   }
 
   return (

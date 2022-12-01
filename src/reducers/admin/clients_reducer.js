@@ -81,7 +81,6 @@ const clients_reducer = (state, action) => {
 
   if (action.type === TOGGLE_ORDER_MODAL) {
     const changed = action.payload;
-    console.log(changed);
     return {
       ...state,
       orderPage: { ...state.orderPage, isModal: !changed }
