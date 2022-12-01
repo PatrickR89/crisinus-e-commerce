@@ -28,7 +28,8 @@ import {
   SET_CONT_FORM_ERR_FALSE,
   RESET_CONTACT_FORM,
   FETCH_LINKS,
-  FETCH_INFOPAGES
+  FETCH_INFOPAGES,
+  GET_ITEM_DIMENSIONS
 } from "../actions/items_actions";
 import { useErrorReport } from "../hooks/useErrorReport";
 
@@ -55,6 +56,7 @@ const initialState = {
   single_book: initialBook,
   single_gift: initialGift,
   single_news: initialNews,
+  item_dimensions: { product_id: "", width: 0, height: 0, depth: 0, weight: 0 },
   screen_width: 0,
   home_page_items: 10,
   items_list_length: 8,
@@ -150,6 +152,27 @@ export const ItemsProvider = ({ children }) => {
 
         errorReport(error, url, window.location.pathname, method);
       });
+
+    axios({
+      url: `/api/public/dimensions`,
+      method: "post",
+      data: { id: id }
+    })
+      .then((response) => {
+        if (response.data.length > 0) {
+          dispatch({ type: GET_ITEM_DIMENSIONS, payload: response.data[0] });
+        } else {
+          dispatch({ type: GET_ITEM_DIMENSIONS, payload: null });
+        }
+      })
+      .catch((error) => {
+        errorReport(
+          error,
+          `/api/productdimensions/${id}`,
+          window.location.pathname,
+          "post"
+        );
+      });
   };
 
   const fetchSingleGift = (id) => {
@@ -168,6 +191,23 @@ export const ItemsProvider = ({ children }) => {
         dispatch({ type: GET_SINGLE_ITEM_ERROR });
 
         errorReport(error, url, window.location.pathname, method);
+      });
+
+    axios({
+      url: `/api/public/dimensions`,
+      method: "post",
+      data: { id: id }
+    })
+      .then((response) => {
+        dispatch({ type: GET_ITEM_DIMENSIONS, payload: response.data[0] });
+      })
+      .catch((error) => {
+        errorReport(
+          error,
+          `/api/productdimensions/${id}`,
+          window.location.pathname,
+          "post"
+        );
       });
   };
 

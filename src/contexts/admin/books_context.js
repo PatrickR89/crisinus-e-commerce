@@ -284,11 +284,38 @@ export const BooksProvider = ({ children }) => {
     })
       .then((response) => {
         checkAuth(response);
-        const info = `${id} book deleted`;
-        axios.post("/api/system/info", { info });
+        if (response.data.affectedRows > 0) {
+          const info = `${id} book deleted`;
+          axios.post("/api/system/info", { info });
+          return alert(`"${id}" updated!`);
+        } else {
+          return alert(`"${id}" failed to update!`);
+        }
       })
       .catch((error) => {
         errorReport(error, url, window.location.pathname, method);
+      });
+
+    axios({
+      url: `/api/productdimensions/${id}`,
+      method: "delete",
+      headers: header(),
+      data: { id: id }
+    })
+      .then((response) => {
+        if (response.data.affectedRows > 0) {
+          const info = `"${id}" dimension deleted`;
+          axios.post("/api/system/info", { info });
+        }
+        return;
+      })
+      .catch((error) => {
+        errorReport(
+          error,
+          `/api/productdimensions/${id}`,
+          window.location.pathname,
+          "put"
+        );
       });
     navigate("/admin/books/list", { replace: true });
   };

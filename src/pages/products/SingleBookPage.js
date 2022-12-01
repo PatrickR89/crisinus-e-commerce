@@ -2,7 +2,10 @@ import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Slideshow from "../../components/public/elements/slideshow/Slideshow";
-import { PageHero } from "../../components/public/elements";
+import {
+  PageHero,
+  DimensionsContainer
+} from "../../components/public/elements";
 import { AddToCart } from "../../components/public/cart";
 import { useItemsContext } from "../../contexts/items_context";
 import { useCurrencyContext } from "../../contexts/currency_context";
@@ -17,6 +20,7 @@ const SingleBookPage = () => {
 
   const {
     fetchSingleBook,
+    item_dimensions,
     single_book: book,
     single_item_loading: loading,
     single_item_error: error
@@ -87,9 +91,10 @@ const SingleBookPage = () => {
               ) : (
                 <p className="tag">{translation.author}:</p>
               )}
-              {authors.map((author) => {
+              {authors.map((author, index) => {
                 return (
                   <button
+                    key={index}
                     className="author-btn"
                     onClick={() => redirectToAuthors(author.id)}
                   >
@@ -100,28 +105,30 @@ const SingleBookPage = () => {
                   </button>
                 );
               })}
+
+              <DimensionsContainer dimensions={item_dimensions} />
             </div>
           </div>
 
           <div className="layout">
             <div className="info">
-              <div>
+              <div className="data-container">
                 <p className="tag">{translation.price} : </p>
                 <span className="info-data">{priceFormat(price)}</span>
               </div>
-              <div>
+              <div className="data-container">
                 <p className="tag">{translation.publisher} : </p>
                 <span className="info-data">{publisher}</span>
               </div>
-              <div>
+              <div className="data-container">
                 <p className="tag">{translation.language} : </p>
                 <span className="info-data">{language}</span>
               </div>
-              <div>
+              <div className="data-container">
                 <p className="tag">{translation.genre} : </p>
                 <span className="info-data">{genre}</span>
               </div>
-              <div>
+              <div className="data-container">
                 <p className="tag">{translation.year} : </p>
                 <span className="info-data">{year}</span>
               </div>
@@ -167,15 +174,15 @@ const Wrapper = styled.div`
     justify-content: center;
     font-size: 1.25rem;
     margin-bottom: 1rem;
-    div {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      width: 100%;
-      span {
-        margin-left: 0.5rem;
-      }
+    span {
+      margin-left: 0.5rem;
     }
+  }
+  .data-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
   }
   .info-data {
     font-weight: bold;
@@ -217,6 +224,10 @@ const Wrapper = styled.div`
     .main-book {
       flex-direction: column;
       margin: 2rem 1rem;
+    }
+
+    .sub-class {
+      flex-direction: column;
     }
     .layout {
       flex-direction: column;

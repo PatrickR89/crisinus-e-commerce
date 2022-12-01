@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useErrorReport } from "../../../hooks/useErrorReport";
 
-const CartModal = ({ closeModal, item }) => {
+const DimensionsModal = ({ closeModal, item }) => {
   const errorReport = useErrorReport();
   const { header } = useAuthenticationContext();
   const [dimensions, setDimensions] = useState({
@@ -27,9 +27,13 @@ const CartModal = ({ closeModal, item }) => {
         data: { dimensions }
       })
         .then((response) => {
-          const info = `"${item.name}" dimension edited`;
-          axios.post("/api/system/info", { info });
-          return;
+          if (response.data.changedRows > 0) {
+            const info = `"${item.name}" dimension edited`;
+            axios.post("/api/system/info", { info });
+            return alert(`"${item.name}" updated!`);
+          } else {
+            return alert(`"${item.name}" failed to update!`);
+          }
         })
         .catch((error) => {
           errorReport(
@@ -263,4 +267,4 @@ const Wrapper = styled.div`
   }
 `;
 
-export default CartModal;
+export default DimensionsModal;

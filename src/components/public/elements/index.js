@@ -9,17 +9,19 @@ import SidebarAR from "./SidebarAR";
 import SidebarNav from "./SidebarNav";
 import ItemsList from "./ItemsList";
 import RatingStars from "./RatingStars";
+import DimensionsContainer from "./DimensionsContainer";
 
 export {
-    SidebarNav,
-    Navbar,
-    Footer,
-    NavCart,
-    NavButtons,
-    ListMenu,
-    SidebarAR,
-    PageHero,
-    HomeBottom,
-    ItemsList,
-    RatingStars
+  SidebarNav,
+  Navbar,
+  Footer,
+  NavCart,
+  NavButtons,
+  ListMenu,
+  SidebarAR,
+  PageHero,
+  HomeBottom,
+  ItemsList,
+  RatingStars,
+  DimensionsContainer
 };
