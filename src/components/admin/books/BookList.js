@@ -55,45 +55,46 @@ const BookList = () => {
       <ListWrapper>
         <h2>{translation.booksList.toUpperCase()}</h2>
         <ListHead colTitles={titles} btn />
-        {booksList.map((book, index) => {
-          return (
-            <div className="item-row" key={book.id}>
-              <ListLink
-                key={index}
-                index={index}
-                cols={6}
-                url={`/admin/books/${book.id}`}
-              >
-                <p>{book.id}</p>
-                <h4>{book.title}</h4>
+        {booksList.lenght > 0 &&
+          booksList.map((book, index) => {
+            return (
+              <div className="item-row" key={book.id}>
+                <ListLink
+                  key={index}
+                  index={index}
+                  cols={6}
+                  url={`/admin/books/${book.id}`}
+                >
+                  <p>{book.id}</p>
+                  <h4>{book.title}</h4>
 
-                <div>
-                  {book.authors.map((id, index) => {
-                    const author = authorsList.find(
-                      (author) => author.id === id
-                    );
-                    if (author) {
-                      return (
-                        <p key={index}>
-                          {author.name} {author.last_name}
-                        </p>
+                  <div>
+                    {book.authors.map((id, index) => {
+                      const author = authorsList.find(
+                        (author) => author.id === id
                       );
-                    }
-                  })}
-                </div>
-                <p>{book.year}</p>
-                <p>{book.language}</p>
-                <p>{priceFormat(book.price)}</p>
-              </ListLink>
-              <button
-                className="btn"
-                onClick={() => openModal(book.id, book.title)}
-              >
-                Dim
-              </button>
-            </div>
-          );
-        })}
+                      if (author) {
+                        return (
+                          <p key={index}>
+                            {author.name} {author.last_name}
+                          </p>
+                        );
+                      }
+                    })}
+                  </div>
+                  <p>{book.year}</p>
+                  <p>{book.language}</p>
+                  <p>{priceFormat(book.price)}</p>
+                </ListLink>
+                <button
+                  className="btn"
+                  onClick={() => openModal(book.id, book.title)}
+                >
+                  Dim
+                </button>
+              </div>
+            );
+          })}
       </ListWrapper>
       {isModal && (
         <DimensionModal closeModal={closeModal} item={bookForModal} />

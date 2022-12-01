@@ -17,9 +17,10 @@ const BookInBooks = ({ title, authors, price, language, year, images }) => {
 
         <h4 className="title">{title}</h4>
         <div className="author">
-          {authors.map((author, index) => {
-            return <p key={index}>{author.last_name}</p>;
-          })}
+          {authors.lenght > 0 &&
+            authors.map((author, index) => {
+              return <p key={index}>{author.last_name}</p>;
+            })}
         </div>
         <div className="arrange">
           <p>{language}</p>

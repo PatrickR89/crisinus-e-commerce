@@ -63,7 +63,7 @@ const SingleGiftPage = () => {
       <Wrapper>
         <div className="title">
           <h2>{name}</h2>
-          {images && <Slideshow images={images} />}
+          {images.length > 0 && <Slideshow images={images} />}
         </div>
         <div className="main">
           <div className="info">

@@ -85,23 +85,24 @@ const ReviewsPage = () => {
       <NoCB className="solo">
         <div className="menu-left center">
           <ul>
-            {bookList.map((book, index) => {
-              return (
-                <li key={index}>
-                  <button
-                    className={
-                      book.id === currentBook
-                        ? "btn select current"
-                        : " btn select"
-                    }
-                    disabled={book.id === currentBook ? true : false}
-                    onClick={() => switchBook(book.id)}
-                  >
-                    {book.title}
-                  </button>
-                </li>
-              );
-            })}
+            {bookList.lenght > 0 &&
+              bookList.map((book, index) => {
+                return (
+                  <li key={index}>
+                    <button
+                      className={
+                        book.id === currentBook
+                          ? "btn select current"
+                          : " btn select"
+                      }
+                      disabled={book.id === currentBook ? true : false}
+                      onClick={() => switchBook(book.id)}
+                    >
+                      {book.title}
+                    </button>
+                  </li>
+                );
+              })}
           </ul>
         </div>
       </NoCB>
@@ -140,20 +141,21 @@ const ReviewsPage = () => {
           ) : (
             ""
           )}
-          {reviewsPerBook.map((review) => {
-            return (
-              <div key={review.id}>
-                <h2>{review.title}</h2>
-                <div className="stars-container">
-                  <RatingStars stars={review.rating} />
+          {reviewsPerBook.lenght > 0 &&
+            reviewsPerBook.map((review) => {
+              return (
+                <div key={review.id}>
+                  <h2>{review.title}</h2>
+                  <div className="stars-container">
+                    <RatingStars stars={review.rating} />
+                  </div>
+                  <article>{review.review}</article>
+                  <div className="reviewer">
+                    <h4>~{review.reviewer}</h4>
+                  </div>
                 </div>
-                <article>{review.review}</article>
-                <div className="reviewer">
-                  <h4>~{review.reviewer}</h4>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
           <Link to={`/books/${currentBook}`} className="btn">
             {translation.shopBook}
           </Link>

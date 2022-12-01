@@ -7,7 +7,7 @@ const Info = ({ title, content, images }) => {
       <Wrapper>
         <h1>{title}</h1>
         <div className="news-text">
-          {images[0] && (
+          {images.lenght > 0 && images[0] && (
             <img
               src={`/${images[0]}`}
               alt={title}

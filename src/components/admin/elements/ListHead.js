@@ -12,9 +12,10 @@ const ListHead = ({ colTitles, btn }) => {
   };
   return (
     <div style={style}>
-      {colTitles.map((title, index) => {
-        return <section key={index}>{title.toUpperCase()}</section>;
-      })}
+      {colTitles.lenght > 0 &&
+        colTitles.map((title, index) => {
+          return <section key={index}>{title.toUpperCase()}</section>;
+        })}
     </div>
   );
 };

@@ -15,9 +15,10 @@ const BookComponent = ({ title, authors, price, images }) => {
           <img className="image" src={noPic} alt="book cover" />
         )}
         <h4 className="title">{title}</h4>
-        {authors.map((author, index) => {
-          return <p key={index}>{author.last_name}</p>;
-        })}
+        {authors.lenght > 0 &&
+          authors.map((author, index) => {
+            return <p key={index}>{author.last_name}</p>;
+          })}
         <p>{priceFormat(price)}</p>
       </div>
     </Wrapper>
