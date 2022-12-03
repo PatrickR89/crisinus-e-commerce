@@ -47,14 +47,17 @@ const Wrapper = styled.div`
   position: relative;
   margin-bottom: 1rem;
   .container {
-    max-width: 350px;
+    width: 350px;
     height: 450px;
     display: flex;
     align-items: center;
     position: relative;
-    margin: 1rem;
+    margin: auto;
+
     img {
-      max-width: 350px;
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: cover;
       margin: auto;
     }
   }
@@ -93,6 +96,8 @@ const Wrapper = styled.div`
   }
 
   .fade {
+    width: 100%;
+    height: 100%;
     -webkit-animation-name: fade;
     -webkit-animation-duration: 1.5s;
     animation-name: fade;
