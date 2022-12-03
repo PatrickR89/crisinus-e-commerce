@@ -10,6 +10,14 @@ const DimensionsContainer = ({ dimensions }) => {
   }
 
   if (
+    dimensions?.weight === undefined ||
+    dimensions?.height === undefined ||
+    dimensions?.width === undefined ||
+    dimensions?.depth === undefined
+  ) {
+    return null;
+  }
+  if (
     dimensions.weight <= 0 &&
     dimensions.height <= 0 &&
     dimensions.width <= 0 &&
