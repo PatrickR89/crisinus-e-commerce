@@ -135,7 +135,7 @@ const DimensionsModal = ({ closeModal, item }) => {
               className="glass"
               onChange={updateValue}
             />
-            <label htmlFor="depth">Dubina/debljina (mm):</label>
+            <label htmlFor="depth">Dubina/dužina (mm):</label>
             <input
               value={dimensions.depth}
               type="number"

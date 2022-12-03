@@ -27,11 +27,12 @@ const ItemAmount = ({ amount, increase, decrease, stock }) => {
 };
 
 const Wrapper = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   align-items: center;
   justify-content: center;
-  margin: auto;
   background: var(--clr-button-5);
+  max-width: 15rem;
   .btn-amount {
     padding: 0.5rem 1.75rem;
     height: 100%;
@@ -54,7 +55,7 @@ const Wrapper = styled.div`
     color: var(--clr-button-5);
   }
   .amount {
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 1rem;
   }
 `;
 

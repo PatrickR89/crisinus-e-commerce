@@ -154,7 +154,7 @@ const croatian = {
   delete: "izbriši",
   description: "Opis",
   dimensions: "Dimenzije",
-  depth: "dubina",
+  depth: "dužina",
   disclaimer: "Izjava o privatnosti",
   edit: "uredi",
   enterEmail: "unesite vaš email",

@@ -59,61 +59,70 @@ const SingleGiftPage = () => {
 
   return (
     <main>
-      <PageHero title={name} adress={translation.giftshop} link={"giftshop"} />
+      <Hero>
+        <PageHero
+          title={name}
+          adress={translation.giftshop}
+          link={"giftshop"}
+        />
+      </Hero>
       <Wrapper>
-        <div className="title">
-          <h2>{name}</h2>
+        <div className=" grid-cell grid-cell-span-2">
+          <div className="title">
+            <h2>{name}</h2>
+          </div>
+        </div>
+        <div className="grid-cell">
           {images.length > 0 && <Slideshow images={images} />}
         </div>
-        <div className="main">
+        <div className="grid-cell">
+          <DimensionsContainer dimensions={item_dimensions} />
+        </div>
+        <div className="grid-cell grid-cell-right">
           <div className="info">
-            <DimensionsContainer dimensions={item_dimensions} />
             <p className="tag">{translation.price} : </p>
             <span className="info-data">{priceFormat(price)}</span>
             <AddToCart product={gift} />
-            <div className="secondary">
-              <div className="about">
-                <p className="tag">{translation.about} :</p>
-                <article className="line-break">{description}</article>
-              </div>
-            </div>
+          </div>
+        </div>
+        <div className="grid-cell grid-cell-span-2">
+          <div className="about">
+            <p className="tag">{translation.about} :</p>
+            <article className="line-break">{description}</article>
           </div>
         </div>
       </Wrapper>
     </main>
   );
 };
+const Hero = styled.div`
+  margin-bottom: 2rem;
+`;
 const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  .main {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    margin: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: auto 0.1rem !important;
+  .grid-cell {
+    margin: 1rem auto;
+  }
+  .grid-cell-span-2 {
+    grid-column: span 2;
+  }
+  .grid-cell-right {
+    grid-column-start: 2;
+  }argin: 2rem auto;
   }
   .title {
-    width: 100%;
-    text-align: start;
-    margin: auto;
+    text-align: center;
     h2 {
       text-transform: uppercase;
-      margin: 1rem;
+      margin-bottom: 1rem;
     }
-  }
-  .secondary {
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   .about {
     display: grid;
     grid-column: 1;
-    justify-content: center;
 
     article {
       font-size: 1rem;
@@ -133,6 +142,7 @@ const Wrapper = styled.div`
 
   .info {
     font-size: 1rem;
+    align-items: center;
     span {
       font-weight: bold;
       text-transform: capitalize;
@@ -140,10 +150,23 @@ const Wrapper = styled.div`
     }
   }
 
-  @media (max-width: 850px) {
-    flex-direction: column;
+  @media (max-width: 800px) {
+    grid-template-columns: 100%;
+    grid-gap: auto;
     .title {
       text-align: center;
+    }
+
+    .grid-cell {
+      margin: 1rem 1rem;;
+    }
+
+    .grid-cell-right {
+      grid-column-start: 1;
+    }
+
+    .grid-cell-span-2 {
+      grid-column: span 1;
     }
   }
 `;

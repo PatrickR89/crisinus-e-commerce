@@ -83,14 +83,17 @@ const SingleBookPage = () => {
           <div className="title">
             <h1>{title}</h1>
           </div>
-          <div className="sub-class">
-            {images.length > 0 && <Slideshow images={images} />}
-            <div className="info">
+          <div className="grid-display">
+            <div className="grid-cell">
+              {images.length > 0 && <Slideshow images={images} />}
+            </div>
+            <div className="info grid-cell">
               {authors.length > 1 ? (
                 <p className="tag">{translation.authors}:</p>
               ) : (
                 <p className="tag">{translation.author}:</p>
               )}
+
               {authors.map((author, index) => {
                 return (
                   <button
@@ -105,13 +108,9 @@ const SingleBookPage = () => {
                   </button>
                 );
               })}
-
               <DimensionsContainer dimensions={item_dimensions} />
             </div>
-          </div>
-
-          <div className="layout">
-            <div className="info">
+            <div className="info grid-cell">
               <div className="data-container">
                 <p className="tag">{translation.price} : </p>
                 <span className="info-data">{priceFormat(price)}</span>
@@ -133,7 +132,9 @@ const SingleBookPage = () => {
                 <span className="info-data">{year}</span>
               </div>
             </div>
-            <AddToCart product={book} />
+            <div className="grid-cell">
+              <AddToCart product={book} />
+            </div>
           </div>
         </div>
         <div className="secondary">
@@ -173,9 +174,8 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: center;
     font-size: 1.25rem;
-    margin-bottom: 1rem;
+    margin: 0rem 1rem auto auto;
     span {
-      margin-left: 0.5rem;
     }
   }
   .data-container {
@@ -198,7 +198,6 @@ const Wrapper = styled.div`
       grid-column: 1;
       p {
         text-align: start;
-        margin-left: 1rem;
         font-size: 1.5rem;
         font-weight: bold;
         text-transform: capitalize;
@@ -208,34 +207,29 @@ const Wrapper = styled.div`
       }
     }
   }
-  .layout {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
+
+  .grid-display {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .sub-class {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-around;
+  .grid-cell {
+    margin: auto;
   }
   @media (max-width: 850px) {
     .main-book {
       flex-direction: column;
-      margin: 2rem 1rem;
+      margin: 2rem auto;
     }
 
-    .sub-class {
-      flex-direction: column;
+    .grid-display {
+      grid-template-columns: 1fr;
     }
-    .layout {
-      flex-direction: column;
-      font-size: 0.8rem;
-      .info {
-        margin: 2rem 1rem;
-      }
+    .grid-cell {
+      width: 100%;
+      margin: 1rem auto;
     }
+
     .secondary {
       .about {
         .tag {
@@ -243,7 +237,7 @@ const Wrapper = styled.div`
         }
         article {
           font-size: 1rem;
-          margin: 1.25rem;
+          margin: 1.25rem auto;
         }
       }
     }

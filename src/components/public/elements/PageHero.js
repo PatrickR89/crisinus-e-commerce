@@ -11,14 +11,14 @@ const PageHero = ({ title, adress, link }) => {
       <div className="section">
         <h3>
           <Link className="page-direct" to="/">
-            {translation.home}
+            {translation.home}/
           </Link>
           {adress && (
             <Link className="page-direct" to={`/${link}`}>
-              {adress}
+              {adress}/
             </Link>
           )}
-          / {title}
+          {title}
         </h3>
       </div>
     </Wrapper>
@@ -28,7 +28,7 @@ const PageHero = ({ title, adress, link }) => {
 const Wrapper = styled.section`
   background: var(--clr-button-3);
   width: 100%;
-  height: 5vh;
+  height: 80%;
   display: flex;
   align-items: center;
 
@@ -49,7 +49,7 @@ const Wrapper = styled.section`
   }
   a {
     color: var(--clr-primary-3);
-    padding: 0.5rem;
+    padding: 0rem 0.2rem 0rem 0rem;
     transition: var(--transition);
   }
   a:hover {

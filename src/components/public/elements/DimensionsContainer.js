@@ -9,11 +9,20 @@ const DimensionsContainer = ({ dimensions }) => {
     return null;
   }
 
+  if (
+    dimensions.weight <= 0 &&
+    dimensions.height <= 0 &&
+    dimensions.width <= 0 &&
+    dimensions.depth <= 0
+  ) {
+    return null;
+  }
+
   function calcLength(value) {
     if (value > 999) {
-      return `${value / 1000} m`;
+      return `${(value / 1000).toFixed(2)} m`;
     } else if (value > 99) {
-      return `${value / 100} cm`;
+      return `${(value / 100).toFixed(2)} cm`;
     } else {
       return `${value} mm`;
     }
@@ -21,7 +30,7 @@ const DimensionsContainer = ({ dimensions }) => {
 
   function calcWeight(value) {
     if (value > 99) {
-      return `${value / 1000} kg`;
+      return `${(value / 1000).toFixed(2)} kg`;
     } else {
       return `${value} g`;
     }
@@ -70,12 +79,10 @@ const DimensionsContainer = ({ dimensions }) => {
 };
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
   margin-top: 2rem;
-  align-items: flex-start;
   width: 100%;
-
   .dim-title {
     margin-bottom: 0.5rem;
     font-weight: normal;

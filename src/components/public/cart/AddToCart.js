@@ -33,32 +33,39 @@ const AddToCart = ({ product }) => {
 
   return (
     <Wrapper>
-      <ItemAmount
-        amount={amount}
-        increase={increase}
-        decrease={decrease}
-        stock={stock}
-      />
-      <Link
-        to="/cart"
-        className="btn"
-        onClick={() => addToCart(id, amount, product)}
-      >
-        {translation.addToCart}
-      </Link>
+      <div className="grid-cell">
+        <ItemAmount
+          amount={amount}
+          increase={increase}
+          decrease={decrease}
+          stock={stock}
+        />
+      </div>
+      <div className="grid-cell">
+        <Link
+          to="/cart"
+          className="btn cartBtn"
+          onClick={() => addToCart(id, amount, product)}
+        >
+          {translation.addToCart}
+        </Link>
+      </div>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 100%;
   align-items: center;
   justify-content: center;
   margin: 1rem 2rem;
-  a {
+  .grid-cell {
+    margin: auto;
+  }
+  .cartBtn {
     margin: 0.5rem;
-    padding: 0.5rem 4.5rem;
+    padding: 0.5rem auto;
     font-weight: bold;
     max-width: 14rem;
   }
