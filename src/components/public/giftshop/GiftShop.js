@@ -18,15 +18,16 @@ const GiftShop = () => {
   return (
     <Wrapper>
       <ul className="home-gifts">
-        {tempGifts.slice(0, home_page_items).map((gift) => {
-          return (
-            <li key={gift.id}>
-              <Link to={`/giftshop/${gift.id}`}>
-                <Gift {...gift} />
-              </Link>
-            </li>
-          );
-        })}
+        {tempGifts?.length !== undefined &&
+          tempGifts.slice(0, home_page_items).map((gift) => {
+            return (
+              <li key={gift.id}>
+                <Link to={`/giftshop/${gift.id}`}>
+                  <Gift {...gift} />
+                </Link>
+              </li>
+            );
+          })}
       </ul>
     </Wrapper>
   );

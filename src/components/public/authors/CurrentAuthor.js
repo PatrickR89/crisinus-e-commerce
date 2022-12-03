@@ -35,15 +35,16 @@ const CurrentAuthor = () => {
           </article>
           <div className="books">
             <ul>
-              {booksByAuthor.map((book) => {
-                return (
-                  <li key={book.id}>
-                    <Link to={`/books/${book.id}`}>
-                      <BookComponent {...book} />
-                    </Link>
-                  </li>
-                );
-              })}
+              {booksByAuthor?.length !== undefined &&
+                booksByAuthor.map((book) => {
+                  return (
+                    <li key={book.id}>
+                      <Link to={`/books/${book.id}`}>
+                        <BookComponent {...book} />
+                      </Link>
+                    </li>
+                  );
+                })}
             </ul>
           </div>
         </div>

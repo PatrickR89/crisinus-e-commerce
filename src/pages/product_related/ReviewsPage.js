@@ -85,8 +85,9 @@ const ReviewsPage = () => {
       <NoCB className="solo">
         <div className="menu-left center">
           <ul>
-            {bookList.length > 0 &&
-              bookList.map((book, index) => {
+            {bookList?.length !== undefined &&
+              bookList?.length > 0 &&
+              bookList?.map((book, index) => {
                 return (
                   <li key={index}>
                     <button

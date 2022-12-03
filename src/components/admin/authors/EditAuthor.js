@@ -42,7 +42,7 @@ const EditAuthor = () => {
   return (
     <Wrapper>
       <div className="thumb-container">
-        {images &&
+        {images?.legth !== undefined &&
           images.map((url, index) => {
             return (
               <div key={index} className="single-thumb">

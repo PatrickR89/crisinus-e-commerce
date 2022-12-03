@@ -85,7 +85,9 @@ const SingleBookPage = () => {
           </div>
           <div className="grid-display">
             <div className="grid-cell">
-              {images.length > 0 && <Slideshow images={images} />}
+              {images?.length !== undefined && images.length > 0 && (
+                <Slideshow images={images} />
+              )}
             </div>
             <div className="info grid-cell">
               {authors.length > 1 ? (
@@ -94,20 +96,21 @@ const SingleBookPage = () => {
                 <p className="tag">{translation.author}:</p>
               )}
 
-              {authors.map((author, index) => {
-                return (
-                  <button
-                    key={index}
-                    className="author-btn"
-                    onClick={() => redirectToAuthors(author.id)}
-                  >
-                    <p key={author.last_name}>
-                      <span className="info-data">{author.last_name}</span>{" "}
-                      {author.name}
-                    </p>
-                  </button>
-                );
-              })}
+              {authors?.length !== undefined &&
+                authors.map((author, index) => {
+                  return (
+                    <button
+                      key={index}
+                      className="author-btn"
+                      onClick={() => redirectToAuthors(author.id)}
+                    >
+                      <p key={author.last_name}>
+                        <span className="info-data">{author.last_name}</span>{" "}
+                        {author.name}
+                      </p>
+                    </button>
+                  );
+                })}
               <DimensionsContainer dimensions={item_dimensions} />
             </div>
             <div className="info grid-cell">
@@ -211,6 +214,7 @@ const Wrapper = styled.div`
   .grid-display {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    row-gap: 0.5rem;
   }
 
   .grid-cell {

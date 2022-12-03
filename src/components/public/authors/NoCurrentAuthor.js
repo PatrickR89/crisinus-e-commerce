@@ -8,23 +8,24 @@ const NoCurrentAuthor = ({ authorNavigate }) => {
     <Wrapper className="solo">
       <div className="menu-left center">
         <ul>
-          {authors.map((author, index) => {
-            return (
-              <li key={index}>
-                <button
-                  className={
-                    author.id === activeAuthor.id
-                      ? "btn select current"
-                      : " btn select"
-                  }
-                  disabled={author.id === activeAuthor.id ? true : false}
-                  onClick={() => authorNavigate(author.id)}
-                >
-                  {author.name} {author.last_name}
-                </button>
-              </li>
-            );
-          })}
+          {authors?.length !== undefined &&
+            authors.map((author, index) => {
+              return (
+                <li key={index}>
+                  <button
+                    className={
+                      author.id === activeAuthor.id
+                        ? "btn select current"
+                        : " btn select"
+                    }
+                    disabled={author.id === activeAuthor.id ? true : false}
+                    onClick={() => authorNavigate(author.id)}
+                  >
+                    {author.name} {author.last_name}
+                  </button>
+                </li>
+              );
+            })}
         </ul>
       </div>
     </Wrapper>

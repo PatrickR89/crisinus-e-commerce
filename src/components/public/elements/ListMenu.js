@@ -36,45 +36,46 @@ const ListMenu = ({
             <FaChevronUp />
           </button>
         </li>
-        {items.map((item, index) => {
-          return (
-            <li key={index}>
-              <button
-                className={
-                  byId
-                    ? item.id === itemCriteria
+        {items?.length !== undefined &&
+          items.map((item, index) => {
+            return (
+              <li key={index}>
+                <button
+                  className={
+                    byId
+                      ? item.id === itemCriteria
+                        ? "btn select current"
+                        : " btn select"
+                      : item === itemCriteria
                       ? "btn select current"
                       : " btn select"
-                    : item === itemCriteria
-                    ? "btn select current"
-                    : " btn select"
-                }
-                disabled={
-                  byId
-                    ? item.id === itemCriteria
+                  }
+                  disabled={
+                    byId
+                      ? item.id === itemCriteria
+                        ? true
+                        : false
+                      : item === itemCriteria
                       ? true
                       : false
-                    : item === itemCriteria
-                    ? true
-                    : false
-                }
-                onClick={
-                  byId
-                    ? () => {
-                        itemChange(item.id);
-                        closeSidebarAR();
-                      }
-                    : () => {
-                        itemChange(item);
-                        closeSidebarAR();
-                      }
-                }
-              >
-                {item.title || getName(item)}
-              </button>
-            </li>
-          );
-        })}
+                  }
+                  onClick={
+                    byId
+                      ? () => {
+                          itemChange(item.id);
+                          closeSidebarAR();
+                        }
+                      : () => {
+                          itemChange(item);
+                          closeSidebarAR();
+                        }
+                  }
+                >
+                  {item.title || getName(item)}
+                </button>
+              </li>
+            );
+          })}
         <li>
           <button
             className={length < 6 ? "btn select disable-display" : "btn select"}

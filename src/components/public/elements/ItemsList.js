@@ -71,15 +71,16 @@ const BooksList = ({ initialItems, SingleItem, url, pageItems }) => {
         </div>
       )}
       <ul className="home-books">
-        {items.map((item) => {
-          return (
-            <li key={item.id}>
-              <Link to={`${url}${item.id}`}>
-                <SingleItem {...item} />
-              </Link>
-            </li>
-          );
-        })}
+        {items?.length !== undefined &&
+          items.map((item) => {
+            return (
+              <li key={item.id}>
+                <Link to={`${url}${item.id}`}>
+                  <SingleItem {...item} />
+                </Link>
+              </li>
+            );
+          })}
       </ul>
       {/* {loadingIS && <p>loading...</p>} */}
     </Wrapper>

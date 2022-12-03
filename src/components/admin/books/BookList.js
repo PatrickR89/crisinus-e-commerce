@@ -55,8 +55,9 @@ const BookList = () => {
       <ListWrapper>
         <h2>{translation.booksList.toUpperCase()}</h2>
         <ListHead colTitles={titles} btn />
-        {booksList.length > 0 &&
-          booksList.map((book, index) => {
+        {booksList?.length !== undefined &&
+          booksList?.length > 0 &&
+          booksList?.map((book, index) => {
             return (
               <div className="item-row" key={book.id}>
                 <ListLink

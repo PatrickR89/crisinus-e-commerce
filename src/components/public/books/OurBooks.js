@@ -18,15 +18,16 @@ const OurBooks = () => {
   return (
     <Wrapper>
       <ul className="home-books">
-        {tempBooks.slice(0, home_page_items).map((book) => {
-          return (
-            <li key={book.id}>
-              <Link to={`/books/${book.id}`}>
-                <BookComponent {...book} />
-              </Link>
-            </li>
-          );
-        })}
+        {tempBooks?.length !== undefined &&
+          tempBooks.slice(0, home_page_items).map((book) => {
+            return (
+              <li key={book.id}>
+                <Link to={`/books/${book.id}`}>
+                  <BookComponent {...book} />
+                </Link>
+              </li>
+            );
+          })}
       </ul>
     </Wrapper>
   );

@@ -73,7 +73,9 @@ const SingleGiftPage = () => {
           </div>
         </div>
         <div className="grid-cell">
-          {images.length > 0 && <Slideshow images={images} />}
+          {images?.length !== undefined && images.length > 0 && (
+            <Slideshow images={images} />
+          )}
         </div>
         <div className="grid-cell">
           <DimensionsContainer dimensions={item_dimensions} />
