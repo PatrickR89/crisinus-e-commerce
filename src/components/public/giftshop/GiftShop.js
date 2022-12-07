@@ -1,13 +1,19 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useItemsContext } from "../../../contexts/items_context";
+import { useLanguageContext } from "../../../contexts/language_context";
 
 import Gift from "./Gift";
 import { Link } from "react-router-dom";
 import shuffle from "../../../utils/shuffleItems";
+import {
+  SectionLinkContainer,
+  SectionTitle
+} from "../elements/SectionElements";
 
 const GiftShop = () => {
   const { gifts, home_page_items } = useItemsContext();
+  const { translation } = useLanguageContext();
 
   let tempGifts = gifts;
 
@@ -17,6 +23,7 @@ const GiftShop = () => {
 
   return (
     <Wrapper>
+      <SectionTitle>{translation.ourGiftshop}</SectionTitle>
       <ul className="home-gifts">
         {tempGifts?.length !== undefined &&
           tempGifts.slice(0, home_page_items).map((gift) => {
@@ -29,6 +36,11 @@ const GiftShop = () => {
             );
           })}
       </ul>
+      <SectionLinkContainer>
+        <Link className="section-link" to="/giftshop">
+          {translation.seeAll}
+        </Link>
+      </SectionLinkContainer>
     </Wrapper>
   );
 };

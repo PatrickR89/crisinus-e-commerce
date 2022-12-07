@@ -77,6 +77,8 @@ const english = {
   orderNoun: "Order",
   orders: "orders",
   orderTotal: "order total",
+  ourBooks: "Our books:",
+  ourGiftshop: "Our giftshop:",
   page: "page",
   pageErrMsg:
     " Browser will automatically redirect to previous page, in case it does not, please click 'Back'",
@@ -98,6 +100,7 @@ const english = {
   reviews: "reviews",
   reviewsList: "reviews list",
   search: "search",
+  seeAll: "See all...",
   send: "send",
   selectBook: "select book",
   shopBook: "shop book",
@@ -194,6 +197,8 @@ const croatian = {
   orderNoun: "Narudžba",
   orders: "narudžbe",
   orderTotal: "ukupna narudžba",
+  ourBooks: "Naše knjige:",
+  ourGiftshop: "Naš giftshop:",
   page: "stranica",
   pageErrMsg:
     " Web izbornik će Vas automatski preusmjeriti na prethodnu stranicu, ukoliko to ne učini, molimo kliknite na 'Nazad'",
@@ -215,6 +220,7 @@ const croatian = {
   reviews: "recenzije",
   reviewsList: "popis recenzija",
   search: "traži",
+  seeAll: "Vidi Sve...",
   send: "pošalji",
   selectBook: "izaberite knjigu",
   shopBook: "kupiti knjigu",
