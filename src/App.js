@@ -8,6 +8,7 @@ import ClientRoutes from "./routes/app_client_routes";
 
 import { Navbar, Footer, SidebarNav } from "./components/public/elements";
 import { CookiesModal } from "./components/public/info";
+import WhenLoading from "./components/public/WhenLoading";
 
 import { HomePage, AdminPage, ErrorPage } from "./pages";
 
@@ -25,7 +26,7 @@ function App() {
   if (clientEngaged === false) {
     return (
       <div className="App">
-        <h2>Please wait...</h2>
+        <WhenLoading />
         <Footer />
       </div>
     );
