@@ -38,6 +38,13 @@ export const SectionLinkContainer = styled.div`
   &:focus-within .section-link::before {
     transform: scaleX(1);
   }
+
+  @media (hover) {
+    .section-link::after,
+    .section-link::before {
+      transform: scaleX(0);
+    }
+  }
 `;
 
 export const SectionTitle = styled.h3`

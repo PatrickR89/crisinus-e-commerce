@@ -68,13 +68,6 @@ const Wrapper = styled.div`
       justify-content: center;
     }
   }
-
-  @media (hover) {
-    .section-link::after,
-    .section-link::before {
-      transform: scaleX(0);
-    }
-  }
 `;
 
 export default OurBooks;
