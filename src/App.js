@@ -15,45 +15,38 @@ import { useAuthenticationContext } from "./contexts/authentication_context";
 
 axios.withCredentials = true;
 function App() {
-  const {
-    clientHeader,
-    handleCookiesModal,
-    cookiesModal,
-    setAxiosInterceptor,
-    clientEngaged,
-    registerClient
-  } = useAuthenticationContext();
+  const { handleCookiesModal, cookiesModal, clientEngaged, registerClient } =
+    useAuthenticationContext();
 
   useEffect(() => {
     registerClient();
-    setAxiosInterceptor();
-    axios.defaults.headers.common["client-access-token"] = clientHeader();
   }, []);
 
-  if (!clientEngaged) {
+  if (clientEngaged === false) {
     return (
       <div className="App">
         <h2>Please wait...</h2>
         <Footer />
       </div>
     );
+  } else {
+    return (
+      <div className="App">
+        <Navbar />
+        <SidebarNav />
+        <Routes>
+          <Route exact path="/" element={<HomePage />} />
+          {ClientRoutes}
+          <Route path="/admin" element={<AdminPage />}>
+            {AdminRoutes}
+          </Route>
+          <Route path="/*" element={<ErrorPage />} />
+        </Routes>
+        {cookiesModal && <CookiesModal close={handleCookiesModal} />}
+        <Footer />
+      </div>
+    );
   }
-  return (
-    <div className="App">
-      <Navbar />
-      <SidebarNav />
-      <Routes>
-        <Route exact path="/" element={<HomePage />} />
-        {ClientRoutes}
-        <Route path="/admin" element={<AdminPage />}>
-          {AdminRoutes}
-        </Route>
-        <Route path="/*" element={<ErrorPage />} />
-      </Routes>
-      {cookiesModal && <CookiesModal close={handleCookiesModal} />}
-      <Footer />
-    </div>
-  );
 }
 
 export default App;

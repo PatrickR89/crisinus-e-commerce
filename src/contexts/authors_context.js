@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useReducer } from "react";
 import axios from "axios";
 import reducer from "../reducers/authors_reducer";
+import { useAuthenticationContext } from "../contexts/authentication_context";
 
 import {
   GET_ITEMS_START,
@@ -26,6 +27,7 @@ const AuthorsContext = React.createContext();
 
 export const AuthorsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { clientEngaged } = useAuthenticationContext();
   const errorReport = useErrorReport();
   const baseUrl = "/api/public/authors";
 
@@ -53,8 +55,10 @@ export const AuthorsProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchItems();
-  }, []);
+    if (clientEngaged === true) {
+      fetchItems();
+    }
+  }, [clientEngaged]);
 
   useEffect(() => {
     dispatch({ type: SET_AUTHORS_IDS, payload: state.books });
@@ -69,8 +73,6 @@ export const AuthorsProvider = ({ children }) => {
       method: method,
       data: { author }
     })
-      // axios
-      //     .post("/api/public/authors", { author })
       .then((response) => {
         const fullAuthor = response.data[0];
         dispatch({ type: SET_ACTIVE_AUTHOR, payload: fullAuthor });

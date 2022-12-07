@@ -6,6 +6,8 @@ import React, {
 } from "react";
 import axios from "axios";
 import reducer from "../reducers/items_reducer";
+import { useAuthenticationContext } from "../contexts/authentication_context";
+
 import {
   GET_ITEMS_START,
   GET_ITEMS_SUCCESS,
@@ -87,6 +89,7 @@ const ItemsContext = React.createContext();
 export const ItemsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const errorReport = useErrorReport();
+  const { clientEngaged } = useAuthenticationContext();
 
   // FETCH AND POPULATE REQUIRED ITEMS
 
@@ -258,10 +261,12 @@ export const ItemsProvider = ({ children }) => {
   const updateSize = () => {
     dispatch({ type: UPDATE_SIZE, payload: window.innerWidth });
   };
-  useEffect(() => {
-    fetchItems();
-  }, []);
 
+  useEffect(() => {
+    if (clientEngaged === true) {
+      fetchItems();
+    }
+  }, [clientEngaged]);
   // CONTACT FORM
 
   const updateContactForm = (e) => {

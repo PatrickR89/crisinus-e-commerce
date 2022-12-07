@@ -17,27 +17,27 @@ import { AuthenticationProvider } from "./contexts/authentication_context";
 
 ReactDOM.render(
   <React.StrictMode>
-    <CartProvider>
-      <AuthorsProvider>
-        <ItemsProvider>
-          <ReviewsProvider>
-            <FilterProvider>
-              <CurrencyProvider>
-                <LanguageProvider>
-                  <SidebarProvider>
-                    <AuthenticationProvider>
+    <AuthenticationProvider>
+      <SidebarProvider>
+        <LanguageProvider>
+          <CurrencyProvider>
+            <CartProvider>
+              <AuthorsProvider>
+                <ItemsProvider>
+                  <ReviewsProvider>
+                    <FilterProvider>
                       <Router>
                         <App />
                       </Router>
-                    </AuthenticationProvider>
-                  </SidebarProvider>
-                </LanguageProvider>
-              </CurrencyProvider>
-            </FilterProvider>
-          </ReviewsProvider>
-        </ItemsProvider>
-      </AuthorsProvider>
-    </CartProvider>
+                    </FilterProvider>
+                  </ReviewsProvider>
+                </ItemsProvider>
+              </AuthorsProvider>
+            </CartProvider>
+          </CurrencyProvider>
+        </LanguageProvider>
+      </SidebarProvider>
+    </AuthenticationProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

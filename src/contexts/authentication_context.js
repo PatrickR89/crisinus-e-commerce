@@ -14,12 +14,15 @@ import {
 import reducer from "../reducers/authentication_reducer";
 import { useErrorReport } from "../hooks/useErrorReport";
 
+axios.withCredentials = true;
+
 const initialState = {
   username: "",
   password: "",
   loggedIn: false,
   cookiesModal: true,
-  clientEngaged: false
+  clientEngaged: false,
+  header: ""
 };
 
 const AuthenticationContext = React.createContext();
@@ -97,6 +100,18 @@ export const AuthenticationProvider = ({ children }) => {
     })
       .then((response) => {
         localStorage.setItem("client-token", response.data.clientToken);
+        axios.defaults.headers.common.client_access_token =
+          response.data.clientToken;
+
+        const instance = axios.create({
+          baseURL: "/api"
+        });
+
+        instance.interceptors.request.use((request) => {
+          request.headers.common.client_access_token =
+            response.data.clientToken;
+          return request;
+        });
       })
       .catch((error) => {
         errorReport(error, url, window.location.pathname, method);
@@ -126,10 +141,6 @@ export const AuthenticationProvider = ({ children }) => {
     return { "x-access-token": localStorage.getItem("token") };
   };
 
-  const clientHeader = () => {
-    return localStorage.getItem("client-token");
-  };
-
   const adminLoginCheck = () => {
     const url = `${adminUrl}login`;
     const method = "get";
@@ -148,31 +159,21 @@ export const AuthenticationProvider = ({ children }) => {
       });
   };
 
-  const setAxiosInterceptor = () => {
-    const instance = axios.create({
-      baseURL: "/api"
-    });
-
-    instance.interceptors.request.use((request) => {
-      const clientToken = localStorage.getItem("client-token");
-      if (clientToken) {
-        request.headers.common["client-access-token"] = clientToken;
-      }
-      return request;
-    });
-  };
-
   useEffect(() => {
     confirmCookiesModal();
   }, [state.clientEngaged]);
 
   useEffect(() => {
-    if (axios.defaults.headers.common["client-access-token"] === undefined) {
+    if (
+      axios.defaults.headers.common.client_access_token === undefined ||
+      axios.defaults.headers.common.client_access_token === null
+    ) {
       dispatch({ type: SET_CLIENT_ENGAGED, payload: false });
+      registerClient();
     } else {
       dispatch({ type: SET_CLIENT_ENGAGED, payload: true });
     }
-  }, [axios.defaults.headers.common["client-access-token"]]);
+  }, [axios.defaults.headers.common.client_access_token]);
 
   return (
     <AuthenticationContext.Provider
@@ -182,10 +183,8 @@ export const AuthenticationProvider = ({ children }) => {
         updateUser,
         header,
         logout,
-        clientHeader,
         handleCookiesModal,
         adminLoginCheck,
-        setAxiosInterceptor,
         registerClient
       }}
     >

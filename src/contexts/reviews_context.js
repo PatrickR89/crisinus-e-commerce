@@ -15,6 +15,7 @@ import {
 } from "../actions/reviews_actions";
 
 import { useItemsContext } from "../contexts/items_context";
+import { useAuthenticationContext } from "../contexts/authentication_context";
 import { useErrorReport } from "../hooks/useErrorReport";
 
 const initialState = {
@@ -33,6 +34,7 @@ const ReviewsContext = React.createContext();
 export const ReviewsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { books } = useItemsContext();
+  const { clientEngaged } = useAuthenticationContext();
   const errorReport = useErrorReport();
 
   const fetchReviews = () => {
@@ -53,8 +55,10 @@ export const ReviewsProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchReviews();
-  }, []);
+    if (clientEngaged === true) {
+      fetchReviews();
+    }
+  }, [clientEngaged]);
 
   useEffect(() => {
     dispatch({ type: SET_BOOK_LIST, payload: [state.bookIds, books] });
