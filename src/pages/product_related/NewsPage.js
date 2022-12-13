@@ -29,7 +29,7 @@ const Wrapper = styled.div`
   align-items: start;
   justify-content: center;
   height: 65vh;
-  margin: 1rem;
+  margin: 2rem;
 `;
 
 export default NewsPage;

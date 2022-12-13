@@ -93,7 +93,7 @@ export const NewsProvider = ({ children }) => {
     axios
       .post("/api/images/addimages", data)
       .then((res) => {
-        const tempImages = [...state.gift.images];
+        const tempImages = [...state.news.images];
         res.data.forEach((image) => {
           tempImages.push(image.path);
         });
