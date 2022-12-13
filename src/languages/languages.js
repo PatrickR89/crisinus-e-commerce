@@ -220,7 +220,7 @@ const croatian = {
   reviews: "recenzije",
   reviewsList: "popis recenzija",
   search: "traži",
-  seeAll: "Vidi Sve...",
+  seeAll: "Vidi sve...",
   send: "pošalji",
   selectBook: "izaberite knjigu",
   shopBook: "kupiti knjigu",

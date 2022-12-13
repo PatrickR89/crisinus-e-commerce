@@ -24,7 +24,7 @@ export const SectionLinkContainer = styled.div`
     height: 2px;
     width: 120%;
     left: 0;
-    bottom: 1rem;
+    top: -0.1rem;
     background: var(--clr-primary-2);
     transform-origin: right;
     transition: transform 250ms ease;
