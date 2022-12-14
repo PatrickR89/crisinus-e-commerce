@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FaCameraRetro } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useInfoContext } from "../../../contexts/admin/info_context";
+import { ImageSelectModal } from "../elements";
 import WhenLoading from "../../public/WhenLoading";
 import WhenError from "../../public/WhenError";
 
@@ -25,9 +26,20 @@ const EditInfo = () => {
     updateValue,
     loading,
     error,
-    clearError
+    clearError,
+    handleUploadedImages
   } = useInfoContext();
   const { images, content, show_title } = item;
+
+  const [isImageModal, setIsImageModal] = useState(false);
+
+  function closeModal() {
+    setIsImageModal(false);
+  }
+
+  function openModal() {
+    setIsImageModal(true);
+  }
 
   useEffect(() => {
     findInfoById(header, id);
@@ -42,56 +54,70 @@ const EditInfo = () => {
   }
 
   return (
-    <Wrapper>
-      <h2>{show_title}</h2>
-      <div className="thumb-container">
-        {images?.map((url, index) => {
-          return (
-            <div key={index} className="single-thumb">
-              <p>{url}</p>
-              <img className="thumb" src={`/${url}`} alt="" />
-              <button
-                className="btn btn-delete"
-                onClick={() => handleDeleteImage(url)}
-              >
-                <FaTrashAlt />
-              </button>
-            </div>
-          );
-        })}
-      </div>
-      <div className="info">
-        <label htmlFor="images" className="photo-input">
-          {translation.images}:
-          <input
-            type="file"
-            name="images"
-            multiple
-            id="images"
-            className="hidden-input"
-            onChange={handleAddImages}
-          />
-          <article className="btn">
-            <FaCameraRetro className="icon-large" /> {translation.addImage}
-          </article>
-        </label>
-
-        <label htmlFor="content">{translation.content}:</label>
-        <textarea
-          name="content"
-          id="content"
-          cols="30"
-          rows="10"
-          value={content}
-          onChange={updateValue}
-        ></textarea>
-        <div className="edit-container">
-          <button onClick={() => editInfoById(header, id)} className="btn mt-1">
-            {translation.edit}
-          </button>
+    <>
+      <Wrapper>
+        <h2>{show_title}</h2>
+        <div className="thumb-container">
+          {images?.map((url, index) => {
+            return (
+              <div key={index} className="single-thumb">
+                <p>{url}</p>
+                <img className="thumb" src={`/${url}`} alt="" />
+                <button
+                  className="btn btn-delete"
+                  onClick={() => handleDeleteImage(url)}
+                >
+                  <FaTrashAlt />
+                </button>
+              </div>
+            );
+          })}
         </div>
-      </div>
-    </Wrapper>
+        <div className="info">
+          <label htmlFor="images" className="photo-input">
+            {translation.images}:
+            <input
+              type="file"
+              name="images"
+              multiple
+              id="images"
+              className="hidden-input"
+              onChange={handleAddImages}
+            />
+            <article className="btn">
+              <FaCameraRetro className="icon-large" /> {translation.addImage}
+            </article>
+          </label>
+          <button className="btn" onClick={openModal}>
+            <FaCameraRetro className="icon-large" /> Dodaj postojeću sliku
+          </button>
+
+          <label htmlFor="content">{translation.content}:</label>
+          <textarea
+            name="content"
+            id="content"
+            cols="30"
+            rows="10"
+            value={content}
+            onChange={updateValue}
+          ></textarea>
+          <div className="edit-container">
+            <button
+              onClick={() => editInfoById(header, id)}
+              className="btn mt-1"
+            >
+              {translation.edit}
+            </button>
+          </div>
+        </div>
+      </Wrapper>
+      {isImageModal && (
+        <ImageSelectModal
+          closeModal={closeModal}
+          handleClick={handleUploadedImages}
+        />
+      )}
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { FaTrashAlt } from "react-icons/fa";
@@ -7,6 +7,7 @@ import { FaCameraRetro } from "react-icons/fa";
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useNewsContext } from "../../../contexts/admin/news_context";
+import { ImageSelectModal } from "../elements";
 import WhenLoading from "../../public/WhenLoading";
 import WhenError from "../../public/WhenError";
 
@@ -23,12 +24,23 @@ const EditNews = () => {
     findById,
     editById,
     deleteById,
-    clearError
+    clearError,
+    handleUploadedImages
   } = useNewsContext();
   const { title, images, text } = news;
 
   const { header } = useAuthenticationContext();
   const { translation } = useLanguageContext();
+
+  const [isImageModal, setIsImageModal] = useState(false);
+
+  function closeModal() {
+    setIsImageModal(false);
+  }
+
+  function openModal() {
+    setIsImageModal(true);
+  }
 
   useEffect(() => {
     findById(header, id);
@@ -43,72 +55,83 @@ const EditNews = () => {
   }
 
   return (
-    <Wrapper>
-      <h2>
-        {translation.edit} {translation.news}
-      </h2>
-      <div className="thumb-container">
-        {images &&
-          images.map((url, index) => {
-            return (
-              <div key={index} className="single-thumb">
-                <p>{url}</p>
-                <img className="thumb" src={`/${url}`} alt="" />
-                <button
-                  className="btn btn-delete"
-                  onClick={() => handleDeleteImage(url)}
-                >
-                  <FaTrashAlt />
-                </button>
-              </div>
-            );
-          })}
-      </div>
-      <div className="info">
-        <label htmlFor="images" className="photo-input">
-          {translation.images}
-          <input
-            type="file"
-            name="images"
-            multiple
-            id="images"
-            className="hidden-input"
-            onChange={handleAddImages}
-          />
-          <article className="btn">
-            <FaCameraRetro className="icon-large" /> {translation.addImage}
-          </article>
-        </label>
-        <label htmlFor="title">{translation.title}:</label>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          value={title}
-          onChange={updateValue}
-        />
-        <label htmlFor="text">{translation.content}:</label>
-        <textarea
-          name="text"
-          id="text"
-          cols="30"
-          rows="10"
-          value={text}
-          onChange={updateValue}
-        ></textarea>
-        <div className="edit-container">
-          <button onClick={() => editById(header, id)} className="btn mt-1">
-            {translation.edit}
-          </button>
-          <button
-            className="btn mt-1 btn-delete"
-            onClick={() => deleteById(header, id)}
-          >
-            {translation.delete}
-          </button>
+    <>
+      <Wrapper>
+        <h2>
+          {translation.edit} {translation.news}
+        </h2>
+        <div className="thumb-container">
+          {images &&
+            images.map((url, index) => {
+              return (
+                <div key={index} className="single-thumb">
+                  <p>{url}</p>
+                  <img className="thumb" src={`/${url}`} alt="" />
+                  <button
+                    className="btn btn-delete"
+                    onClick={() => handleDeleteImage(url)}
+                  >
+                    <FaTrashAlt />
+                  </button>
+                </div>
+              );
+            })}
         </div>
-      </div>
-    </Wrapper>
+        <div className="info">
+          <label htmlFor="images" className="photo-input">
+            {translation.images}
+            <input
+              type="file"
+              name="images"
+              multiple
+              id="images"
+              className="hidden-input"
+              onChange={handleAddImages}
+            />
+            <article className="btn">
+              <FaCameraRetro className="icon-large" /> {translation.addImage}
+            </article>
+          </label>
+          <button className="btn" onClick={openModal}>
+            <FaCameraRetro className="icon-large" /> Dodaj postojeću sliku
+          </button>
+          <label htmlFor="title">{translation.title}:</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            value={title}
+            onChange={updateValue}
+          />
+          <label htmlFor="text">{translation.content}:</label>
+          <textarea
+            name="text"
+            id="text"
+            cols="30"
+            rows="10"
+            value={text}
+            onChange={updateValue}
+          ></textarea>
+          <div className="edit-container">
+            <button onClick={() => editById(header, id)} className="btn mt-1">
+              {translation.edit}
+            </button>
+            <button
+              className="btn mt-1 btn-delete"
+              onClick={() => deleteById(header, id)}
+            >
+              {translation.delete}
+            </button>
+          </div>
+        </div>
+      </Wrapper>
+      {isImageModal && (
+        <ImageSelectModal
+          closeModal={closeModal}
+          handleClick={handleUploadedImages}
+        />
+      )}
+    </>
   );
 };
 

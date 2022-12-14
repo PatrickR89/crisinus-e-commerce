@@ -161,6 +161,12 @@ export const BooksProvider = ({ children }) => {
     dispatch({ type: SET_IMAGES, payload: tempImages });
   };
 
+  const handleUploadedImages = (imageUrl) => {
+    const tempImages = [...state.book.images];
+    tempImages.push(imageUrl);
+    dispatch({ type: SET_IMAGES, payload: tempImages });
+  };
+
   const addBook = (header) => {
     const {
       title,
@@ -333,6 +339,7 @@ export const BooksProvider = ({ children }) => {
         handleRemove,
         handleAdd,
         handleImages,
+        handleUploadedImages,
         handleDelete,
         addBook,
         updateBook,

@@ -120,6 +120,12 @@ export const AuthorsAdminProvider = ({ children }) => {
     dispatch({ type: SET_IMAGES, payload: tempImages });
   };
 
+  const handleUploadedImages = (imageUrl) => {
+    const tempImages = [...state.changedAuthor.img];
+    tempImages.push(imageUrl);
+    dispatch({ type: SET_IMAGES, payload: tempImages });
+  };
+
   const handleEdit = (header) => {
     const { name, last_name, img, url: authorUrl, bio } = state.changedAuthor;
 
@@ -177,7 +183,8 @@ export const AuthorsAdminProvider = ({ children }) => {
         handleDeleteImage,
         handleEdit,
         handleDelete,
-        clearError
+        clearError,
+        handleUploadedImages
       }}
     >
       {children}

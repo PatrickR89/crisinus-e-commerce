@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
@@ -9,6 +9,7 @@ import { FaCameraRetro } from "react-icons/fa";
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useBooksContext } from "../../../contexts/admin/books_context";
+import { ImageSelectModal } from "../elements";
 
 import WhenLoading from "../../public/WhenLoading";
 import WhenError from "../../public/WhenError";
@@ -22,6 +23,7 @@ const EditBook = () => {
     handleRemove,
     handleAdd,
     handleImages,
+    handleUploadedImages,
     handleDelete,
     authorsList,
     findById,
@@ -48,6 +50,16 @@ const EditBook = () => {
   const { id } = useParams();
   const { header } = useAuthenticationContext();
   const { translation } = useLanguageContext();
+
+  const [isImageModal, setIsImageModal] = useState(false);
+
+  function closeModal() {
+    setIsImageModal(false);
+  }
+
+  function openModal() {
+    setIsImageModal(true);
+  }
 
   useEffect(() => {
     findById(id, header);
@@ -197,6 +209,10 @@ const EditBook = () => {
               <FaCameraRetro className="icon-large" /> {translation.addImage}
             </article>
           </label>
+          <button className="btn" onClick={openModal}>
+            <FaCameraRetro className="icon-large" /> Dodaj postojeću sliku
+          </button>
+
           <label htmlFor="price">{translation.price}:</label>
           <input
             type="number"
@@ -243,6 +259,12 @@ const EditBook = () => {
           </div>
         </div>
       </Wrapper>
+      {isImageModal && (
+        <ImageSelectModal
+          closeModal={closeModal}
+          handleClick={handleUploadedImages}
+        />
+      )}
     </main>
   );
 };

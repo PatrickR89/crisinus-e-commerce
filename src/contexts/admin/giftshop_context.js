@@ -94,6 +94,12 @@ export const GiftshopProvider = ({ children }) => {
     dispatch({ type: SET_IMAGES, payload: tempImages });
   };
 
+  const handleUploadedImages = (imageUrl) => {
+    const tempImages = [...state.gift.images];
+    tempImages.push(imageUrl);
+    dispatch({ type: SET_IMAGES, payload: tempImages });
+  };
+
   const addGift = (header) => {
     const { name, price, max_order, images, description } = state.gift;
     const url = `${baseUrl}`;
@@ -238,7 +244,8 @@ export const GiftshopProvider = ({ children }) => {
         findById,
         editById,
         deleteById,
-        clearError
+        clearError,
+        handleUploadedImages
       }}
     >
       {children}

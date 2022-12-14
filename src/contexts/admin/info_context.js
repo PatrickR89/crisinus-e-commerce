@@ -207,6 +207,12 @@ export const InfoProvider = ({ children }) => {
     dispatch({ type: SET_IMAGES, payload: tempImages });
   };
 
+  const handleUploadedImages = (imageUrl) => {
+    const tempImages = [...state.item.images];
+    tempImages.push(imageUrl);
+    dispatch({ type: SET_IMAGES, payload: tempImages });
+  };
+
   const clearError = () => {
     dispatch({ type: ERROR_CLEARED });
   };
@@ -225,7 +231,8 @@ export const InfoProvider = ({ children }) => {
         updateValue,
         findLinkById,
         editLinkById,
-        clearError
+        clearError,
+        handleUploadedImages
       }}
     >
       {children}

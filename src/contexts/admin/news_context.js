@@ -109,7 +109,13 @@ export const NewsProvider = ({ children }) => {
       const err = `api: /api/images/deleteimage [editgift[POST]], error: ${error}`;
       axios.post("/api/system/error", { err });
     });
-    const tempImages = state.gift.images.filter((image) => image !== url);
+    const tempImages = state.news.images.filter((image) => image !== url);
+    dispatch({ type: SET_IMAGES, payload: tempImages });
+  };
+
+  const handleUploadedImages = (imageUrl) => {
+    const tempImages = [...state.news.images];
+    tempImages.push(imageUrl);
     dispatch({ type: SET_IMAGES, payload: tempImages });
   };
 
@@ -225,7 +231,8 @@ export const NewsProvider = ({ children }) => {
         findById,
         editById,
         deleteById,
-        clearError
+        clearError,
+        handleUploadedImages
       }}
     >
       {children}

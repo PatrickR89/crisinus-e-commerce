@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaCameraRetro } from "react-icons/fa";
 
 import styled from "styled-components";
@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useNewsContext } from "../../../contexts/admin/news_context";
+import { ImageSelectModal } from "../elements";
 
 const AddNews = () => {
   const {
@@ -15,11 +16,22 @@ const AddNews = () => {
     updateValue,
     handleAddImages,
     addNews,
-    resetForm
+    resetForm,
+    handleUploadedImages
   } = useNewsContext();
   const { title, text } = news;
   const { header } = useAuthenticationContext();
   const { translation } = useLanguageContext();
+
+  const [isImageModal, setIsImageModal] = useState(false);
+
+  function closeModal() {
+    setIsImageModal(false);
+  }
+
+  function openModal() {
+    setIsImageModal(true);
+  }
 
   useEffect(() => {
     resetForm();
@@ -34,49 +46,60 @@ const AddNews = () => {
   }
 
   return (
-    <Wrapper>
-      <h2>
-        {translation.add} {translation.news}
-      </h2>
-      <div className="info">
-        <label htmlFor="images" className="photo-input">
-          {translation.images}:
-          <input
-            type="file"
-            name="images"
-            multiple
-            id="images"
-            className="hidden-input"
-            onChange={handleAddImages}
-          />
-          <article className="btn">
-            <FaCameraRetro className="icon-large" /> {translation.addImage}
-          </article>
-        </label>
-        <label htmlFor="title">{translation.title}:</label>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          value={title}
-          onChange={updateValue}
-        />
-        <label htmlFor="text">{translation.content}:</label>
-        <textarea
-          name="text"
-          id="text"
-          cols="30"
-          rows="10"
-          value={text}
-          onChange={updateValue}
-        ></textarea>
-        <div className="edit-container">
-          <button onClick={() => addNews(header)} className="btn mt-1">
-            {translation.add}
+    <>
+      <Wrapper>
+        <h2>
+          {translation.add} {translation.news}
+        </h2>
+        <div className="info">
+          <label htmlFor="images" className="photo-input">
+            {translation.images}:
+            <input
+              type="file"
+              name="images"
+              multiple
+              id="images"
+              className="hidden-input"
+              onChange={handleAddImages}
+            />
+            <article className="btn">
+              <FaCameraRetro className="icon-large" /> {translation.addImage}
+            </article>
+          </label>
+          <button className="btn" onClick={openModal}>
+            <FaCameraRetro className="icon-large" /> Dodaj postojeću sliku
           </button>
+          <label htmlFor="title">{translation.title}:</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            value={title}
+            onChange={updateValue}
+          />
+          <label htmlFor="text">{translation.content}:</label>
+          <textarea
+            name="text"
+            id="text"
+            cols="30"
+            rows="10"
+            value={text}
+            onChange={updateValue}
+          ></textarea>
+          <div className="edit-container">
+            <button onClick={() => addNews(header)} className="btn mt-1">
+              {translation.add}
+            </button>
+          </div>
         </div>
-      </div>
-    </Wrapper>
+      </Wrapper>
+      {isImageModal && (
+        <ImageSelectModal
+          closeModal={closeModal}
+          handleClick={handleUploadedImages}
+        />
+      )}
+    </>
   );
 };
 

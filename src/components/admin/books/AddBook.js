@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaCameraRetro } from "react-icons/fa";
 
@@ -7,6 +7,8 @@ import styled from "styled-components";
 import { useAuthenticationContext } from "../../../contexts/authentication_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useBooksContext } from "../../../contexts/admin/books_context";
+
+import { ImageSelectModal } from "../elements";
 
 const AddBook = () => {
   const navigate = useNavigate();
@@ -21,6 +23,7 @@ const AddBook = () => {
     handleRemove,
     handleAdd,
     handleImages,
+    handleUploadedImages,
     addBook,
     updateBook,
     resetForm
@@ -36,6 +39,16 @@ const AddBook = () => {
     year,
     description
   } = book;
+
+  const [isImageModal, setIsImageModal] = useState(false);
+
+  function closeModal() {
+    setIsImageModal(false);
+  }
+
+  function openModal() {
+    setIsImageModal(true);
+  }
 
   useEffect(() => {
     if (!loggedIn) {
@@ -155,6 +168,9 @@ const AddBook = () => {
               <FaCameraRetro className="icon-large" /> {translation.addImage}
             </article>
           </label>
+          <button className="btn" onClick={openModal}>
+            <FaCameraRetro className="icon-large" /> Dodaj postojeću sliku
+          </button>
           <label htmlFor="price">{translation.price}:</label>
           <input
             type="number"
@@ -193,6 +209,12 @@ const AddBook = () => {
           </button>
         </div>
       </Wrapper>
+      {isImageModal && (
+        <ImageSelectModal
+          closeModal={closeModal}
+          handleClick={handleUploadedImages}
+        />
+      )}
     </main>
   );
 };
