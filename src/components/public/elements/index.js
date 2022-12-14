@@ -10,6 +10,7 @@ import SidebarNav from "./SidebarNav";
 import ItemsList from "./ItemsList";
 import RatingStars from "./RatingStars";
 import DimensionsContainer from "./DimensionsContainer";
+import BookProperties from "./BookProperties";
 
 export {
   SidebarNav,
@@ -23,5 +24,6 @@ export {
   HomeBottom,
   ItemsList,
   RatingStars,
-  DimensionsContainer
+  DimensionsContainer,
+  BookProperties
 };

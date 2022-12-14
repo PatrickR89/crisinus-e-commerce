@@ -4,7 +4,8 @@ import styled from "styled-components";
 import Slideshow from "../../components/public/elements/slideshow/Slideshow";
 import {
   PageHero,
-  DimensionsContainer
+  DimensionsContainer,
+  BookProperties
 } from "../../components/public/elements";
 import { AddToCart } from "../../components/public/cart";
 import { useItemsContext } from "../../contexts/items_context";
@@ -112,6 +113,7 @@ const SingleBookPage = () => {
                   );
                 })}
               <DimensionsContainer dimensions={item_dimensions} />
+              {/* <BookProperties properties={properties} /> */}
             </div>
             <div className="info grid-cell">
               <div className="data-container">

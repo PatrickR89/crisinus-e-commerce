@@ -1,7 +1,7 @@
 import React from "react";
-import styled from "styled-components";
 
 import { useLanguageContext } from "../../../contexts/language_context";
+import { PropertiesContainer } from "./PropertiesContainer";
 
 const DimensionsContainer = ({ dimensions }) => {
   const { translation } = useLanguageContext();
@@ -45,7 +45,7 @@ const DimensionsContainer = ({ dimensions }) => {
   }
 
   return (
-    <Wrapper>
+    <PropertiesContainer>
       <h4 className="tag dim-title">{translation.dimensions}:</h4>
       {dimensions.width > 0 ? (
         <div className="single-container">
@@ -82,36 +82,8 @@ const DimensionsContainer = ({ dimensions }) => {
       ) : (
         <></>
       )}
-    </Wrapper>
+    </PropertiesContainer>
   );
 };
-
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  margin-top: 2rem;
-  width: 100%;
-  .dim-title {
-    margin-bottom: 0.5rem;
-    font-weight: normal;
-  }
-
-  .single-container {
-    display: flex;
-    flex-direction: row;
-    align-content: space-between;
-    width: 100%;
-    margin-top: 0.5rem;
-
-    span {
-      font-weight: bold;
-      text-transform: capitalize;
-    }
-
-    p {
-      margin-left: auto;
-    }
-  }
-`;
 
 export default DimensionsContainer;
