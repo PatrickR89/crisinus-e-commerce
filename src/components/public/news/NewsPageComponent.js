@@ -22,8 +22,8 @@ const NewsPageComponent = () => {
             <div className="image-container">
               {n.images[0] && <img src={`/${n.images[0]}`} alt={n.title} />}
             </div>
-            <article className="news-text">
-              <div>
+            <div className="news-text">
+              <div className="text-container">
                 {index === 0 && <hr />}
                 <Link to={`/news/${n.id}`}>
                   <h2
@@ -43,7 +43,7 @@ const NewsPageComponent = () => {
                 <p className="date-muted">{formatDate(n.date)}</p>
                 <hr />
               </div>
-            </article>
+            </div>
           </div>
         );
       })}
@@ -78,9 +78,6 @@ const Wrapper = styled.div`
   .news-text {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    margin: auto;
-    min-width: 70%;
     width: 74%;
     height: 100%;
 
@@ -92,12 +89,19 @@ const Wrapper = styled.div`
   .date-muted {
     text-align: end;
     color: var(--clr-primary-5);
-    margin-top: auto;
   }
   .news-paragraph {
     text-align: start;
-    margin-bottom: auto;
     min-width: 100%;
+    height: 100%;
+  }
+  .text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: space-betwen;
+    height: 100%;
+    margin: 0.1rem;
   }
 
   @media (max-width: 750px) {

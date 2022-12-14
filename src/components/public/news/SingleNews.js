@@ -12,7 +12,7 @@ const SingleNews = ({ title, text, date, id, images }) => {
       <div className="image-container">
         <img src={images} alt="" />
       </div>
-      <div>
+      <div className="text-container">
         <div className="title">
           <Link to={`/news/${id}`}>
             <h2 style={{ fontSize: `${news_display.news_title}rem` }}>
@@ -55,6 +55,10 @@ const Wrapper = styled.div`
   }
   .underline {
     margin-left: 0;
+  }
+
+  .text-container {
+    min-width: 70%;
   }
 
   .image-container {

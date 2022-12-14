@@ -9,7 +9,6 @@ const News = ({ newsPage, home }) => {
 
   const [tempIndex, setTempIndex] = useState(0);
   const [listItems, setListItems] = useState([]);
-  const [newsArray, setNewsArray] = useState([]);
 
   useEffect(() => {
     let documentLIs = document.querySelectorAll(".li-item");
