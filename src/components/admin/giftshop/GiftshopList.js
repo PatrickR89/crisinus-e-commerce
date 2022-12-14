@@ -48,7 +48,7 @@ const GiftshopList = () => {
     <>
       <ListWrapper>
         <h2>{translation.giftshopList.toUpperCase()}</h2>
-        <ListHead colTitles={titles} btn />
+        <ListHead colTitles={titles} btn="1" />
         {gsList.length > 0 &&
           gsList.map((gift, index) => {
             return (

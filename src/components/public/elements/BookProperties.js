@@ -5,7 +5,6 @@ import { PropertiesContainer } from "./PropertiesContainer";
 
 const BookProperties = ({ properties }) => {
   const { translation } = useLanguageContext();
-  console.log(properties);
   if (properties === null) {
     return null;
   }
@@ -13,20 +12,17 @@ const BookProperties = ({ properties }) => {
   if (properties?.cover === undefined || properties?.pages === undefined) {
     return null;
   }
-  if (
-    (properties.cover !== "hardcover" || properties.cover !== "paperback") &&
-    properties.pages <= 0
-  ) {
+  if (properties.cover === "NULL" && properties.pages <= 0) {
     return null;
   }
 
   return (
     <PropertiesContainer>
       <h4 className="tag dim-title">{translation.properties}:</h4>
-      {properties.cover !== null ? (
+      {properties.cover !== "NULL" ? (
         <div className="single-container">
           <span>{translation.bookCover}:</span>
-          {properties.cover === "hardcover" ? (
+          {properties.cover === "HARDCOVER" ? (
             <p>{translation.hardcover}</p>
           ) : (
             <p>{translation.paperback}</p>

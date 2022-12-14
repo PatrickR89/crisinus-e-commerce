@@ -12,6 +12,7 @@ import { useItemsContext } from "../../contexts/items_context";
 import { useCurrencyContext } from "../../contexts/currency_context";
 import { useLanguageContext } from "../../contexts/language_context";
 import { useAuthorsContext } from "../../contexts/authors_context";
+import { PropertiesContainer } from "../../components/public/elements/PropertiesContainer";
 
 const SingleBookPage = () => {
   const { id } = useParams();
@@ -22,6 +23,7 @@ const SingleBookPage = () => {
   const {
     fetchSingleBook,
     item_dimensions,
+    book_properties,
     single_book: book,
     single_item_loading: loading,
     single_item_error: error
@@ -91,52 +93,54 @@ const SingleBookPage = () => {
               )}
             </div>
             <div className="info grid-cell">
-              {authors.length > 1 ? (
-                <p className="tag">{translation.authors}:</p>
-              ) : (
-                <p className="tag">{translation.author}:</p>
-              )}
+              <PropertiesContainer>
+                {authors.length > 1 ? (
+                  <h4 className="tag dim-title">{translation.authors}:</h4>
+                ) : (
+                  <h4 className="tag dim-title">{translation.author}:</h4>
+                )}
 
-              {authors?.length !== undefined &&
-                authors.map((author, index) => {
-                  return (
-                    <button
-                      key={index}
-                      className="author-btn"
-                      onClick={() => redirectToAuthors(author.id)}
-                    >
-                      <p key={author.last_name}>
-                        <span className="info-data">{author.last_name}</span>{" "}
-                        {author.name}
-                      </p>
-                    </button>
-                  );
-                })}
+                {authors?.length !== undefined &&
+                  authors.map((author, index) => {
+                    return (
+                      <button
+                        key={index}
+                        className="author-btn single-container"
+                        onClick={() => redirectToAuthors(author.id)}
+                      >
+                        <p style={{ marginRight: "0.5rem" }}>{author.name}</p>
+                        <span style={{ marginRight: "auto" }}>
+                          {author.last_name}
+                        </span>{" "}
+                      </button>
+                    );
+                  })}
+              </PropertiesContainer>
               <DimensionsContainer dimensions={item_dimensions} />
-              {/* <BookProperties properties={properties} /> */}
+              <BookProperties properties={book_properties} />
             </div>
-            <div className="info grid-cell">
-              <div className="data-container">
-                <p className="tag">{translation.price} : </p>
-                <span className="info-data">{priceFormat(price)}</span>
+            <PropertiesContainer className="book-details">
+              <div className="single-container">
+                <span>{translation.price} : </span>
+                <p>{priceFormat(price)}</p>
               </div>
-              <div className="data-container">
-                <p className="tag">{translation.publisher} : </p>
-                <span className="info-data">{publisher}</span>
+              <div className="single-container">
+                <span>{translation.publisher} : </span>
+                <p>{publisher}</p>
               </div>
-              <div className="data-container">
-                <p className="tag">{translation.language} : </p>
-                <span className="info-data">{language}</span>
+              <div className="single-container">
+                <span>{translation.language} : </span>
+                <p>{language}</p>
               </div>
-              <div className="data-container">
-                <p className="tag">{translation.genre} : </p>
-                <span className="info-data">{genre}</span>
+              <div className="single-container">
+                <span>{translation.genre} : </span>
+                <p>{genre}</p>
               </div>
-              <div className="data-container">
-                <p className="tag">{translation.year} : </p>
-                <span className="info-data">{year}</span>
+              <div className="single-container">
+                <span>{translation.year} : </span>
+                <p>{year}</p>
               </div>
-            </div>
+            </PropertiesContainer>
             <div className="grid-cell">
               <AddToCart product={book} />
             </div>
@@ -162,12 +166,17 @@ const Wrapper = styled.div`
     justify-content: space-evenly;
     align-items: center;
   }
+  .book-details {
+    font-size: 1.25rem;
+  }
   .author-btn {
     background: transparent;
     outline: none;
     border: none;
     cursor: pointer;
     font-size: 1.2rem;
+    display: flex;
+    flex-direction: row;
   }
   .tag {
     color: var(--clr-primary-3);
@@ -183,18 +192,9 @@ const Wrapper = styled.div`
     span {
     }
   }
-  .data-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-  }
-  .info-data {
-    font-weight: bold;
-    text-transform: capitalize;
-  }
+
   .secondary {
-    margin: auto;
+    margin: 2rem auto;
     display: flex;
     align-items: center;
     justify-content: center;

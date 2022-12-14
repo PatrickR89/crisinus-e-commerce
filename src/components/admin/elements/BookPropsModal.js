@@ -8,23 +8,21 @@ import { PropertiesModalContainer } from "./PropertiesModalContainer";
 const DimensionsModal = ({ closeModal, item }) => {
   const errorReport = useErrorReport();
   const { header } = useAuthenticationContext();
-  const [dimensions, setDimensions] = useState({
-    product_id: item.id,
-    width: 0,
-    height: 0,
-    depth: 0,
-    weight: 0
+  const [properties, setProperties] = useState({
+    id: item.id,
+    cover: "null",
+    pages: 0
   });
 
   const [isEdit, setIsEdit] = useState(false);
 
-  function updateDimension() {
+  function updateProperties() {
     if (isEdit) {
       axios({
-        url: `/api/productdimensions/${item.product_id}`,
+        url: `/api/bookprops/${item.product_id}`,
         method: "put",
         headers: header(),
-        data: { dimensions }
+        data: { properties: properties }
       })
         .then((response) => {
           if (response.data.changedRows > 0) {
@@ -38,17 +36,17 @@ const DimensionsModal = ({ closeModal, item }) => {
         .catch((error) => {
           errorReport(
             error,
-            `/api/productdimensions/${item.id}`,
+            `/api/bookprops/${item.id}`,
             window.location.pathname,
             "put"
           );
         });
     } else {
       axios({
-        url: `/api/productdimensions`,
+        url: `/api/bookprops`,
         method: "post",
         headers: header(),
-        data: { dimensions }
+        data: { properties: properties }
       })
         .then((response) => {
           const info = `"${item.name}" dimension added`;
@@ -58,7 +56,7 @@ const DimensionsModal = ({ closeModal, item }) => {
         .catch((error) => {
           errorReport(
             error,
-            `/api/productdimensions`,
+            `/api/bookprops`,
             window.location.pathname,
             "post"
           );
@@ -69,13 +67,14 @@ const DimensionsModal = ({ closeModal, item }) => {
   function updateValue(e) {
     let name = e.target.name;
     let value = e.target.value;
+    console.log(name, value);
 
-    setDimensions({ ...dimensions, [name]: value });
+    setProperties({ ...properties, [name]: value });
   }
 
   useEffect(() => {
     axios({
-      url: `/api/productdimensions/${item.id}`,
+      url: `/api/bookprops/${item.id}`,
       method: "post",
       headers: header(),
       data: { id: item.id }
@@ -85,20 +84,20 @@ const DimensionsModal = ({ closeModal, item }) => {
           setIsEdit(false);
         } else {
           setIsEdit(true);
-          setDimensions(response.data[0]);
+          setProperties(response.data[0]);
         }
       })
       .catch((error) => {
         errorReport(
           error,
-          `/api/productdimensions/${item.id}`,
+          `/api/bookprops/${item.id}`,
           window.location.pathname,
           "post"
         );
       });
 
     return () => {
-      setDimensions({
+      setProperties({
         product_id: 0,
         width: 0,
         height: 0,
@@ -117,39 +116,32 @@ const DimensionsModal = ({ closeModal, item }) => {
         <p>{item.id}</p>
         <div className="body">
           <div className="distancer">
-            <label htmlFor="width">Širina (mm):</label>
-            <input
-              value={dimensions.width}
+            <label htmlFor="cover">Uvez:</label>
+            <select
+              name="cover"
+              id="cover"
+              className="glass"
+              onChange={updateValue}
+              value={properties.cover}
+            >
+              <option value="NULL">Nema</option>
+              <option value="HARDCOVER">Tvrdi</option>
+              <option value="PAPERBACK">Mekani</option>
+            </select>
+            {/* <input
+              value={properties.width}
               type="number"
               name="width"
               id="width"
               className="glass"
               onChange={updateValue}
-            />
-            <label htmlFor="height">Visina (mm):</label>
+            /> */}
+            <label htmlFor="pages">Broj stranica:</label>
             <input
-              value={dimensions.height}
+              value={properties.pages}
               type="number"
-              name="height"
-              id="height"
-              className="glass"
-              onChange={updateValue}
-            />
-            <label htmlFor="depth">Dubina/dužina (mm):</label>
-            <input
-              value={dimensions.depth}
-              type="number"
-              name="depth"
-              id="depth"
-              className="glass"
-              onChange={updateValue}
-            />
-            <label htmlFor="weight">Težina (g):</label>
-            <input
-              value={dimensions.weight}
-              type="number"
-              name="weight"
-              id="weight"
+              name="pages"
+              id="pages"
               className="glass"
               onChange={updateValue}
             />
@@ -162,7 +154,7 @@ const DimensionsModal = ({ closeModal, item }) => {
           <button
             className="btn"
             onClick={() => {
-              updateDimension();
+              updateProperties();
               closeModal();
             }}
           >

@@ -21,7 +21,8 @@ import {
   SET_CONT_FORM_ERR_FALSE,
   RESET_CONTACT_FORM,
   FETCH_INFOPAGES,
-  GET_ITEM_DIMENSIONS
+  GET_ITEM_DIMENSIONS,
+  GET_BOOK_PROPERTIES
 } from "../actions/items_actions";
 
 const items_reducer = (state, action) => {
@@ -125,6 +126,10 @@ const items_reducer = (state, action) => {
 
   if (action.type === GET_ITEM_DIMENSIONS) {
     return { ...state, item_dimensions: action.payload };
+  }
+
+  if (action.type === GET_BOOK_PROPERTIES) {
+    return { ...state, book_properties: action.payload };
   }
   if (action.type === UPDATE_CONTACT_FORM) {
     const { name, value } = action.payload;

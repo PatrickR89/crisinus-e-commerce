@@ -1,7 +1,12 @@
 import React from "react";
 
 const ListHead = ({ colTitles, btn }) => {
-  const width = btn ? "95%" : "100%";
+  var width = "100%";
+  if (btn === "1") {
+    width = "95%";
+  } else if (btn === "2") {
+    width = "89%";
+  }
   const style = {
     display: "inline-grid",
     gridTemplateColumns: `repeat(${colTitles.length}, 1fr)`,

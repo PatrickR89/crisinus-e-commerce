@@ -8,6 +8,7 @@ import { ListHead, ListLink, ListWrapper } from "../elements";
 import WhenLoading from "../../public/WhenLoading";
 import WhenError from "../../public/WhenError";
 import DimensionModal from "../elements/DimensionModal";
+import BookPropsModal from "../elements/BookPropsModal";
 
 const BookList = () => {
   const {
@@ -20,15 +21,23 @@ const BookList = () => {
     clearError
   } = useBooksContext();
 
-  const [isModal, setIsModal] = useState(false);
+  const [isDimensionModal, setIsDimensionModal] = useState(false);
+  const [isPropModal, setIsPropModal] = useState(false);
   const [bookForModal, setBookForModal] = useState({ id: "", name: "" });
 
-  function closeModal() {
-    setIsModal(false);
+  function closeDimensionModal() {
+    setIsDimensionModal(false);
   }
-  function openModal(id, title) {
+  function openDimensionModal(id, title) {
     setBookForModal({ id: id, name: title });
-    setIsModal(true);
+    setIsDimensionModal(true);
+  }
+  function closePropertiesModal() {
+    setIsPropModal(false);
+  }
+  function openPropertiesModal(id, title) {
+    setBookForModal({ id: id, name: title });
+    setIsPropModal(true);
   }
 
   const { priceFormat } = useCurrencyContext();
@@ -54,7 +63,7 @@ const BookList = () => {
     <>
       <ListWrapper>
         <h2>{translation.booksList.toUpperCase()}</h2>
-        <ListHead colTitles={titles} btn />
+        <ListHead colTitles={titles} btn="2" />
         {booksList?.length !== undefined &&
           booksList?.length > 0 &&
           booksList?.map((book, index) => {
@@ -89,16 +98,25 @@ const BookList = () => {
                 </ListLink>
                 <button
                   className="btn"
-                  onClick={() => openModal(book.id, book.title)}
+                  onClick={() => openDimensionModal(book.id, book.title)}
                 >
-                  Dim
+                  Dim.
+                </button>
+                <button
+                  className="btn"
+                  onClick={() => openPropertiesModal(book.id, book.title)}
+                >
+                  Kar.
                 </button>
               </div>
             );
           })}
       </ListWrapper>
-      {isModal && (
-        <DimensionModal closeModal={closeModal} item={bookForModal} />
+      {isDimensionModal && (
+        <DimensionModal closeModal={closeDimensionModal} item={bookForModal} />
+      )}
+      {isPropModal && (
+        <BookPropsModal closeModal={closePropertiesModal} item={bookForModal} />
       )}
     </>
   );
