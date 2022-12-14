@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+## Crisinus Client (Frontend) Web app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Crisinus is e-commerce type single page reactive application built with React.js. It is built in two segments. One is public, for browsing, while second is private for admin, database changes and image uploads.
 
-## Available Scripts
+## Public
 
-In the project directory, you can run:
+Public consists of homepage, separate pages for products, and product related information, company related info and contact. 
 
-### `npm start`
+Segment is wrapped in few layers of React Context, to keep separated cart information, from languages, rendered items, currency and more with the goal of cleaner code. Each context consists of 3 files (context, reducer and action). Separation of elements as in files, and groups is made with a goal of cleaner code. While context files contain initial state and functions with API calls, and local information provision, reducers contain all state changes, with actions containing dispatch action types as constants to avoid typos.
+All of API calls point toward Crisinus-Server, and are provided with unique client token recieved from Server, to minimize third party access without Client. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+All basic data is loaded on initial start of the application. Which brought some headaches because of collisions with Server before saving the mentioned token. Issue was fixed with setting a condition based on token state on API calls.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Private
 
-### `npm test`
+Private segment (admin) consists of few pages grouped by type of their items. Mostly structure is list of items, add and edit each item, with some added modification due to client's request on books and giftshop. Admin can also change content on pages like "disclaimer" or "about us", to keep user as free as possible from requiring developer for those changes.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Each set of pages is wrapped in their own context, in order to minimize code cluttering in components, while components still contain some of functionality. (Goal is to clean them from all code except UI) All API calls for administrative puropses are signed with logged in admin's credentials.
+Books and giftshop have additionally added dimnesions and properties (books only).
 
-### `npm run build`
+## Some details
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Application contains some custom hooks, of which some were inspired by other existing hooks, and modified to own need, or translated from Vanilla JS to React, with shortened code, or different element selection from document.querySelector. Hooks are contained in own group.
+Besides hook, some utils are used, and separated from code (more are to be separated). Which were not an actual part for any context, or were used within more contexts, to avoid context calls within themselves. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The most clutered and in need of rearangement group is Components, where they are mainly separated into admin and public (without separate public group), and roughly grouped by their purposes or appearance. Most of them still need separation of styling created with styled-components node package, into separate files for better reusage.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Some of the issues are being set aside, or slowly fixed (I know there are many, as it is my actual first live application) as my main interest is pointed towards iOS development in Swift.
