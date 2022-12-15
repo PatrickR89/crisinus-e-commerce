@@ -4,21 +4,13 @@ import styled from "styled-components";
 import { SingleNews } from "../news";
 import { useItemsContext } from "../../../contexts/items_context";
 
-const News = ({ newsPage, home }) => {
-  const { fetchSingleNews, news, single_news } = useItemsContext();
+const News = ({ home }) => {
+  const { news } = useItemsContext();
 
   const [tempIndex, setTempIndex] = useState(0);
-  const [listItems, setListItems] = useState([]);
-
-  useEffect(() => {
-    let documentLIs = document.querySelectorAll(".li-item");
-    setListItems(documentLIs);
-  }, []);
 
   useEffect(() => {
     if (home && news.length) {
-      let documentLIs = document.querySelectorAll(".li-item");
-      setListItems(documentLIs);
       const indexTimeout = setTimeout(() => {
         if (tempIndex > 0) {
           setTempIndex(tempIndex - 1);

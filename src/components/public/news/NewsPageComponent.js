@@ -11,39 +11,40 @@ const NewsPageComponent = () => {
     <Wrapper>
       {news.map((n, index) => {
         return (
-          <div
-            className="news-container"
-            style={{
-              heigth: `${news_display.news_heigth}rem`,
-              width: `${news_display.news_width}vw`
-            }}
-            key={index}
-          >
-            <div className="image-container">
-              {n.images[0] && <img src={`/${n.images[0]}`} alt={n.title} />}
-            </div>
-            <div className="news-text">
-              <div className="text-container">
-                {index === 0 && <hr />}
-                <Link to={`/news/${n.id}`}>
-                  <h2
-                    style={{
-                      fontSize: `${news_display.news_title}rem`
-                    }}
-                  >
-                    {n.title}
-                  </h2>
-                </Link>
-                <p className="news-paragraph">
-                  {n.text.substring(0, news_display.news_length)}
-                  ...
-                </p>
+          <div key={index} style={{ width: "100%" }}>
+            {index === 0 && <hr />}
+            <div
+              className="news-container"
+              style={{
+                heigth: `${news_display.news_heigth}rem`,
+                width: `${news_display.news_width}vw`
+              }}
+            >
+              <div className="image-container">
+                {n.images[0] && <img src={`/${n.images[0]}`} alt={n.title} />}
               </div>
-              <div>
-                <p className="date-muted">{formatDate(n.date)}</p>
-                <hr />
+              <div className="news-text">
+                <div className="text-container">
+                  <Link to={`/news/${n.id}`}>
+                    <h2
+                      style={{
+                        fontSize: `${news_display.news_title}rem`
+                      }}
+                    >
+                      {n.title}
+                    </h2>
+                  </Link>
+                  <p className="news-paragraph">
+                    {n.text.substring(0, news_display.news_length)}
+                    ...
+                  </p>
+                </div>
+                <div>
+                  <p className="date-muted">{formatDate(n.date)}</p>
+                </div>
               </div>
             </div>
+            <hr />
           </div>
         );
       })}
@@ -64,7 +65,7 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     max-width: 100%;
-    margin: 1rem 2rem 1rem 1rem;
+    margin: 0.5rem 0rem;
   }
   .image-container {
     margin: auto;
@@ -78,6 +79,7 @@ const Wrapper = styled.div`
   .news-text {
     display: flex;
     flex-direction: column;
+    justify-content: space-between !important;
     width: 74%;
     height: 100%;
 
@@ -93,7 +95,7 @@ const Wrapper = styled.div`
   .news-paragraph {
     text-align: start;
     min-width: 100%;
-    height: 100%;
+    min-height: 7vh;
   }
   .text-container {
     display: flex;
