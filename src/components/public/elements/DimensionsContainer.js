@@ -28,9 +28,9 @@ const DimensionsContainer = ({ dimensions }) => {
 
   function calcLength(value) {
     if (value > 999) {
-      return `${(value / 1000).toFixed(2)} m`;
+      return `${+(value / 1000).toFixed(2)} m`;
     } else if (value > 9) {
-      return `${(value / 10).toFixed(2)} cm`;
+      return `${+(value / 10).toFixed(2)} cm`;
     } else {
       return `${value} mm`;
     }
@@ -38,7 +38,7 @@ const DimensionsContainer = ({ dimensions }) => {
 
   function calcWeight(value) {
     if (value > 99) {
-      return `${(value / 1000).toFixed(2)} kg`;
+      return `${+(value / 1000).toFixed(2)} kg`;
     } else {
       return `${value} g`;
     }
