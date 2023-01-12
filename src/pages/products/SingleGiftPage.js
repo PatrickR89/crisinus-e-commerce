@@ -19,6 +19,7 @@ const SingleGiftPage = () => {
   const {
     fetchSingleGift,
     item_dimensions,
+    validateDimensions,
     single_gift: gift,
     single_item_loading: loading,
     single_item_error: error
@@ -76,10 +77,12 @@ const SingleGiftPage = () => {
             <Slideshow images={images} />
           )}
         </div>
+
         <div className="grid-cell">
           <DimensionsContainer dimensions={item_dimensions} />
         </div>
-        <div className="grid-cell grid-cell-right">
+
+        <div className="grid-cell">
           <div className="info">
             <p className="tag">{translation.price} : </p>
             <span className="info-data">{formatPrice(price)}</span>
@@ -101,17 +104,17 @@ const Hero = styled.div`
 `;
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   margin: auto 0.1rem !important;
   .grid-cell {
     margin: 1rem auto;
   }
   .grid-cell-span-2 {
-    grid-column: span 2;
+    grid-column: span 3;
   }
   .grid-cell-right {
     grid-column-start: 2;
-  }argin: 2rem auto;
+    margin: 2rem auto;
   }
   .title {
     text-align: center;
@@ -152,23 +155,26 @@ const Wrapper = styled.div`
   }
 
   @media (max-width: 800px) {
-    grid-template-columns: 100%;
-    grid-gap: auto;
+    grid-template-columns: repeat(2, 1fr);
+    .grid-cell-span-2 {
+      grid-column: span 2;
+    }
     .title {
       text-align: center;
     }
 
     .grid-cell {
-      margin: 1rem 1rem;;
+      margin: 1rem 1rem;
     }
 
     .grid-cell-right {
       grid-column-start: 1;
     }
+  }
 
-    .grid-cell-span-2 {
-      grid-column: span 1;
-    }
+  @media (max-width: 600px) {
+    grid-template-columns: 100%;
+    grid-gap: auto;
   }
 `;
 

@@ -62,6 +62,8 @@ const Wrapper = styled.div`
   margin: 1rem 2rem;
   .grid-cell {
     margin: auto;
+    align-items: center !important;
+    justify-content: center !important;
   }
   .cartBtn {
     margin: 0.5rem;

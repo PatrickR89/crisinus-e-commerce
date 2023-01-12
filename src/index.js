@@ -8,7 +8,6 @@ import reportWebVitals from "./reportWebVitals";
 import { CartProvider } from "./contexts/cart_context";
 import { ItemsProvider } from "./contexts/items_context";
 import { FilterProvider } from "./contexts/filter_context";
-// import { CurrencyProvider } from "./contexts/currency_context";
 import { LanguageProvider } from "./contexts/language_context";
 import { SidebarProvider } from "./contexts/sidebar_context";
 import { AuthorsProvider } from "./contexts/authors_context";

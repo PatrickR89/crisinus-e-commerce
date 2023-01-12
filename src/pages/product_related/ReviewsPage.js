@@ -178,6 +178,7 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: start;
   justify-content: space-between;
+  margin-bottom: 2rem;
   .reviews {
     width: 75%;
   }
@@ -192,6 +193,10 @@ const Wrapper = styled.div`
   .stars-container {
     display: flex;
     justify-content: center;
+  }
+
+  .btn {
+    margin-bottom: 2rem;
   }
   @media (max-width: 1000px) {
     align-items: center;

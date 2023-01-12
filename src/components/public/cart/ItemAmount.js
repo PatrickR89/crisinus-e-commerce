@@ -32,7 +32,6 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   background: var(--clr-button-5);
-  max-width: 15rem;
   .btn-amount {
     padding: 0.5rem 1.75rem;
     height: 100%;
