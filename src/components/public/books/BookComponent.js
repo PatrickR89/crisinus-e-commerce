@@ -1,11 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import noPic from "../../../defaults/bookCover.jpeg";
-import { useCurrencyContext } from "../../../contexts/currency_context";
+import formatPrice from "../../../utils/formatPrice";
 
 const BookComponent = ({ title, authors, price, images }) => {
-  const { priceFormat } = useCurrencyContext();
-
   return (
     <Wrapper>
       <div className="select">
@@ -20,7 +18,7 @@ const BookComponent = ({ title, authors, price, images }) => {
           authors?.map((author, index) => {
             return <p key={index}>{author.last_name}</p>;
           })}
-        <p>{priceFormat(price)}</p>
+        <p>{formatPrice(price)}</p>
       </div>
     </Wrapper>
   );

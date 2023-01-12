@@ -3,16 +3,15 @@ import { useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import styled from "styled-components";
 
-import { useCurrencyContext } from "../../../contexts/currency_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useClientsContext } from "../../../contexts/admin/clients_context";
 import WhenLoading from "../../public/WhenLoading";
 import WhenError from "../../public/WhenError";
+import formatPrice from "../../../utils/formatPrice";
 
 import { OrderModal } from "./";
 
 const SingleOrder = () => {
-  const { priceFormat } = useCurrencyContext();
   const { translation } = useLanguageContext();
   const {
     orderPage,
@@ -128,7 +127,7 @@ const SingleOrder = () => {
                   </p>
                   <p>
                     {translation.price.toUpperCase()}:{" "}
-                    {priceFormat(cartItem.price)}
+                    {formatPrice(cartItem.price)}
                   </p>
                 </div>
                 <div>
@@ -137,14 +136,14 @@ const SingleOrder = () => {
                   </p>
                   <p>
                     {translation.priceTotal.toUpperCase()}:{" "}
-                    {priceFormat(cartItem.price * cartItem.amount)}
+                    {formatPrice(cartItem.price * cartItem.amount)}
                   </p>
                 </div>
               </div>
             );
           })}
           <h4>
-            {translation.orderTotal.toUpperCase()}: {priceFormat(totalAmount)}
+            {translation.orderTotal.toUpperCase()}: {formatPrice(totalAmount)}
           </h4>
         </div>
       </div>
@@ -193,7 +192,7 @@ const SingleOrder = () => {
                     </p>
                     <p>
                       {translation.price.toUpperCase()}:{" "}
-                      {priceFormat(cartItem.price)}
+                      {formatPrice(cartItem.price)}
                     </p>
                   </div>
                   <div>
@@ -203,7 +202,7 @@ const SingleOrder = () => {
                     </p>
                     <p>
                       {translation.priceTotal.toUpperCase()}:{" "}
-                      {priceFormat(cartItem.price * cartItem.amount)}
+                      {formatPrice(cartItem.price * cartItem.amount)}
                     </p>
                   </div>
                   <hr />
@@ -211,7 +210,7 @@ const SingleOrder = () => {
               );
             })}
             <h4 style={{ margin: "1rem" }}>
-              {translation.orderTotal.toUpperCase()}: {priceFormat(totalAmount)}
+              {translation.orderTotal.toUpperCase()}: {formatPrice(totalAmount)}
             </h4>
           </div>
         </div>

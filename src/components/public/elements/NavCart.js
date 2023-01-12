@@ -2,11 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
-import { useCurrencyContext } from "../../../contexts/currency_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 
 const NavCart = () => {
-  const { updateCurrency, current_currency, currencies } = useCurrencyContext();
   const { current_language, languages, switchLang } = useLanguageContext();
   return (
     <Wrapper>
@@ -15,20 +13,6 @@ const NavCart = () => {
           <FaShoppingCart />
         </Link>
         <form onSubmit={(e) => e.preventDefault()}>
-          <select
-            name="currency"
-            id="currency"
-            value={current_currency}
-            onChange={updateCurrency}
-          >
-            {currencies.map((c, index) => {
-              return (
-                <option key={index} value={c}>
-                  {c}
-                </option>
-              );
-            })}
-          </select>
           <select
             name="language"
             id="language"

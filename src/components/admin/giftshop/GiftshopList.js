@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useGiftshopContext } from "../../../contexts/admin/giftshop_context";
@@ -8,6 +7,7 @@ import { ListHead, ListLink, ListWrapper } from "../elements";
 import WhenLoading from "../../public/WhenLoading";
 import WhenError from "../../public/WhenError";
 import DimensionModal from "../elements/DimensionModal";
+import formatPrice from "../../../utils/formatPrice";
 
 const GiftshopList = () => {
   const { translation } = useLanguageContext();
@@ -63,7 +63,7 @@ const GiftshopList = () => {
 
                   <h4>{gift.name}</h4>
 
-                  <p>{gift.price}</p>
+                  <p>{formatPrice(gift.price)}</p>
                   <p>{gift.max_order}</p>
                   {gift.description && (
                     <p>{gift.description.substring(0, 25)}...</p>

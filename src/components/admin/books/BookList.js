@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import { useCurrencyContext } from "../../../contexts/currency_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useBooksContext } from "../../../contexts/admin/books_context";
 
@@ -9,6 +8,7 @@ import WhenLoading from "../../public/WhenLoading";
 import WhenError from "../../public/WhenError";
 import DimensionModal from "../elements/DimensionModal";
 import BookPropsModal from "../elements/BookPropsModal";
+import formatPrice from "../../../utils/formatPrice";
 
 const BookList = () => {
   const {
@@ -40,7 +40,6 @@ const BookList = () => {
     setIsPropModal(true);
   }
 
-  const { priceFormat } = useCurrencyContext();
   const { translation } = useLanguageContext();
   const { title, authors, year, language, price } = translation;
 
@@ -94,7 +93,7 @@ const BookList = () => {
                   </div>
                   <p>{book.year}</p>
                   <p>{book.language}</p>
-                  <p>{priceFormat(book.price)}</p>
+                  <p>{formatPrice(book.price)}</p>
                 </ListLink>
                 <button
                   className="btn"

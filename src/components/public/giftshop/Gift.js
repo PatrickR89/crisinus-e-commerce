@@ -1,16 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { useCurrencyContext } from "../../../contexts/currency_context";
+import formatPrice from "../../../utils/formatPrice";
 
 const Gift = ({ name, price, images }) => {
-  const { priceFormat } = useCurrencyContext();
-
   return (
     <Wrapper>
       <div className="select">
         <img src={`/${images[0]}`} alt={name} className="image" />
         <h4 className="title">{name}</h4>
-        <p>{priceFormat(price)}</p>
+        <p>{formatPrice(price)}</p>
       </div>
     </Wrapper>
   );

@@ -108,8 +108,8 @@ const cart_reducer = (state, action) => {
     );
     let postState = true;
     let newAmount = total_amount;
-    if (total_amount < 20000) {
-      newAmount += 1500;
+    if (total_amount < 2700) {
+      newAmount += 200;
       postState = true;
     } else {
       postState = false;

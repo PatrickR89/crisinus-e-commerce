@@ -9,10 +9,10 @@ import {
 } from "../../components/public/elements";
 import { AddToCart } from "../../components/public/cart";
 import { useItemsContext } from "../../contexts/items_context";
-import { useCurrencyContext } from "../../contexts/currency_context";
 import { useLanguageContext } from "../../contexts/language_context";
 import { useAuthorsContext } from "../../contexts/authors_context";
 import { PropertiesContainer } from "../../components/public/elements/PropertiesContainer";
+import formatPrice from "../../utils/formatPrice";
 
 const SingleBookPage = () => {
   const { id } = useParams();
@@ -28,7 +28,6 @@ const SingleBookPage = () => {
     single_item_loading: loading,
     single_item_error: error
   } = useItemsContext();
-  const { priceFormat } = useCurrencyContext();
   const { changeAuthor } = useAuthorsContext();
 
   function redirectToAuthors(author_url) {
@@ -122,7 +121,7 @@ const SingleBookPage = () => {
             <PropertiesContainer className="book-details">
               <div className="single-container">
                 <span>{translation.price} : </span>
-                <p>{priceFormat(price)}</p>
+                <p>{formatPrice(price)}</p>
               </div>
               <div className="single-container">
                 <span>{translation.publisher} : </span>

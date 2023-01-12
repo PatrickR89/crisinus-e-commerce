@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useItemsContext } from "../../contexts/items_context";
-import { useCurrencyContext } from "../../contexts/currency_context";
 import { useLanguageContext } from "../../contexts/language_context";
+import formatPrice from "../../utils/formatPrice";
 
 import Slideshow from "../../components/public/elements/slideshow/Slideshow";
 import {
@@ -24,7 +24,6 @@ const SingleGiftPage = () => {
     single_item_error: error
   } = useItemsContext();
 
-  const { priceFormat } = useCurrencyContext();
   const { translation } = useLanguageContext();
 
   const { description, images, name, price } = gift;
@@ -83,7 +82,7 @@ const SingleGiftPage = () => {
         <div className="grid-cell grid-cell-right">
           <div className="info">
             <p className="tag">{translation.price} : </p>
-            <span className="info-data">{priceFormat(price)}</span>
+            <span className="info-data">{formatPrice(price)}</span>
             <AddToCart product={gift} />
           </div>
         </div>

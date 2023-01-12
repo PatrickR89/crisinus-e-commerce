@@ -1,14 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { useCartContext } from "../../../contexts/cart_context";
-import { useCurrencyContext } from "../../../contexts/currency_context";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { ItemAmount } from "./";
 import { useLanguageContext } from "../../../contexts/language_context";
+import formatPrice from "../../../utils/formatPrice";
 
 const CartItem = ({ title, name, id, max, price, amount }) => {
   const { removeItem, toggleAmount } = useCartContext();
-  const { priceFormat } = useCurrencyContext();
   const { translation } = useLanguageContext();
 
   const increase = () => {
@@ -25,7 +24,7 @@ const CartItem = ({ title, name, id, max, price, amount }) => {
         </div>
         <div className="item-col itm">
           <p className="toggle-side">{translation.price}:</p>
-          <p>{priceFormat(price)}</p>
+          <p>{formatPrice(price)}</p>
         </div>
         <div className="item-col itm">
           <ItemAmount
@@ -37,7 +36,7 @@ const CartItem = ({ title, name, id, max, price, amount }) => {
         </div>
         <div className="item-col itm">
           <p className="toggle-side">{translation.subtotal}: </p>
-          <p>{priceFormat(price * amount)}</p>
+          <p>{formatPrice(price * amount)}</p>
         </div>
         <div className="itm">
           <button

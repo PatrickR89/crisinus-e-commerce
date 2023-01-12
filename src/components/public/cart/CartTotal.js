@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { useCartContext } from "../../../contexts/cart_context";
-import { useCurrencyContext } from "../../../contexts/currency_context";
 import { useLanguageContext } from "../../../contexts/language_context";
+import formatPrice from "../../../utils/formatPrice";
 
 const CartTotal = () => {
   const { total_amount, openModal, postalFee } = useCartContext();
-  const { priceFormat } = useCurrencyContext();
   const { translation } = useLanguageContext();
 
   return (
@@ -14,16 +13,16 @@ const CartTotal = () => {
       <div className="boxin">
         <div className="amount">
           <h2>
-            {translation.total}: {priceFormat(total_amount)}
+            {translation.total}: {formatPrice(total_amount)}
           </h2>
           <h4>
             {translation.postalFee}:{" "}
-            {postalFee ? `${priceFormat(1500)}` : `${translation.free}`}
+            {postalFee ? `${formatPrice(200)}` : `${translation.free}`}
           </h4>
           <p>
             {" "}
             {postalFee
-              ? `(${translation.postalFeeLimit} ${priceFormat(20000)})`
+              ? `(${translation.postalFeeLimit} ${formatPrice(2700)})`
               : ``}
           </p>
         </div>

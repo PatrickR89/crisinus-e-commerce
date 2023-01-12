@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { FaRegTimesCircle } from "react-icons/fa";
-import { useCurrencyContext } from "../../../contexts/currency_context";
 import { useLanguageContext } from "../../../contexts/language_context";
 import { useFilterContext } from "../../../contexts/filter_context";
+import formatPrice from "../../../utils/formatPrice";
 
 const GiftshopFilter = () => {
   const {
@@ -11,7 +11,6 @@ const GiftshopFilter = () => {
     updateGiftsFilter,
     clearGiftsFilter
   } = useFilterContext();
-  const { priceFormat } = useCurrencyContext();
   const { translation } = useLanguageContext();
 
   return (
@@ -41,7 +40,7 @@ const GiftshopFilter = () => {
             value={price}
             onChange={updateGiftsFilter}
           />
-          <p className="price">{priceFormat(price)}</p>
+          <p className="price">{formatPrice(price)}</p>
         </div>
       </form>
       <div className="btn-container">
