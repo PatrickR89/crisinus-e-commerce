@@ -35,7 +35,7 @@ const OrderList = () => {
     <ListWrapper>
       <h2>{translation.orders.toUpperCase()}</h2>
       <ListHead colTitles={titles} />
-      {orderList.length > 0 &&
+      {Array.isArray(orderList) &&
         orderList.map((order, index) => {
           return (
             <ListLink

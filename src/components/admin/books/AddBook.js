@@ -72,63 +72,64 @@ const AddBook = () => {
           />
           <label htmlFor="authors">{translation.authors}:</label>
           <div className="authors" name="authors" id="authors">
-            {authors.map((author, index) => {
-              return (
-                <div className="single-author" key={index}>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value={author.name}
-                    onChange={(e) => handleAuthorInput(e, index)}
-                    placeholder={translation.name}
-                    list="authorsNames"
-                  />
-                  <datalist id="authorsNames">
-                    {authorsList.map((author, index) => {
-                      return (
-                        <option key={index} value={author.name}>
-                          {author.name}
-                        </option>
-                      );
-                    })}
-                  </datalist>
-                  <input
-                    type="text"
-                    name="last_name"
-                    id="last_name"
-                    value={author.last_name}
-                    onChange={(e) => handleAuthorInput(e, index)}
-                    placeholder={translation.lastName}
-                    list="autLast"
-                  />
-                  <datalist id="autLast">
-                    {authorsList.map((author, index) => {
-                      return (
-                        <option key={index} value={author.last_name}>
-                          {author.last_name}
-                        </option>
-                      );
-                    })}
-                  </datalist>
-                  <div className="list-com">
-                    {authors.length !== 1 && (
-                      <button
-                        className="btn"
-                        onClick={() => handleRemove(index)}
-                      >
-                        {translation.remove}
-                      </button>
-                    )}
-                    {authors.length - 1 === index && (
-                      <button className="btn" onClick={handleAdd}>
-                        {translation.add}
-                      </button>
-                    )}
+            {Array.isArray(authors) &&
+              authors.map((author, index) => {
+                return (
+                  <div className="single-author" key={index}>
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      value={author.name}
+                      onChange={(e) => handleAuthorInput(e, index)}
+                      placeholder={translation.name}
+                      list="authorsNames"
+                    />
+                    <datalist id="authorsNames">
+                      {authorsList.map((author, index) => {
+                        return (
+                          <option key={index} value={author.name}>
+                            {author.name}
+                          </option>
+                        );
+                      })}
+                    </datalist>
+                    <input
+                      type="text"
+                      name="last_name"
+                      id="last_name"
+                      value={author.last_name}
+                      onChange={(e) => handleAuthorInput(e, index)}
+                      placeholder={translation.lastName}
+                      list="autLast"
+                    />
+                    <datalist id="autLast">
+                      {authorsList.map((author, index) => {
+                        return (
+                          <option key={index} value={author.last_name}>
+                            {author.last_name}
+                          </option>
+                        );
+                      })}
+                    </datalist>
+                    <div className="list-com">
+                      {authors.length !== 1 && (
+                        <button
+                          className="btn"
+                          onClick={() => handleRemove(index)}
+                        >
+                          {translation.remove}
+                        </button>
+                      )}
+                      {authors.length - 1 === index && (
+                        <button className="btn" onClick={handleAdd}>
+                          {translation.add}
+                        </button>
+                      )}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
           <label htmlFor="genre">{translation.genre}:</label>
           <input

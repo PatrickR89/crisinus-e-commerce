@@ -49,7 +49,7 @@ const GiftshopList = () => {
       <ListWrapper>
         <h2>{translation.giftshopList.toUpperCase()}</h2>
         <ListHead colTitles={titles} btn="1" />
-        {gsList.length > 0 &&
+        {Array.isArray(gsList) &&
           gsList.map((gift, index) => {
             return (
               <div className="item-row" key={gift.id}>

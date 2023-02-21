@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   GET_ITEMS_START,
   GET_ITEMS_SUCCESS,
@@ -211,7 +212,9 @@ const items_reducer = (state, action) => {
       }
     };
   }
-  throw new Error(`No matching "${action.type}" action`);
+  const err = [`Error occured in items reducer with action type`, action];
+  axios.post("/api/system/error", { err });
+  throw new Error(`No matching "${action.type}" in ${action} action`);
 };
 
 export default items_reducer;

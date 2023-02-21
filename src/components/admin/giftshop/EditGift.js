@@ -58,7 +58,7 @@ const EditGift = () => {
     <>
       <Wrapper>
         <div className="thumb-container">
-          {images &&
+          {Array.isArray(images) &&
             images.map((url, index) => {
               return (
                 <div key={index} className="single-thumb">

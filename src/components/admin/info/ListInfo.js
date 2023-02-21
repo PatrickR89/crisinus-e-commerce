@@ -34,7 +34,7 @@ const ListInfo = () => {
     <ListWrapper>
       <h2>{translation.infoPages.toUpperCase()}</h2>
       <ListHead colTitles={titles} />
-      {items?.length > 0 &&
+      {Array.isArray(items) &&
         items?.map((infoPage, index) => {
           return (
             <ListLink

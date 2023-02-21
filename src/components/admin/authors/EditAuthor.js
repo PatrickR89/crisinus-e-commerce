@@ -55,7 +55,7 @@ const EditAuthor = () => {
     <>
       <Wrapper>
         <div className="thumb-container">
-          {images?.legth !== undefined &&
+          {Array.isArray(images) &&
             images.map((url, index) => {
               return (
                 <div key={index} className="single-thumb">

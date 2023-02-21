@@ -24,13 +24,14 @@ const Slideshow = ({ images }) => {
   return (
     <Wrapper>
       <div className="container">
-        {images.map((image, index) => {
-          return (
-            <div key={index} className={index === n ? "fade" : "slide fade"}>
-              <img src={`/${image}`} alt="" />
-            </div>
-          );
-        })}
+        {Array.isArray(images) &&
+          images.map((image, index) => {
+            return (
+              <div key={index} className={index === n ? "fade" : "slide fade"}>
+                <img src={`/${image}`} alt="" />
+              </div>
+            );
+          })}
         {images.length > 1 && (
           <SlideshowButtons
             previousSlide={previousSlide}

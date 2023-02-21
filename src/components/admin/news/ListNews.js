@@ -30,7 +30,7 @@ const ListNews = () => {
     <ListWrapper>
       <h2>{translation.newsList.toUpperCase()}</h2>
       <ListHead colTitles={titles} />
-      {newsList.length > 0 &&
+      {Array.isArray(newsList) &&
         newsList.map((news, index) => {
           return (
             <ListLink

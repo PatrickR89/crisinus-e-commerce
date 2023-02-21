@@ -43,7 +43,7 @@ const MessageList = () => {
     <ListWrapper>
       <h2>{translation.messages.toUpperCase()}</h2>
       <ListHead colTitles={titles} />
-      {messages.length > 0 &&
+      {Array.isArray(messages) &&
         messages.map((message, index) => {
           return (
             <ListLink

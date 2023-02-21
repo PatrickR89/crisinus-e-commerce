@@ -14,7 +14,10 @@ const BookComponent = ({ title, authors, price, images }) => {
         )}
         <h4 className="title">{title}</h4>
         {authors?.length !== undefined &&
+          authors !== undefined &&
+          authors !== null &&
           authors?.length > 0 &&
+          Array.isArray(authors) &&
           authors?.map((author, index) => {
             return <p key={index}>{author.last_name}</p>;
           })}

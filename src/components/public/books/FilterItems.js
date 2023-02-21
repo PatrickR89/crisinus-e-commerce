@@ -14,6 +14,10 @@ const FilterItems = ({ inSidebar }) => {
   } = useFilterContext();
   const { translation } = useLanguageContext();
 
+  if (!Array.isArray(all_books)) {
+    return <></>;
+  }
+
   const publishers = getUniqueValues(all_books, "publisher");
   const years = getUniqueValues(all_books, "year").sort((a, b) => b - a);
   const languages = getUniqueValues(all_books, "language");

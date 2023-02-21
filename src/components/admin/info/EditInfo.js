@@ -58,20 +58,21 @@ const EditInfo = () => {
       <Wrapper>
         <h2>{show_title}</h2>
         <div className="thumb-container">
-          {images?.map((url, index) => {
-            return (
-              <div key={index} className="single-thumb">
-                <p>{url}</p>
-                <img className="thumb" src={`/${url}`} alt="" />
-                <button
-                  className="btn btn-delete"
-                  onClick={() => handleDeleteImage(url)}
-                >
-                  <FaTrashAlt />
-                </button>
-              </div>
-            );
-          })}
+          {Array.isArray(images) &&
+            images?.map((url, index) => {
+              return (
+                <div key={index} className="single-thumb">
+                  <p>{url}</p>
+                  <img className="thumb" src={`/${url}`} alt="" />
+                  <button
+                    className="btn btn-delete"
+                    onClick={() => handleDeleteImage(url)}
+                  >
+                    <FaTrashAlt />
+                  </button>
+                </div>
+              );
+            })}
         </div>
         <div className="info">
           <label htmlFor="images" className="photo-input">

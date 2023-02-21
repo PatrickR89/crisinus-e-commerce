@@ -63,8 +63,7 @@ const BookList = () => {
       <ListWrapper>
         <h2>{translation.booksList.toUpperCase()}</h2>
         <ListHead colTitles={titles} btn="2" />
-        {booksList?.length !== undefined &&
-          booksList?.length > 0 &&
+        {Array.isArray(booksList) &&
           booksList?.map((book, index) => {
             return (
               <div className="item-row" key={book.id}>
@@ -78,18 +77,21 @@ const BookList = () => {
                   <h4>{book.title}</h4>
 
                   <div>
-                    {book.authors.map((id, index) => {
-                      const author = authorsList.find(
-                        (author) => author.id === id
-                      );
-                      if (author) {
-                        return (
-                          <p key={index}>
-                            {author.name} {author.last_name}
-                          </p>
+                    {Array.isArray(book.authors) &&
+                      book.authors.map((id, index) => {
+                        const author = authorsList.find(
+                          (author) => author.id === id
                         );
-                      }
-                    })}
+                        if (author) {
+                          return (
+                            <p key={index}>
+                              {author.name} {author.last_name}
+                            </p>
+                          );
+                        } else {
+                          return <></>;
+                        }
+                      })}
                   </div>
                   <p>{book.year}</p>
                   <p>{book.language}</p>

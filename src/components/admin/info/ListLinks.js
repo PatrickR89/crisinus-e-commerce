@@ -29,7 +29,7 @@ const ListLinks = () => {
     <ListWrapper>
       <h2>{translation.links.toUpperCase()}</h2>
       <ListHead colTitles={titles} />
-      {items?.length > 0 &&
+      {Array.isArray(items) &&
         items?.map((singleLink, index) => {
           return (
             <ListLink

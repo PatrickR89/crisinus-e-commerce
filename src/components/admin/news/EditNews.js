@@ -61,7 +61,7 @@ const EditNews = () => {
           {translation.edit} {translation.news}
         </h2>
         <div className="thumb-container">
-          {images &&
+          {Array.isArray(images) &&
             images.map((url, index) => {
               return (
                 <div key={index} className="single-thumb">

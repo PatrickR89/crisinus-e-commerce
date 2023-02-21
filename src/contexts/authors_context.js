@@ -38,9 +38,11 @@ export const AuthorsProvider = ({ children }) => {
     const method = "get";
     axios({
       url: url,
-      method: method
+      method: method,
+      timeout: 800
     })
       .then((response) => {
+        console.log(response.data);
         const booksImport = response.data[1];
         const authorsImport = response.data[0];
         dispatch({

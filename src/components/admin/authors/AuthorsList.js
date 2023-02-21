@@ -28,8 +28,7 @@ const AuthorsList = () => {
     <ListWrapper>
       <h2>{translation.authorsList.toUpperCase()}</h2>
       <ListHead colTitles={titles} />
-      {authorList?.length !== undefined &&
-        authorList.length > 0 &&
+      {Array.isArray(authorList) &&
         authorList.map((author, index) => {
           return (
             <ListLink
